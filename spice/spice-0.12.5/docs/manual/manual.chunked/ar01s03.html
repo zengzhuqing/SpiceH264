@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>3. Ticketing</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Spice User Manual" /><link rel="up" href="index.html" title="Spice User Manual" /><link rel="prev" href="ar01s02.html" title="2. Using Spice" /><link rel="next" href="ar01s04.html" title="4. Agent" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ar01s02.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s04.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_ticketing"></a>3. Ticketing</h2></div></div></div><p>Spice does not support multiple connections to the same QEMU instance
+by default. So anybody who will connect to the same host and port can
+simply take over your session. You can solve this problem by using
+ticketing.</p><p>Ticketing is a simple authentication system which enables you to set
+simple tickets to a VM. Client has to authenticate before the
+connection can be established. See the Spice option <code class="literal">password</code> in the
+following examples.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_configuration"></a>3.1. Configuration</h3></div></div></div><p><strong>Using virt-manager. </strong>To set a Spice password for a virtual machine, go to this machine
+details in virt-manager, and then click on the "Display Spice" item in
+the left pane, and enter the ticket you want to use in the "Password"
+field.</p><p><strong>Using libvirt. </strong>All you need to do is to append a <code class="literal">passwd</code> attribute to the Spice
+graphics node for your virtual machine:</p><pre class="programlisting">&lt;graphics type='spice' passwd='mysecretpassword'/&gt;</pre><p><strong>Using QEMU. </strong>Adding a ticket with QEMU involves a slight modification of the
+<code class="literal">-spice</code> parameter used when running QEMU:</p><pre class="programlisting">-spice port=3001,password=mysecretpassword</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_client"></a>3.2. Client</h3></div></div></div><p>When you start the client as usual, if ticketing was enabled on the
+host, remote-viewer will pop up a window asking for a password before
+starting the Spice session. It won’t be established if an incorrect
+ticket was passed to the client.</p><div class="important" style="margin-left: 0; margin-right: 10%;"><h3 class="title">Important</h3><p>You might have figured out that passing tickets as a
+command-line option isn’t very safe. It’s not safe as everybody with
+access to the host can read it from the output of <code class="literal">ps(1)</code>. To prevent
+this, the ticket can be also set by using the QEMU console command
+<code class="literal">spice._set_ticket</code>.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s02.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

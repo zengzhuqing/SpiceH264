@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>2. Using Spice</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Spice User Manual" /><link rel="up" href="index.html" title="Spice User Manual" /><link rel="prev" href="ar01s01.html" title="1. Introduction" /><link rel="next" href="ar01s03.html" title="3. Ticketing" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ar01s01.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s03.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_using_spice"></a>2. Using Spice</h2></div></div></div><div class="note" style="margin-left: 0; margin-right: 10%;"><h3 class="title">Note</h3><p>I’ll use <code class="literal">qemu-kvm</code> as a name for the executable. If you’re using a
+manually built qemu or a qemu without kvm then just replace <code class="literal">qemu-kvm</code>
+with your own binary. I’ll use <code class="literal">host$</code>, <code class="literal">client$</code> and <code class="literal">guest$</code> shell
+prompt notations to distinguish where the command should be the
+command. See section <a class="xref" href="go01.html" title="Glossary">Glossary</a> to be sure that you know
+difference between the host, client and guest. You can ignore the
+difference between guest, client and host if they are all running on
+the same machine.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_running_qemu_manually"></a>2.1. Running qemu manually</h3></div></div></div><p><span class="strong"><strong>The first thing to do</strong></span> is to create a guest image. You can use any
+raw device such as a clean logical volume, or an iSCSI lun. You may
+also use a file as the disk image for the guest. I’ll use a file
+created by <code class="literal">qemu-img</code> as a demonstration.</p><p>The following command will allocate a 10GB file. See <code class="literal">qemu-img</code> man
+page for further information.</p><pre class="programlisting">host$ qemu-img create /path/to/xp.img 10G</pre><p>Now that we created an image, we can now start with image
+population. I assume that you have a locally stored ISO of your
+favourite operating system so you can use it for installation.</p><pre class="programlisting">host$ sudo qemu-kvm -boot order=dc -vga qxl \
+        -spice port=3001,disable-ticketing -soundhw ac97 \
+        -device virtio-serial -chardev spicevmc,id=vdagent,debug=0,name=vdagent \
+        -device virtserialport,chardev=vdagent,name=com.redhat.spice.0 \
+        -cdrom /path/to/your.iso /path/to/your.img</pre><p>Let’s take a brief look at the qemu options that were used. The option
+<code class="literal">-boot order=dc</code> specifies that the guest system should try to boot
+from the first cdrom and then fallback to the first disk, <code class="literal">-vga qxl</code>
+specifies that qemu uses a qxl graphics device.</p><p>The Spice <code class="literal">port</code> option defines what port will be used for
+communication with the client. The Spice option <code class="literal">disable-ticketing</code> is
+specifying that ticketing (simple authentication method) is not
+used. The virtio and chardev devices are required by the guest agent.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_basic_configuration"></a>2.2. Basic configuration</h3></div></div></div><p>This section will assume that you already have a running QEMU virtual
+machine, and that you are running it either through virt-manager,
+libvirt or through direct QEMU use, and that you want to enable Spice
+support for this virtual machine.</p><p><strong>Using virt-manager. </strong>Double-click on the virtual machine you are interested in, go to
+"View/Details". If the left pane has a "Display Spice" entry, then the
+virtual machine already has Spice support, and you can check the
+connection details (port number) by clicking on it. If it has no Spice
+entry, click on "Add Hardware", and add a "Graphics" element of type
+"Spice server". If the host and the client are not the same machine,
+you should check the "Listen on all public network interfaces"
+checkbox, otherwise you don’t need to make any changes.</p><p>You should also add a QXL video device. It can be done by
+double-clicking on a virtual machine, then by going to View/Details,
+and by clicking on "Add Hardware" if the virtual machine does not have
+a "Video QXL" item in its left pane. From the "Add hardware" dialog,
+you should then create a "Video" device whose model is "QXL".</p><p>After stopping and restarting the virtual machine, it should be
+accessible with a Spice client.</p><p>You can remove non-Spice display entries and non-QXL video entries
+from the virtual machine configuration.</p><p>If you go to "Edit/Preferences/VM Details" in the main virt-manager
+window, you can set Spice graphics type as the default setting for new
+virtual machines.</p><p><strong>Using libvirt. </strong>All libvirt examples will assume that the virtual machine to modify is
+<code class="literal">$vmname</code> and that virsh is using the correct libvirt connection by
+default.</p><p>To add Spice support to an existing virtual machine managed by
+libvirt, you need to edit it:</p><pre class="programlisting">host$ virsh edit $vmname</pre><p>and then add a Spice graphics element:</p><pre class="programlisting">&lt;graphics type='spice'/&gt;</pre><p>You should also add a QXL video device</p><pre class="programlisting">&lt;video&gt;
+    &lt;model type='qxl'&gt;
+&lt;/video&gt;</pre><p>After stopping and restarting the virtual machine <code class="literal">$vmname</code>, it should
+be accessible through Spice. You can check the connection parameters
+with:</p><pre class="programlisting">host$ virsh domdisplay $vmname</pre><p><strong>Using QEMU. </strong>To enable Spice support to your virtual machine, you only need to
+append the following to your QEMU command line:</p><pre class="programlisting">-spice port=3001,disable-ticketing</pre><p>This will setup a Spice session listening on port 3001 exporting your
+virtual machine display.</p><p>You can also add a QXL device by appending <code class="literal">-vga qxl</code> to the command
+line.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_connecting_to_the_guest"></a>2.3. Connecting to the guest</h3></div></div></div><p>The following section will show you basic usage of the Spice
+client. The example connection will be related to the qemu instance
+started in the previous sections.</p><p>Be aware that the port used for spice communication (port 3001 in our
+case) should not be blocked by firewall. Host <code class="literal">myhost</code> is referring to
+the machine which is running our qemu instance.</p><pre class="programlisting">client$ remote-viewer spice://myhost:3001</pre><div class="figure"><a id="idm242635405536"></a><p class="title"><strong>Figure 1. Established connection to Windows 2008 guest</strong></p><div class="figure-contents"><div class="mediaobject"><img src="images/spicec01.png" alt="images/spicec01.png" /></div></div></div><br class="figure-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s01.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

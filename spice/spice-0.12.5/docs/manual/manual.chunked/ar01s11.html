@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>11. Spice guest additions</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Spice User Manual" /><link rel="up" href="index.html" title="Spice User Manual" /><link rel="prev" href="ar01s10.html" title="10. QEMU Spice reference" /><link rel="next" href="ar01s12.html" title="12. Installation" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ar01s10.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s12.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="guest-additions"></a>11. Spice guest additions</h2></div></div></div><p>While you will be able to remotely access your virtual machine through
+Spice without making any change to the virtual machine configuration,
+you can get better integration if you tweak it specially for Spice.</p><p>If your virtual machine has a QXL video device and you install the
+corrresponding guest driver, your guest will support higher
+resolutions, multiple monitors, resizing to arbitrary resolutions, …</p><p>Installing the Spice vdagent in your guest will let you copy and paste
+between your guest and client OSes, to drag and drop files between the
+2 OSes, … In order for the agent to work, your virtual machine must
+have a virtio serial device (and the corresponding guest drivers) as
+well as a Spice spicevmc channel.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_windows_guest"></a>11.1. Windows guest</h3></div></div></div><p>The recommended way of getting all the needed drivers installed is to
+use the all-in-one Spice guest tools installer which can be found on
+<a class="ulink" href="http://spice-space.org/download/windows/spice-guest-tools/" target="_top">spice-space.org</a>.</p><p>To get USB redirection working on Windows, you need to install USB
+Clerk (TODO: add link)</p><p>If you want to manually install them, the QXL driver can be downloaded
+from <a class="ulink" href="http://spice-space.org/download/windows/qxl/" target="_top">this location</a> ,
+agent builds can be found
+<a class="ulink" href="http://spice-space.org/download/windows/vdagent/" target="_top">here</a>. You also need
+the vioserial driver which is distributed with the other
+<a class="ulink" href="https://alt.fedoraproject.org/pub/alt/virtio-win/latest/images/bin/" target="_top">
+virtio-win drivers</a>.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s10.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s12.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

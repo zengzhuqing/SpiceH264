@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>10. QEMU Spice reference</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Spice User Manual" /><link rel="up" href="index.html" title="Spice User Manual" /><link rel="prev" href="ar01s09.html" title="9. Folder sharing" /><link rel="next" href="ar01s11.html" title="11. Spice guest additions" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ar01s09.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s11.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_qemu_spice_reference"></a>10. QEMU Spice reference</h2></div></div></div><div class="sidebar"><div class="titlepage"></div><p>TODO, incomplete</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_command_line_options"></a>10.1. Command line options</h3></div></div></div><p>They are covered in the
+<a class="ulink" href="http://qemu.weilnetz.de/qemu-doc.html#index-g_t_002dspice-58" target="_top">QEMU
+online documentation</a>. Basic syntax is <code class="literal">-spice &lt;spice_options&gt;</code>.</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_qxl_command_line_options"></a>10.2. QXL command line options</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+ram_size
+</li><li class="listitem">
+vram_size
+</li><li class="listitem">
+revision
+</li><li class="listitem">
+debug
+</li><li class="listitem">
+guestdebug
+</li><li class="listitem">
+cmdlog
+</li><li class="listitem">
+ram_size_mb
+</li><li class="listitem">
+vram_size_mb
+</li><li class="listitem">
+vram64_size_mb
+</li><li class="listitem">
+vgamem_mb
+</li><li class="listitem">
+surfaces
+</li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_qemu_console_spice_commands"></a>10.3. QEMU console Spice commands</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+<code class="literal">set_password spice &lt;password&gt; [keep|disconnect]</code> Set the spice connection ticket (one time password). An empty password prevents any connection. keep/disconnect indicates what to do if a client is already connected when the command is issued.
+</li><li class="listitem">
+<code class="literal">expire_password</code>
+</li><li class="listitem">
+<code class="literal">client_migrate_info</code>
+</li><li class="listitem">
+<code class="literal">info spice</code> Show current spice state
+</li></ul></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s09.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s11.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>9. Folder sharing</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Spice User Manual" /><link rel="up" href="index.html" title="Spice User Manual" /><link rel="prev" href="ar01s08.html" title="8. SASL" /><link rel="next" href="ar01s10.html" title="10. QEMU Spice reference" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ar01s08.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s10.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_folder_sharing"></a>9. Folder sharing</h2></div></div></div><p>The Spice client can share a folder with the remote guest. By default,
+the client will share the XDG Public Share directory (ie <span class="emphasis"><em>~/Public</em></span> if
+you use a regular system).  You may specify a different folder with
+<code class="literal">--spice-share-dir</code> client option.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_configuration_7"></a>9.1. Configuration</h3></div></div></div><p><strong>Using virt-manager. </strong>It’s currently not possible to configure folder sharing with virt-manager.</p><p><strong>Using libvirt. </strong>In order to set up folder sharing, qemu needs to expose a
+<code class="literal">org.spice-space.webdav.0</code> virtio port, associated with a
+corresponding Spice port:</p><pre class="programlisting">&lt;devices&gt;
+    &lt;channel type='spiceport'&gt;
+        &lt;source channel='org.spice-space.webdav.0'/&gt;
+        &lt;target type='virtio' name='org.spice-space.webdav.0'/&gt;
+    &lt;/channel&gt;
+&lt;/devices&gt;</pre><p><strong>Using QEMU. </strong>In order to set up folder sharing, qemu needs to expose a
+<code class="literal">org.spice-space.webdav.0</code> virtio port, associated with a
+corresponding Spice port:</p><pre class="programlisting">-device virtserialport,bus=virtio-serial0.0,nr=1,chardev=charchannel1,id=channel1,name=org.spice-space.webdav.0 -chardev spiceport,name=org.spice-space.webdav.0,id=charchannel1</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_guest_configuration"></a>9.2. Guest configuration</h3></div></div></div><p><strong>Windows. </strong>In a Windows guest, you must then install
+<a class="ulink" href="http://elmarco.fedorapeople.org/spice-webdavd-x86-0.1.24.msi" target="_top">spice-webdavd</a>
+service, and register the drive (by running <span class="emphasis"><em>map-drive.bat</em></span> from
+<span class="emphasis"><em>Program Files/Spice webdav</em></span>).</p><p><strong>Linux. </strong>With a Linux guest, you must install the spice-webdavd service (the
+sources are available at <a class="ulink" href="https://git.gnome.org/browse/phodav" target="_top">https://git.gnome.org/browse/phodav</a>). The
+folder will show up in GNOME Files network places (or Nautilus). It
+can then be mounted and browsed in traditional applications thanks to
+<code class="literal">gvfs-fuse</code>.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s08.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s10.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>6. Multiple monitor support</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Spice User Manual" /><link rel="up" href="index.html" title="Spice User Manual" /><link rel="prev" href="ar01s05.html" title="5. USB redirection" /><link rel="next" href="ar01s07.html" title="7. TLS" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ar01s05.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s07.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_multiple_monitor_support"></a>6. Multiple monitor support</h2></div></div></div><p>When using Spice, it’s possible to use multiple monitors. For that,
+the guest must have multiple QXL devices (for Windows guests), or a
+single QXL device configured to support multiple heads (for Linux
+guests).</p><p>Before following the instructions in this section, make sure your
+virtual machine already has a QXL device. If that is not the case,
+refer to this section. Your guest OS will also need to have the QXL
+driver installed or multiple monitor support will not work.</p><p>Once your virtual machine is using a QXL device, you don’t need to
+make any other change to get multiple heads in a Linux guest. The
+following paragraph will deal with adding multiple QXL devices to get
+multiple monitors in a Windows guest.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_configuration_4"></a>6.1. Configuration</h3></div></div></div><p><strong>Using virt-manager. </strong>To add an additional QXL device for Windows guests, simply go to your
+virtual machine details. Check that you already have a "Video QXL"
+device, if notclick on "Add Hardware", and add a "Video" device with
+model "QXL". This can also work with Linux guests if your are willing
+to configure X.Org to use Xinerama (instead of XRandR).</p><p>If you are using a new enough distribution (for example Fedora 19),
+and if your virtual machine already has a QXL device, you should not
+need to make any changes in virt-manager. If you are using an older
+distribution, you can’t do the required changes from virt-manager,
+you’ll need to edit libvirt XML as described on this blog post.</p><p><strong>Using libvirt. </strong>To add an additional QXL device to your virtual machine managed by
+libvirt, you simply need to append a new video node whose model is
+QXL:</p><pre class="programlisting">&lt;video&gt;
+    &lt;model type='qxl'&gt;
+&lt;/video&gt;
+&lt;video&gt;
+    &lt;model type='qxl'&gt;
+&lt;/video&gt;</pre><p><strong>Using QEMU. </strong>To get a second QXL device in your virtual machine, you need to append
+<code class="literal">-device qxl</code> to your QEMU command line in addition to the <code class="literal">-vga qxl</code>
+that is already there:</p><pre class="programlisting">-vga qxl -device qxl</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_client_3"></a>6.2. Client</h3></div></div></div><p>You can enable additional displays either from the "Display/Displays"
+menu in remote-viewer, or from your guest OS display configuration
+tool.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s05.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

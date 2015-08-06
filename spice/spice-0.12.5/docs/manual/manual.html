@@ -1,0 +1,1987 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<title>Spice User Manual</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Spice User Manual</h1>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>Licensed under a Creative Commons Attribution-Share Alike 3.0 United
+States License (see
+<a href="http://creativecommons.org/licenses/by-sa/3.0/us/legalcode">http://creativecommons.org/licenses/by-sa/3.0/us/legalcode</a>).</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Spice is an open remote computing solution, providing client access to
+remote displays and devices (e.g. keyboard, mouse, audio). The main
+use case is to get remote access to virtual machines, although other
+use cases are possible and in various development stage.</p></div>
+<div class="paragraph"><p>Spice provides a desktop-like user experience, while trying to offload
+most of the intensive CPU and GPU tasks to the client. The basic
+building blocks of Spice are:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#spice-server">Spice Server</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#spice-client">Spice Client</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#spice-protocol">Spice Protocol</a>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>The following sections provide basic information on Spice components
+and features, obtaining, building installing and using Spice.</p></div>
+<div class="sect2">
+<h3 id="_spice_and_spice_related_components">Spice and Spice-related components</h3>
+<div class="sect3">
+<h4 id="spice-server">Spice Server</h4>
+<div class="paragraph"><p>Spice server is implemented in libspice, a VDI pluggable
+library. Currently, the main user of this library is QEMU. QEMU uses
+spice-server to provide remote access to virtual machines through the
+Spice protocol. Virtual Device Interface (VDI) defines a set of
+interfaces that provide a standard way to publish virtual devices
+(e.g. display device, keyboard, mouse) and enables different Spice
+components to interact with those devices. On one side, the server
+communicates with the remote client using the Spice protocol and on
+the other side, it interacts with the VDI host application (e.g QEMU).</p></div>
+</div>
+<div class="sect3">
+<h4 id="spice-client">Spice Client</h4>
+<div class="paragraph"><p>The Spice client is a program which is used by the end user to access
+remote systems through Spice. The recommended client is remote-viewer
+(which is shipped with virt-viewer). GNOME Boxes can also be used as a
+Spice client. spicec is an obsolete legacy client, and spicy is only a
+test application.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_qxl_device_and_drivers">QXL Device and Drivers</h4>
+<div class="paragraph"><p>Spice server supports the QXL VDI interface. When libspice is used
+with QEMU, a specific video PCI device can be used for improving
+remote display performance and enhancing the graphic capabilities of
+the guest graphic system. This video device is called a QXL device and
+requires guest QXL drivers for full functionality. However, standard
+VGA is supported when no driver exists.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_spice_agent">Spice Agent</h4>
+<div class="paragraph"><p>The Spice agent is an optional component for enhancing user experience
+and performing guest-oriented management tasks. For example, the agent
+injects mouse position and state to the guest when using client mouse
+mode. It also enables you to move cursor freely between guest and
+client. Other features of agent are shared clipboard (copy and paste
+between guest and host) and aligning guest resolution with client when
+entering fullscreen mode.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_vdi_port_device">VDI Port Device</h4>
+<div class="paragraph"><p>The Spice protocol supports a communication channel between the client
+and the agent on the server side. When using QEMU, Spice agent resides
+on the guest. VDI port is a QEMU PCI device used for communication
+with the agent.</p></div>
+</div>
+<div class="sect3">
+<h4 id="spice-protocol">Spice Protocol</h4>
+<div class="paragraph"><p>The Spice protocol defines the messages and rules for the
+communication between the various Spice components.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_features">Features</h3>
+<div class="sect3">
+<h4 id="_multiple_channels">Multiple Channels</h4>
+<div class="paragraph"><p>The server and client communicate via channels. Each channel is
+dedicated to a specific type of data. The available channels are the
+following:</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Main
+</dt>
+<dd>
+<p>
+control and configuration
+</p>
+</dd>
+<dt class="hdlist1">
+Display
+</dt>
+<dd>
+<p>
+graphics commands images and video streams
+</p>
+</dd>
+<dt class="hdlist1">
+Inputs
+</dt>
+<dd>
+<p>
+keyboard and mouse inputs
+</p>
+</dd>
+<dt class="hdlist1">
+Cursor
+</dt>
+<dd>
+<p>
+pointer device position and cursor shape
+</p>
+</dd>
+<dt class="hdlist1">
+Playback
+</dt>
+<dd>
+<p>
+audio received from the server to be played by the client
+</p>
+</dd>
+<dt class="hdlist1">
+Record
+</dt>
+<dd>
+<p>
+audio captured on the client side
+</p>
+</dd>
+<dt class="hdlist1">
+Smartcard
+</dt>
+<dd>
+<p>
+passthrough of smartcard data from the client machine to the guest OS
+</p>
+</dd>
+<dt class="hdlist1">
+USB
+</dt>
+<dd>
+<p>
+redirection of USB devices plugged into the client to the guest OS
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect3">
+<h4 id="_image_compression">Image Compression</h4>
+<div class="paragraph"><p>Spice offers several image compression algorithms, which can be chosen
+on server initiation and dynamically at run-time. Quic is a Spice
+proprietary image compression technology based on the SFALIC
+algorithm. The Lempel-Ziv (LZ) algorithm is another option. Both Quic
+and LZ are local algorithms encoding each image separately. Global LZ
+(GLZ) is another proprietary Spice technology that uses LZ with
+history-based global dictionary. GLZ takes advantage of repeating
+patterns among images to shrink the traffic and save bandwidth, which
+is critical in a WAN environment. Spice also offers an automatic mode
+for compression selection per image, where the choice between LZ/GLZ
+and Quic is heuristically based on image properties. Conceptually,
+synthetic images are better compressed with LZ/GLZ and real images are
+better with Quic.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_video_compression">Video Compression</h4>
+<div class="paragraph"><p>Spice uses loss-less compression for images sent to the
+client. However, video streams are handled differently. Spice server
+heuristically identifies video areas and sends them as a video stream
+coded using M-JPEG. This handling saves a lot of traffic, improving
+Spice performance, especially in a WAN environment. However, in some
+circumstances the heuristic behavior might cause low quality images
+(e.g. identifying updated text area as a video stream). Video
+streaming can be chosen on server initiation and dynamically at
+run-time.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_mouse_modes">Mouse modes</h4>
+<div class="paragraph"><p>Spice supports two mouse modes: server and client. The mode can be
+changed dynamically and is negotiated between the client and the
+server.</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Server mouse
+</dt>
+<dd>
+<p>
+When a user clicks inside the Spice client window, the client mouse is
+captured and set invisible. In this mode, the server controls the
+mouse position on display. However, it might be problematic on WAN or
+on a loaded server, where mouse cursor might have some latency or
+non-responsiveness.
+</p>
+</dd>
+<dt class="hdlist1">
+Client mouse
+</dt>
+<dd>
+<p>
+Not captured and is used as the effective pointing device. To enable
+client mouse, the VDI host application must register an absolute
+pointing device (e.g. USB tablet in QEMU). This mode is appropriate
+for WAN or or for a loaded server, since cursor has smooth motion and
+responsiveness. However, the cursor might lose synchronization
+(position and shape) for a while.
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect3">
+<h4 id="_other_features">Other Features</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+Multiple Monitors
+</dt>
+<dd>
+<p>
+any number of monitors is supported
+</p>
+</dd>
+<dt class="hdlist1">
+Arbitrary Resolution
+</dt>
+<dd>
+<p>
+when using the QXL driver, the resolution of the guest OS will be
+automatically adjusted to the size of the client window.
+</p>
+</dd>
+<dt class="hdlist1">
+USB Redirection
+</dt>
+<dd>
+<p>
+Spice can be used to redirect USB devices that are plugged in the
+client to the guest OS. This redirection can either be automatic (all
+newly plugged devices are redirected), or manual (the user selects
+which devices (s)he wants to redirect).
+</p>
+</dd>
+<dt class="hdlist1">
+Smartcard Redirection
+</dt>
+<dd>
+<p>
+data from smartcard that are inserted into the client machine can be
+passed through to the guest OS. The smartcard can be used by both the
+client OS and the guest OS.
+</p>
+</dd>
+<dt class="hdlist1">
+Bidirectional Audio
+</dt>
+<dd>
+<p>
+Spice supports audio playback and recording. Playback is compressed
+using the CELT algorithm
+</p>
+</dd>
+<dt class="hdlist1">
+Lip-sync
+</dt>
+<dd>
+<p>
+between video and audio. Available only when video streaming is
+enabled.
+</p>
+</dd>
+<dt class="hdlist1">
+Migration
+</dt>
+<dd>
+<p>
+switching channel connectivity for supporting server migration
+</p>
+</dd>
+<dt class="hdlist1">
+Pixmap and Palette caching
+</dt>
+<dd>
+<p>
+image data is cached on the client to avoid sending the same data
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_spice">Using Spice</h2>
+<div class="sectionbody">
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">I&#8217;ll use <code>qemu-kvm</code> as a name for the executable. If you&#8217;re using a
+manually built qemu or a qemu without kvm then just replace <code>qemu-kvm</code>
+with your own binary. I&#8217;ll use <code>host$</code>, <code>client$</code> and <code>guest$</code> shell
+prompt notations to distinguish where the command should be the
+command. See section <a href="#glossary">[glossary]</a> to be sure that you know
+difference between the host, client and guest. You can ignore the
+difference between guest, client and host if they are all running on
+the same machine.</td>
+</tr></table>
+</div>
+<div class="sect2">
+<h3 id="_running_qemu_manually">Running qemu manually</h3>
+<div class="paragraph"><p><strong>The first thing to do</strong> is to create a guest image. You can use any
+raw device such as a clean logical volume, or an iSCSI lun. You may
+also use a file as the disk image for the guest. I&#8217;ll use a file
+created by <code>qemu-img</code> as a demonstration.</p></div>
+<div class="paragraph"><p>The following command will allocate a 10GB file. See <code>qemu-img</code> man
+page for further information.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>host$ qemu-img create /path/to/xp<span style="color: #990000">.</span>img 10G</tt></pre></div></div>
+<div class="paragraph"><p>Now that we created an image, we can now start with image
+population. I assume that you have a locally stored ISO of your
+favourite operating system so you can use it for installation.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>host$ sudo qemu-kvm -boot <span style="color: #009900">order</span><span style="color: #990000">=</span>dc -vga qxl <span style="color: #990000">\</span>
+        -spice <span style="color: #009900">port</span><span style="color: #990000">=</span><span style="color: #993399">3001</span><span style="color: #990000">,</span>disable-ticketing -soundhw ac97 <span style="color: #990000">\</span>
+        -device virtio-serial -chardev spicevmc<span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>vdagent<span style="color: #990000">,</span><span style="color: #009900">debug</span><span style="color: #990000">=</span><span style="color: #993399">0</span><span style="color: #990000">,</span><span style="color: #009900">name</span><span style="color: #990000">=</span>vdagent <span style="color: #990000">\</span>
+        -device virtserialport<span style="color: #990000">,</span><span style="color: #009900">chardev</span><span style="color: #990000">=</span>vdagent<span style="color: #990000">,</span><span style="color: #009900">name</span><span style="color: #990000">=</span>com<span style="color: #990000">.</span>redhat<span style="color: #990000">.</span>spice<span style="color: #990000">.</span><span style="color: #993399">0</span> <span style="color: #990000">\</span>
+        -cdrom /path/to/your<span style="color: #990000">.</span>iso /path/to/your<span style="color: #990000">.</span>img</tt></pre></div></div>
+<div class="paragraph"><p>Let&#8217;s take a brief look at the qemu options that were used. The option
+<code>-boot order=dc</code> specifies that the guest system should try to boot
+from the first cdrom and then fallback to the first disk, <code>-vga qxl</code>
+specifies that qemu uses a qxl graphics device.</p></div>
+<div class="paragraph"><p>The Spice <code>port</code> option defines what port will be used for
+communication with the client. The Spice option <code>disable-ticketing</code> is
+specifying that ticketing (simple authentication method) is not
+used. The virtio and chardev devices are required by the guest agent.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_basic_configuration">Basic configuration</h3>
+<div class="paragraph"><p>This section will assume that you already have a running QEMU virtual
+machine, and that you are running it either through virt-manager,
+libvirt or through direct QEMU use, and that you want to enable Spice
+support for this virtual machine.</p></div>
+<div class="paragraph"><div class="title">Using virt-manager</div><p>Double-click on the virtual machine you are interested in, go to
+"View/Details". If the left pane has a "Display Spice" entry, then the
+virtual machine already has Spice support, and you can check the
+connection details (port number) by clicking on it. If it has no Spice
+entry, click on "Add Hardware", and add a "Graphics" element of type
+"Spice server". If the host and the client are not the same machine,
+you should check the "Listen on all public network interfaces"
+checkbox, otherwise you don&#8217;t need to make any changes.</p></div>
+<div class="paragraph"><p>You should also add a QXL video device. It can be done by
+double-clicking on a virtual machine, then by going to View/Details,
+and by clicking on "Add Hardware" if the virtual machine does not have
+a "Video QXL" item in its left pane. From the "Add hardware" dialog,
+you should then create a "Video" device whose model is "QXL".</p></div>
+<div class="paragraph"><p>After stopping and restarting the virtual machine, it should be
+accessible with a Spice client.</p></div>
+<div class="paragraph"><p>You can remove non-Spice display entries and non-QXL video entries
+from the virtual machine configuration.</p></div>
+<div class="paragraph"><p>If you go to "Edit/Preferences/VM Details" in the main virt-manager
+window, you can set Spice graphics type as the default setting for new
+virtual machines.</p></div>
+<div class="paragraph"><div class="title">Using libvirt</div><p>All libvirt examples will assume that the virtual machine to modify is
+<code>$vmname</code> and that virsh is using the correct libvirt connection by
+default.</p></div>
+<div class="paragraph"><p>To add Spice support to an existing virtual machine managed by
+libvirt, you need to edit it:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>host$ virsh edit <span style="color: #009900">$vmname</span></tt></pre></div></div>
+<div class="paragraph"><p>and then add a Spice graphics element:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;graphics</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'spice'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>You should also add a QXL video device</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;video&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;model</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'qxl'</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/video&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>After stopping and restarting the virtual machine <code>$vmname</code>, it should
+be accessible through Spice. You can check the connection parameters
+with:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>host$ virsh domdisplay <span style="color: #009900">$vmname</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">Using QEMU</div><p>To enable Spice support to your virtual machine, you only need to
+append the following to your QEMU command line:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>-spice <span style="color: #009900">port</span><span style="color: #990000">=</span><span style="color: #993399">3001</span><span style="color: #990000">,</span>disable-ticketing</tt></pre></div></div>
+<div class="paragraph"><p>This will setup a Spice session listening on port 3001 exporting your
+virtual machine display.</p></div>
+<div class="paragraph"><p>You can also add a QXL device by appending <code>-vga qxl</code> to the command
+line.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_connecting_to_the_guest">Connecting to the guest</h3>
+<div class="paragraph"><p>The following section will show you basic usage of the Spice
+client. The example connection will be related to the qemu instance
+started in the previous sections.</p></div>
+<div class="paragraph"><p>Be aware that the port used for spice communication (port 3001 in our
+case) should not be blocked by firewall. Host <code>myhost</code> is referring to
+the machine which is running our qemu instance.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>client$ remote-viewer spice<span style="color: #990000">:</span>//myhost<span style="color: #990000">:</span><span style="color: #993399">3001</span></tt></pre></div></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/spicec01.png" alt="images/spicec01.png" />
+</div>
+<div class="title">Figure 1. Established connection to Windows 2008 guest</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ticketing">Ticketing</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Spice does not support multiple connections to the same QEMU instance
+by default. So anybody who will connect to the same host and port can
+simply take over your session. You can solve this problem by using
+ticketing.</p></div>
+<div class="paragraph"><p>Ticketing is a simple authentication system which enables you to set
+simple tickets to a VM. Client has to authenticate before the
+connection can be established. See the Spice option <code>password</code> in the
+following examples.</p></div>
+<div class="sect2">
+<h3 id="_configuration">Configuration</h3>
+<div class="paragraph"><div class="title">Using virt-manager</div><p>To set a Spice password for a virtual machine, go to this machine
+details in virt-manager, and then click on the "Display Spice" item in
+the left pane, and enter the ticket you want to use in the "Password"
+field.</p></div>
+<div class="paragraph"><div class="title">Using libvirt</div><p>All you need to do is to append a <code>passwd</code> attribute to the Spice
+graphics node for your virtual machine:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;graphics</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'spice'</span> <span style="color: #009900">passwd</span><span style="color: #990000">=</span><span style="color: #FF0000">'mysecretpassword'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">Using QEMU</div><p>Adding a ticket with QEMU involves a slight modification of the
+<code>-spice</code> parameter used when running QEMU:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>-spice <span style="color: #009900">port</span><span style="color: #990000">=</span><span style="color: #993399">3001</span><span style="color: #990000">,</span><span style="color: #009900">password</span><span style="color: #990000">=</span>mysecretpassword</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_client">Client</h3>
+<div class="paragraph"><p>When you start the client as usual, if ticketing was enabled on the
+host, remote-viewer will pop up a window asking for a password before
+starting the Spice session. It won&#8217;t be established if an incorrect
+ticket was passed to the client.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important" />
+</td>
+<td class="content">You might have figured out that passing tickets as a
+command-line option isn&#8217;t very safe. It&#8217;s not safe as everybody with
+access to the host can read it from the output of <code>ps(1)</code>. To prevent
+this, the ticket can be also set by using the QEMU console command
+<code>spice._set_ticket</code>.</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="agent">Agent</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Agent support allows better integration with the guest. For example,
+it allows copy and paste between the guest and the host OSes, dynamic
+resolution changes when the client window is resized/full-screened,
+file transfers through drag and drop, &#8230;</p></div>
+<div class="paragraph"><p>The agent is a daemon/service running in the guest OS so it must be
+installed if it was not installed by default during the guest OS
+installation. It also relies on a virtio-serial PCI device and a
+dedicated spicevmc char device to achieve communication between the
+guest and the host. These devices must be added to the virtual machine
+for the agent to work in the guest.</p></div>
+<div class="sect2">
+<h3 id="_configuration_2">Configuration</h3>
+<div class="paragraph"><div class="title">Using virt-manager</div><p>The needed devices can be added from the virtual machine
+details. Click on "Add hardware" and then add a "Channel" device with
+type "Spice agent (spicevmc)". This will automatically add the needed
+virtio-serial device in addition to the spicevmc channel.</p></div>
+<div class="paragraph"><div class="title">Using libvirt</div><p>Two distinct devices must be added:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="http://libvirt.org/formatdomain.html#elementsControllers">a virtio serial device</a>
+</p>
+</li>
+<li>
+<p>
+<a href="http://libvirt.org/formatdomain.html#elementCharChannel">a spicevmc channel</a>
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;devices&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;controller</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'virtio-serial'</span> <span style="color: #009900">index</span><span style="color: #990000">=</span><span style="color: #FF0000">'0'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;channel</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'spicevmc'</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;target</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'virtio'</span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">'com.redhat.spice.0'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;/channel&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/devices&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">Using QEMU</div><p>Adding the following parameters to your QEMU command line will enable
+the needed devices for agent support in the guest OS:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>-device virtio-serial <span style="color: #990000">\</span>
+-chardev spicevmc<span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>vdagent<span style="color: #990000">,</span><span style="color: #009900">debug</span><span style="color: #990000">=</span><span style="color: #993399">0</span><span style="color: #990000">,</span><span style="color: #009900">name</span><span style="color: #990000">=</span>vdagent <span style="color: #990000">\</span>
+-device virtserialport<span style="color: #990000">,</span><span style="color: #009900">chardev</span><span style="color: #990000">=</span>vdagent<span style="color: #990000">,</span><span style="color: #009900">name</span><span style="color: #990000">=</span>com<span style="color: #990000">.</span>redhat<span style="color: #990000">.</span>spice<span style="color: #990000">.</span><span style="color: #993399">0</span> <span style="color: #990000">\</span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_usb_redirection">USB redirection</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>With USB redirection, USB devices plugged into the client machine can
+be transparently redirected to the guest OS. This redirection can
+either be automatic (all newly plugged devices are redirected), or
+manual (the user selects which devices (s)he wants to redirect).</p></div>
+<div class="paragraph"><p>For redirection to work, the virtual machine must have an USB2 EHCI
+controller (this implies 3 additional UHCI controllers). It also needs
+to have Spice channels for USB redirection. The number of such
+channels correspond to the number of USB devices that it will be
+possible to redirect at the same time.</p></div>
+<div class="sect2">
+<h3 id="_configuration_3">Configuration</h3>
+<div class="paragraph"><div class="title">Using virt-manager</div><p>Virtual machines created with virt-manager should have a USB
+controller by default. In the virtual machine details, select
+"Controller USB" in the left pane, and make sure its model is set to
+USB2. You can then click on "Add Hardware" and add as many "USB
+Redirection" items as the number of USB devices you want to be able to
+redirect simultaneously.</p></div>
+<div class="paragraph"><div class="title">Using libvirt</div><p>You need to add the needed USB controllers to the libvirt XML (make
+sure there is no pre-existing USB controller in your virtual machine
+XML before doing this), as well as one Spice USB redirection channel
+per device you want to redirect simultaneously.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;controller</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'usb'</span> <span style="color: #009900">index</span><span style="color: #990000">=</span><span style="color: #FF0000">'0'</span> <span style="color: #009900">model</span><span style="color: #990000">=</span><span style="color: #FF0000">'ich9-ehci1'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;controller</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'usb'</span> <span style="color: #009900">index</span><span style="color: #990000">=</span><span style="color: #FF0000">'0'</span> <span style="color: #009900">model</span><span style="color: #990000">=</span><span style="color: #FF0000">'ich9-uhci1'</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;master</span></span> <span style="color: #009900">startport</span><span style="color: #990000">=</span><span style="color: #FF0000">'0'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/controller&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;controller</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'usb'</span> <span style="color: #009900">index</span><span style="color: #990000">=</span><span style="color: #FF0000">'0'</span> <span style="color: #009900">model</span><span style="color: #990000">=</span><span style="color: #FF0000">'ich9-uhci2'</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;master</span></span> <span style="color: #009900">startport</span><span style="color: #990000">=</span><span style="color: #FF0000">'2'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/controller&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;controller</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'usb'</span> <span style="color: #009900">index</span><span style="color: #990000">=</span><span style="color: #FF0000">'0'</span> <span style="color: #009900">model</span><span style="color: #990000">=</span><span style="color: #FF0000">'ich9-uhci3'</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;master</span></span> <span style="color: #009900">startport</span><span style="color: #990000">=</span><span style="color: #FF0000">'4'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/controller&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;redirdev</span></span> <span style="color: #009900">bus</span><span style="color: #990000">=</span><span style="color: #FF0000">'usb'</span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'spicevmc'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;redirdev</span></span> <span style="color: #009900">bus</span><span style="color: #990000">=</span><span style="color: #FF0000">'usb'</span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'spicevmc'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;redirdev</span></span> <span style="color: #009900">bus</span><span style="color: #990000">=</span><span style="color: #FF0000">'usb'</span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'spicevmc'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;redirdev</span></span> <span style="color: #009900">bus</span><span style="color: #990000">=</span><span style="color: #FF0000">'usb'</span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'spicevmc'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">Using QEMU</div><p>Similarly to libvirt, we need to add EHCI/UHCI controllers to QEMU
+command line, and we also need to add one Spice redirection channel
+per device we want to redirect simultaneously.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>-device ich9-usb-ehci<span style="color: #993399">1</span><span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>usb <span style="color: #990000">\</span>
+-device ich9-usb-uhci<span style="color: #993399">1</span><span style="color: #990000">,</span><span style="color: #009900">masterbus</span><span style="color: #990000">=</span>usb<span style="color: #990000">.</span><span style="color: #993399">0</span><span style="color: #990000">,</span><span style="color: #009900">firstport</span><span style="color: #990000">=</span><span style="color: #993399">0</span><span style="color: #990000">,</span><span style="color: #009900">multifunction</span><span style="color: #990000">=</span>on <span style="color: #990000">\</span>
+-device ich9-usb-uhci<span style="color: #993399">2</span><span style="color: #990000">,</span><span style="color: #009900">masterbus</span><span style="color: #990000">=</span>usb<span style="color: #990000">.</span><span style="color: #993399">0</span><span style="color: #990000">,</span><span style="color: #009900">firstport</span><span style="color: #990000">=</span><span style="color: #993399">2</span> <span style="color: #990000">\</span>
+-device ich9-usb-uhci<span style="color: #993399">3</span><span style="color: #990000">,</span><span style="color: #009900">masterbus</span><span style="color: #990000">=</span>usb<span style="color: #990000">.</span><span style="color: #993399">0</span><span style="color: #990000">,</span><span style="color: #009900">firstport</span><span style="color: #990000">=</span><span style="color: #993399">4</span> <span style="color: #990000">\</span>
+-chardev spicevmc<span style="color: #990000">,</span><span style="color: #009900">name</span><span style="color: #990000">=</span>usbredir<span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>usbredirchardev1 <span style="color: #990000">\</span>
+-device usb-redir<span style="color: #990000">,</span><span style="color: #009900">chardev</span><span style="color: #990000">=</span>usbredirchardev1<span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>usbredirdev1 <span style="color: #990000">\</span>
+-chardev spicevmc<span style="color: #990000">,</span><span style="color: #009900">name</span><span style="color: #990000">=</span>usbredir<span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>usbredirchardev2 <span style="color: #990000">\</span>
+-device usb-redir<span style="color: #990000">,</span><span style="color: #009900">chardev</span><span style="color: #990000">=</span>usbredirchardev2<span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>usbredirdev2 <span style="color: #990000">\</span>
+-chardev spicevmc<span style="color: #990000">,</span><span style="color: #009900">name</span><span style="color: #990000">=</span>usbredir<span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>usbredirchardev3 <span style="color: #990000">\</span>
+-device usb-redir<span style="color: #990000">,</span><span style="color: #009900">chardev</span><span style="color: #990000">=</span>usbredirchardev3<span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>usbredirdev3</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_client_2">Client</h3>
+<div class="paragraph"><p>The client needs to have support for USB redirection. In
+remote-viewer, you can select which USB devices to redirect in
+"File/USB device" selection once the Spice connection is
+established. There are also various command line redirection options
+which are described when running remote-viewer with <code>--help-spice</code>.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">You may need additional services running in the client, such as the
+Spice USB Clerk service on Windows.</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_multiple_monitor_support">Multiple monitor support</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>When using Spice, it&#8217;s possible to use multiple monitors. For that,
+the guest must have multiple QXL devices (for Windows guests), or a
+single QXL device configured to support multiple heads (for Linux
+guests).</p></div>
+<div class="paragraph"><p>Before following the instructions in this section, make sure your
+virtual machine already has a QXL device. If that is not the case,
+refer to this section. Your guest OS will also need to have the QXL
+driver installed or multiple monitor support will not work.</p></div>
+<div class="paragraph"><p>Once your virtual machine is using a QXL device, you don&#8217;t need to
+make any other change to get multiple heads in a Linux guest. The
+following paragraph will deal with adding multiple QXL devices to get
+multiple monitors in a Windows guest.</p></div>
+<div class="sect2">
+<h3 id="_configuration_4">Configuration</h3>
+<div class="paragraph"><div class="title">Using virt-manager</div><p>To add an additional QXL device for Windows guests, simply go to your
+virtual machine details. Check that you already have a "Video QXL"
+device, if notclick on "Add Hardware", and add a "Video" device with
+model "QXL". This can also work with Linux guests if your are willing
+to configure X.Org to use Xinerama (instead of XRandR).</p></div>
+<div class="paragraph"><p>If you are using a new enough distribution (for example Fedora 19),
+and if your virtual machine already has a QXL device, you should not
+need to make any changes in virt-manager. If you are using an older
+distribution, you can&#8217;t do the required changes from virt-manager,
+you&#8217;ll need to edit libvirt XML as described on this blog post.</p></div>
+<div class="paragraph"><div class="title">Using libvirt</div><p>To add an additional QXL device to your virtual machine managed by
+libvirt, you simply need to append a new video node whose model is
+QXL:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;video&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;model</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'qxl'</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/video&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;video&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;model</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'qxl'</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/video&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">Using QEMU</div><p>To get a second QXL device in your virtual machine, you need to append
+<code>-device qxl</code> to your QEMU command line in addition to the <code>-vga qxl</code>
+that is already there:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>-vga qxl -device qxl</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_client_3">Client</h3>
+<div class="paragraph"><p>You can enable additional displays either from the "Display/Displays"
+menu in remote-viewer, or from your guest OS display configuration
+tool.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tls">TLS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>TLS support allows to encrypt all/some of the channels Spice uses for
+its communication. A separate port is used for the encrypted
+channels. When connecting through a TLS channel, the Spice client will
+verify the certificate sent by the host. It will check that this
+certificate matches the hostname it&#8217;s connecting, and that this
+certificate is signed by a known certificate authority (CA). This can
+be achieved by either getting the host certificate signed by an
+official CA, or by passing to the client the certificate of the
+authority which signed the host certificate. The latter allows the use
+of self-signed certificates.</p></div>
+<div class="sect2">
+<h3 id="_configuration_5">Configuration</h3>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important" />
+</td>
+<td class="content">
+<div class="title">Using virt-manager</div>It&#8217;s not currently possible to define the CA
+certificate/host certificate to use for the TLS connection using
+virt-manager, see the next section for how to enable this using
+libvirt.</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">Using libvirt</div><p>The certificate must be specified in libvirtd configuration file in
+<em>/etc/libvirt/qemu.conf</em> (or in <em>~/.config/libvirt/qemu.conf</em> if you
+are using a session libvirt). See the documentation in this file
+reproduced below:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code># Enable use of TLS encryption on the SPICE server.
+#
+# It is necessary to setup CA and issue a server certificate
+# before enabling this.
+#
+spice_tls = 1</code></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code># Use of TLS requires that x509 certificates be issued. The
+# default it to keep them in /etc/pki/libvirt-spice. This directory
+# must contain
+#
+#  ca-cert.pem - the CA master certificate
+#  server-cert.pem - the server certificate signed with ca-cert.pem
+#  server-key.pem  - the server private key
+#
+# This option allows the certificate directory to be changed.
+#
+spice_tls_x509_cert_dir = "/etc/pki/libvirt-spice"</code></pre>
+</div></div>
+<div class="paragraph"><p>Once the above is done, when the domain is running, you should get
+something like what is below if you are leaving Spice port allocation
+up to libvirt:</p></div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph"><p>TODO proof-read the following section:</p></div>
+</div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>host$ virsh domdisplay
+spice<span style="color: #990000">://</span><span style="color: #993399">127.0</span><span style="color: #990000">.</span><span style="color: #993399">0.1</span><span style="color: #990000">?</span>tls-port<span style="color: #990000">=</span><span style="color: #993399">5901</span>
+host$</tt></pre></div></div>
+<div class="paragraph"><p>This means that the connection is possible both through TLS and
+without any encryption. You can edit the libvirt graphics node if you
+want to change that behaviour and only allow connections through TLS:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;graphics</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'spice'</span> <span style="color: #009900">autoport</span><span style="color: #990000">=</span><span style="color: #FF0000">'yes'</span> <span style="color: #009900">defaultMode</span><span style="color: #990000">=</span><span style="color: #FF0000">'secure'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">Using QEMU</div><p>QEMU expects the certificates to be named the same way as what libvirt
+expects in the previous paragraph. The directory where these
+certificates can be found is specified as options to the <code>-spice</code>
+command line parameters:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>-spice <span style="color: #009900">port</span><span style="color: #990000">=</span><span style="color: #993399">5900</span><span style="color: #990000">,</span>tls-port<span style="color: #990000">=</span><span style="color: #993399">5901</span><span style="color: #990000">,</span>disable-ticketing<span style="color: #990000">,</span>x509-dir<span style="color: #990000">=</span>/etc/pki/libvirt-spice</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_client_4">Client</h3>
+<div class="paragraph"><p>We need to change 2 things when starting the client:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+specify the tls port to use
+</p>
+</li>
+<li>
+<p>
+specify the CA certificate to use when verifying the host certificate
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>With remote-viewer, this is done this way:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>client$ remote-viewer --spice-ca-file<span style="color: #990000">=</span>/etc/pki/libvirt-spice/ca-cert<span style="color: #990000">.</span>ca spice<span style="color: #990000">:</span>//myhost<span style="color: #990000">?</span>tls-port<span style="color: #990000">=</span><span style="color: #993399">5901</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_generating_self_signed_certificates">Generating self-signed certificates</h3>
+<div class="paragraph"><p>The following script can be used to create the various certificates
+needed to use a TLS Spice connection. Make sure to substitute the
+hostname of your Spice host in the subject of the certificate signing
+request.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #009900">SERVER_KEY</span><span style="color: #990000">=</span>server-key<span style="color: #990000">.</span>pem
+
+<span style="font-style: italic"><span style="color: #9A1900"># creating a key for our ca</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> <span style="color: #990000">!</span> -e ca-key<span style="color: #990000">.</span>pem <span style="color: #990000">];</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+    openssl genrsa -des<span style="color: #993399">3</span> -out ca-key<span style="color: #990000">.</span>pem <span style="color: #993399">1024</span>
+<span style="font-weight: bold"><span style="color: #0000FF">fi</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"># creating a ca</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> <span style="color: #990000">!</span> -e ca-cert<span style="color: #990000">.</span>pem <span style="color: #990000">];</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+    openssl req -new -x<span style="color: #993399">509</span> -days <span style="color: #993399">1095</span> -key ca-key<span style="color: #990000">.</span>pem -out ca-cert<span style="color: #990000">.</span>pem -utf<span style="color: #993399">8</span> -subj <span style="color: #FF0000">"/C=IL/L=Raanana/O=Red Hat/CN=my CA"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">fi</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"># create server key</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> <span style="color: #990000">!</span> -e <span style="color: #009900">$SERVER_KEY</span> <span style="color: #990000">];</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+    openssl genrsa -out <span style="color: #009900">$SERVER_KEY</span> <span style="color: #993399">1024</span>
+<span style="font-weight: bold"><span style="color: #0000FF">fi</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"># create a certificate signing request (csr)</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> <span style="color: #990000">!</span> -e server-key<span style="color: #990000">.</span>csr <span style="color: #990000">];</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+    openssl req -new -key <span style="color: #009900">$SERVER_KEY</span> -out server-key<span style="color: #990000">.</span>csr -utf<span style="color: #993399">8</span> -subj <span style="color: #FF0000">"/C=IL/L=Raanana/O=Red Hat/CN=myhostname.example.com"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">fi</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"># signing our server certificate with this ca</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> <span style="color: #990000">!</span> -e server-cert<span style="color: #990000">.</span>pem <span style="color: #990000">];</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+    openssl x509 -req -days <span style="color: #993399">1095</span> -in server-key<span style="color: #990000">.</span>csr -CA ca-cert<span style="color: #990000">.</span>pem -CAkey ca-key<span style="color: #990000">.</span>pem -set_serial <span style="color: #993399">01</span> -out server-cert<span style="color: #990000">.</span>pem
+<span style="font-weight: bold"><span style="color: #0000FF">fi</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900"># now create a key that doesn't require a passphrase</span></span>
+openssl rsa -in <span style="color: #009900">$SERVER_KEY</span> -out <span style="color: #009900">$SERVER_KEY</span><span style="color: #990000">.</span>insecure
+mv <span style="color: #009900">$SERVER_KEY</span> <span style="color: #009900">$SERVER_KEY</span><span style="color: #990000">.</span>secure
+mv <span style="color: #009900">$SERVER_KEY</span><span style="color: #990000">.</span>insecure <span style="color: #009900">$SERVER_KEY</span>
+
+<span style="font-style: italic"><span style="color: #9A1900"># show the results (no other effect)</span></span>
+openssl rsa -noout -text -in <span style="color: #009900">$SERVER_KEY</span>
+openssl rsa -noout -text -in ca-key<span style="color: #990000">.</span>pem
+openssl req -noout -text -in server-key<span style="color: #990000">.</span>csr
+openssl x509 -noout -text -in server-cert<span style="color: #990000">.</span>pem
+openssl x509 -noout -text -in ca-cert<span style="color: #990000">.</span>pem</tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sasl">SASL</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Spice server and client have support for SASL authentication. When
+using QEMU, <em>/etc/sasl2/qemu.conf</em> will be used as a configuration
+file. For testing, you can use the <code>digest-md5</code> mechanism, and populate
+a test database using <code>saslpasswd2 -f /etc/qemu/passwd.db -c
+foo</code>. These files have to be readable by the QEMU process that will
+handle your VM.</p></div>
+<div class="paragraph"><p>To troubleshoot SASL issues, running <code>strace -e open</code> on the QEMU
+process can be a useful first step.</p></div>
+<div class="sect2">
+<h3 id="_configuration_6">Configuration</h3>
+<div class="paragraph"><div class="title">Using virt-manager</div><p>It&#8217;s currently not possible to enable SASL from virt-manager.</p></div>
+<div class="paragraph"><div class="title">Using libvirt</div><p>SASL support for SPICE has been added to libvirt mid-October 2013 so
+you need a libvirt version that was released after this date. To
+enable SASL, you need to add <code>spice_sasl = 1</code> in <em>/etc/libvirt/qemu.conf</em>
+for the system libvirtd instance, and to <em>~/.config/libvirt/qemu.conf</em>
+for the session libvirtd instance.</p></div>
+<div class="paragraph"><div class="title">Using QEMU</div><p>Using SASL with QEMU involves a slight modification of the <code>-spice</code>
+parameter used when running QEMU:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>-spice <span style="color: #009900">port</span><span style="color: #990000">=</span><span style="color: #993399">3001</span><span style="color: #990000">,</span>sasl</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_client_5">Client</h3>
+<div class="paragraph"><p>When you start the client as usual, if SASL was enabled on the host,
+remote-viewer will pop up a window asking for a password before
+starting the Spice session. It won&#8217;t be established if an incorrect
+ticket was passed to the client.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_folder_sharing">Folder sharing</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The Spice client can share a folder with the remote guest. By default,
+the client will share the XDG Public Share directory (ie <em>~/Public</em> if
+you use a regular system).  You may specify a different folder with
+<code>--spice-share-dir</code> client option.</p></div>
+<div class="sect2">
+<h3 id="_configuration_7">Configuration</h3>
+<div class="paragraph"><div class="title">Using virt-manager</div><p>It&#8217;s currently not possible to configure folder sharing with virt-manager.</p></div>
+<div class="paragraph"><div class="title">Using libvirt</div><p>In order to set up folder sharing, qemu needs to expose a
+<code>org.spice-space.webdav.0</code> virtio port, associated with a
+corresponding Spice port:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;devices&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;channel</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'spiceport'</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;source</span></span> <span style="color: #009900">channel</span><span style="color: #990000">=</span><span style="color: #FF0000">'org.spice-space.webdav.0'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;target</span></span> <span style="color: #009900">type</span><span style="color: #990000">=</span><span style="color: #FF0000">'virtio'</span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">'org.spice-space.webdav.0'</span><span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">&lt;/channel&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/devices&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">Using QEMU</div><p>In order to set up folder sharing, qemu needs to expose a
+<code>org.spice-space.webdav.0</code> virtio port, associated with a
+corresponding Spice port:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>-device virtserialport<span style="color: #990000">,</span><span style="color: #009900">bus</span><span style="color: #990000">=</span>virtio-serial<span style="color: #993399">0.0</span><span style="color: #990000">,</span><span style="color: #009900">nr</span><span style="color: #990000">=</span><span style="color: #993399">1</span><span style="color: #990000">,</span><span style="color: #009900">chardev</span><span style="color: #990000">=</span>charchannel1<span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>channel1<span style="color: #990000">,</span><span style="color: #009900">name</span><span style="color: #990000">=</span>org<span style="color: #990000">.</span>spice-space<span style="color: #990000">.</span>webdav<span style="color: #990000">.</span><span style="color: #993399">0</span> -chardev spiceport<span style="color: #990000">,</span><span style="color: #009900">name</span><span style="color: #990000">=</span>org<span style="color: #990000">.</span>spice-space<span style="color: #990000">.</span>webdav<span style="color: #990000">.</span><span style="color: #993399">0</span><span style="color: #990000">,</span><span style="color: #009900">id</span><span style="color: #990000">=</span>charchannel1</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_guest_configuration">Guest configuration</h3>
+<div class="paragraph"><div class="title">Windows</div><p>In a Windows guest, you must then install
+<a href="http://elmarco.fedorapeople.org/spice-webdavd-x86-0.1.24.msi">spice-webdavd</a>
+service, and register the drive (by running <em>map-drive.bat</em> from
+<em>Program Files/Spice webdav</em>).</p></div>
+<div class="paragraph"><div class="title">Linux</div><p>With a Linux guest, you must install the spice-webdavd service (the
+sources are available at <a href="https://git.gnome.org/browse/phodav">https://git.gnome.org/browse/phodav</a>). The
+folder will show up in GNOME Files network places (or Nautilus). It
+can then be mounted and browsed in traditional applications thanks to
+<code>gvfs-fuse</code>.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_qemu_spice_reference">QEMU Spice reference</h2>
+<div class="sectionbody">
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph"><p>TODO, incomplete</p></div>
+</div></div>
+<div class="sect2">
+<h3 id="_command_line_options">Command line options</h3>
+<div class="paragraph"><p>They are covered in the
+<a href="http://qemu.weilnetz.de/qemu-doc.html#index-g_t_002dspice-58">QEMU
+online documentation</a>. Basic syntax is <code>-spice &lt;spice_options&gt;</code>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_qxl_command_line_options">QXL command line options</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+ram_size
+</p>
+</li>
+<li>
+<p>
+vram_size
+</p>
+</li>
+<li>
+<p>
+revision
+</p>
+</li>
+<li>
+<p>
+debug
+</p>
+</li>
+<li>
+<p>
+guestdebug
+</p>
+</li>
+<li>
+<p>
+cmdlog
+</p>
+</li>
+<li>
+<p>
+ram_size_mb
+</p>
+</li>
+<li>
+<p>
+vram_size_mb
+</p>
+</li>
+<li>
+<p>
+vram64_size_mb
+</p>
+</li>
+<li>
+<p>
+vgamem_mb
+</p>
+</li>
+<li>
+<p>
+surfaces
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_qemu_console_spice_commands">QEMU console Spice commands</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>set_password spice &lt;password&gt; [keep|disconnect]</code> Set the spice connection ticket (one time password). An empty password prevents any connection. keep/disconnect indicates what to do if a client is already connected when the command is issued.
+</p>
+</li>
+<li>
+<p>
+<code>expire_password</code>
+</p>
+</li>
+<li>
+<p>
+<code>client_migrate_info</code>
+</p>
+</li>
+<li>
+<p>
+<code>info spice</code> Show current spice state
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="guest-additions">Spice guest additions</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>While you will be able to remotely access your virtual machine through
+Spice without making any change to the virtual machine configuration,
+you can get better integration if you tweak it specially for Spice.</p></div>
+<div class="paragraph"><p>If your virtual machine has a QXL video device and you install the
+corrresponding guest driver, your guest will support higher
+resolutions, multiple monitors, resizing to arbitrary resolutions, &#8230;</p></div>
+<div class="paragraph"><p>Installing the Spice vdagent in your guest will let you copy and paste
+between your guest and client OSes, to drag and drop files between the
+2 OSes, &#8230; In order for the agent to work, your virtual machine must
+have a virtio serial device (and the corresponding guest drivers) as
+well as a Spice spicevmc channel.</p></div>
+<div class="sect2">
+<h3 id="_windows_guest">Windows guest</h3>
+<div class="paragraph"><p>The recommended way of getting all the needed drivers installed is to
+use the all-in-one Spice guest tools installer which can be found on
+<a href="http://spice-space.org/download/windows/spice-guest-tools/">spice-space.org</a>.</p></div>
+<div class="paragraph"><p>To get USB redirection working on Windows, you need to install USB
+Clerk (TODO: add link)</p></div>
+<div class="paragraph"><p>If you want to manually install them, the QXL driver can be downloaded
+from <a href="http://spice-space.org/download/windows/qxl/">this location</a> ,
+agent builds can be found
+<a href="http://spice-space.org/download/windows/vdagent/">here</a>. You also need
+the vioserial driver which is distributed with the other
+<a href="https://alt.fedoraproject.org/pub/alt/virtio-win/latest/images/bin/">
+virtio-win drivers</a>.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation">Installation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_installing_spice_on_rhel_or_fedora">Installing Spice on RHEL or Fedora</h3>
+<div class="paragraph"><p>Be aware that RHEL has no builds of qemu/spice-server for i386, only
+x86_64 builds are available.  RHEL &gt;=6 and Fedora &gt;=13</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>yum install qemu-kvm virt-viewer</tt></pre></div></div>
+<div class="paragraph"><p>The package spice-protocol will be downloaded automatically as a
+dependency of package kvm.</p></div>
+<div class="sect3">
+<h4 id="_rhevm_users">RHEVM Users</h4>
+<div class="paragraph"><p>oVirt/RHEVM users could be also interested in the spice-xpi package as
+it allows you to execute spice-client directly from the oVirt/RHEVM
+UserPortal.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>yum install spice-xpi</tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_general_build_instructions">General build instructions</h3>
+<div class="paragraph"><p>This section is for distributions that don&#8217;t have Spice packages in
+their repositories. It will show you step by step how to build the
+required Spice components.</p></div>
+<div class="sect3">
+<h4 id="_client_requirements">Client requirements</h4>
+<div class="paragraph"><p>See the <a href="http://cgit.freedesktop.org/spice/spice-gtk/tree/README">README
+file in spice-gtk</a> for the list of dependencies.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_host_requirements">Host requirements</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+KVM supported by kernel (It should work also without KVM, but it&#8217;s
+   not being tested as most Linux distrubitions already support KVM.)
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect3">
+<h4 id="_guest_requirements">Guest requirements</h4>
+<div class="paragraph"><div class="title">Linux guest</div><p>spice-vdagent requires virtio-serial support to be enabled. This is
+described in the chapter <a href="#agent">[agent]</a>. Guest should have installed qxl
+driver (xorg-x11-drv-qxl on Fedora and RHEL).</p></div>
+<div class="paragraph"><div class="title">Windows guest</div><p>Drivers for QXL and drivers for virtio-serial require Win XP SP3.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_building">Building</h4>
+<div class="paragraph"><p>The environment variable <code>$BUILD_ROOT</code> will point to a directory with
+stored sources and will be used during the whole build process. The
+variable <code>$INST_ROOT</code> will point to a directory in which Spice will be
+installed.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important" />
+</td>
+<td class="content">These instructions may be outdated. Feel free to ask on the
+Spice mailing list if you need help building from source.</td>
+</tr></table>
+</div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">export</span></span> <span style="color: #009900">BUILD_ROOT</span><span style="color: #990000">=</span>/tmp/spice<span style="color: #990000">;</span> mkdir <span style="color: #009900">$BUILD_ROOT</span>
+<span style="font-weight: bold"><span style="color: #0000FF">export</span></span> <span style="color: #009900">INST_ROOT</span><span style="color: #990000">=</span><span style="color: #FF0000">"/opt/spice"</span><span style="color: #990000">;</span> mkdir <span style="color: #009900">$INST_ROOT</span>
+<span style="font-weight: bold"><span style="color: #0000FF">export</span></span> <span style="color: #009900">PKG_CONFIG_PATH</span><span style="color: #990000">=</span><span style="color: #009900">$INST_ROOT</span>/lib/pkgconfig<span style="color: #990000">:</span><span style="color: #009900">$PKG_CONFIG_PATH</span>
+
+cd <span style="color: #009900">$BUILD_ROOT</span>
+git clone git<span style="color: #990000">:</span>//cgit<span style="color: #990000">.</span>freedesktop<span style="color: #990000">.</span>org/spice/spice
+cd <span style="color: #009900">$BUILD_ROOT</span>/spice
+<span style="color: #990000">.</span>/configure --prefix<span style="color: #990000">=</span><span style="color: #009900">$INST_ROOT</span>
+make
+make install
+
+cd <span style="color: #009900">$BUILD_ROOT</span>
+git clone git<span style="color: #990000">:</span>//git<span style="color: #990000">.</span>qemu<span style="color: #990000">.</span>org/qemu<span style="color: #990000">.</span>git
+cd <span style="color: #009900">$BUILD_ROOT</span>/qemu
+<span style="color: #990000">.</span>/configure --prefix<span style="color: #990000">=</span><span style="color: #009900">$INST_ROOT</span> --target-list<span style="color: #990000">=</span>x86_64-softmmu --enable-spice
+make
+make install</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_setting_up_path">Setting up PATH</h4>
+<div class="paragraph"><p>Last steps before starting with Spice are to set proper <code>PATH</code>
+variable. For example RHEL is using /usr/libexec as directory for
+qemu-kvm binaries. The following setup should be suitable for qemu and
+Spice built according to the instructions in this chapter.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>echo <span style="color: #FF0000">"export PATH=$PATH:$INST_ROOT/bin"</span> <span style="color: #990000">&gt;&gt;</span> <span style="color: #990000">~/.</span>bashrc
+<span style="font-weight: bold"><span style="color: #0000FF">source</span></span> <span style="color: #990000">~/.</span>bashrc</tt></pre></div></div>
+<div class="paragraph"><p>You should now be able to access the qemu-system-x86_64 Spice binary.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_manual_authors">Appendix A: Manual authors</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The following people have contributed to this manual:</p></div>
+<div class="paragraph"><p>Arnon Giloba<br />
+Christophe Fergeau<br />
+Lubos Kocman<br />
+Marc-André Lureau<br />
+Yaniv Kamay</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="glossary">Glossary</h2>
+<div class="sectionbody">
+<div class="dlist glossary"><dl>
+<dt>
+Host
+</dt>
+<dd>
+<p>
+Host is a machine running an instance of qemu-kvm.
+</p>
+</dd>
+<dt>
+Guest
+</dt>
+<dd>
+<p>
+Guest is a virtual machine hosted on the host which will be accessed with a Spice client.
+</p>
+</dd>
+<dt>
+Client
+</dt>
+<dd>
+<p>
+Client is referring to a system running the Spice client (the recommended one is virt-viewer).
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2014-05-14 12:06:09 CEST
+</div>
+</div>
+</body>
+</html>
