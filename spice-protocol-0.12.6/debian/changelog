@@ -1,0 +1,86 @@
+spice-protocol (0.12.6-1) unstable; urgency=low
+
+  * New upstream release
+  * Bump Standards-Version to 3.9.4
+  * Update VCS-* to use canonical URIs
+
+ -- Liang Guo <guoliang@debian.org>  Wed, 17 Jul 2013 17:45:43 +0800
+
+spice-protocol (0.12.5-2) unstable; urgency=low
+
+  * Upload to unstable
+
+ -- Liang Guo <guoliang@debian.org>  Thu, 09 May 2013 21:06:35 +0800
+
+spice-protocol (0.12.5-1) experimental; urgency=low
+
+  * New upstream release
+
+ -- Liang Guo <guoliang@debian.org>  Thu, 11 Apr 2013 23:43:28 +0800
+
+spice-protocol (0.12.3-1) experimental; urgency=low
+
+  * New upstream release
+
+ -- Liang Guo <guoliang@debian.org>  Sun, 30 Dec 2012 22:53:53 +0800
+
+spice-protocol (0.12.2-1) experimental; urgency=low
+
+  * New upstream release
+
+ -- Liang Guo <guoliang@debian.org>  Wed, 26 Sep 2012 21:11:09 +0800
+
+spice-protocol (0.12.0-1) experimental; urgency=low
+
+  * New upstream release
+  * debian/control:
+    - Update my e-mail address
+    - Remove DMUA 
+    - Bump Standards-Version to 3.9.3
+
+ -- Liang Guo <guoliang@debian.org>  Sun, 02 Sep 2012 09:27:34 +0800
+
+spice-protocol (0.10.1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Liang Guo <bluestonechina@gmail.com>  Mon, 23 Jan 2012 11:07:19 +0800
+
+spice-protocol (0.10.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Liang Guo <bluestonechina@gmail.com>  Tue, 29 Nov 2011 12:09:29 +0800
+
+spice-protocol (0.8.2-1) unstable; urgency=low
+
+  [ Liang Guo ]
+  * New upstream release
+  * Update Format field in debian/copyright
+  
+  [ Aron Xu ]
+  * debian/control: set DMUA.
+
+ -- Liang Guo <bluestonechina@gmail.com>  Thu, 20 Oct 2011 10:21:30 +0800
+
+spice-protocol (0.8.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Remove include_types_h_in_controller_port.patch, applied upstream
+
+ -- Liang Guo <bluestonechina@gmail.com>  Mon, 18 Jul 2011 21:57:56 +0800
+
+spice-protocol (0.8.0-2) unstable; urgency=low
+
+  * Add missing spice/types include in spice/controller_prot.h
+  * Bump Standards-Version to 3.9.2, nothing to change
+  * Update debian/copyright to compliant with DEP-5
+  * Set Architecture to all
+
+ -- Liang Guo <bluestonechina@gmail.com>  Sun, 03 Jul 2011 01:56:51 +0800
+
+spice-protocol (0.8.0-1) unstable; urgency=low
+
+  * Initial release (Closes: #603697)
+
+ -- Liang Guo <bluestonechina@gmail.com>  Sun, 10 Apr 2011 23:09:10 +0800

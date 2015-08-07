@@ -1,0 +1,2 @@
+version=3
+http://www.spice-space.org/download/releases/spice-(\d+\.\d*[02468]\.\d+)\.tar\.bz2

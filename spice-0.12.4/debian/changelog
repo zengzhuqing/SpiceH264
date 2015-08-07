@@ -1,0 +1,203 @@
+spice (0.12.4-0nocelt2) unstable; urgency=high
+
+  * Fix CVE-2013-4282 (Closes: #728314)
+
+ -- Liang Guo <guoliang@debian.org>  Thu, 07 Nov 2013 22:44:29 +0800
+
+spice (0.12.4-0nocelt1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * debian/patches
+    - add enable_subdir-objects.patch (Closes: #724093)
+
+ -- Hideki Yamane <henrich@debian.org>  Mon, 21 Oct 2013 12:27:35 +0900
+
+spice (0.12.4-0nocelt1) unstable; urgency=low
+
+  * New upstream release (Closes: #717030)
+  * Remove .version after build (Closes: #671627)
+  * debian/control:
+    - Bump Standards-Version to 3.9.4 (no changes)
+    - Update VCS-* to use canonical URIs
+  * debian/patches:
+    - fix-tests-warnings.patch, refresh
+    - link-server-test-with-libm-libpthread.patch, add (Closes: #713681)
+  * Refresh libspice-server1.symbols
+  
+ -- Liang Guo <guoliang@debian.org>  Thu, 25 Jul 2013 00:10:00 +0800
+  
+spice (0.12.3-0nocelt1) unstable; urgency=low
+
+  * New upstream release
+  * debian/patches:
+    - fix-build-warning-PIXEL.patch, remove, applied upstream
+    - link-libspice-server-with-libm-libpthread.patch, remove,
+      applied upstream
+    - spice-common-remove-version-construction.patch, remove,
+      applied upstream
+    - fix-tests-warnings.patch, refresh
+    - make-celt-to-be-optional.patch, refresh
+  * libspice-server-dev should depends on libglib2.0-dev, or 
+    qxl driver compile will fail. 
+  * Refresh libspice-server1.symbols
+
+ -- Liang Guo <guoliang@debian.org>  Sun, 19 May 2013 11:10:10 +0800
+
+spice (0.12.2-0nocelt3) unstable; urgency=low
+
+  * Upload to unstable
+
+ -- Liang Guo <guoliang@debian.org>  Fri, 10 May 2013 09:10:16 +0800
+
+spice (0.12.2-0nocelt2exp) experimental; urgency=low
+
+  * added two patches from Serge Hallyn to fix numerous compiler warnings:
+     fix-build-warning-PIXEL.patch
+     fix-tests-warnings.patch
+  * spice-common-remove-version-construction.patch - to stop spice-common
+    from produce a ton of `build-aux/git-version-gen: not found' errors
+    during autoreconf.
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Mon, 11 Feb 2013 23:29:11 +0400
+
+spice (0.12.2-0nocelt1exp) experimental; urgency=low
+
+  * New upstream release
+  * debian/patches:
+     - Refresh link-libspice-server-with-libm-libpthread.patch
+  * Refresh debian/cpyright, new files added
+  * Build client, upstream don't build client by default
+  * Refresh libspice-server1.symbols
+  * Add libglib2.0-dev to Build-Depends
+
+  [ Michael Tokarev ]
+  * refresh make-celt-to-be-optional.patch (minor context diff)
+  * do not build-depend on libspice-protocol-dev
+    (upstream always uses included copy)
+  * add (versioned) dependency on libspice-protocol-dev to libspice-server-dev
+    package, since when the latter is installed, embedded protocol headers
+    are not installed
+  * do not build-depend on mesa libs (OpenGL is not enabled by default
+    and is not recommended by upstream)
+  * do not build-depend on libogg-dev
+  * configure with --disable-silent-rules, so that the compiler command
+    line is visible (this fixes the lintian warnings about hardening flags)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Thu, 17 Jan 2013 19:19:30 +0400
+
+spice (0.11.0-1) unstable; urgency=low
+
+  * New upstream release
+  * Breaks spice-gtk (<= 0.12-2)
+  * Refresh debian/libspice-server1.symbols
+  * debian/control:
+    - Update my e-mail address
+    - Add python-pyparsing to Build-Depends
+  * debian/patches:
+    - Remove fix-error-path-return-in-snd_set_record_peer.patch, 
+      applied upstream
+    - Refresh make-celt-to-be-optional.patch
+    - Refresh link-libspice-server-with-libm-libpthread.patch
+  * Simplify debian/rules, celt removed, no reason to use 
+    traditional one
+  * Disable smartcard, not in debian yet
+  * Refresh debian/copyright
+
+ -- Liang Guo <guoliang@debian.org>  Sat, 09 Jun 2012 11:33:05 +0800
+
+spice (0.10.1-3~nocelt) experimental; urgency=low
+
+  * Applying for co-maintenance, adding myself to Uploaders (Closes: #671627)
+  * Bump Standards-Version to 3.9.3 (no changes)
+  * link-libspice-server-with-libm-libpthread.patch - missing libraries
+  * Enable multiarch for libspice-server, bump debhelper compat to 9
+  * do not require root in clean target
+  * build-depend on dh-autoreconf and python to be able to run autoreconf
+    and python code generator
+  * use dh_autoreconf, do not ship debian/source/options anymore
+  * consolidate clean target in debian/rules
+  * 2 patches:
+    - fix-error-path-return-in-snd_set_record_peer.patch (from upstream git),
+      which is a pre-requisite for the next patch, and
+    - make-celt-to-be-optional.patch (sent to upstream).
+    This makes it possible to build spice without celt.
+  * Disable celt051 usage.
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Sat, 02 Jun 2012 16:18:56 +0400
+
+spice (0.10.1-2) unstable; urgency=low
+
+  * added dependency on libxinerama-dev to
+    libspice-server-dev, temporarily, till
+    either upstream or we will have better
+    solution.  libspice-server does not use
+    xinerama in any way, yet it is listed in
+    the requiriments in the pkg-config file,
+    which is generated at configure time.
+    (Closes: #658173)
+
+ -- Michael Tokarev <mjt@tls.msk.ru>  Wed, 01 Feb 2012 01:08:34 +0400
+
+spice (0.10.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Refresh libspice-server1.symbols
+  * debian/control
+    - Change Build-Depends on libspice-protocol-dev to (>= 0.10.1~)
+    - Add libxinerama-dev to Build-Depends
+  
+ -- Liang Guo <bluestonechina@gmail.com>  Fri, 27 Jan 2012 23:28:26 +0800
+
+spice (0.10.0-1) unstable; urgency=low
+
+  [ Liang Guo ]
+  * New upstream release (Closes: #651262)
+  * Refresh debian/copyright
+  * Remove fix-typo-in-cmd_line_parser-cpp.patch, applied upstream
+  * Remove fix-typo-in-record-cpp.patch, applied upstream
+  * Remove use-requires-private-for-libspice-pkgconfig.patch, applied upstream
+  * Change Build-Depends on libspice-protocol-dev to (>= 0.9.1~)
+  * Refresh libspice-server1.symbols
+  * Update debian/rules clean target
+  * Ignore common/win/my_getopt-1.5/Makefile change when building package
+  * debian/control: set DMUA
+
+  [ Michael Tokarev ]
+  * use `rm -f' instead of `-rm' in debian/rules clean targets
+  * remove python_modules/*.pyc in clean target
+  
+ -- Liang Guo <bluestonechina@gmail.com>  Tue, 29 Nov 2011 14:37:08 +0800
+  
+spice (0.8.3-1) unstable; urgency=low
+
+  * New upstream release
+  * Update debian/copyright to fit DEP-5
+  * Remove drop-unnecessary-build-request.patch, applied upstream
+  * Update Build-Depends on libspice-protocol-dev to 0.8.2~
+  * Disable GUI support, CEGUI version in Debian not supported
+  * Add libjpeg-dev to Build-Depends
+  * Refresh libspice-server1.symbols
+
+ -- Liang Guo <bluestonechina@gmail.com>  Thu, 20 Oct 2011 11:13:23 +0800
+
+spice (0.8.2-2) unstable; urgency=low
+
+  [ Michael Tokarev ]
+  * move libraries used internally by libspice-server from Requires
+    to Requires.private in pkg-config file
+
+  [ Liang Guo ]
+  * Add libpixman-1-dev and libssl-dev to libspice-server-dev
+    Depends (Closes: #637189)
+  * Remove alsa, xrandr, xfixes, x11, xext and xrender 
+    from spice-server.pc Requires
+  * Fix typo in debian/spicec.1
+
+ -- Liang Guo <bluestonechina@gmail.com>  Tue, 16 Aug 2011 10:36:31 +0800
+
+spice (0.8.2-1) unstable; urgency=low
+
+  * Initial release (Closes: #560721)
+
+ -- Liang Guo <bluestonechina@gmail.com>  Sat, 23 Jul 2011 12:21:04 +0800
+

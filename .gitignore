@@ -1,2 +1,7 @@
 *~
 tags
+build-spice-protocol
+build-spice
+build-qemu
+*.pyc
+images
