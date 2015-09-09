@@ -1147,7 +1147,7 @@ static void vga_get_text_resolution(VGACommonState *s, int *pwidth, int *pheight
  * - underline
  * - flashing
  */
-static void vga_draw_text(VGACommonState *s, int full_update)
+static void vga_draw_text(VGACommonState *s, int full_update) //ZZQ
 {
     DisplaySurface *surface = qemu_console_surface(s->con);
     int cx, cy, cheight, cw, ch, cattr, height, width, ch_attr;
@@ -1670,7 +1670,7 @@ static void vga_draw_graphic(VGACommonState *s, int full_update)
     memset(s->invalidated_y_table, 0, ((height + 31) >> 5) * 4);
 }
 
-static void vga_draw_blank(VGACommonState *s, int full_update)
+static void vga_draw_blank(VGACommonState *s, int full_update) //ZZQ
 {
     DisplaySurface *surface = qemu_console_surface(s->con);
     int i, w;

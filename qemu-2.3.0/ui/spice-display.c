@@ -126,7 +126,7 @@ void qemu_spice_wakeup(SimpleSpiceDisplay *ssd)
     spice_qxl_wakeup(&ssd->qxl);
 }
 
-static void qemu_spice_create_one_update(SimpleSpiceDisplay *ssd,
+static void qemu_spice_create_one_update(SimpleSpiceDisplay *ssd, //ZZQ, one update is from rect
                                          QXLRect *rect)
 {
     SimpleSpiceUpdate *update;
@@ -194,7 +194,7 @@ static void qemu_spice_create_one_update(SimpleSpiceDisplay *ssd,
     QTAILQ_INSERT_TAIL(&ssd->updates, update, next);
 }
 
-static void qemu_spice_create_update(SimpleSpiceDisplay *ssd)
+static void qemu_spice_create_update(SimpleSpiceDisplay *ssd) //ZZQ
 {
     static const int blksize = 32;
     int blocks = (surface_width(ssd->ds) + blksize - 1) / blksize;
@@ -213,6 +213,18 @@ static void qemu_spice_create_update(SimpleSpiceDisplay *ssd)
 
     guest = surface_data(ssd->ds);
     mirror = (void *)pixman_image_get_data(ssd->mirror);
+#if 1
+    //ZZQ update full screen other than a small picture 
+    QXLRect update = {
+        .top    = 0,
+        .bottom = 768,
+        .left   = 0,
+        .right  = 1280,
+     };
+    qemu_spice_create_one_update(ssd, &update);
+    fprintf(stderr, "[ZZQ] %s\n", __func__);
+#endif
+#if 0
     for (y = ssd->dirty.top; y < ssd->dirty.bottom; y++) {
         yoff = y * surface_stride(ssd->ds);
         for (x = ssd->dirty.left; x < ssd->dirty.right; x += blksize) {
@@ -256,6 +268,7 @@ static void qemu_spice_create_update(SimpleSpiceDisplay *ssd)
     }
 
     memset(&ssd->dirty, 0, sizeof(ssd->dirty));
+#endif
 }
 
 static SimpleSpiceCursor*
@@ -397,7 +410,7 @@ void qemu_spice_display_update(SimpleSpiceDisplay *ssd,
     qemu_spice_rect_union(&ssd->dirty, &update_area);
 }
 
-void qemu_spice_display_switch(SimpleSpiceDisplay *ssd,
+void qemu_spice_display_switch(SimpleSpiceDisplay *ssd, //ZZQ
                                DisplaySurface *surface)
 {
     SimpleSpiceUpdate *update;

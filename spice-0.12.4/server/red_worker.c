@@ -84,7 +84,7 @@
 #include "main_dispatcher.h"
 
 //#define COMPRESS_STAT
-//#define DUMP_BITMAP
+//#define DUMP_BITMAP //ZZQ
 //#define PIPE_DEBUG
 //#define RED_WORKER_STAT
 //#define DRAW_ALL
@@ -4189,7 +4189,7 @@ static inline void red_inc_surfaces_drawable_dependencies(RedWorker *worker, Dra
     }
 }
 
-static inline void red_process_drawable(RedWorker *worker, RedDrawable *drawable,
+static inline void red_process_drawable(RedWorker *worker, RedDrawable *drawable, //ZZQ
                                         uint32_t group_id)
 {
     int surface_id;
@@ -4251,7 +4251,8 @@ static inline void red_process_drawable(RedWorker *worker, RedDrawable *drawable
             worker->transparent_count++;
         }
         red_pipes_add_drawable(worker, item);
-#ifdef DRAW_ALL
+#ifdef DRAW_ALL 
+        //ZZQ here
         red_draw_qxl_drawable(worker, item);
 #endif
     }
@@ -5184,7 +5185,7 @@ static int red_process_commands(RedWorker *worker, uint32_t max_pipe_size, int *
         stat_inc_counter(worker->command_counter, 1);
         worker->repoll_cmd_ring = 0;
         switch (ext_cmd.cmd.type) {
-        case QXL_CMD_DRAW: {
+        case QXL_CMD_DRAW: { //ZZQ here
             RedDrawable *red_drawable = red_drawable_new(); // returns with 1 ref
 
             if (!red_get_drawable(&worker->mem_slots, ext_cmd.group_id,
@@ -6097,7 +6098,7 @@ typedef uint16_t rgb16_pixel_t;
 #define GRADUAL_MEDIUM_SCORE_TH 0.002
 
 // assumes that stride doesn't overflow
-static BitmapGradualType _get_bitmap_graduality_level(RedWorker *worker, SpiceBitmap *bitmap,
+static BitmapGradualType _get_bitmap_graduality_level(RedWorker *worker, SpiceBitmap *bitmap, //ZZQ
                                                       uint32_t group_id)
 {
     double score = 0.0;
@@ -6748,7 +6749,7 @@ typedef enum {
 
 /* if the number of times fill_bits can be called per one qxl_drawable increases -
    MAX_LZ_DRAWABLE_INSTANCES must be increased as well */
-static FillBitsType fill_bits(DisplayChannelClient *dcc, SpiceMarshaller *m,
+static FillBitsType fill_bits(DisplayChannelClient *dcc, SpiceMarshaller *m, //ZZQ
                               SpiceImage *simage, Drawable *drawable, int can_lossy)
 {
     RedChannelClient *rcc = &dcc->common.base;
@@ -6822,7 +6823,7 @@ static FillBitsType fill_bits(DisplayChannelClient *dcc, SpiceMarshaller *m,
         spice_assert(lzplt_palette_out == NULL);
         return FILL_BITS_TYPE_SURFACE;
     }
-    case SPICE_IMAGE_TYPE_BITMAP: {
+    case SPICE_IMAGE_TYPE_BITMAP: {//ZZQ here
         SpiceBitmap *bitmap = &image.u.bitmap;
 #ifdef DUMP_BITMAP
         dump_bitmap(display_channel->common.worker, &simage->u.bitmap, drawable->group_id);
@@ -7328,7 +7329,7 @@ static void red_add_lossless_drawable_dependencies(RedWorker *worker,
     }
 }
 
-static void red_marshall_qxl_draw_fill(RedWorker *worker,
+static void red_marshall_qxl_draw_fill(RedWorker *worker, //ZZQ
                                    RedChannelClient *rcc,
                                    SpiceMarshaller *base_marshaller,
                                    DrawablePipeItem *dpi)
@@ -7414,7 +7415,7 @@ static void red_lossy_marshall_qxl_draw_fill(RedWorker *worker,
     }
 }
 
-static FillBitsType red_marshall_qxl_draw_opaque(RedWorker *worker,
+static FillBitsType red_marshall_qxl_draw_opaque(RedWorker *worker, //ZZQ
                                              RedChannelClient *rcc,
                                              SpiceMarshaller *base_marshaller,
                                              DrawablePipeItem *dpi, int src_allowed_lossy)
@@ -7514,7 +7515,7 @@ static void red_lossy_marshall_qxl_draw_opaque(RedWorker *worker,
     }
 }
 
-static FillBitsType red_marshall_qxl_draw_copy(RedWorker *worker,
+static FillBitsType red_marshall_qxl_draw_copy(RedWorker *worker, //ZZQ
                                            RedChannelClient *rcc,
                                            SpiceMarshaller *base_marshaller,
                                            DrawablePipeItem *dpi, int src_allowed_lossy)
@@ -8284,7 +8285,7 @@ static void red_lossy_marshall_qxl_drawable(RedWorker *worker, RedChannelClient 
     }
 }
 
-static inline void red_marshall_qxl_drawable(RedWorker *worker, RedChannelClient *rcc,
+static inline void red_marshall_qxl_drawable(RedWorker *worker, RedChannelClient *rcc, //ZZQ
                                 SpiceMarshaller *m, DrawablePipeItem *dpi)
 {
     Drawable *item = dpi->drawable;
@@ -8297,7 +8298,7 @@ static inline void red_marshall_qxl_drawable(RedWorker *worker, RedChannelClient
     case QXL_DRAW_OPAQUE:
         red_marshall_qxl_draw_opaque(worker, rcc, m, dpi, FALSE);
         break;
-    case QXL_DRAW_COPY:
+    case QXL_DRAW_COPY://ZZQ
         red_marshall_qxl_draw_copy(worker, rcc, m, dpi, FALSE);
         break;
     case QXL_DRAW_TRANSPARENT:
@@ -8563,7 +8564,7 @@ static int encode_frame(DisplayChannelClient *dcc, const SpiceRect *src,
     return TRUE;
 }
 
-static inline int red_marshall_stream_data(RedChannelClient *rcc,
+static inline int red_marshall_stream_data(RedChannelClient *rcc, //ZZQ
                   SpiceMarshaller *base_marshaller, Drawable *drawable)
 {
     DisplayChannelClient *dcc = RCC_TO_DCC(rcc);
@@ -9215,14 +9216,14 @@ static void red_marshall_stream_activate_report(RedChannelClient *rcc,
     spice_marshall_msg_display_stream_activate_report(base_marshaller, &msg);
 }
 
-static void display_channel_send_item(RedChannelClient *rcc, PipeItem *pipe_item)
+static void display_channel_send_item(RedChannelClient *rcc, PipeItem *pipe_item) //ZZQ
 {
     SpiceMarshaller *m = red_channel_client_get_marshaller(rcc);
     DisplayChannelClient *dcc = RCC_TO_DCC(rcc);
 
     red_display_reset_send_data(dcc);
     switch (pipe_item->type) {
-    case PIPE_ITEM_TYPE_DRAW: {
+    case PIPE_ITEM_TYPE_DRAW: { //ZZQ here
         DrawablePipeItem *dpi = SPICE_CONTAINEROF(pipe_item, DrawablePipeItem, dpi_pipe_item);
         marshall_qxl_drawable(rcc, m, dpi);
         break;
@@ -11111,7 +11112,7 @@ static void surface_dirty_region_to_rects(RedSurface *surface,
     free(dirty_rects);
 }
 
-void handle_dev_update_async(void *opaque, void *payload)
+void handle_dev_update_async(void *opaque, void *payload) //ZZQ
 {
     RedWorker *worker = opaque;
     RedWorkerMessageUpdateAsync *msg = payload;
@@ -11146,7 +11147,7 @@ void handle_dev_update_async(void *opaque, void *payload)
     free(qxl_dirty_rects);
 }
 
-void handle_dev_update(void *opaque, void *payload)
+void handle_dev_update(void *opaque, void *payload) //ZZQ
 {
     RedWorker *worker = opaque;
     RedWorkerMessageUpdate *msg = payload;

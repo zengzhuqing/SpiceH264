@@ -1074,7 +1074,7 @@ static const GraphicHwOps qxl_ops = {
     .gfx_update  = qxl_hw_update,
 };
 
-static void qxl_enter_vga_mode(PCIQXLDevice *d)
+static void qxl_enter_vga_mode(PCIQXLDevice *d) //ZZQ
 {
     if (d->mode == QXL_MODE_VGA) {
         return;
@@ -1091,7 +1091,7 @@ static void qxl_enter_vga_mode(PCIQXLDevice *d)
     graphic_hw_update(d->vga.con);
 }
 
-static void qxl_exit_vga_mode(PCIQXLDevice *d)
+static void qxl_exit_vga_mode(PCIQXLDevice *d) //ZZQ
 {
     if (d->mode != QXL_MODE_VGA) {
         return;
@@ -1828,7 +1828,7 @@ static void qxl_vm_change_state_handler(void *opaque, int running,
 
 /* display change listener */
 
-static void display_update(DisplayChangeListener *dcl,
+static void display_update(DisplayChangeListener *dcl, //ZZQ called by dpy_gfx_update(ui/console.c), by graphic_hw_update, by qemu_spice_display_refresh
                            int x, int y, int w, int h)
 {
     PCIQXLDevice *qxl = container_of(dcl, PCIQXLDevice, ssd.dcl);

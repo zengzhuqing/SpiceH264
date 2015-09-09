@@ -924,7 +924,7 @@ static void red_put_clip(SpiceClip *red)
     }
 }
 
-static int red_get_native_drawable(RedMemSlotInfo *slots, int group_id,
+static int red_get_native_drawable(RedMemSlotInfo *slots, int group_id, //ZZQ
                                    RedDrawable *red, QXLPHYSICAL addr, uint32_t flags)
 {
     QXLDrawable *qxl;
@@ -1008,7 +1008,7 @@ static int red_get_native_drawable(RedMemSlotInfo *slots, int group_id,
     return error;
 }
 
-static int red_get_compat_drawable(RedMemSlotInfo *slots, int group_id,
+static int red_get_compat_drawable(RedMemSlotInfo *slots, int group_id, //ZZQ
                                    RedDrawable *red, QXLPHYSICAL addr, uint32_t flags)
 {
     QXLCompatDrawable *qxl;
@@ -1094,14 +1094,14 @@ static int red_get_compat_drawable(RedMemSlotInfo *slots, int group_id,
     return error;
 }
 
-int red_get_drawable(RedMemSlotInfo *slots, int group_id,
+int red_get_drawable(RedMemSlotInfo *slots, int group_id, //ZZQ important
                       RedDrawable *red, QXLPHYSICAL addr, uint32_t flags)
 {
     int ret;
 
     if (flags & QXL_COMMAND_FLAG_COMPAT) {
         ret = red_get_compat_drawable(slots, group_id, red, addr, flags);
-    } else {
+    } else { //ZZQ, go here
         ret = red_get_native_drawable(slots, group_id, red, addr, flags);
     }
     return ret;
