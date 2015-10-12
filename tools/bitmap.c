@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <assert.h>
 #include "bitmap.h"
 
 /* 生成BMP图片(无颜色表的位图):在RGB(A)位图数据的基础上加上文件信息头和位图信息头 */
@@ -89,8 +89,8 @@ U8* GetBmpData(U8 *bitCountPerPix, U32 *width, U32 *height, const char* filename
     fread(&(bmpfile.bfHeader), sizeof(BITMAPFILEHEADER), 1, pf);  
     fread(&(bmpfile.biInfo.bmiHeader), sizeof(BITMAPINFOHEADER), 1, pf);  
   
-    print_bmfh(bmpfile.bfHeader);  
-    print_bmih(bmpfile.biInfo.bmiHeader);  
+    //print_bmfh(bmpfile.bfHeader);  
+    //print_bmih(bmpfile.biInfo.bmiHeader);  
        
     if(bitCountPerPix)  
     {  
@@ -139,40 +139,68 @@ void FreeBmpData(U8 *pdata)
     if(pdata)  
     {  
         free(pdata);  
-        pdata = NULL;  
+     //   pdata = NULL; useless 
     }  
 }  
   
-typedef struct _LI_RGB  
+typedef struct _RGB  
 {  
     U8 b;  
     U8 g;  
     U8 r;  
-}LI_RGB; 
+}RGB; 
+
+typedef struct _RGBA  
+{  
+    U8 b;  
+    U8 g;  
+    U8 r;
+    U8 a; 
+}RGBA; 
   
-#define WIDTH   10 
-#define HEIGHT  10  
-int main(char argc, char *argv[])  
+#define WIDTH   1280 
+#define HEIGHT  768
+int main(int argc, char *argv[])  
 { 
     #if 1  
     //test one  
-    LI_RGB pRGB[WIDTH][HEIGHT];  // 定义位图数据  
-    memset(pRGB, 0, sizeof(pRGB) ); // 设置背景为黑色  
-    // 在中间画一个10*10的矩形  
-    int i=0, j=0;  
-    for(i = 0; i < WIDTH; i++)  
-    {  
-        for( j = 0; j < HEIGHT; j++)  
+    RGBA pRGBA[WIDTH][HEIGHT];  // 定义位图数据  
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    FILE *fp;
+    char raw_filename[100];
+    char bmp_filename[100];
+
+    for(k = 0; k < 100; k++) {
+        memset(pRGBA, 0, sizeof(pRGBA) ); // 设置背景为黑色  
+        // 在中间画一个矩形  
+        for(i = 0; i < WIDTH; i++)  
         {  
-            pRGB[i][j].b = 0xff;  
-            pRGB[i][j].g = 0x00;  
-            pRGB[i][j].r = 0x00;  
-        }  
-    }  
-    GenBmpFile((U8*)pRGB, 24, WIDTH, HEIGHT, "out.bmp");//生成BMP文件 
+            for( j = 0; j < HEIGHT; j++)  
+            {
+                if(k % 8 == 0)
+                    pRGBA[i][j].b = 0xff;  
+                else if(k % 8 == 2)
+                    pRGBA[i][j].g = 0xff;  
+                else if(k % 8 == 4)
+                    pRGBA[i][j].r = 0xff;  
+            }  
+        }
+
+        sprintf(raw_filename, "%03d.raw", k);
+        fp = fopen(raw_filename, "w+");
+        assert(fp != NULL); 
+        fwrite(&(pRGBA), sizeof(RGBA), WIDTH * HEIGHT, fp);
+        fclose(fp);
+        fp = NULL;
+    
+        sprintf(bmp_filename, "%03d.bmp", k);
+        GenBmpFile((U8*)pRGBA, 32, WIDTH, HEIGHT, bmp_filename);//生成BMP文件 
+    }
     #endif 
   
-    #if 1  
+    #if 0  
     //test two  
     U8 bitCountPerPix;  
     U32 width, height;  
@@ -180,7 +208,8 @@ int main(char argc, char *argv[])
     if(pdata)  
     {  
         GenBmpFile(pdata, bitCountPerPix, width, height, "out1.bmp");  
-        FreeBmpData(pdata);  
+        FreeBmpData(pdata);
+        pdata = NULL; 
     } 
     #endif  
        
