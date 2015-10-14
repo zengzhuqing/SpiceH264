@@ -179,23 +179,23 @@ int main(int argc, char *argv[])
         {  
             for( j = 0; j < HEIGHT; j++)  
             {
-                if(k % 8 == 0)
+                if(k % 8 == 0 || k % 8 == 1)
                     pRGBA[i][j].b = 0xff;  
-                else if(k % 8 == 2)
+                else if(k % 8 == 2 || k % 8 == 3)
                     pRGBA[i][j].g = 0xff;  
-                else if(k % 8 == 4)
+                else
                     pRGBA[i][j].r = 0xff;  
             }  
         }
 
-        sprintf(raw_filename, "%03d.raw", k);
+        sprintf(raw_filename, "data/%03d.raw", k);
         fp = fopen(raw_filename, "w+");
         assert(fp != NULL); 
         fwrite(&(pRGBA), sizeof(RGBA), WIDTH * HEIGHT, fp);
         fclose(fp);
         fp = NULL;
     
-        sprintf(bmp_filename, "%03d.bmp", k);
+        sprintf(bmp_filename, "data/%03d.bmp", k);
         GenBmpFile((U8*)pRGBA, 32, WIDTH, HEIGHT, bmp_filename);//生成BMP文件 
     }
     #endif 
