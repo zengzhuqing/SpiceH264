@@ -1,0 +1,8 @@
+# 1. use ffmpeg to transfer 264 video to i420 yuv
+ffmpeg -i out/rgb.264 -c:v rawvideo -pix_fmt i420 out.yuv
+# 2. use x264 to encode raw rgb to 264 video
+x264 --profile baseline --input-fmt raw --input-csp bgra --input-res 1280x768 -v -o rgb.264 out/out.rgb
+# 3. use x264 to encode raw yuv to 264 video
+x264 --profile baseline --input-fmt raw --input-csp i420 --input-res 1280x768 -v -o yuv.264 out/out.yuv
+# 4. use ffplay to play 264 video
+ffplay yuv.264
