@@ -9,3 +9,7 @@ Getting Start:
 About Source code:
 1.qemu-2.3.0: qemu source code dir;
 2.spice-0.12.4: spice source code dir;
+
+About Tools:
+1.offline color space transfer: rgb to yuv;
+2.offline h264 encoder: yuv to h264 

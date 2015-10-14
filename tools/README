@@ -1,0 +1,33 @@
+About env prepare
+1.yasm install
+git clone --depth 1 git://github.com/yasm/yasm.git
+cd yasm
+nstalltoreconf -fiv
+./configure --prefix=/home/zengzhuqing/install --bindir=/home/zengzhuqing/bin
+make && make install
+    
+2.config-env.sh
+export PKG_CONFIG_PATH=$HOME/install/lib/pkgconfig
+export LD_LIBRARY=$HOME/install/lib
+export PATH=$HOME/bin:$PATH
+
+3.install SDL-devel.x86_64(otherwise ffplay would not be compiled)
+yum install SDL-devel.x86_64
+
+4.install ffmpeg(libswscale inside)
+/configure --prefix=/home/zengzhuqing/install --bindir=/home/zengzhuqing/bin
+make && make install
+
+5.install x264
+git clone --depth 1 git://git.videolan.org/x264
+cd x264
+./configure --prefix=/home/zengzhuqing/install --bindir=/home/zengzhuqing/bin
+make && make install
+
+About Usage
+1.bin/gen: Generate test bitmap image and raw rgb image file
+2.bgra_merge.sh: Merge all raw brga image file to a file 
+3.bin/rgb2yuv: Transfer bitmap image file to yuv image file 
+4.convert_to_yuv.sh: Generate test yuv image file
+5.yuv_merge.sh: Merge all raw yuv image file to a file
+6.yuv2h264: Encode yuv file to h264 video
