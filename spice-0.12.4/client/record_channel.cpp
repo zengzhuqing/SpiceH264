@@ -72,10 +72,8 @@ RecordChannel::RecordChannel(RedClient& client, uint32_t id)
     : RedChannel(client, SPICE_CHANNEL_RECORD, id, new RecordHandler(*this))
     , _wave_recorder (NULL)
     , _mode (SPICE_AUDIO_DATA_MODE_INVALID)
-#if HAVE_CELT051
     , _celt_mode (NULL)
     , _celt_encoder (NULL)
-#endif
 {
     for (int i = 0; i < NUM_SAMPLES_MESSAGES; i++) {
         _messages.push_front(new RecordSamplesMessage(*this));
@@ -91,9 +89,8 @@ RecordChannel::RecordChannel(RedClient& client, uint32_t id)
     handler->set_handler(SPICE_MSG_NOTIFY, &RecordChannel::handle_notify);
 
     handler->set_handler(SPICE_MSG_RECORD_START, &RecordChannel::handle_start);
-#if HAVE_CELT051
+
     set_capability(SPICE_RECORD_CAP_CELT_0_5_1);
-#endif
 }
 
 RecordChannel::~RecordChannel(void)
@@ -118,9 +115,7 @@ void RecordChannel::on_connect()
     SpiceMsgcRecordMode mode;
     mode.time = get_mm_time();
     mode.mode = _mode =
-#if HAVE_CELT051
       test_capability(SPICE_RECORD_CAP_CELT_0_5_1) ? RecordChannel::data_mode :
-#endif
                                                                       SPICE_AUDIO_DATA_MODE_RAW;
     _marshallers->msgc_record_mode(message->marshaller(), &mode);
     post_message(message);
@@ -147,11 +142,7 @@ void RecordChannel::handle_start(RedPeer::InMessage* message)
 
     handler->set_handler(SPICE_MSG_RECORD_START, NULL);
     handler->set_handler(SPICE_MSG_RECORD_STOP, &RecordChannel::handle_stop);
-#if HAVE_CELT051
     ASSERT(!_wave_recorder && !_celt_mode && !_celt_encoder);
-#else
-    ASSERT(!_wave_recorder);
-#endif
 
     // for now support only one setting
     if (start->format != SPICE_AUDIO_FMT_S16) {
@@ -169,9 +160,8 @@ void RecordChannel::handle_start(RedPeer::InMessage* message)
     }
 
     int frame_size = 256;
-    _frame_bytes = frame_size * bits_per_sample * start->channels / 8;
-#if HAVE_CELT051
     int celt_mode_err;
+    _frame_bytes = frame_size * bits_per_sample * start->channels / 8;
     if (!(_celt_mode = celt051_mode_create(start->frequency, start->channels, frame_size,
                                            &celt_mode_err))) {
         THROW("create celt mode failed %d", celt_mode_err);
@@ -180,7 +170,6 @@ void RecordChannel::handle_start(RedPeer::InMessage* message)
     if (!(_celt_encoder = celt051_encoder_create(_celt_mode))) {
         THROW("create celt encoder failed");
     }
-#endif
 
     send_start_mark();
     _wave_recorder->start();
@@ -193,7 +182,6 @@ void RecordChannel::clear()
         delete _wave_recorder;
         _wave_recorder = NULL;
     }
-#if HAVE_CELT051
     if (_celt_encoder) {
         celt051_encoder_destroy(_celt_encoder);
         _celt_encoder = NULL;
@@ -202,7 +190,6 @@ void RecordChannel::clear()
         celt051_mode_destroy(_celt_mode);
         _celt_mode = NULL;
     }
-#endif
 }
 
 void RecordChannel::handle_stop(RedPeer::InMessage* message)
@@ -213,9 +200,7 @@ void RecordChannel::handle_stop(RedPeer::InMessage* message)
     if (!_wave_recorder) {
         return;
     }
-#if HAVE_CELT051
     ASSERT(_celt_mode && _celt_encoder);
-#endif
     clear();
 }
 
@@ -269,9 +254,8 @@ void RecordChannel::push_frame(uint8_t *frame)
         DBG(0, "blocked");
         return;
     }
-    int n;
-#if HAVE_CELT051
     uint8_t celt_buf[CELT_COMPRESSED_FRAME_BYTES];
+    int n;
 
     if (_mode == SPICE_AUDIO_DATA_MODE_CELT_0_5_1) {
         n = celt051_encode(_celt_encoder, (celt_int16_t *)frame, NULL, celt_buf,
@@ -280,9 +264,7 @@ void RecordChannel::push_frame(uint8_t *frame)
             THROW("celt encode failed");
         }
         frame = celt_buf;
-    } else
-#endif
-    {
+    } else {
         n = _frame_bytes;
     }
     RedPeer::OutMessage& peer_message = message->peer_message();

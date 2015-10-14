@@ -103,7 +103,7 @@ static void create_clipped_frame(Test *test, Command *command, int clipping_fact
     cmd->bitmap = malloc(width*height*4);
     memset(cmd->bitmap, 0xff, width*height*4);
     dst = (uint32_t *)(cmd->bitmap + cur_line*width*4);
-    for (cur_line; cur_line < end_line; cur_line++) {
+    for (; cur_line < end_line; cur_line++) {
         int col;
         for (col = 0; col < width; col++, dst++) {
             *dst = 0x00FF00;

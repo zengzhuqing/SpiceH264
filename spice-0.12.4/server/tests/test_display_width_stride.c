@@ -25,7 +25,8 @@ void pinger(void *opaque)
 static int g_surface_id = 1;
 static uint8_t *g_surface_data;
 
-void set_draw_parameters(Test *test, Command *command)
+void set_draw_parameters(SPICE_GNUC_UNUSED Test *test,
+                         Command *command)
 {
     static int count = 17;
     CommandDrawSolid *solid = &command->solid;
@@ -38,7 +39,8 @@ void set_draw_parameters(Test *test, Command *command)
     count++;
 }
 
-void set_surface_params(Test *test, Command *command)
+void set_surface_params(SPICE_GNUC_UNUSED Test *test,
+                        Command *command)
 {
     CommandCreateSurface *create = &command->create_surface;
 
@@ -54,7 +56,8 @@ void set_surface_params(Test *test, Command *command)
     create->data = g_surface_data;
 }
 
-void set_destroy_parameters(Test *test, Command *command)
+void set_destroy_parameters(SPICE_GNUC_UNUSED Test *test,
+                            SPICE_GNUC_UNUSED Command *command)
 {
     if (g_surface_data) {
         free(g_surface_data);
@@ -63,17 +66,17 @@ void set_destroy_parameters(Test *test, Command *command)
 }
 
 static Command commands[] = {
-    {SIMPLE_CREATE_SURFACE, set_surface_params},
-    {SIMPLE_DRAW_SOLID, set_draw_parameters},
-    {SIMPLE_DRAW_SOLID, set_draw_parameters},
-    {SIMPLE_DRAW_SOLID, set_draw_parameters},
-    {SIMPLE_DRAW_SOLID, set_draw_parameters},
-    {SIMPLE_DRAW_SOLID, set_draw_parameters},
-    {SIMPLE_DRAW_SOLID, set_draw_parameters},
-    {SIMPLE_DRAW_SOLID, set_draw_parameters},
-    {SIMPLE_DRAW_SOLID, set_draw_parameters},
-    {SIMPLE_DRAW_SOLID, set_draw_parameters},
-    {SIMPLE_DESTROY_SURFACE, set_destroy_parameters},
+    {SIMPLE_CREATE_SURFACE, set_surface_params, .cb_opaque = NULL},
+    {SIMPLE_DRAW_SOLID, set_draw_parameters, .cb_opaque = NULL},
+    {SIMPLE_DRAW_SOLID, set_draw_parameters, .cb_opaque = NULL},
+    {SIMPLE_DRAW_SOLID, set_draw_parameters, .cb_opaque = NULL},
+    {SIMPLE_DRAW_SOLID, set_draw_parameters, .cb_opaque = NULL},
+    {SIMPLE_DRAW_SOLID, set_draw_parameters, .cb_opaque = NULL},
+    {SIMPLE_DRAW_SOLID, set_draw_parameters, .cb_opaque = NULL},
+    {SIMPLE_DRAW_SOLID, set_draw_parameters, .cb_opaque = NULL},
+    {SIMPLE_DRAW_SOLID, set_draw_parameters, .cb_opaque = NULL},
+    {SIMPLE_DRAW_SOLID, set_draw_parameters, .cb_opaque = NULL},
+    {SIMPLE_DESTROY_SURFACE, set_destroy_parameters, .cb_opaque = NULL},
 };
 
 void on_client_connected(Test *test)

@@ -21,11 +21,11 @@
 
 SpicePlaybackInstance playback_instance;
 
-static const SpicePlaybackInterface playback_sif = {
-    .base.type          = SPICE_INTERFACE_PLAYBACK,
-    .base.description   = "test playback",
-    .base.major_version = SPICE_INTERFACE_PLAYBACK_MAJOR,
-    .base.minor_version = SPICE_INTERFACE_PLAYBACK_MINOR,
+static const SpiceBaseInterface base = {
+    .type          = SPICE_INTERFACE_PLAYBACK,
+    .description   = "test playback",
+    .major_version = SPICE_INTERFACE_PLAYBACK_MAJOR,
+    .minor_version = SPICE_INTERFACE_PLAYBACK_MINOR,
 };
 
 uint32_t *frame;
@@ -45,12 +45,12 @@ static void get_frame(void)
                         : 100;
 }
 
-void playback_timer_cb(void *opaque)
+void playback_timer_cb(SPICE_GNUC_UNUSED void *opaque)
 {
     static int t = 0;
     static uint64_t last_sent_usec = 0;
     static uint64_t samples_to_send;
-    int i;
+    uint32_t i;
     struct timeval cur;
     uint64_t cur_usec;
     uint32_t *test_frame;
@@ -99,7 +99,7 @@ int main(void)
     spice_server_set_noauth(server);
     spice_server_init(server, core);
 
-    playback_instance.base.sif = &playback_sif.base;
+    playback_instance.base.sif = &base;
     spice_server_add_interface(server, &playback_instance.base);
     spice_server_playback_start(&playback_instance);
 

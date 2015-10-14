@@ -147,9 +147,6 @@ AM_CONDITIONAL(SUPPORT_SMARTCARD, test "x$enable_smartcard" != "xno")
 if test "x$enable_smartcard" = "xyes"; then
    AC_DEFINE([USE_SMARTCARD], [1], [Define if supporting smartcard proxying])
 fi
-AC_ARG_ENABLE(celt051,
-[  --disable-celt051       Disable celt051 audio codec (enabled by default)],,
-[enable_celt051="yes"])
 
 AC_ARG_ENABLE(client,
 [  --enable-client         Enable spice client],,
@@ -249,14 +246,11 @@ AC_SUBST(PIXMAN_CFLAGS)
 AC_SUBST(PIXMAN_LIBS)
 SPICE_REQUIRES+=" pixman-1 >= 0.17.7"
 
-if test "x$enable_celt051" = "xyes"; then
-    PKG_CHECK_MODULES(CELT051, celt051 >= 0.5.1.1)
-    SPICE_REQUIRES+=" celt051 >= 0.5.1.1"
-    AC_DEFINE([HAVE_CELT051], 1, [Define if we have celt051 codec])
-    AC_SUBST(CELT051_CFLAGS)
-    AC_SUBST(CELT051_LIBS)
-    AC_SUBST(CELT051_LIBDIR)
-fi
+PKG_CHECK_MODULES(CELT051, celt051 >= 0.5.1.1)
+AC_SUBST(CELT051_CFLAGS)
+AC_SUBST(CELT051_LIBS)
+AC_SUBST(CELT051_LIBDIR)
+SPICE_REQUIRES+=" celt051 >= 0.5.1.1"
 
 if test ! -e client/generated_marshallers.cpp; then
 AC_MSG_CHECKING([for pyparsing python module])

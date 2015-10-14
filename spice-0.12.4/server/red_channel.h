@@ -74,6 +74,7 @@ typedef uint8_t *(*alloc_msg_recv_buf_proc)(void *opaque, uint16_t type, uint32_
 typedef void (*release_msg_recv_buf_proc)(void *opaque,
                                           uint16_t type, uint32_t size, uint8_t *msg);
 typedef void (*on_incoming_error_proc)(void *opaque);
+typedef void (*on_input_proc)(void *opaque, int n);
 
 typedef struct IncomingHandlerInterface {
     handle_message_proc handle_message;
@@ -83,6 +84,7 @@ typedef struct IncomingHandlerInterface {
     // The following is an optional alternative to handle_message, used if not null
     spice_parse_channel_func_t parser;
     handle_parsed_proc handle_parsed;
+    on_input_proc on_input;
 } IncomingHandlerInterface;
 
 typedef struct IncomingHandler {
@@ -234,6 +236,14 @@ typedef struct RedChannelClientLatencyMonitor {
     int64_t roundtrip;
 } RedChannelClientLatencyMonitor;
 
+typedef struct RedChannelClientConnectivityMonitor {
+    int state;
+    uint32_t out_bytes;
+    uint32_t in_bytes;
+    uint32_t timeout;
+    SpiceTimer *timer;
+} RedChannelClientConnectivityMonitor;
+
 struct RedChannelClient {
     RingItem channel_link;
     RingItem client_link;
@@ -287,6 +297,7 @@ struct RedChannelClient {
     int wait_migrate_flush_mark;
 
     RedChannelClientLatencyMonitor latency_monitor;
+    RedChannelClientConnectivityMonitor connectivity_monitor;
 };
 
 struct RedChannel {
@@ -446,6 +457,11 @@ SpiceMarshaller *red_channel_client_switch_to_urgent_sender(RedChannelClient *rc
 /* returns -1 if we don't have an estimation */
 int red_channel_client_get_roundtrip_ms(RedChannelClient *rcc);
 
+/*
+ * Checks periodically if the connection is still alive
+ */
+void red_channel_client_start_connectivity_monitoring(RedChannelClient *rcc, uint32_t timeout_ms);
+
 void red_channel_pipe_item_init(RedChannel *channel, PipeItem *item, int type);
 
 // TODO: add back the channel_pipe_add functionality - by adding reference counting
@@ -561,9 +577,24 @@ struct RedClient {
                                   is called */
     int seamless_migrate;
     int num_migrated_channels; /* for seamless - number of channels that wait for migrate data*/
+    int refs;
 };
 
 RedClient *red_client_new(int migrated);
+
+/*
+ * disconnects all the client's channels (should be called from the client's thread)
+ */
+void red_client_destroy(RedClient *client);
+
+RedClient *red_client_ref(RedClient *client);
+
+/*
+ * releases the client resources when refs == 0.
+ * We assume the red_client_derstroy was called before
+ * we reached refs==0
+ */
+RedClient *red_client_unref(RedClient *client);
 
 MainChannelClient *red_client_get_main(RedClient *client);
 // main should be set once before all the other channels are created
@@ -580,7 +611,21 @@ void red_client_semi_seamless_migrate_complete(RedClient *client); /* dst side *
 int red_client_during_migrate_at_target(RedClient *client);
 
 void red_client_migrate(RedClient *client);
-// disconnects all the client's channels (should be called from the client's thread)
-void red_client_destroy(RedClient *client);
+
+/*
+ * blocking functions.
+ *
+ * timeout is in nano sec. -1 for no timeout.
+ *
+ * Return: TRUE if waiting succeeded. FALSE if timeout expired.
+ */
+
+int red_channel_client_wait_pipe_item_sent(RedChannelClient *rcc,
+                                           PipeItem *item,
+                                           int64_t timeout);
+int red_channel_client_wait_outgoing_item(RedChannelClient *rcc,
+                                          int64_t timeout);
+int red_channel_wait_all_sent(RedChannel *channel,
+                              int64_t timeout);
 
 #endif

@@ -21,10 +21,28 @@
 
 #include <stdbool.h>
 #include <inttypes.h>
+#include <glib.h>
 #include "common/lz_common.h"
 #include "red_common.h"
 #include "red_memslots.h"
 #include "red_parse_qxl.h"
+
+/* Max size in bytes for any data field used in a QXL command.
+ * This will for example be useful to prevent the guest from saturating the
+ * host memory if it tries to send overlapping chunks.
+ * This value should be big enough for all requests but limited
+ * to 32 bits. Even better if it fits on 31 bits to detect integer overflows.
+ */
+#define MAX_DATA_CHUNK 0x7ffffffflu
+
+G_STATIC_ASSERT(MAX_DATA_CHUNK <= G_MAXINT32);
+
+/* Limit number of chunks.
+ * The guest can attempt to make host allocate too much memory
+ * just with a large number of small chunks.
+ * Prevent that the chunk list take more memory than the data itself.
+ */
+#define MAX_CHUNKS (MAX_DATA_CHUNK/1024u)
 
 #if 0
 static void hexdump_qxl(RedMemSlotInfo *slots, int group_id,
@@ -89,38 +107,76 @@ static size_t red_get_data_chunks_ptr(RedMemSlotInfo *slots, int group_id,
                                       RedDataChunk *red, QXLDataChunk *qxl)
 {
     RedDataChunk *red_prev;
-    size_t data_size = 0;
+    uint64_t data_size = 0;
+    uint32_t chunk_data_size;
     int error;
+    QXLPHYSICAL next_chunk;
+    unsigned num_chunks = 0;
 
     red->data_size = qxl->data_size;
     data_size += red->data_size;
-    if (!validate_virt(slots, (intptr_t)qxl->data, memslot_id, red->data_size, group_id)) {
+    red->data = qxl->data;
+    red->prev_chunk = red->next_chunk = NULL;
+    if (!validate_virt(slots, (intptr_t)red->data, memslot_id, red->data_size, group_id)) {
+        red->data = NULL;
         return 0;
     }
-    red->data = qxl->data;
-    red->prev_chunk = NULL;
 
-    while (qxl->next_chunk) {
+    while ((next_chunk = qxl->next_chunk) != 0) {
+        /* somebody is trying to use too much memory using a lot of chunks.
+         * Or made a circular list of chunks
+         */
+        if (++num_chunks >= MAX_CHUNKS) {
+            spice_warning("data split in too many chunks, avoiding DoS\n");
+            goto error;
+        }
+
+        memslot_id = get_memslot_id(slots, next_chunk);
+        qxl = (QXLDataChunk *)get_virt(slots, next_chunk, sizeof(*qxl),
+                                       group_id, &error);
+        if (error)
+            goto error;
+
+        /* do not waste space for empty chunks.
+         * This could be just a driver issue or an attempt
+         * to allocate too much memory or a circular list.
+         * All above cases are handled by the check for number
+         * of chunks.
+         */
+        chunk_data_size = qxl->data_size;
+        if (chunk_data_size == 0)
+            continue;
+
         red_prev = red;
-        red = spice_new(RedDataChunk, 1);
-        memslot_id = get_memslot_id(slots, qxl->next_chunk);
-        qxl = (QXLDataChunk *)get_virt(slots, qxl->next_chunk, sizeof(*qxl), group_id,
-                                      &error);
-        if (error) {
-            return 0;
-        }
-        red->data_size = qxl->data_size;
-        data_size += red->data_size;
-        if (!validate_virt(slots, (intptr_t)qxl->data, memslot_id, red->data_size, group_id)) {
-            return 0;
-        }
-        red->data = qxl->data;
+        red = spice_new0(RedDataChunk, 1);
+        red->data_size = chunk_data_size;
         red->prev_chunk = red_prev;
+        red->data = qxl->data;
         red_prev->next_chunk = red;
+
+        data_size += chunk_data_size;
+        /* this can happen if client is sending nested chunks */
+        if (data_size > MAX_DATA_CHUNK) {
+            spice_warning("too much data inside chunks, avoiding DoS\n");
+            goto error;
+        }
+        if (!validate_virt(slots, (intptr_t)red->data, memslot_id, red->data_size, group_id))
+            goto error;
     }
 
     red->next_chunk = NULL;
     return data_size;
+
+error:
+    while (red->prev_chunk) {
+        red_prev = red->prev_chunk;
+        free(red);
+        red = red_prev;
+    }
+    red->data_size = 0;
+    red->next_chunk = NULL;
+    red->data = NULL;
+    return 0;
 }
 
 static size_t red_get_data_chunks(RedMemSlotInfo *slots, int group_id,
@@ -200,7 +256,7 @@ static SpicePath *red_get_path(RedMemSlotInfo *slots, int group_id,
 
     start = (QXLPathSeg*)data;
     end = (QXLPathSeg*)(data + size);
-    while (start < end) {
+    while (start+1 < end) {
         n_segments++;
         count = start->count;
         segment_size = sizeof(SpicePathSeg) + count * sizeof(SpicePointFix);
@@ -216,7 +272,7 @@ static SpicePath *red_get_path(RedMemSlotInfo *slots, int group_id,
     seg = (SpicePathSeg*)&red->segments[n_segments];
     n_segments = 0;
     mem_size2 = sizeof(*red);
-    while (start < end) {
+    while (start+1 < end && n_segments < red->num_segments) {
         red->segments[n_segments++] = seg;
         count = start->count;
 
@@ -262,6 +318,7 @@ static SpiceClipRects *red_get_clip_rects(RedMemSlotInfo *slots, int group_id,
     size_t size;
     int i;
     int error;
+    uint32_t num_rects;
 
     qxl = (QXLClipRects *)get_virt(slots, addr, sizeof(*qxl), group_id, &error);
     if (error) {
@@ -273,9 +330,10 @@ static SpiceClipRects *red_get_clip_rects(RedMemSlotInfo *slots, int group_id,
     data = red_linearize_chunk(&chunks, size, &free_data);
     red_put_data_chunks(&chunks);
 
-    spice_assert(qxl->num_rects * sizeof(QXLRect) == size);
-    red = spice_malloc(sizeof(*red) + qxl->num_rects * sizeof(SpiceRect));
-    red->num_rects = qxl->num_rects;
+    num_rects = qxl->num_rects;
+    spice_assert(num_rects * sizeof(QXLRect) == size);
+    red = spice_malloc(sizeof(*red) + num_rects * sizeof(SpiceRect));
+    red->num_rects = num_rects;
 
     start = (QXLRect*)data;
     for (i = 0; i < red->num_rects; i++) {
@@ -346,14 +404,22 @@ static const char *bitmap_format_to_string(int format)
     return "unknown";
 }
 
-static const int MAP_BITMAP_FMT_TO_BITS_PER_PIXEL[] = {0, 1, 1, 4, 4, 8, 16, 24, 32, 32, 8};
+static const unsigned int MAP_BITMAP_FMT_TO_BITS_PER_PIXEL[] =
+    {0, 1, 1, 4, 4, 8, 16, 24, 32, 32, 8};
 
 static int bitmap_consistent(SpiceBitmap *bitmap)
 {
-    int bpp = MAP_BITMAP_FMT_TO_BITS_PER_PIXEL[bitmap->format];
+    unsigned int bpp;
 
-    if (bitmap->stride < ((bitmap->x * bpp + 7) / 8)) {
-        spice_error("image stride too small for width: %d < ((%d * %d + 7) / 8) (%s=%d)\n",
+    if (bitmap->format >= SPICE_N_ELEMENTS(MAP_BITMAP_FMT_TO_BITS_PER_PIXEL)) {
+        spice_warning("wrong format specified for image\n");
+        return FALSE;
+    }
+
+    bpp = MAP_BITMAP_FMT_TO_BITS_PER_PIXEL[bitmap->format];
+
+    if (bitmap->stride < (((uint64_t) bitmap->x * bpp + 7u) / 8u)) {
+        spice_warning("image stride too small for width: %d < ((%d * %d + 7) / 8) (%s=%d)\n",
                     bitmap->stride, bitmap->x, bpp,
                     bitmap_format_to_string(bitmap->format),
                     bitmap->format);
@@ -373,9 +439,10 @@ static SpiceImage *red_get_image(RedMemSlotInfo *slots, int group_id,
     QXLImage *qxl;
     SpiceImage *red = NULL;
     SpicePalette *rp = NULL;
-    size_t bitmap_size, size;
+    uint64_t bitmap_size, size;
     uint8_t qxl_flags;
     int error;
+    QXLPHYSICAL palette;
 
     if (addr == 0) {
         return NULL;
@@ -401,12 +468,16 @@ static SpiceImage *red_get_image(RedMemSlotInfo *slots, int group_id,
     switch (red->descriptor.type) {
     case SPICE_IMAGE_TYPE_BITMAP:
         red->u.bitmap.format = qxl->bitmap.format;
-        if (!bitmap_fmt_is_rgb(qxl->bitmap.format) && !qxl->bitmap.palette && !is_mask) {
+        red->u.bitmap.x      = qxl->bitmap.x;
+        red->u.bitmap.y      = qxl->bitmap.y;
+        red->u.bitmap.stride = qxl->bitmap.stride;
+        palette = qxl->bitmap.palette;
+        if (!bitmap_fmt_is_rgb(red->u.bitmap.format) && !palette && !is_mask) {
             spice_warning("guest error: missing palette on bitmap format=%d\n",
                           red->u.bitmap.format);
             goto error;
         }
-        if (qxl->bitmap.x == 0 || qxl->bitmap.y == 0) {
+        if (red->u.bitmap.x == 0 || red->u.bitmap.y == 0) {
             spice_warning("guest error: zero area bitmap\n");
             goto error;
         }
@@ -414,23 +485,20 @@ static SpiceImage *red_get_image(RedMemSlotInfo *slots, int group_id,
         if (qxl_flags & QXL_BITMAP_TOP_DOWN) {
             red->u.bitmap.flags = SPICE_BITMAP_FLAGS_TOP_DOWN;
         }
-        red->u.bitmap.x      = qxl->bitmap.x;
-        red->u.bitmap.y      = qxl->bitmap.y;
-        red->u.bitmap.stride = qxl->bitmap.stride;
         if (!bitmap_consistent(&red->u.bitmap)) {
             goto error;
         }
-        if (qxl->bitmap.palette) {
+        if (palette) {
             QXLPalette *qp;
             int i, num_ents;
-            qp = (QXLPalette *)get_virt(slots, qxl->bitmap.palette,
+            qp = (QXLPalette *)get_virt(slots, palette,
                                         sizeof(*qp), group_id, &error);
             if (error) {
                 goto error;
             }
             num_ents = qp->num_ents;
             if (!validate_virt(slots, (intptr_t)qp->ents,
-                               get_memslot_id(slots, qxl->bitmap.palette),
+                               get_memslot_id(slots, palette),
                                num_ents * sizeof(qp->ents[0]), group_id)) {
                 goto error;
             }
@@ -449,7 +517,10 @@ static SpiceImage *red_get_image(RedMemSlotInfo *slots, int group_id,
             red->u.bitmap.palette = rp;
             red->u.bitmap.palette_id = rp->unique;
         }
-        bitmap_size = red->u.bitmap.y * abs(red->u.bitmap.stride);
+        bitmap_size = (uint64_t) red->u.bitmap.y * red->u.bitmap.stride;
+        if (bitmap_size > MAX_DATA_CHUNK) {
+            goto error;
+        }
         if (qxl_flags & QXL_BITMAP_DIRECT) {
             red->u.bitmap.data = red_get_image_data_flat(slots, group_id,
                                                          qxl->bitmap.data,
@@ -459,6 +530,7 @@ static SpiceImage *red_get_image(RedMemSlotInfo *slots, int group_id,
                                        &chunks, qxl->bitmap.data);
             spice_assert(size == bitmap_size);
             if (size != bitmap_size) {
+                red_put_data_chunks(&chunks);
                 goto error;
             }
             red->u.bitmap.data = red_get_image_data_chunked(slots, group_id,
@@ -479,6 +551,7 @@ static SpiceImage *red_get_image(RedMemSlotInfo *slots, int group_id,
                                        &chunks, (QXLDataChunk *)qxl->quic.data);
         spice_assert(size == red->u.quic.data_size);
         if (size != red->u.quic.data_size) {
+            red_put_data_chunks(&chunks);
             goto error;
         }
         red->u.quic.data = red_get_image_data_chunked(slots, group_id,
@@ -781,8 +854,11 @@ static SpiceString *red_get_string(RedMemSlotInfo *slots, int group_id,
     uint8_t *data;
     bool free_data;
     size_t chunk_size, qxl_size, red_size, glyph_size;
-    int glyphs, bpp = 0, i;
+    int glyphs, i;
+    /* use unsigned to prevent integer overflow in multiplication below */
+    unsigned int bpp = 0;
     int error;
+    uint16_t qxl_flags, qxl_length;
 
     qxl = (QXLString *)get_virt(slots, addr, sizeof(*qxl), group_id, &error);
     if (error) {
@@ -799,13 +875,15 @@ static SpiceString *red_get_string(RedMemSlotInfo *slots, int group_id,
     red_put_data_chunks(&chunks);
 
     qxl_size = qxl->data_size;
+    qxl_flags = qxl->flags;
+    qxl_length = qxl->length;
     spice_assert(chunk_size == qxl_size);
 
-    if (qxl->flags & SPICE_STRING_FLAGS_RASTER_A1) {
+    if (qxl_flags & SPICE_STRING_FLAGS_RASTER_A1) {
         bpp = 1;
-    } else if (qxl->flags & SPICE_STRING_FLAGS_RASTER_A4) {
+    } else if (qxl_flags & SPICE_STRING_FLAGS_RASTER_A4) {
         bpp = 4;
-    } else if (qxl->flags & SPICE_STRING_FLAGS_RASTER_A8) {
+    } else if (qxl_flags & SPICE_STRING_FLAGS_RASTER_A8) {
         bpp = 8;
     }
     spice_assert(bpp != 0);
@@ -817,16 +895,21 @@ static SpiceString *red_get_string(RedMemSlotInfo *slots, int group_id,
     while (start < end) {
         spice_assert((QXLRasterGlyph*)(&start->data[0]) <= end);
         glyphs++;
-        glyph_size = start->height * ((start->width * bpp + 7) / 8);
+        glyph_size = start->height * ((start->width * bpp + 7u) / 8u);
         red_size += sizeof(SpiceRasterGlyph *) + SPICE_ALIGN(sizeof(SpiceRasterGlyph) + glyph_size, 4);
+        /* do the test correctly, we know end - start->data[0] cannot
+         * overflow, don't use start->data[glyph_size] to test for
+         * buffer overflow as this on 32 bit can cause overflow
+         * on the pointer arithmetic */
+        spice_assert(glyph_size <= (char*) end - (char*) &start->data[0]);
         start = (QXLRasterGlyph*)(&start->data[glyph_size]);
     }
     spice_assert(start <= end);
-    spice_assert(glyphs == qxl->length);
+    spice_assert(glyphs == qxl_length);
 
     red = spice_malloc(red_size);
-    red->length = qxl->length;
-    red->flags = qxl->flags;
+    red->length = qxl_length;
+    red->flags = qxl_flags;
 
     start = (QXLRasterGlyph*)data;
     end = (QXLRasterGlyph*)(data + chunk_size);
@@ -838,8 +921,9 @@ static SpiceString *red_get_string(RedMemSlotInfo *slots, int group_id,
         glyph->height = start->height;
         red_get_point_ptr(&glyph->render_pos, &start->render_pos);
         red_get_point_ptr(&glyph->glyph_origin, &start->glyph_origin);
-        glyph_size = glyph->height * ((glyph->width * bpp + 7) / 8);
-        spice_assert((QXLRasterGlyph*)(&start->data[glyph_size]) <= end);
+        glyph_size = glyph->height * ((glyph->width * bpp + 7u) / 8u);
+        /* see above for similar test */
+        spice_assert(glyph_size <= (char*) end - (char*) &start->data[0]);
         memcpy(glyph->data, start->data, glyph_size);
         start = (QXLRasterGlyph*)(&start->data[glyph_size]);
         glyph = (SpiceRasterGlyph*)
@@ -924,7 +1008,7 @@ static void red_put_clip(SpiceClip *red)
     }
 }
 
-static int red_get_native_drawable(RedMemSlotInfo *slots, int group_id, //ZZQ
+static int red_get_native_drawable(RedMemSlotInfo *slots, int group_id,
                                    RedDrawable *red, QXLPHYSICAL addr, uint32_t flags)
 {
     QXLDrawable *qxl;
@@ -1008,7 +1092,7 @@ static int red_get_native_drawable(RedMemSlotInfo *slots, int group_id, //ZZQ
     return error;
 }
 
-static int red_get_compat_drawable(RedMemSlotInfo *slots, int group_id, //ZZQ
+static int red_get_compat_drawable(RedMemSlotInfo *slots, int group_id,
                                    RedDrawable *red, QXLPHYSICAL addr, uint32_t flags)
 {
     QXLCompatDrawable *qxl;
@@ -1094,14 +1178,14 @@ static int red_get_compat_drawable(RedMemSlotInfo *slots, int group_id, //ZZQ
     return error;
 }
 
-int red_get_drawable(RedMemSlotInfo *slots, int group_id, //ZZQ important
+int red_get_drawable(RedMemSlotInfo *slots, int group_id,
                       RedDrawable *red, QXLPHYSICAL addr, uint32_t flags)
 {
     int ret;
 
     if (flags & QXL_COMMAND_FLAG_COMPAT) {
         ret = red_get_compat_drawable(slots, group_id, red, addr, flags);
-    } else { //ZZQ, go here
+    } else {
         ret = red_get_native_drawable(slots, group_id, red, addr, flags);
     }
     return ret;
@@ -1205,12 +1289,30 @@ void red_put_message(RedMessage *red)
     /* nothing yet */
 }
 
+static unsigned int surface_format_to_bpp(uint32_t format)
+{
+    switch (format) {
+    case SPICE_SURFACE_FMT_1_A:
+        return 1;
+    case SPICE_SURFACE_FMT_8_A:
+        return 8;
+    case SPICE_SURFACE_FMT_16_555:
+    case SPICE_SURFACE_FMT_16_565:
+        return 16;
+    case SPICE_SURFACE_FMT_32_xRGB:
+    case SPICE_SURFACE_FMT_32_ARGB:
+        return 32;
+    }
+    return 0;
+}
+
 int red_get_surface_cmd(RedMemSlotInfo *slots, int group_id,
                         RedSurfaceCmd *red, QXLPHYSICAL addr)
 {
     QXLSurfaceCmd *qxl;
-    size_t size;
+    uint64_t size;
     int error;
+    unsigned int bpp;
 
     qxl = (QXLSurfaceCmd *)get_virt(slots, addr, sizeof(*qxl), group_id,
                                     &error);
@@ -1229,7 +1331,26 @@ int red_get_surface_cmd(RedMemSlotInfo *slots, int group_id,
         red->u.surface_create.width  = qxl->u.surface_create.width;
         red->u.surface_create.height = qxl->u.surface_create.height;
         red->u.surface_create.stride = qxl->u.surface_create.stride;
-        size = red->u.surface_create.height * abs(red->u.surface_create.stride);
+        bpp = surface_format_to_bpp(red->u.surface_create.format);
+
+        /* check if format is valid */
+        if (!bpp) {
+            return 1;
+        }
+
+        /* check stride is larger than required bytes */
+        size = ((uint64_t) red->u.surface_create.width * bpp + 7u) / 8u;
+        /* the uint32_t conversion is here to avoid problems with -2^31 value */
+        if (red->u.surface_create.stride == G_MININT32
+            || size > (uint32_t) abs(red->u.surface_create.stride)) {
+            return 1;
+        }
+
+        /* the multiplication can overflow, also abs(-2^31) may return a negative value */
+        size = (uint64_t) red->u.surface_create.height * abs(red->u.surface_create.stride);
+        if (size > MAX_DATA_CHUNK) {
+            return 1;
+        }
         red->u.surface_create.data =
             (uint8_t*)get_virt(slots, qxl->u.surface_create.data, size, group_id, &error);
         if (error) {
@@ -1272,6 +1393,7 @@ static int red_get_cursor(RedMemSlotInfo *slots, int group_id,
     size = red_get_data_chunks_ptr(slots, group_id,
                                    get_memslot_id(slots, addr),
                                    &chunks, &qxl->chunk);
+    red->data_size = MIN(red->data_size, size);
     data = red_linearize_chunk(&chunks, size, &free_data);
     red_put_data_chunks(&chunks);
     if (free_data) {

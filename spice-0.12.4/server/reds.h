@@ -136,6 +136,8 @@ void reds_handle_agent_mouse_event(const VDAgentMouseState *mouse_state); // use
 extern struct SpiceCoreInterface *core;
 
 // Temporary measures to make splitting reds.c to inputs_channel.c easier
+
+/* should be called only from main_dispatcher */
 void reds_client_disconnect(RedClient *client);
 
 // Temporary (?) for splitting main channel

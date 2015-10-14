@@ -54,7 +54,7 @@ void main_channel_push_agent_disconnected(MainChannel *main_chan);
 void main_channel_client_push_agent_tokens(MainChannelClient *mcc, uint32_t num_tokens);
 void main_channel_client_push_agent_data(MainChannelClient *mcc, uint8_t* data, size_t len,
                                          spice_marshaller_item_free_func free_data, void *opaque);
-void main_channel_client_start_net_test(MainChannelClient *mcc);
+void main_channel_client_start_net_test(MainChannelClient *mcc, int test_rate);
 // TODO: huge. Consider making a reds_* interface for these functions
 // and calling from main.
 void main_channel_push_init(MainChannelClient *mcc, int display_channels_hint,

@@ -46,6 +46,7 @@
 #include "red_common.h"
 #include "reds.h"
 #include "migration_protocol.h"
+#include "main_dispatcher.h"
 
 #define ZERO_BUF_SIZE 4096
 
@@ -53,6 +54,8 @@
 #define NET_TEST_BYTES (1024 * 250)
 
 #define PING_INTERVAL (1000 * 10)
+
+#define CLIENT_CONNECTIVITY_TIMEOUT (30*1000) // 30 seconds
 
 static uint8_t zero_page[ZERO_BUF_SIZE] = {0};
 
@@ -175,13 +178,13 @@ int main_channel_is_connected(MainChannel *main_chan)
     return red_channel_is_connected(&main_chan->base);
 }
 
-// when disconnection occurs, let reds shutdown all channels. This will trigger the
-// real disconnection of main channel
+/*
+ * When the main channel is disconnected, disconnect the entire client.
+ */
 static void main_channel_client_on_disconnect(RedChannelClient *rcc)
 {
     spice_printerr("rcc=%p", rcc);
-    reds_client_disconnect(rcc->client);
-//    red_channel_client_disconnect(rcc);
+    main_dispatcher_client_disconnect(rcc->client);
 }
 
 RedClient *main_channel_get_client_by_link_id(MainChannel *main_chan, uint32_t connection_id)
@@ -200,16 +203,20 @@ RedClient *main_channel_get_client_by_link_id(MainChannel *main_chan, uint32_t c
 
 static int main_channel_client_push_ping(MainChannelClient *mcc, int size);
 
-void main_channel_client_start_net_test(MainChannelClient *mcc)
+void main_channel_client_start_net_test(MainChannelClient *mcc, int test_rate)
 {
     if (!mcc || mcc->net_test_id) {
         return;
     }
-    if (main_channel_client_push_ping(mcc, NET_TEST_WARMUP_BYTES)
-        && main_channel_client_push_ping(mcc, 0)
-        && main_channel_client_push_ping(mcc, NET_TEST_BYTES)) {
-        mcc->net_test_id = mcc->ping_id - 2;
-        mcc->net_test_stage = NET_TEST_STAGE_WARMUP;
+    if (test_rate) {
+        if (main_channel_client_push_ping(mcc, NET_TEST_WARMUP_BYTES)
+            && main_channel_client_push_ping(mcc, 0)
+            && main_channel_client_push_ping(mcc, NET_TEST_BYTES)) {
+            mcc->net_test_id = mcc->ping_id - 2;
+            mcc->net_test_stage = NET_TEST_STAGE_WARMUP;
+        }
+    } else {
+        red_channel_client_start_connectivity_monitoring(&mcc->base, CLIENT_CONNECTIVITY_TIMEOUT);
     }
 }
 
@@ -969,6 +976,8 @@ static int main_channel_handle_parsed(RedChannelClient *rcc, uint32_t size, uint
                     spice_printerr("net test: invalid values, latency %" PRIu64
                                " roundtrip %" PRIu64 ". assuming high"
                                "bandwidth", mcc->latency, roundtrip);
+                    red_channel_client_start_connectivity_monitoring(&mcc->base,
+                                                                     CLIENT_CONNECTIVITY_TIMEOUT);
                     break;
                 }
                 mcc->bitrate_per_sec = (uint64_t)(NET_TEST_BYTES * 8) * 1000000
@@ -979,6 +988,8 @@ static int main_channel_handle_parsed(RedChannelClient *rcc, uint32_t size, uint
                            mcc->bitrate_per_sec,
                            (double)mcc->bitrate_per_sec / 1024 / 1024,
                            main_channel_client_is_low_bandwidth(mcc) ? " LOW BANDWIDTH" : "");
+                red_channel_client_start_connectivity_monitoring(&mcc->base,
+                                                                 CLIENT_CONNECTIVITY_TIMEOUT);
                 break;
             default:
                 spice_printerr("invalid net test stage, ping id %d test id %d stage %d",
@@ -988,6 +999,11 @@ static int main_channel_handle_parsed(RedChannelClient *rcc, uint32_t size, uint
                 mcc->net_test_stage = NET_TEST_STAGE_INVALID;
             }
             break;
+        } else {
+            /*
+             * channel client monitors the connectivity using ping-pong messages
+             */
+            red_channel_client_handle_message(rcc, size, type, message);
         }
 #ifdef RED_STATISTICS
         reds_update_stat_value(roundtrip);

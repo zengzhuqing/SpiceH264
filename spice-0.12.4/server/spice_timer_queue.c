@@ -261,9 +261,7 @@ void spice_timer_queue_cb(void)
             break;
         } else {
             timer->func(timer->opaque);
-            if (timer->is_active) {
-                _spice_timer_set(timer, timer->ms, now_ms);
-            }
+            spice_timer_cancel(timer);
         }
     }
 }

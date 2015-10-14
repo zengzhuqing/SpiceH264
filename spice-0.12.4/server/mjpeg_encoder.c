@@ -624,7 +624,10 @@ static void mjpeg_encoder_adjust_params_to_bit_rate(MJpegEncoder *encoder)
         return;
     }
 
-    spice_assert(rate_control->num_recent_enc_frames);
+    if (!rate_control->num_recent_enc_frames) {
+        spice_debug("No recent encoded frames");
+        return;
+    }
 
     if (rate_control->num_recent_enc_frames < MJPEG_AVERAGE_SIZE_WINDOW &&
         rate_control->num_recent_enc_frames < rate_control->fps) {
@@ -796,7 +799,7 @@ int mjpeg_encoder_start_frame(MJpegEncoder *encoder, SpiceBitmapFmt format,
 #endif
         break;
     default:
-        spice_warning("unsupported format %d", format);
+        spice_debug("unsupported format %d", format);
         return MJPEG_ENCODER_FRAME_UNSUPPORTED;
     }
 

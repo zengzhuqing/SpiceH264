@@ -283,7 +283,7 @@ static int spice_char_device_read_from_device(SpiceCharDeviceState *dev)
     uint64_t max_send_tokens;
     int did_read = FALSE;
 
-    if (!dev->running || dev->wait_for_migrate_data) {
+    if (!dev->running || dev->wait_for_migrate_data || !dev->sin) {
         return FALSE;
     }
 
@@ -433,7 +433,7 @@ static int spice_char_device_write_to_device(SpiceCharDeviceState *dev)
     int total = 0;
     int n;
 
-    if (!dev->running || dev->wait_for_migrate_data) {
+    if (!dev->running || dev->wait_for_migrate_data || !dev->sin) {
         return 0;
     }
 

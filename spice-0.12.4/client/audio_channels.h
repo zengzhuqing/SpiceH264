@@ -18,9 +18,7 @@
 #ifndef _H_AUDIO_CHANNELS
 #define _H_AUDIO_CHANNELS
 
-#if HAVE_CELT051
 #include <celt051/celt.h>
-#endif
 
 #include "red_channel.h"
 #include "debug.h"
@@ -47,9 +45,7 @@ private:
     void handle_start(RedPeer::InMessage* message);
     void handle_stop(RedPeer::InMessage* message);
     void handle_raw_data(RedPeer::InMessage* message);
-#if HAVE_CELT051
     void handle_celt_data(RedPeer::InMessage* message);
-#endif
     void null_handler(RedPeer::InMessage* message);
     void disable();
 
@@ -61,10 +57,8 @@ private:
     WavePlaybackAbstract* _wave_player;
     uint32_t _mode;
     uint32_t _frame_bytes;
-#if HAVE_CELT051
     CELTMode *_celt_mode;
     CELTDecoder *_celt_decoder;
-#endif
     bool _playing;
     uint32_t _frame_count;
 };
@@ -102,10 +96,8 @@ private:
     Mutex _messages_lock;
     std::list<RecordSamplesMessage *> _messages;
     int _mode;
-#if HAVE_CELT051
     CELTMode *_celt_mode;
     CELTEncoder *_celt_encoder;
-#endif
     uint32_t _frame_bytes;
 
     static int data_mode;

@@ -151,10 +151,8 @@ PlaybackChannel::PlaybackChannel(RedClient& client, uint32_t id)
                  Platform::PRIORITY_HIGH)
     , _wave_player (NULL)
     , _mode (SPICE_AUDIO_DATA_MODE_INVALID)
-#if HAVE_CELT051
     , _celt_mode (NULL)
     , _celt_decoder (NULL)
-#endif
     , _playing (false)
 {
 #ifdef WAVE_CAPTURE
@@ -171,9 +169,7 @@ PlaybackChannel::PlaybackChannel(RedClient& client, uint32_t id)
 
     handler->set_handler(SPICE_MSG_PLAYBACK_MODE, &PlaybackChannel::handle_mode);
 
-#if HAVE_CELT051
     set_capability(SPICE_PLAYBACK_CAP_CELT_0_5_1);
-#endif
 }
 
 void PlaybackChannel::clear()
@@ -186,7 +182,6 @@ void PlaybackChannel::clear()
     }
     _mode = SPICE_AUDIO_DATA_MODE_INVALID;
 
-#if HAVE_CELT051
     if (_celt_decoder) {
         celt051_decoder_destroy(_celt_decoder);
         _celt_decoder = NULL;
@@ -196,7 +191,6 @@ void PlaybackChannel::clear()
         celt051_mode_destroy(_celt_mode);
         _celt_mode = NULL;
     }
-#endif
 }
 
 void PlaybackChannel::on_disconnect()
@@ -220,10 +214,8 @@ void PlaybackChannel::set_data_handler()
 
     if (_mode == SPICE_AUDIO_DATA_MODE_RAW) {
         handler->set_handler(SPICE_MSG_PLAYBACK_DATA, &PlaybackChannel::handle_raw_data);
-#if HAVE_CELT051
     } else if (_mode == SPICE_AUDIO_DATA_MODE_CELT_0_5_1) {
         handler->set_handler(SPICE_MSG_PLAYBACK_DATA, &PlaybackChannel::handle_celt_data);
-#endif
     } else {
         THROW("invalid mode");
     }
@@ -232,11 +224,8 @@ void PlaybackChannel::set_data_handler()
 void PlaybackChannel::handle_mode(RedPeer::InMessage* message)
 {
     SpiceMsgPlaybackMode* playbacke_mode = (SpiceMsgPlaybackMode*)message->data();
-    if (playbacke_mode->mode != SPICE_AUDIO_DATA_MODE_RAW
-#if HAVE_CELT051
-        && playbacke_mode->mode != SPICE_AUDIO_DATA_MODE_CELT_0_5_1
-#endif
-       ) {
+    if (playbacke_mode->mode != SPICE_AUDIO_DATA_MODE_RAW &&
+        playbacke_mode->mode != SPICE_AUDIO_DATA_MODE_CELT_0_5_1) {
         THROW("invalid mode");
     }
 
@@ -276,6 +265,9 @@ void PlaybackChannel::handle_start(RedPeer::InMessage* message)
     start_wave();
 #endif
     if (!_wave_player) {
+        // for now support only one setting
+        int celt_mode_err;
+
         if (start->format != SPICE_AUDIO_FMT_S16) {
             THROW("unexpected format");
         }
@@ -292,10 +284,6 @@ void PlaybackChannel::handle_start(RedPeer::InMessage* message)
             return;
         }
 
-#if HAVE_CELT051
-        // for now support only one setting
-        int celt_mode_err;
-
         if (!(_celt_mode = celt051_mode_create(start->frequency, start->channels,
                                                frame_size, &celt_mode_err))) {
             THROW("create celt mode failed %d", celt_mode_err);
@@ -304,7 +292,6 @@ void PlaybackChannel::handle_start(RedPeer::InMessage* message)
         if (!(_celt_decoder = celt051_decoder_create(_celt_mode))) {
             THROW("create celt decoder");
         }
-#endif
     }
     _playing = true;
     _frame_count = 0;
@@ -346,7 +333,6 @@ void PlaybackChannel::handle_raw_data(RedPeer::InMessage* message)
     _wave_player->write(data);
 }
 
-#if HAVE_CELT051
 void PlaybackChannel::handle_celt_data(RedPeer::InMessage* message)
 {
     SpiceMsgPlaybackPacket* packet = (SpiceMsgPlaybackPacket*)message->data();
@@ -366,7 +352,6 @@ void PlaybackChannel::handle_celt_data(RedPeer::InMessage* message)
     }
     _wave_player->write((uint8_t *)pcm);
 }
-#endif
 
 class PlaybackFactory: public ChannelFactory {
 public:

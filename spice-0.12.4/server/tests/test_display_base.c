@@ -64,7 +64,7 @@ static int rects = 16; //number of rects that will be draw
 static int has_automated_tests = 0; //automated test flag
 
 __attribute__((noreturn))
-static void sigchld_handler(int signal_num) // wait for the child process and exit
+static void sigchld_handler(SPICE_GNUC_UNUSED int signal_num) // wait for the child process and exit
 {
     int status;
     wait(&status);
@@ -88,11 +88,11 @@ static void regression_test(void)
     pid = fork();
     if (pid == 0) {
         char buf[PATH_MAX];
-        char *argp[] = {NULL};
+        char *argv[] = { NULL };
         char *envp[] = {buf, NULL};
 
         snprintf(buf, sizeof(buf), "PATH=%s", getenv("PATH"));
-        execve("regression_test.py", argp, envp);
+        execve("regression_test.py", argv, envp);
     } else if (pid > 0) {
         return;
     }
@@ -216,7 +216,7 @@ static SimpleSpiceUpdate *test_spice_create_update_solid(uint32_t surface_id, QX
     uint32_t *dst;
     uint32_t bw;
     uint32_t bh;
-    int i;
+    uint32_t i;
 
     bw = bbox.right - bbox.left;
     bh = bbox.bottom - bbox.top;
@@ -413,19 +413,22 @@ static void attache_worker(QXLInstance *qin, QXLWorker *_qxl_worker)
     test->qxl_worker->start(test->qxl_worker);
 }
 
-static void set_compression_level(QXLInstance *qin, int level)
+static void set_compression_level(SPICE_GNUC_UNUSED QXLInstance *qin,
+                                  SPICE_GNUC_UNUSED int level)
 {
     printf("%s\n", __func__);
 }
 
-static void set_mm_time(QXLInstance *qin, uint32_t mm_time)
+static void set_mm_time(SPICE_GNUC_UNUSED QXLInstance *qin,
+                        SPICE_GNUC_UNUSED uint32_t mm_time)
 {
 }
 
 // we now have a secondary surface
 #define MAX_SURFACE_NUM 2
 
-static void get_init_info(QXLInstance *qin, QXLDevInitInfo *info)
+static void get_init_info(SPICE_GNUC_UNUSED QXLInstance *qin,
+                          QXLDevInitInfo *info)
 {
     memset(info, 0, sizeof(*info));
     info->num_memslots = 1;
@@ -449,7 +452,7 @@ struct QXLCommandExt* commands[1024];
 
 static void push_command(QXLCommandExt *ext)
 {
-    ASSERT(commands_end - commands_start < COMMANDS_SIZE);
+    ASSERT(commands_end - commands_start < (int) COMMANDS_SIZE);
     commands[commands_end % COMMANDS_SIZE] = ext;
     commands_end++;
 }
@@ -468,7 +471,8 @@ static int get_num_commands(void)
 }
 
 // called from spice_server thread (i.e. red_worker thread)
-static int get_command(QXLInstance *qin, struct QXLCommandExt *ext)
+static int get_command(SPICE_GNUC_UNUSED QXLInstance *qin,
+                       struct QXLCommandExt *ext)
 {
     if (get_num_commands() == 0) {
         return FALSE;
@@ -549,6 +553,8 @@ static void produce_command(Test *test)
                 update = test_spice_create_update_solid(command->solid.surface_id,
                         command->solid.bbox, command->solid.color);
                 break;
+            default: /* Just to shut up GCC warning (-Wswitch) */
+                break;
             }
             push_command(&update->ext);
             break;
@@ -618,7 +624,8 @@ static void do_wakeup(void *opaque)
     test->qxl_worker->wakeup(test->qxl_worker);
 }
 
-static void release_resource(QXLInstance *qin, struct QXLReleaseInfoExt release_info)
+static void release_resource(SPICE_GNUC_UNUSED QXLInstance *qin,
+                             struct QXLReleaseInfoExt release_info)
 {
     QXLCommandExt *ext = (QXLCommandExt*)(unsigned long)release_info.info->id;
     //printf("%s\n", __func__);
@@ -714,24 +721,25 @@ static int get_cursor_command(QXLInstance *qin, struct QXLCommandExt *ext)
     return TRUE;
 }
 
-static int req_cursor_notification(QXLInstance *qin)
+static int req_cursor_notification(SPICE_GNUC_UNUSED QXLInstance *qin)
 {
     printf("%s\n", __func__);
     return TRUE;
 }
 
-static void notify_update(QXLInstance *qin, uint32_t update_id)
+static void notify_update(SPICE_GNUC_UNUSED QXLInstance *qin,
+                          SPICE_GNUC_UNUSED uint32_t update_id)
 {
     printf("%s\n", __func__);
 }
 
-static int flush_resources(QXLInstance *qin)
+static int flush_resources(SPICE_GNUC_UNUSED QXLInstance *qin)
 {
     printf("%s\n", __func__);
     return TRUE;
 }
 
-static int client_monitors_config(QXLInstance *qin,
+static int client_monitors_config(SPICE_GNUC_UNUSED QXLInstance *qin,
                                   VDAgentMonitorsConfig *monitors_config)
 {
     if (!monitors_config) {
@@ -787,36 +795,16 @@ void test_add_display_interface(Test* test)
     spice_server_add_interface(test->server, &test->qxl_instance.base);
 }
 
-static int vmc_write(SpiceCharDeviceInstance *sin, const uint8_t *buf, int len)
-{
-    printf("%s: %d\n", __func__, len);
-    return len;
-}
-
-static int vmc_read(SpiceCharDeviceInstance *sin, uint8_t *buf, int len)
-{
-    printf("%s: %d\n", __func__, len);
-    return 0;
-}
-
-static void vmc_state(SpiceCharDeviceInstance *sin, int connected)
-{
-    printf("%s: %d\n", __func__, connected);
-}
-
-static SpiceCharDeviceInterface vdagent_sif = {
-    .base.type          = SPICE_INTERFACE_CHAR_DEVICE,
-    .base.description   = "test spice virtual channel char device",
-    .base.major_version = SPICE_INTERFACE_CHAR_DEVICE_MAJOR,
-    .base.minor_version = SPICE_INTERFACE_CHAR_DEVICE_MINOR,
-    .state              = vmc_state,
-    .write              = vmc_write,
-    .read               = vmc_read,
+static SpiceBaseInterface base = {
+    .type          = SPICE_INTERFACE_CHAR_DEVICE,
+    .description   = "test spice virtual channel char device",
+    .major_version = SPICE_INTERFACE_CHAR_DEVICE_MAJOR,
+    .minor_version = SPICE_INTERFACE_CHAR_DEVICE_MINOR,
 };
 
 SpiceCharDeviceInstance vdagent_sin = {
     .base = {
-        .sif = &vdagent_sif.base,
+        .sif = &base,
     },
     .subtype = "vdagent",
 };
