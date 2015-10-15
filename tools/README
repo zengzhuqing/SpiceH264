@@ -2,7 +2,7 @@ About env prepare
 1.yasm install
 git clone --depth 1 git://github.com/yasm/yasm.git
 cd yasm
-nstalltoreconf -fiv
+autoreconf -fiv
 ./configure --prefix=/home/zengzhuqing/install --bindir=/home/zengzhuqing/bin
 make && make install
     
@@ -21,7 +21,7 @@ make && make install
 5.install x264
 git clone --depth 1 git://git.videolan.org/x264
 cd x264
-./configure --prefix=/home/zengzhuqing/install --bindir=/home/zengzhuqing/bin
+./configure --prefix=/home/zengzhuqing/install --bindir=/home/zengzhuqing/bin --enable-static --enable-shared
 make && make install
 
 About Usage
