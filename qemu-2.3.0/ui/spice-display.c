@@ -217,12 +217,11 @@ static void qemu_spice_create_update(SimpleSpiceDisplay *ssd) //ZZQ
     //ZZQ update full screen other than a small picture 
     QXLRect update = {
         .top    = 0,
-        .bottom = 768,
+        .bottom = surface_height(ssd->ds),
         .left   = 0,
-        .right  = 1280,
+        .right  = surface_width(ssd->ds),
      };
     qemu_spice_create_one_update(ssd, &update);
-    fprintf(stderr, "[ZZQ] %s\n", __func__);
 #endif
 #if 0
     for (y = ssd->dirty.top; y < ssd->dirty.bottom; y++) {
