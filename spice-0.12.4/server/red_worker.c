@@ -85,7 +85,7 @@
 #include "red_time.h"
 
 //#define COMPRESS_STAT
-//#define DUMP_BITMAP
+#define DUMP_BITMAP
 //#define PIPE_DEBUG
 //#define RED_WORKER_STAT
 //#define DRAW_ALL
@@ -12373,7 +12373,7 @@ static void dump_bitmap(RedWorker *worker, SpiceBitmap *bitmap, uint32_t group_i
     file_size = bitmap_data_offset + (bitmap->y * row_size);
 
     id = ++file_id;
-    sprintf(file_str, "%s/%u.bmp", RAM_PATH, id);
+    sprintf(file_str, "%s/%05u.bmp", RAM_PATH, id);
 
     f = fopen(file_str, "wb");
     if (!f) {
