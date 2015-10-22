@@ -31,3 +31,10 @@ About Usage
 4.convert_to_yuv.sh: Generate test yuv image file
 5.yuv_merge.sh: Merge all raw yuv image file to a file
 6.yuv2h264: Encode yuv file to h264 video
+7.h264toyuv:Decode h264 video to yuv stream
+
+About H264 encode and decode
+x264 is the best lossy video encoder. only when use --qp 0 if will encode a lossless video
+1.I have check that if encode losslessly, bin/h264toyuv can decode a yuv file no different from origin yuv stream;
+2.I have check that if encode lossy, bin/h264toyuv can decode a yuv file different from origin yuv stream(lossy), 
+but the same as ffmpeg cmd line decoder  
