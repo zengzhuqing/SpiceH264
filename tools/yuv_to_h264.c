@@ -40,7 +40,7 @@ int main(int argc, char **argv){
 
     /* Apply profile restrictions. */
     /* the same as x264 command line parameter --profile baseline */
-    if(x264_param_apply_profile(&param, "high") < 0)
+    if(x264_param_apply_profile(&param, "baseline") < 0)
         goto fail;
 
     if(x264_picture_alloc(&pic, param.i_csp, param.i_width, param.i_height) < 0)
