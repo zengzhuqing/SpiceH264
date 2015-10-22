@@ -3,4 +3,5 @@ tags
 build-spice-protocol
 build-spice
 build-qemu
+build-spice-gtk
 *.pyc
