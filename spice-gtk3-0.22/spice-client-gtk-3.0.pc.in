@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: spice-client-gtk-3.0
+Description: SPICE Client Gtk 3.0 library
+Version: @VERSION@
+
+Requires: @SPICE_GTK_REQUIRES@ spice-client-glib-2.0
+Libs: -L${libdir} -lspice-client-gtk-3.0
+Cflags: -I${includedir}/spice-client-gtk-3.0

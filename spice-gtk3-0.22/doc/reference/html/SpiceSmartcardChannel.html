@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Smartcard Channel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="prev" href="SpiceRecordChannel.html" title="Record Channel">
+<link rel="next" href="SpiceUsbredirChannel.html" title="USB Redirection Channel">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="SpiceRecordChannel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Spice-GTK Reference Manual</th>
+<td><a accesskey="n" href="SpiceUsbredirChannel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#SpiceSmartcardChannel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#SpiceSmartcardChannel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#SpiceSmartcardChannel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="SpiceSmartcardChannel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceSmartcardChannel.top_of_page"></a>Smartcard Channel</span></h2>
+<p>Smartcard Channel — smartcard authentication</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceSmartcardChannel.stability-level"></a><h2>Stability Level</h2>
+API Stable (channel in development), unless otherwise indicated
+</div>
+<div class="refsynopsisdiv">
+<a name="SpiceSmartcardChannel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;channel-smartcard.h&gt;
+
+struct              <a class="link" href="SpiceSmartcardChannel.html#SpiceSmartcardChannel-struct" title="struct SpiceSmartcardChannel">SpiceSmartcardChannel</a>;
+struct              <a class="link" href="SpiceSmartcardChannel.html#SpiceSmartcardChannelClass" title="struct SpiceSmartcardChannelClass">SpiceSmartcardChannelClass</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardChannel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----<a class="link" href="SpiceChannel.html" title="Spice Channel">SpiceChannel</a>
+         +----SpiceSmartcardChannel
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardChannel.description"></a><h2>Description</h2>
+<p>
+The Spice protocol defines a set of messages to forward smartcard
+information from the Spice client to the VM. This channel handles
+these messages. While it's mainly focus on smartcard readers and
+smartcards, it's also possible to use it with a software smartcard
+(ie a set of 3 certificates from the client machine).
+This class doesn't provide useful methods, see <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> properties
+for a way to enable/disable this channel, and <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a>
+if you want to detect smartcard reader hotplug/unplug, and smartcard
+insertion/removal.
+</p>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardChannel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="SpiceSmartcardChannel-struct"></a><h3>struct SpiceSmartcardChannel</h3>
+<pre class="programlisting">struct SpiceSmartcardChannel;</pre>
+<p>
+The <a class="link" href="SpiceSmartcardChannel.html" title="Smartcard Channel"><span class="type">SpiceSmartcardChannel</span></a> struct is opaque and should not be accessed directly.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSmartcardChannelClass"></a><h3>struct SpiceSmartcardChannelClass</h3>
+<pre class="programlisting">struct SpiceSmartcardChannelClass {
+    SpiceChannelClass parent_class;
+
+    /* signals */
+};
+</pre>
+<p>
+Class structure for <a class="link" href="SpiceSmartcardChannel.html" title="Smartcard Channel"><span class="type">SpiceSmartcardChannel</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><a class="link" href="SpiceChannel.html#SpiceChannelClass" title="SpiceChannelClass"><span class="type">SpiceChannelClass</span></a> <em class="structfield"><code><a name="SpiceSmartcardChannelClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>Parent class.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardChannel.see-also"></a><h2>See Also</h2>
+<a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a>, <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

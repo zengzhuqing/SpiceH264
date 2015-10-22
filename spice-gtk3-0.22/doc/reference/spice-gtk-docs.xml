@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<book id="index">
+  <bookinfo>
+    <title>Spice-GTK Reference Manual</title>
+<!--
+    <releaseinfo>
+      for spice-gtk [VERSION].
+      The latest version of this documentation can be found on-line at
+      <ulink role="online-location" url="http://[SERVER]/spice-gtk/index.html">http://[SERVER]/spice-gtk/</ulink>.
+    </releaseinfo>
+-->
+  </bookinfo>
+
+  <part id="api-reference">
+    <title>API Reference</title>
+    <chapter>
+      <title>Object Hierarchy</title>
+      <xi:include href="xml/tree_index.sgml" />
+    </chapter>
+
+    <chapter>
+      <title>Session and Channels Objects, from spice-client-glib</title>
+      <xi:include href="xml/spice-session.xml"/>
+      <xi:include href="xml/spice-channel.xml"/>
+
+      <xi:include href="xml/channel-cursor.xml"/>
+      <xi:include href="xml/channel-display.xml"/>
+      <xi:include href="xml/channel-inputs.xml"/>
+      <xi:include href="xml/channel-main.xml"/>
+      <xi:include href="xml/channel-playback.xml"/>
+      <xi:include href="xml/channel-record.xml"/>
+      <xi:include href="xml/channel-smartcard.xml"/>
+      <xi:include href="xml/channel-usbredir.xml"/>
+      <xi:include href="xml/channel-port.xml"/>
+    </chapter>
+
+    <chapter>
+      <title>GTK Widget, from spice-client-gtk</title>
+      <xi:include href="xml/spice-gtk-session.xml"/>
+      <xi:include href="xml/spice-widget.xml"/>
+      <xi:include href="xml/usb-device-widget.xml"/>
+    </chapter>
+
+    <chapter id="application-support">
+      <title>Application Support, from spice-client-glib</title>
+      <xi:include href="xml/spice-audio.xml"/>
+      <xi:include href="xml/smartcard-manager.xml"/>
+      <xi:include href="xml/usb-device-manager.xml"/>
+      <xi:include href="xml/spice-util.xml"/>
+    </chapter>
+
+  </part>
+
+  <chapter id="object-tree">
+    <title>Object Hierarchy</title>
+     <xi:include href="xml/tree_index.sgml"/>
+  </chapter>
+  <index id="api-index-full">
+    <title>API Index</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+  </index>
+  <!--
+      <index role="2.26">
+      <title>Index of new symbols in 2.26</title>
+      <xi:include href="xml/api-index-2.26.xml"><xi:fallback/></xi:include>
+      </index>
+  -->
+  <index id="api-index-deprecated" role="deprecated">
+    <title>Index of deprecated symbols</title>
+    <xi:include href="xml/api-index-deprecated.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
+</book>

@@ -1,0 +1,6 @@
+The following people contributed significantly to spice-gtk:
+
+Gerd Hoffmann <kraxel@redhat.com> - original author
+Marc-André Lureau <marcandre.lureau@redhat.com> - maintainer
+Hans de Goede <hdegoede@redhat.com> - usb redirection
+Christophe Fergeau <cfergeau@redhat.com> - smartcard

@@ -1,0 +1,239 @@
+#!Nsis Installer Command Script
+#
+# This is an NSIS Installer Command Script generated automatically
+# by the Fedora nsiswrapper program.  For more information see:
+#
+#   http://fedoraproject.org/wiki/MinGW
+#
+# To build an installer from the script you would normally do:
+#
+#   makensis spicy.nsis
+#
+# which will generate the output file 'spicy-@VERSION@.exe' which is a Windows
+# installer containing your program.
+
+Name "spicy"
+OutFile "spicy-@VERSION@.exe"
+InstallDir "c:\spicy"
+InstallDirRegKey HKLM SOFTWARE\spicy "Install_Dir"
+
+ShowInstDetails hide
+ShowUninstDetails hide
+
+# Uncomment this to enable BZip2 compression, which results in
+# slightly smaller files but uses more memory at install time.
+SetCompressor bzip2
+
+XPStyle on
+
+Page components
+Page directory
+Page instfiles
+
+ComponentText "Select which optional components you want to install."
+
+DirText "Please select the installation folder."
+
+Section "spicy"
+  SectionIn RO
+
+  SetOutPath "$INSTDIR\bin"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-discoverer-0.10.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-feedback.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-inspect-0.10.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-inspect.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-launch-0.10.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-launch.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-typefind-0.10.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-typefind.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-xmlinspect-0.10.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-xmlinspect.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-xmllaunch-0.10.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/gst-xmllaunch.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libatk-1.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libcairo-2.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libcelt051-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libcrypto-10.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libexpat-1.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libffi-6.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libfontconfig-1.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libfreetype-6.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgdk-win32-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgdk-win32-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgdk_pixbuf-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgdk_pixbuf-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgio-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libglib-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgmodule-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgobject-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgstapp-0.10-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgstaudio-0.10-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgstbase-0.10-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgstcontroller-0.10-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgstfft-0.10-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgstinterfaces-0.10-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgstpbutils-0.10-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgstreamer-0.10-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgstvideo-0.10-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgthread-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libgtk-win32-2.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/iconv.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libintl-8.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libjpeg-62.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/liborc-0.4-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/liborc-test-0.4-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpango-1.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpangocairo-1.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpangoft2-1.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpangowin32-1.0-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpixman-1-0.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libpng15-15.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libspice-client-glib-2.0-1.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libspice-client-gtk-2.0-1.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libssl-10.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/libxml2-2.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/pango-querymodules.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/snappy.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/spicy.exe"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/bin/zlib1.dll"
+
+  SetOutPath "$INSTDIR\etc"
+  File /r "/usr/i686-w64-mingw32/sys-root/mingw/etc/fonts"
+  File /r "/usr/i686-w64-mingw32/sys-root/mingw/etc/gtk-2.0"
+  CreateDirectory "$INSTDIR\etc\pango"
+
+  SetOutPath "$INSTDIR\etc\gtk-2.0"
+  File /r "gtkrc"
+
+  SetOutPath "$INSTDIR\lib"
+  File /r "/usr/i686-w64-mingw32/sys-root/mingw/lib/gdk-pixbuf-2.0"
+  File /r "/usr/i686-w64-mingw32/sys-root/mingw/lib/gtk-2.0"
+  File /r "/usr/i686-w64-mingw32/sys-root/mingw/lib/pango"
+
+  SetOutPath "$INSTDIR\lib\gstreamer-0.10"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstapp.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstaudioconvert.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstaudiofx.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstaudiorate.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstaudioresample.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstaudiotestsrc.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstautodetect.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstcoreelements.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstdirectsoundsink.dll"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/lib/gstreamer-0.10/libgstdirectsoundsrc.dll"
+
+  SetOutPath "$INSTDIR\share\themes\MS-Windows\gtk-2.0"
+  File "/usr/i686-w64-mingw32/sys-root/mingw/share/themes/MS-Windows/gtk-2.0/gtkrc"
+
+  ReadEnvStr $0 COMSPEC
+  SetOutPath "$INSTDIR"
+  nsExec::ExecToLog '$0 /C bin\pango-querymodules.exe > etc\pango\pango.modules'
+SectionEnd
+
+Section "Start Menu Shortcuts"
+  CreateDirectory "$SMPROGRAMS\spicy"
+  CreateShortCut "$SMPROGRAMS\spicy\Uninstall spicy.lnk" "$INSTDIR\Uninstall spicy.exe" "" "$INSTDIR\Uninstall spicy.exe" 0
+  CreateShortCut "$SMPROGRAMS\spicy\spicy.exe.lnk" "$INSTDIR\bin\spicy.exe" "" "$INSTDIR\bin\spicy.exe" 0
+SectionEnd
+
+Section "Desktop Icons"
+  CreateShortCut "$DESKTOP\spicy.exe.lnk" "$INSTDIR\bin\spicy.exe" "" "$INSTDIR\bin\spicy.exe" 0
+SectionEnd
+
+Section "Uninstall"
+  Delete /rebootok "$DESKTOP\spicy.exe.lnk"
+  Delete /rebootok "$SMPROGRAMS\spicy\spicy.exe.lnk"
+  Delete /rebootok "$SMPROGRAMS\spicy\Uninstall spicy.lnk"
+  RMDir "$SMPROGRAMS\spicy"
+
+  RMDir /r "$INSTDIR\lib\pango"
+
+  RMDir /r "$INSTDIR\lib\gtk-2.0"
+
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstdirectsoundsrc.dll"
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstdirectsoundsink.dll"
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstcoreelements.dll"
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstautodetect.dll"
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstaudiotestsrc.dll"
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstaudioresample.dll"
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstaudiorate.dll"
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstaudiofx.dll"
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstaudioconvert.dll"
+  Delete /rebootok "$INSTDIR\lib\gstreamer-0.10\libgstapp.dll"
+  RMDir "$INSTDIR\lib\gstreamer-0.10"
+
+  RMDir /r "$INSTDIR\lib\gdk-pixbuf-2.0"
+
+  RMDir /r "$INSTDIR\etc\pango"
+
+  RMDir /r "$INSTDIR\etc\gtk-2.0"
+
+  RMDir /r "$INSTDIR\etc\fonts"
+
+  Delete /rebootok "$INSTDIR\bin\spicy.exe"
+  Delete /rebootok "$INSTDIR\bin\snappy.exe"
+  Delete /rebootok "$INSTDIR\bin\pango-querymodules.exe"
+  Delete /rebootok "$INSTDIR\bin\libpangoft2-1.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgdk_pixbuf-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgdk-win32-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\gst-xmllaunch.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-xmllaunch-0.10.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-xmlinspect.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-xmlinspect-0.10.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-typefind.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-typefind-0.10.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-launch.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-launch-0.10.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-inspect.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-inspect-0.10.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-feedback.exe"
+  Delete /rebootok "$INSTDIR\bin\gst-discoverer-0.10.exe"
+  RMDir "$INSTDIR\bin"
+
+  Delete /rebootok "$INSTDIR\bin\libffi-6.dll"
+  Delete /rebootok "$INSTDIR\bin\zlib1.dll"
+  Delete /rebootok "$INSTDIR\bin\libxml2-2.dll"
+  Delete /rebootok "$INSTDIR\bin\libssl-10.dll"
+  Delete /rebootok "$INSTDIR\bin\libspice-client-gtk-2.0-1.dll"
+  Delete /rebootok "$INSTDIR\bin\libspice-client-glib-2.0-1.dll"
+  Delete /rebootok "$INSTDIR\bin\libpng15-15.dll"
+  Delete /rebootok "$INSTDIR\bin\libpixman-1-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libpangowin32-1.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libpangocairo-1.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libpango-1.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\liborc-test-0.4-0.dll"
+  Delete /rebootok "$INSTDIR\bin\liborc-0.4-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libjpeg-62.dll"
+  Delete /rebootok "$INSTDIR\bin\libintl-8.dll"
+  Delete /rebootok "$INSTDIR\bin\iconv.dll"
+  Delete /rebootok "$INSTDIR\bin\libgtk-win32-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgthread-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgstvideo-0.10-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgstreamer-0.10-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgstpbutils-0.10-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgstinterfaces-0.10-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgstfft-0.10-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgstcontroller-0.10-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgstbase-0.10-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgstaudio-0.10-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgstapp-0.10-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgobject-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgmodule-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libglib-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgio-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgdk_pixbuf-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libgdk-win32-2.0-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libfreetype-6.dll"
+  Delete /rebootok "$INSTDIR\bin\libfontconfig-1.dll"
+  Delete /rebootok "$INSTDIR\bin\libexpat-1.dll"
+  Delete /rebootok "$INSTDIR\bin\libcrypto-10.dll"
+  Delete /rebootok "$INSTDIR\bin\libcelt051-0.dll"
+  Delete /rebootok "$INSTDIR\bin\libcairo-2.dll"
+  Delete /rebootok "$INSTDIR\bin\libatk-1.0-0.dll"
+  RMDir "$INSTDIR\bin"
+  RMDir "$INSTDIR"
+SectionEnd
+
+Section -post
+  WriteUninstaller "$INSTDIR\Uninstall spicy.exe"
+SectionEnd

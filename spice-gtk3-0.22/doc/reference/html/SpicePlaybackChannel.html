@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Playback Channel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="prev" href="SpiceMainChannel.html" title="Main Channel">
+<link rel="next" href="SpiceRecordChannel.html" title="Record Channel">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="SpiceMainChannel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Spice-GTK Reference Manual</th>
+<td><a accesskey="n" href="SpiceRecordChannel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#SpicePlaybackChannel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#SpicePlaybackChannel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#SpicePlaybackChannel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#SpicePlaybackChannel.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#SpicePlaybackChannel.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="SpicePlaybackChannel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpicePlaybackChannel.top_of_page"></a>Playback Channel</span></h2>
+<p>Playback Channel — audio stream for playback</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpicePlaybackChannel.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv">
+<a name="SpicePlaybackChannel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;channel-playback.h&gt;
+
+struct              <a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-struct" title="struct SpicePlaybackChannel">SpicePlaybackChannel</a>;
+struct              <a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannelClass" title="struct SpicePlaybackChannelClass">SpicePlaybackChannelClass</a>;
+<span class="returnvalue">void</span>                <a class="link" href="SpicePlaybackChannel.html#spice-playback-channel-set-delay" title="spice_playback_channel_set_delay ()">spice_playback_channel_set_delay</a>    (<em class="parameter"><code><a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> *channel</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> delay_ms</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpicePlaybackChannel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----<a class="link" href="SpiceChannel.html" title="Spice Channel">SpiceChannel</a>
+         +----SpicePlaybackChannel
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpicePlaybackChannel.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel--min-latency" title='The "min-latency" property'>min-latency</a>"              <span class="type">guint</span>                 : Read / Write
+  "<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel--mute" title='The "mute" property'>mute</a>"                     <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel--nchannels" title='The "nchannels" property'>nchannels</a>"                <span class="type">guint</span>                 : Read / Write
+  "<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel--volume" title='The "volume" property'>volume</a>"                   <span class="type">gpointer</span>              : Read / Write
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpicePlaybackChannel.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-data" title='The "playback-data" signal'>playback-data</a>"                                  : <code class="literal">Run First</code>
+  "<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-get-delay" title='The "playback-get-delay" signal'>playback-get-delay</a>"                             : <code class="literal">Run First</code>
+  "<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-start" title='The "playback-start" signal'>playback-start</a>"                                 : <code class="literal">Run First</code>
+  "<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-stop" title='The "playback-stop" signal'>playback-stop</a>"                                  : <code class="literal">Run First</code>
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpicePlaybackChannel.description"></a><h2>Description</h2>
+<p>
+<a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> class handles an audio playback stream. The
+audio data is received via <a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-data" title='The "playback-data" signal'><span class="type">"playback-data"</span></a>
+signal, and is controlled by the guest with
+<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-stop" title='The "playback-stop" signal'><span class="type">"playback-stop"</span></a> and
+<a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-start" title='The "playback-start" signal'><span class="type">"playback-start"</span></a> signal events.
+</p>
+<p>
+Note: You may be interested to let the <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a> class play and
+record audio channels for your application.
+</p>
+</div>
+<div class="refsect1">
+<a name="SpicePlaybackChannel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="SpicePlaybackChannel-struct"></a><h3>struct SpicePlaybackChannel</h3>
+<pre class="programlisting">struct SpicePlaybackChannel;</pre>
+<p>
+The <a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> struct is opaque and should not be accessed directly.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpicePlaybackChannelClass"></a><h3>struct SpicePlaybackChannelClass</h3>
+<pre class="programlisting">struct SpicePlaybackChannelClass {
+    SpiceChannelClass parent_class;
+
+    /* signals */
+    void (*playback_start)(SpicePlaybackChannel *channel,
+                           gint format, gint channels, gint freq);
+    void (*playback_data)(SpicePlaybackChannel *channel, gpointer *data, gint size);
+    void (*playback_stop)(SpicePlaybackChannel *channel);
+};
+</pre>
+<p>
+Class structure for <a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="SpiceChannel.html#SpiceChannelClass" title="SpiceChannelClass"><span class="type">SpiceChannelClass</span></a> <em class="structfield"><code><a name="SpicePlaybackChannelClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>Parent class.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="SpicePlaybackChannelClass.playback-start"></a>playback_start</code></em> ()</span></p></td>
+<td>Signal class handler for the <a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-start" title='The "playback-start" signal'><span class="type">"playback-start"</span></a> signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="SpicePlaybackChannelClass.playback-data"></a>playback_data</code></em> ()</span></p></td>
+<td>Signal class handler for the <a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-data" title='The "playback-data" signal'><span class="type">"playback-data"</span></a> signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="SpicePlaybackChannelClass.playback-stop"></a>playback_stop</code></em> ()</span></p></td>
+<td>Signal class handler for the <a class="link" href="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-stop" title='The "playback-stop" signal'><span class="type">"playback-stop"</span></a> signal.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-playback-channel-set-delay"></a><h3>spice_playback_channel_set_delay ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                spice_playback_channel_set_delay    (<em class="parameter"><code><a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> *channel</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> delay_ms</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpicePlaybackChannel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpicePlaybackChannel--min-latency"></a><h3>The <code class="literal">"min-latency"</code> property</h3>
+<pre class="programlisting">  "min-latency"              <span class="type">guint</span>                 : Read / Write</pre>
+<p>Playback min buffer size (ms).</p>
+<p>Default value: 200</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpicePlaybackChannel--mute"></a><h3>The <code class="literal">"mute"</code> property</h3>
+<pre class="programlisting">  "mute"                     <span class="type">gboolean</span>              : Read / Write</pre>
+<p>Mute.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpicePlaybackChannel--nchannels"></a><h3>The <code class="literal">"nchannels"</code> property</h3>
+<pre class="programlisting">  "nchannels"                <span class="type">guint</span>                 : Read / Write</pre>
+<p>Number of Channels.</p>
+<p>Allowed values: &lt;= 255</p>
+<p>Default value: 2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpicePlaybackChannel--volume"></a><h3>The <code class="literal">"volume"</code> property</h3>
+<pre class="programlisting">  "volume"                   <span class="type">gpointer</span>              : Read / Write</pre>
+<p>Playback volume.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpicePlaybackChannel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="SpicePlaybackChannel-playback-data"></a><h3>The <code class="literal">"playback-data"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> *channel,
+                                                        <span class="type">gpointer</span>              data,
+                                                        <span class="type">gint</span>                  data_size,
+                                                        <span class="type">gpointer</span>              user_data)      : <code class="literal">Run First</code></pre>
+<p>
+Provide audio data to be played.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>the <a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer to audio data</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data_size</code></em> :</span></p></td>
+<td>size in byte of <em class="parameter"><code>data</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpicePlaybackChannel-playback-get-delay"></a><h3>The <code class="literal">"playback-get-delay"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> *channel,
+                                                        <span class="type">gpointer</span>              user_data)      : <code class="literal">Run First</code></pre>
+<p>
+Notify when the current playback delay is requested
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>the <a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpicePlaybackChannel-playback-start"></a><h3>The <code class="literal">"playback-start"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> *channel,
+                                                        <span class="type">gint</span>                  format,
+                                                        <span class="type">gint</span>                  channels,
+                                                        <span class="type">gint</span>                  rate,
+                                                        <span class="type">gpointer</span>              user_data)      : <code class="literal">Run First</code></pre>
+<p>
+Notify when the playback should start, and provide audio format
+characteristics.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>the <a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>a <span class="type">SPICE_AUDIO_FMT</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channels</code></em> :</span></p></td>
+<td>number of channels</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>rate</code></em> :</span></p></td>
+<td>audio rate</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>latency</code></em> :</span></p></td>
+<td>minimum playback latency in ms</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpicePlaybackChannel-playback-stop"></a><h3>The <code class="literal">"playback-stop"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> *channel,
+                                                        <span class="type">gpointer</span>              user_data)      : <code class="literal">Run First</code></pre>
+<p>
+Notify when the playback should stop.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>the <a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpicePlaybackChannel.see-also"></a><h2>See Also</h2>
+<a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>, and <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

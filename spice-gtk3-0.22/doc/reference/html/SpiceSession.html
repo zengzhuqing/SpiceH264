@@ -1,0 +1,871 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice Session</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="prev" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="next" href="SpiceChannel.html" title="Spice Channel">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ch02.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Spice-GTK Reference Manual</th>
+<td><a accesskey="n" href="SpiceChannel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#SpiceSession.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#SpiceSession.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#SpiceSession.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#SpiceSession.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#SpiceSession.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="SpiceSession"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceSession.top_of_page"></a>Spice Session</span></h2>
+<p>Spice Session — handles connection details, and active channels</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceSession.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv">
+<a name="SpiceSession.synopsis"></a><h2>Synopsis</h2>
+<a name="SpiceSessionMigration"></a><a name="SpiceSessionVerify"></a><pre class="synopsis">
+#include &lt;spice-session.h&gt;
+
+                    <a class="link" href="SpiceSession.html#SpiceSession-struct" title="SpiceSession">SpiceSession</a>;
+                    <a class="link" href="SpiceSession.html#SpiceSessionClass" title="SpiceSessionClass">SpiceSessionClass</a>;
+<a class="link" href="SpiceSession.html" title="Spice Session"><span class="returnvalue">SpiceSession</span></a> *      <a class="link" href="SpiceSession.html#spice-session-new" title="spice_session_new ()">spice_session_new</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="SpiceSession.html#spice-session-connect" title="spice_session_connect ()">spice_session_connect</a>               (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="SpiceSession.html#spice-session-open-fd" title="spice_session_open_fd ()">spice_session_open_fd</a>               (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="SpiceSession.html#spice-session-disconnect" title="spice_session_disconnect ()">spice_session_disconnect</a>            (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);
+<span class="returnvalue">GList</span> *             <a class="link" href="SpiceSession.html#spice-session-get-channels" title="spice_session_get_channels ()">spice_session_get_channels</a>          (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="SpiceSession.html#spice-session-get-read-only" title="spice_session_get_read_only ()">spice_session_get_read_only</a>         (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="SpiceSession.html#spice-session-has-channel-type" title="spice_session_has_channel_type ()">spice_session_has_channel_type</a>      (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> type</code></em>);
+
+enum                <a class="link" href="SpiceSession.html#SpiceSessionMigration-enum" title="enum SpiceSessionMigration">SpiceSessionMigration</a>;
+enum                <a class="link" href="SpiceSession.html#SpiceSessionVerify-enum" title="enum SpiceSessionVerify">SpiceSessionVerify</a>;
+<span class="returnvalue">GOptionGroup</span> *      <a class="link" href="SpiceSession.html#spice-get-option-group" title="spice_get_option_group ()">spice_get_option_group</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="SpiceSession.html#spice-set-session-option" title="spice_set_session_option ()">spice_set_session_option</a>            (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);
+
+enum                <a class="link" href="SpiceSession.html#SpiceClientError" title="enum SpiceClientError">SpiceClientError</a>;
+#define             <a class="link" href="SpiceSession.html#SPICE-CLIENT-ERROR:CAPS" title="SPICE_CLIENT_ERROR">SPICE_CLIENT_ERROR</a>
+<span class="returnvalue">GQuark</span>              <a class="link" href="SpiceSession.html#spice-client-error-quark" title="spice_client_error_quark ()">spice_client_error_quark</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----SpiceSession
+</pre>
+<pre class="synopsis">
+  GEnum
+   +----SpiceSessionMigration
+</pre>
+<pre class="synopsis">
+  GFlags
+   +----SpiceSessionVerify
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="SpiceSession.html#SpiceSession--ca" title='The "ca" property'>ca</a>"                       <span class="type">GByteArray</span>*           : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--ca-file" title='The "ca-file" property'>ca-file</a>"                  <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--cache-size" title='The "cache-size" property'>cache-size</a>"               <span class="type">gint</span>                  : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--cert-subject" title='The "cert-subject" property'>cert-subject</a>"             <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--ciphers" title='The "ciphers" property'>ciphers</a>"                  <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--client-sockets" title='The "client-sockets" property'>client-sockets</a>"           <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--color-depth" title='The "color-depth" property'>color-depth</a>"              <span class="type">gint</span>                  : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--disable-effects" title='The "disable-effects" property'>disable-effects</a>"          <span class="type">GStrv</span>                 : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--enable-audio" title='The "enable-audio" property'>enable-audio</a>"             <span class="type">gboolean</span>              : Read / Write / Construct
+  "<a class="link" href="SpiceSession.html#SpiceSession--enable-smartcard" title='The "enable-smartcard" property'>enable-smartcard</a>"         <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--enable-usbredir" title='The "enable-usbredir" property'>enable-usbredir</a>"          <span class="type">gboolean</span>              : Read / Write / Construct
+  "<a class="link" href="SpiceSession.html#SpiceSession--glz-window-size" title='The "glz-window-size" property'>glz-window-size</a>"          <span class="type">gint</span>                  : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--host" title='The "host" property'>host</a>"                     <span class="type">gchar</span>*                : Read / Write / Construct
+  "<a class="link" href="SpiceSession.html#SpiceSession--inhibit-keyboard-grab" title='The "inhibit-keyboard-grab" property'>inhibit-keyboard-grab</a>"    <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--migration-state" title='The "migration-state" property'>migration-state</a>"          <a class="link" href="SpiceSession.html#SpiceSessionMigration"><span class="type">SpiceSessionMigration</span></a>  : Read
+  "<a class="link" href="SpiceSession.html#SpiceSession--name" title='The "name" property'>name</a>"                     <span class="type">gchar</span>*                : Read
+  "<a class="link" href="SpiceSession.html#SpiceSession--password" title='The "password" property'>password</a>"                 <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--port" title='The "port" property'>port</a>"                     <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--protocol" title='The "protocol" property'>protocol</a>"                 <span class="type">gint</span>                  : Read / Write / Construct
+  "<a class="link" href="SpiceSession.html#SpiceSession--proxy" title='The "proxy" property'>proxy</a>"                    <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--pubkey" title='The "pubkey" property'>pubkey</a>"                   <span class="type">GByteArray</span>*           : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--read-only" title='The "read-only" property'>read-only</a>"                <span class="type">gboolean</span>              : Read / Write / Construct
+  "<a class="link" href="SpiceSession.html#SpiceSession--secure-channels" title='The "secure-channels" property'>secure-channels</a>"          <span class="type">GStrv</span>                 : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--smartcard-certificates" title='The "smartcard-certificates" property'>smartcard-certificates</a>"   <span class="type">GStrv</span>                 : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--smartcard-db" title='The "smartcard-db" property'>smartcard-db</a>"             <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--tls-port" title='The "tls-port" property'>tls-port</a>"                 <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--uri" title='The "uri" property'>uri</a>"                      <span class="type">gchar</span>*                : Read / Write
+  "<a class="link" href="SpiceSession.html#SpiceSession--uuid" title='The "uuid" property'>uuid</a>"                     <span class="type">gpointer</span>              : Read
+  "<a class="link" href="SpiceSession.html#SpiceSession--verify" title='The "verify" property'>verify</a>"                   <a class="link" href="SpiceSession.html#SpiceSessionVerify"><span class="type">SpiceSessionVerify</span></a>    : Read / Write / Construct
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="SpiceSession.html#SpiceSession-channel-destroy" title='The "channel-destroy" signal'>channel-destroy</a>"                                : <code class="literal">Run First</code>
+  "<a class="link" href="SpiceSession.html#SpiceSession-channel-new" title='The "channel-new" signal'>channel-new</a>"                                    : <code class="literal">Run First</code>
+  "<a class="link" href="SpiceSession.html#SpiceSession-mm-time-reset" title='The "mm-time-reset" signal'>mm-time-reset</a>"                                  : <code class="literal">Run First</code>
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.description"></a><h2>Description</h2>
+<p>
+The <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> class handles all the <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> connections.
+It's also the class that contains connections informations, such as
+<a class="link" href="SpiceSession.html#SpiceSession--host" title='The "host" property'><span class="type">"host"</span></a> and <a class="link" href="SpiceSession.html#SpiceSession--port" title='The "port" property'><span class="type">"port"</span></a>.
+</p>
+<p>
+You can simply set the property <a class="link" href="SpiceSession.html#SpiceSession--uri" title='The "uri" property'><span class="type">"uri"</span></a> to something like
+"spice://127.0.0.1?port=5930" to configure your connection details.
+</p>
+<p>
+You may want to connect to <a class="link" href="SpiceSession.html#SpiceSession-channel-new" title='The "channel-new" signal'><span class="type">"channel-new"</span></a> signal, to be
+informed of the availability of channels and to interact with
+them.
+</p>
+<p>
+For example, when the <a class="link" href="SpiceInputsChannel.html" title="Inputs Channel"><span class="type">SpiceInputsChannel</span></a> is available and get the
+event <a class="link" href="SpiceChannel.html#SPICE-CHANNEL-OPENED:CAPS"><span class="type">SPICE_CHANNEL_OPENED</span></a>, you can send key events with
+<a class="link" href="SpiceInputsChannel.html#spice-inputs-key-press" title="spice_inputs_key_press ()"><code class="function">spice_inputs_key_press()</code></a>. When the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> is available,
+you can start sharing the clipboard...  .
+</p>
+<p>
+Once <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> properties set, you can call
+<a class="link" href="SpiceSession.html#spice-session-connect" title="spice_session_connect ()"><code class="function">spice_session_connect()</code></a> to start connecting and communicating with
+a Spice server.
+</p>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="SpiceSession-struct"></a><h3>SpiceSession</h3>
+<pre class="programlisting">typedef struct _SpiceSession SpiceSession;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSessionClass"></a><h3>SpiceSessionClass</h3>
+<pre class="programlisting">typedef struct {
+    GObjectClass parent_class;
+
+    /* signals */
+    void (*channel_new)(SpiceSession *session, SpiceChannel *channel);
+    void (*channel_destroy)(SpiceSession *session, SpiceChannel *channel);
+} SpiceSessionClass;
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-new"></a><h3>spice_session_new ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceSession.html" title="Spice Session"><span class="returnvalue">SpiceSession</span></a> *      spice_session_new                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new Spice session.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-connect"></a><h3>spice_session_connect ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            spice_session_connect               (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>
+Open the session using the <a class="link" href="SpiceSession.html#SpiceSession--host" title='The "host" property'><span class="type">"host"</span></a> and
+<a class="link" href="SpiceSession.html#SpiceSession--port" title='The "port" property'><span class="type">"port"</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<code class="literal">FALSE</code> if the connection failed.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-open-fd"></a><h3>spice_session_open_fd ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            spice_session_open_fd               (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>);</pre>
+<p>
+Open the session using the provided <em class="parameter"><code>fd</code></em> socket file
+descriptor. This is useful if you create the fd yourself, for
+example to setup a SSH tunnel.
+</p>
+<p>
+If <em class="parameter"><code>fd</code></em> is -1, a valid fd will be requested later via the
+SpiceChannel::open-fd signal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>fd</code></em> :</span></p></td>
+<td>a file descriptor (socket) or -1</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-disconnect"></a><h3>spice_session_disconnect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                spice_session_disconnect            (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>
+Disconnect the <em class="parameter"><code>session</code></em>, and destroy all channels.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-get-channels"></a><h3>spice_session_get_channels ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *             spice_session_get_channels          (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>
+Get the list of current channels associated with this <em class="parameter"><code>session</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <span class="type">GList</span>
+of unowned <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> channels. <span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> SpiceChannel][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-get-read-only"></a><h3>spice_session_get_read_only ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            spice_session_get_read_only         (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>wether the <em class="parameter"><code>session</code></em> is in read-only mode.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-has-channel-type"></a><h3>spice_session_has_channel_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            spice_session_has_channel_type      (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> type</code></em>);</pre>
+<p>
+See if there is a <em class="parameter"><code>type</code></em> channel in the channels associated with this
+<em class="parameter"><code>session</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if a <em class="parameter"><code>type</code></em> channel is available otherwise FALSE.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSessionMigration-enum"></a><h3>enum SpiceSessionMigration</h3>
+<pre class="programlisting">typedef enum {
+    SPICE_SESSION_MIGRATION_NONE,
+    SPICE_SESSION_MIGRATION_SWITCHING,
+    SPICE_SESSION_MIGRATION_MIGRATING,
+} SpiceSessionMigration;
+</pre>
+<p>
+Session migration state.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="SPICE-SESSION-MIGRATION-NONE:CAPS"></a><span class="term"><code class="literal">SPICE_SESSION_MIGRATION_NONE</code></span></p></td>
+<td>no migration going on
+</td>
+</tr>
+<tr>
+<td><p><a name="SPICE-SESSION-MIGRATION-SWITCHING:CAPS"></a><span class="term"><code class="literal">SPICE_SESSION_MIGRATION_SWITCHING</code></span></p></td>
+<td>the session is switching host (destroy and reconnect)
+</td>
+</tr>
+<tr>
+<td><p><a name="SPICE-SESSION-MIGRATION-MIGRATING:CAPS"></a><span class="term"><code class="literal">SPICE_SESSION_MIGRATION_MIGRATING</code></span></p></td>
+<td>the session is migrating seamlessly (reconnect)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSessionVerify-enum"></a><h3>enum SpiceSessionVerify</h3>
+<pre class="programlisting">typedef enum {
+    SPICE_SESSION_VERIFY_PUBKEY   = (1 &lt;&lt; 0),
+    SPICE_SESSION_VERIFY_HOSTNAME = (1 &lt;&lt; 1),
+    SPICE_SESSION_VERIFY_SUBJECT  = (1 &lt;&lt; 2),
+} SpiceSessionVerify;
+</pre>
+<p>
+Peer certificate verification parameters flags.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="SPICE-SESSION-VERIFY-PUBKEY:CAPS"></a><span class="term"><code class="literal">SPICE_SESSION_VERIFY_PUBKEY</code></span></p></td>
+<td>verify certificate public key matching
+</td>
+</tr>
+<tr>
+<td><p><a name="SPICE-SESSION-VERIFY-HOSTNAME:CAPS"></a><span class="term"><code class="literal">SPICE_SESSION_VERIFY_HOSTNAME</code></span></p></td>
+<td>verify certificate hostname matching
+</td>
+</tr>
+<tr>
+<td><p><a name="SPICE-SESSION-VERIFY-SUBJECT:CAPS"></a><span class="term"><code class="literal">SPICE_SESSION_VERIFY_SUBJECT</code></span></p></td>
+<td>verify certificate subject matching
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-get-option-group"></a><h3>spice_get_option_group ()</h3>
+<pre class="programlisting"><span class="returnvalue">GOptionGroup</span> *      spice_get_option_group              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <span class="type">GOptionGroup</span> for the commandline
+arguments specific to Spice.  You have to call
+<a class="link" href="SpiceSession.html#spice-set-session-option" title="spice_set_session_option ()"><code class="function">spice_set_session_option()</code></a> after to set the options on a
+<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-set-session-option"></a><h3>spice_set_session_option ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                spice_set_session_option            (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>
+Set various properties on <em class="parameter"><code>session</code></em>, according to the commandline
+arguments given to <a class="link" href="SpiceSession.html#spice-get-option-group" title="spice_get_option_group ()"><code class="function">spice_get_option_group()</code></a> option group.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> to set option upon</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceClientError"></a><h3>enum SpiceClientError</h3>
+<pre class="programlisting">typedef enum {
+    SPICE_CLIENT_ERROR_FAILED,
+    SPICE_CLIENT_USB_DEVICE_REJECTED,
+    SPICE_CLIENT_USB_DEVICE_LOST,
+} SpiceClientError;
+</pre>
+<p>
+Error codes returned by spice-client API.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="SPICE-CLIENT-ERROR-FAILED:CAPS"></a><span class="term"><code class="literal">SPICE_CLIENT_ERROR_FAILED</code></span></p></td>
+<td>generic error code
+</td>
+</tr>
+<tr>
+<td><p><a name="SPICE-CLIENT-USB-DEVICE-REJECTED:CAPS"></a><span class="term"><code class="literal">SPICE_CLIENT_USB_DEVICE_REJECTED</code></span></p></td>
+<td></td>
+</tr>
+<tr>
+<td><p><a name="SPICE-CLIENT-USB-DEVICE-LOST:CAPS"></a><span class="term"><code class="literal">SPICE_CLIENT_USB_DEVICE_LOST</code></span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SPICE-CLIENT-ERROR:CAPS"></a><h3>SPICE_CLIENT_ERROR</h3>
+<pre class="programlisting">#define SPICE_CLIENT_ERROR spice_client_error_quark()
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-client-error-quark"></a><h3>spice_client_error_quark ()</h3>
+<pre class="programlisting"><span class="returnvalue">GQuark</span>              spice_client_error_quark            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpiceSession--ca"></a><h3>The <code class="literal">"ca"</code> property</h3>
+<pre class="programlisting">  "ca"                       <span class="type">GByteArray</span>*           : Read / Write</pre>
+<p>
+CA certificates in PEM format. The text data can contain
+several CA certificates identified by:
+</p>
+<p>
+ -----BEGIN CERTIFICATE-----
+ ... (CA certificate in base64 encoding) ...
+ -----END CERTIFICATE-----
+</p>
+<p class="since">Since 0.15</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--ca-file"></a><h3>The <code class="literal">"ca-file"</code> property</h3>
+<pre class="programlisting">  "ca-file"                  <span class="type">gchar</span>*                : Read / Write</pre>
+<p>
+File holding the CA certificates for the host the client is
+connecting to
+</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--cache-size"></a><h3>The <code class="literal">"cache-size"</code> property</h3>
+<pre class="programlisting">  "cache-size"               <span class="type">gint</span>                  : Read / Write</pre>
+<p>
+Images cache size. If 0, don't set.
+</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--cert-subject"></a><h3>The <code class="literal">"cert-subject"</code> property</h3>
+<pre class="programlisting">  "cert-subject"             <span class="type">gchar</span>*                : Read / Write</pre>
+<p>Certificate subject to check.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--ciphers"></a><h3>The <code class="literal">"ciphers"</code> property</h3>
+<pre class="programlisting">  "ciphers"                  <span class="type">gchar</span>*                : Read / Write</pre>
+<p>SSL cipher list.</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--client-sockets"></a><h3>The <code class="literal">"client-sockets"</code> property</h3>
+<pre class="programlisting">  "client-sockets"           <span class="type">gboolean</span>              : Read / Write</pre>
+<p>Sockets are provided by the client.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--color-depth"></a><h3>The <code class="literal">"color-depth"</code> property</h3>
+<pre class="programlisting">  "color-depth"              <span class="type">gint</span>                  : Read / Write</pre>
+<p>
+Display color depth to set on new display channels. If 0, don't set.
+</p>
+<p>Allowed values: [0,32]</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--disable-effects"></a><h3>The <code class="literal">"disable-effects"</code> property</h3>
+<pre class="programlisting">  "disable-effects"          <span class="type">GStrv</span>                 : Read / Write</pre>
+<p>
+A string array of effects to disable. The settings will
+be applied on new display channels. The following effets can be
+disabled "wallpaper", "font-smooth", "animation", and "all",
+which will disable all the effects. If NULL, don't apply changes.
+</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--enable-audio"></a><h3>The <code class="literal">"enable-audio"</code> property</h3>
+<pre class="programlisting">  "enable-audio"             <span class="type">gboolean</span>              : Read / Write / Construct</pre>
+<p>
+If set to TRUE, the audio channels will be enabled for
+playback and recording.
+</p>
+<p>Default value: TRUE</p>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--enable-smartcard"></a><h3>The <code class="literal">"enable-smartcard"</code> property</h3>
+<pre class="programlisting">  "enable-smartcard"         <span class="type">gboolean</span>              : Read / Write</pre>
+<p>
+If set to TRUE, the smartcard channel will be enabled and smartcard
+events will be forwarded to the guest
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--enable-usbredir"></a><h3>The <code class="literal">"enable-usbredir"</code> property</h3>
+<pre class="programlisting">  "enable-usbredir"          <span class="type">gboolean</span>              : Read / Write / Construct</pre>
+<p>
+If set to TRUE, the usbredir channel will be enabled and USB devices
+can be redirected to the guest
+</p>
+<p>Default value: TRUE</p>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--glz-window-size"></a><h3>The <code class="literal">"glz-window-size"</code> property</h3>
+<pre class="programlisting">  "glz-window-size"          <span class="type">gint</span>                  : Read / Write</pre>
+<p>
+Glz window size. If 0, don't set.
+</p>
+<p>Allowed values: [0,134217728]</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--host"></a><h3>The <code class="literal">"host"</code> property</h3>
+<pre class="programlisting">  "host"                     <span class="type">gchar</span>*                : Read / Write / Construct</pre>
+<p>
+URL of the SPICE host to connect to
+</p>
+<p>Default value: "localhost"</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--inhibit-keyboard-grab"></a><h3>The <code class="literal">"inhibit-keyboard-grab"</code> property</h3>
+<pre class="programlisting">  "inhibit-keyboard-grab"    <span class="type">gboolean</span>              : Read / Write</pre>
+<p>Request that SpiceDisplays don't grab the keyboard.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--migration-state"></a><h3>The <code class="literal">"migration-state"</code> property</h3>
+<pre class="programlisting">  "migration-state"          <a class="link" href="SpiceSession.html#SpiceSessionMigration"><span class="type">SpiceSessionMigration</span></a>  : Read</pre>
+<p>
+<a class="link" href="SpiceSession.html#SpiceSessionMigration"><span class="type">SpiceSessionMigration</span></a> bit field indicating if a migration is in
+progress
+</p>
+<p>Default value: SPICE_SESSION_MIGRATION_NONE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--name"></a><h3>The <code class="literal">"name"</code> property</h3>
+<pre class="programlisting">  "name"                     <span class="type">gchar</span>*                : Read</pre>
+<p>
+Spice server name.
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--password"></a><h3>The <code class="literal">"password"</code> property</h3>
+<pre class="programlisting">  "password"                 <span class="type">gchar</span>*                : Read / Write</pre>
+<p>
+TLS password to use
+</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--port"></a><h3>The <code class="literal">"port"</code> property</h3>
+<pre class="programlisting">  "port"                     <span class="type">gchar</span>*                : Read / Write</pre>
+<p>
+Port to connect to for unencrypted sessions
+</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--protocol"></a><h3>The <code class="literal">"protocol"</code> property</h3>
+<pre class="programlisting">  "protocol"                 <span class="type">gint</span>                  : Read / Write / Construct</pre>
+<p>
+Version of the SPICE protocol to use
+</p>
+<p>Allowed values: [1,2]</p>
+<p>Default value: 2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--proxy"></a><h3>The <code class="literal">"proxy"</code> property</h3>
+<pre class="programlisting">  "proxy"                    <span class="type">gchar</span>*                : Read / Write</pre>
+<p>
+URI to the proxy server to use when doing network connection.
+of the form  [protocol://]&lt;host&gt;[:port] 
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.17</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--pubkey"></a><h3>The <code class="literal">"pubkey"</code> property</h3>
+<pre class="programlisting">  "pubkey"                   <span class="type">GByteArray</span>*           : Read / Write</pre>
+<p>Public key to check.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--read-only"></a><h3>The <code class="literal">"read-only"</code> property</h3>
+<pre class="programlisting">  "read-only"                <span class="type">gboolean</span>              : Read / Write / Construct</pre>
+<p>
+Whether this connection is read-only mode.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--secure-channels"></a><h3>The <code class="literal">"secure-channels"</code> property</h3>
+<pre class="programlisting">  "secure-channels"          <span class="type">GStrv</span>                 : Read / Write</pre>
+<p>
+A string array of channel types to be secured.
+</p>
+<p class="since">Since 0.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--smartcard-certificates"></a><h3>The <code class="literal">"smartcard-certificates"</code> property</h3>
+<pre class="programlisting">  "smartcard-certificates"   <span class="type">GStrv</span>                 : Read / Write</pre>
+<p>
+This property is used when one wants to simulate a smartcard with no
+hardware smartcard reader. If it's set to a NULL-terminated string
+array containing the names of 3 valid certificates, these will be
+used to simulate a smartcard in the guest
+See also <a class="link" href="SpiceSmartcardManager.html#spice-smartcard-manager-insert-card" title="spice_smartcard_manager_insert_card ()"><code class="function">spice_smartcard_manager_insert_card()</code></a>
+</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--smartcard-db"></a><h3>The <code class="literal">"smartcard-db"</code> property</h3>
+<pre class="programlisting">  "smartcard-db"             <span class="type">gchar</span>*                : Read / Write</pre>
+<p>
+Path to the NSS certificate database containing the certificates to
+use to simulate a software smartcard
+</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--tls-port"></a><h3>The <code class="literal">"tls-port"</code> property</h3>
+<pre class="programlisting">  "tls-port"                 <span class="type">gchar</span>*                : Read / Write</pre>
+<p>
+Port to connect to for TLS sessions
+</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--uri"></a><h3>The <code class="literal">"uri"</code> property</h3>
+<pre class="programlisting">  "uri"                      <span class="type">gchar</span>*                : Read / Write</pre>
+<p>
+URI of the SPICE host to connect to. The URI is of the form
+spice://hostname?port=XXX or spice://hostname?tls_port=XXX
+</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--uuid"></a><h3>The <code class="literal">"uuid"</code> property</h3>
+<pre class="programlisting">  "uuid"                     <span class="type">gpointer</span>              : Read</pre>
+<p>
+Spice server uuid.
+</p>
+<p class="since">Since 0.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--verify"></a><h3>The <code class="literal">"verify"</code> property</h3>
+<pre class="programlisting">  "verify"                   <a class="link" href="SpiceSession.html#SpiceSessionVerify"><span class="type">SpiceSessionVerify</span></a>    : Read / Write / Construct</pre>
+<p>
+<a class="link" href="SpiceSession.html#SpiceSessionVerify"><span class="type">SpiceSessionVerify</span></a> bit field indicating which parts of the peer
+certificate should be checked
+</p>
+<p>Default value: SPICE_SESSION_VERIFY_HOSTNAME</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="SpiceSession-channel-destroy"></a><h3>The <code class="literal">"channel-destroy"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session,
+                                                        <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel,
+                                                        <span class="type">gpointer</span>      user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="SpiceSession.html#SpiceSession-channel-destroy" title='The "channel-destroy" signal'><span class="type">"channel-destroy"</span></a> signal is emitted each time a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> is destroyed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>the session that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>the destroyed <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession-channel-new"></a><h3>The <code class="literal">"channel-new"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session,
+                                                        <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel,
+                                                        <span class="type">gpointer</span>      user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="SpiceSession.html#SpiceSession-channel-new" title='The "channel-new" signal'><span class="type">"channel-new"</span></a> signal is emitted each time a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> is created.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>the session that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel</code></em> :</span></p></td>
+<td>the new <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession-mm-time-reset"></a><h3>The <code class="literal">"mm-time-reset"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session,
+                                                        <span class="type">gpointer</span>      user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="SpiceSession.html#SpiceSession-mm-time-reset" title='The "mm-time-reset" signal'><span class="type">"mm-time-reset"</span></a> is emitted when we identify discontinuity in mm-time
+</p>
+<p>
+Since 0.20
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>the session that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.see-also"></a><h2>See Also</h2>
+<a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>, and the GTK widget <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

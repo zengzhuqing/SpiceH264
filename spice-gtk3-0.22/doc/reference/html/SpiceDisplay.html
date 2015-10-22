@@ -1,0 +1,733 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice Display</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch03.html" title="GTK Widget, from spice-client-gtk">
+<link rel="prev" href="SpiceGtkSession.html" title="Spice GTK Session">
+<link rel="next" href="SpiceUsbDeviceWidget.html" title="Spice USB device selection widget">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="SpiceGtkSession.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Spice-GTK Reference Manual</th>
+<td><a accesskey="n" href="SpiceUsbDeviceWidget.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#SpiceDisplay.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#SpiceDisplay.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#SpiceDisplay.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#SpiceDisplay.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#SpiceDisplay.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#SpiceDisplay.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="SpiceDisplay"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceDisplay.top_of_page"></a>Spice Display</span></h2>
+<p>Spice Display — a GTK display widget</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceDisplay.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv">
+<a name="SpiceDisplay.synopsis"></a><h2>Synopsis</h2>
+<a name="SpiceGrabSequence"></a><pre class="synopsis">
+#include &lt;spice-widget.h&gt;
+
+struct              <a class="link" href="SpiceDisplay.html#SpiceDisplay-struct" title="struct SpiceDisplay">SpiceDisplay</a>;
+struct              <a class="link" href="SpiceDisplay.html#SpiceDisplayClass" title="struct SpiceDisplayClass">SpiceDisplayClass</a>;
+enum                <a class="link" href="SpiceDisplay.html#SpiceDisplayKeyEvent" title="enum SpiceDisplayKeyEvent">SpiceDisplayKeyEvent</a>;
+<a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="returnvalue">SpiceDisplay</span></a> *      <a class="link" href="SpiceDisplay.html#spice-display-new" title="spice_display_new ()">spice_display_new</a>                   (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> channel_id</code></em>);
+<a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="returnvalue">SpiceDisplay</span></a> *      <a class="link" href="SpiceDisplay.html#spice-display-new-with-monitor" title="spice_display_new_with_monitor ()">spice_display_new_with_monitor</a>      (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> channel_id</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> monitor_id</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="SpiceDisplay.html#spice-display-mouse-ungrab" title="spice_display_mouse_ungrab ()">spice_display_mouse_ungrab</a>          (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="SpiceDisplay.html#spice-display-copy-to-guest" title="spice_display_copy_to_guest ()">spice_display_copy_to_guest</a>         (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="SpiceDisplay.html#spice-display-paste-from-guest" title="spice_display_paste_from_guest ()">spice_display_paste_from_guest</a>      (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="SpiceDisplay.html#spice-display-set-grab-keys" title="spice_display_set_grab_keys ()">spice_display_set_grab_keys</a>         (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="type">SpiceGrabSequence</span></a> *seq</code></em>);
+<a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="returnvalue">SpiceGrabSequence</span></a> * <a class="link" href="SpiceDisplay.html#spice-display-get-grab-keys" title="spice_display_get_grab_keys ()">spice_display_get_grab_keys</a>         (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="SpiceDisplay.html#spice-display-send-keys" title="spice_display_send_keys ()">spice_display_send_keys</a>             (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">guint</span> *keyvals</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> nkeyvals</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceDisplayKeyEvent" title="enum SpiceDisplayKeyEvent"><span class="type">SpiceDisplayKeyEvent</span></a> kind</code></em>);
+<span class="returnvalue">GdkPixbuf</span> *         <a class="link" href="SpiceDisplay.html#spice-display-get-pixbuf" title="spice_display_get_pixbuf ()">spice_display_get_pixbuf</a>            (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);
+
+struct              <a class="link" href="SpiceDisplay.html#SpiceGrabSequence-struct" title="struct SpiceGrabSequence">SpiceGrabSequence</a>;
+<a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="returnvalue">SpiceGrabSequence</span></a> * <a class="link" href="SpiceDisplay.html#spice-grab-sequence-new" title="spice_grab_sequence_new ()">spice_grab_sequence_new</a>             (<em class="parameter"><code><span class="type">guint</span> nkeysyms</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> *keysyms</code></em>);
+<a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="returnvalue">SpiceGrabSequence</span></a> * <a class="link" href="SpiceDisplay.html#spice-grab-sequence-new-from-string" title="spice_grab_sequence_new_from_string ()">spice_grab_sequence_new_from_string</a> (<em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);
+<a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="returnvalue">SpiceGrabSequence</span></a> * <a class="link" href="SpiceDisplay.html#spice-grab-sequence-copy" title="spice_grab_sequence_copy ()">spice_grab_sequence_copy</a>            (<em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="type">SpiceGrabSequence</span></a> *sequence</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="SpiceDisplay.html#spice-grab-sequence-free" title="spice_grab_sequence_free ()">spice_grab_sequence_free</a>            (<em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="type">SpiceGrabSequence</span></a> *sequence</code></em>);
+<span class="returnvalue">gchar</span> *             <a class="link" href="SpiceDisplay.html#spice-grab-sequence-as-string" title="spice_grab_sequence_as_string ()">spice_grab_sequence_as_string</a>       (<em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="type">SpiceGrabSequence</span></a> *sequence</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplay.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----GtkWidget
+               +----GtkDrawingArea
+                     +----SpiceDisplay
+</pre>
+<pre class="synopsis">
+  GBoxed
+   +----SpiceGrabSequence
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplay.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+SpiceDisplay implements
+ AtkImplementorIface and  GtkBuildable.</p>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplay.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--auto-clipboard" title='The "auto-clipboard" property'>auto-clipboard</a>"           <span class="type">gboolean</span>              : Read / Write
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--channel-id" title='The "channel-id" property'>channel-id</a>"               <span class="type">gint</span>                  : Read / Write / Construct Only
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--disable-inputs" title='The "disable-inputs" property'>disable-inputs</a>"           <span class="type">gboolean</span>              : Read / Write / Construct
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--grab-keyboard" title='The "grab-keyboard" property'>grab-keyboard</a>"            <span class="type">gboolean</span>              : Read / Write / Construct
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--grab-mouse" title='The "grab-mouse" property'>grab-mouse</a>"               <span class="type">gboolean</span>              : Read / Write / Construct
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--keypress-delay" title='The "keypress-delay" property'>keypress-delay</a>"           <span class="type">guint</span>                 : Read / Write / Construct
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--monitor-id" title='The "monitor-id" property'>monitor-id</a>"               <span class="type">gint</span>                  : Read / Write / Construct
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--only-downscale" title='The "only-downscale" property'>only-downscale</a>"           <span class="type">gboolean</span>              : Read / Write / Construct
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--ready" title='The "ready" property'>ready</a>"                    <span class="type">gboolean</span>              : Read
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--resize-guest" title='The "resize-guest" property'>resize-guest</a>"             <span class="type">gboolean</span>              : Read / Write / Construct
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--scaling" title='The "scaling" property'>scaling</a>"                  <span class="type">gboolean</span>              : Read / Write / Construct
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--session" title='The "session" property'>session</a>"                  <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>*         : Read / Write / Construct Only
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay--zoom-level" title='The "zoom-level" property'>zoom-level</a>"               <span class="type">gint</span>                  : Read / Write / Construct
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplay.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay-grab-keys-pressed" title='The "grab-keys-pressed" signal'>grab-keys-pressed</a>"                              : <code class="literal">Run First</code>
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay-keyboard-grab" title='The "keyboard-grab" signal'>keyboard-grab</a>"                                  : <code class="literal">Run First</code>
+  "<a class="link" href="SpiceDisplay.html#SpiceDisplay-mouse-grab" title='The "mouse-grab" signal'>mouse-grab</a>"                                     : <code class="literal">Run First</code>
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplay.description"></a><h2>Description</h2>
+<p>
+A GTK widget that displays a SPICE server. It sends keyboard/mouse
+events and can also share clipboard...
+</p>
+<p>
+Arbitrary key events can be sent thanks to <a class="link" href="SpiceDisplay.html#spice-display-send-keys" title="spice_display_send_keys ()"><code class="function">spice_display_send_keys()</code></a>.
+</p>
+<p>
+The widget will optionally grab the keyboard and the mouse when
+focused if the properties <a class="link" href="SpiceDisplay.html#SpiceDisplay--grab-keyboard" title='The "grab-keyboard" property'><span class="type">"grab-keyboard"</span></a> and
+<a class="link" href="SpiceDisplay.html#SpiceDisplay--grab-mouse" title='The "grab-mouse" property'><span class="type">"grab-mouse"</span></a> are <span class="type">TRUE</span> respectively.  It can be
+ungrabbed with <a class="link" href="SpiceDisplay.html#spice-display-mouse-ungrab" title="spice_display_mouse_ungrab ()"><code class="function">spice_display_mouse_ungrab()</code></a>, and by setting a key
+combination with <a class="link" href="SpiceDisplay.html#spice-display-set-grab-keys" title="spice_display_set_grab_keys ()"><code class="function">spice_display_set_grab_keys()</code></a>.
+</p>
+<p>
+Finally, <a class="link" href="SpiceDisplay.html#spice-display-get-pixbuf" title="spice_display_get_pixbuf ()"><code class="function">spice_display_get_pixbuf()</code></a> will take a screenshot of the
+current display and return an <span class="type">GdkPixbuf</span> (that you can then easily
+save to disk).
+</p>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplay.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="SpiceDisplay-struct"></a><h3>struct SpiceDisplay</h3>
+<pre class="programlisting">struct SpiceDisplay;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplayClass"></a><h3>struct SpiceDisplayClass</h3>
+<pre class="programlisting">struct SpiceDisplayClass {
+    GtkDrawingAreaClass parent_class;
+
+    /* signals */
+    void (*mouse_grab)(SpiceChannel *channel, gint grabbed);
+    void (*keyboard_grab)(SpiceChannel *channel, gint grabbed);
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplayKeyEvent"></a><h3>enum SpiceDisplayKeyEvent</h3>
+<pre class="programlisting">typedef enum {
+	SPICE_DISPLAY_KEY_EVENT_PRESS = 1,
+	SPICE_DISPLAY_KEY_EVENT_RELEASE = 2,
+	SPICE_DISPLAY_KEY_EVENT_CLICK = 3,
+} SpiceDisplayKeyEvent;
+</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="SPICE-DISPLAY-KEY-EVENT-PRESS:CAPS"></a><span class="term"><code class="literal">SPICE_DISPLAY_KEY_EVENT_PRESS</code></span></p></td>
+<td></td>
+</tr>
+<tr>
+<td><p><a name="SPICE-DISPLAY-KEY-EVENT-RELEASE:CAPS"></a><span class="term"><code class="literal">SPICE_DISPLAY_KEY_EVENT_RELEASE</code></span></p></td>
+<td></td>
+</tr>
+<tr>
+<td><p><a name="SPICE-DISPLAY-KEY-EVENT-CLICK:CAPS"></a><span class="term"><code class="literal">SPICE_DISPLAY_KEY_EVENT_CLICK</code></span></p></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-display-new"></a><h3>spice_display_new ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="returnvalue">SpiceDisplay</span></a> *      spice_display_new                   (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> channel_id</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel_id</code></em> :</span></p></td>
+<td>the display channel ID to associate with <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> widget.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-display-new-with-monitor"></a><h3>spice_display_new_with_monitor ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="returnvalue">SpiceDisplay</span></a> *      spice_display_new_with_monitor      (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> channel_id</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> monitor_id</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>channel_id</code></em> :</span></p></td>
+<td>the display channel ID to associate with <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>monitor_id</code></em> :</span></p></td>
+<td>the monitor id within the display channel</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> widget.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 0.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-display-mouse-ungrab"></a><h3>spice_display_mouse_ungrab ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                spice_display_mouse_ungrab          (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);</pre>
+<p>
+Ungrab the mouse.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-display-copy-to-guest"></a><h3>spice_display_copy_to_guest ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                spice_display_copy_to_guest         (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">spice_display_copy_to_guest</code> has been deprecated since version 0.8 and should not be used in newly-written code. Use <a class="link" href="SpiceGtkSession.html#spice-gtk-session-copy-to-guest" title="spice_gtk_session_copy_to_guest ()"><code class="function">spice_gtk_session_copy_to_guest()</code></a> instead</p>
+</div>
+<p>
+Copy client-side clipboard to guest clipboard.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-display-paste-from-guest"></a><h3>spice_display_paste_from_guest ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                spice_display_paste_from_guest      (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">spice_display_paste_from_guest</code> has been deprecated since version 0.8 and should not be used in newly-written code. Use <a class="link" href="SpiceGtkSession.html#spice-gtk-session-paste-from-guest" title="spice_gtk_session_paste_from_guest ()"><code class="function">spice_gtk_session_paste_from_guest()</code></a> instead</p>
+</div>
+<p>
+Copy guest clipboard to client-side clipboard.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-display-set-grab-keys"></a><h3>spice_display_set_grab_keys ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                spice_display_set_grab_keys         (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="type">SpiceGrabSequence</span></a> *seq</code></em>);</pre>
+<p>
+Set the key combination to grab/ungrab the keyboard. The default is
+"Control L + Alt L".
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>the display widget</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>seq</code></em> :</span></p></td>
+<td>key sequence. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-display-get-grab-keys"></a><h3>spice_display_get_grab_keys ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="returnvalue">SpiceGrabSequence</span></a> * spice_display_get_grab_keys         (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>the display widget</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the current grab key combination. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-display-send-keys"></a><h3>spice_display_send_keys ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                spice_display_send_keys             (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">guint</span> *keyvals</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> nkeyvals</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceDisplayKeyEvent" title="enum SpiceDisplayKeyEvent"><span class="type">SpiceDisplayKeyEvent</span></a> kind</code></em>);</pre>
+<p>
+Send keyval press/release events to the display.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>The <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>keyvals</code></em> :</span></p></td>
+<td>Keyval array. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=nkeyvals]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nkeyvals</code></em> :</span></p></td>
+<td>Length of keyvals</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>kind</code></em> :</span></p></td>
+<td>
+<a class="link" href="SpiceDisplay.html#SpiceDisplayKeyEvent" title="enum SpiceDisplayKeyEvent"><span class="type">SpiceDisplayKeyEvent</span></a> action</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-display-get-pixbuf"></a><h3>spice_display_get_pixbuf ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkPixbuf</span> *         spice_display_get_pixbuf            (<em class="parameter"><code><a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display</code></em>);</pre>
+<p>
+Take a screenshot of the display.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a <span class="type">GdkPixbuf</span> with the screenshot image buffer. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceGrabSequence-struct"></a><h3>struct SpiceGrabSequence</h3>
+<pre class="programlisting">struct SpiceGrabSequence {
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-grab-sequence-new"></a><h3>spice_grab_sequence_new ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="returnvalue">SpiceGrabSequence</span></a> * spice_grab_sequence_new             (<em class="parameter"><code><span class="type">guint</span> nkeysyms</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> *keysyms</code></em>);</pre>
+<p>
+Creates a new grab sequence from a list of keysym values
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nkeysyms</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>keysyms</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>keysyms</code></em> :</span></p></td>
+<td>the keysym values. <span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=nkeysyms]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new grab sequence object. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-grab-sequence-new-from-string"></a><h3>spice_grab_sequence_new_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="returnvalue">SpiceGrabSequence</span></a> * spice_grab_sequence_new_from_string (<em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>a string of '+' seperated key names (ex: "Control_L+Alt_L")</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="type">SpiceGrabSequence</span></a>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-grab-sequence-copy"></a><h3>spice_grab_sequence_copy ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="returnvalue">SpiceGrabSequence</span></a> * spice_grab_sequence_copy            (<em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="type">SpiceGrabSequence</span></a> *sequence</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>sequence</code></em> :</span></p></td>
+<td>sequence to copy</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a copy of <em class="parameter"><code>sequence</code></em>. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-grab-sequence-free"></a><h3>spice_grab_sequence_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                spice_grab_sequence_free            (<em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="type">SpiceGrabSequence</span></a> *sequence</code></em>);</pre>
+<p>
+Free <em class="parameter"><code>sequence</code></em>.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-grab-sequence-as-string"></a><h3>spice_grab_sequence_as_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *             spice_grab_sequence_as_string       (<em class="parameter"><code><a class="link" href="SpiceDisplay.html#SpiceGrabSequence"><span class="type">SpiceGrabSequence</span></a> *sequence</code></em>);</pre>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a newly allocated string representing the key sequence. <span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplay.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpiceDisplay--auto-clipboard"></a><h3>The <code class="literal">"auto-clipboard"</code> property</h3>
+<pre class="programlisting">  "auto-clipboard"           <span class="type">gboolean</span>              : Read / Write</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">SpiceDisplay:auto-clipboard</code> has been deprecated since version 0.8 and should not be used in newly-written code. Use SpiceGtkSession:auto-clipboard property instead</p>
+</div>
+<p>
+When this is true the clipboard gets automatically shared between host
+and guest.
+</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--channel-id"></a><h3>The <code class="literal">"channel-id"</code> property</h3>
+<pre class="programlisting">  "channel-id"               <span class="type">gint</span>                  : Read / Write / Construct Only</pre>
+<p>
+channel-id for this <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a>
+</p>
+<p>Allowed values: [0,255]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--disable-inputs"></a><h3>The <code class="literal">"disable-inputs"</code> property</h3>
+<pre class="programlisting">  "disable-inputs"           <span class="type">gboolean</span>              : Read / Write / Construct</pre>
+<p>
+Disable all keyboard &amp; mouse inputs.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--grab-keyboard"></a><h3>The <code class="literal">"grab-keyboard"</code> property</h3>
+<pre class="programlisting">  "grab-keyboard"            <span class="type">gboolean</span>              : Read / Write / Construct</pre>
+<p>Whether we should grab the keyboard.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--grab-mouse"></a><h3>The <code class="literal">"grab-mouse"</code> property</h3>
+<pre class="programlisting">  "grab-mouse"               <span class="type">gboolean</span>              : Read / Write / Construct</pre>
+<p>Whether we should grab the mouse.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--keypress-delay"></a><h3>The <code class="literal">"keypress-delay"</code> property</h3>
+<pre class="programlisting">  "keypress-delay"           <span class="type">guint</span>                 : Read / Write / Construct</pre>
+<p>
+Delay in ms of non-modifiers key press events. If the key is
+released before this delay, a single press &amp; release event is
+sent to the server. If the key is pressed longer than the
+keypress-delay, the server will receive the delayed press
+event, and a following release event when the key is released.
+</p>
+<p>Default value: 100</p>
+<p class="since">Since 0.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--monitor-id"></a><h3>The <code class="literal">"monitor-id"</code> property</h3>
+<pre class="programlisting">  "monitor-id"               <span class="type">gint</span>                  : Read / Write / Construct</pre>
+<p>
+Select monitor from <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> to show.
+The value -1 means the whole display is shown.
+By default, the monitor 0 is selected.
+</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--only-downscale"></a><h3>The <code class="literal">"only-downscale"</code> property</h3>
+<pre class="programlisting">  "only-downscale"           <span class="type">gboolean</span>              : Read / Write / Construct</pre>
+<p>
+If scaling, only scale down, never up.
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--ready"></a><h3>The <code class="literal">"ready"</code> property</h3>
+<pre class="programlisting">  "ready"                    <span class="type">gboolean</span>              : Read</pre>
+<p>
+Indicate whether the display is ready to be shown. It takes
+into account several conditions, such as the channel display
+"mark" state, whether the monitor area is visible..
+</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--resize-guest"></a><h3>The <code class="literal">"resize-guest"</code> property</h3>
+<pre class="programlisting">  "resize-guest"             <span class="type">gboolean</span>              : Read / Write / Construct</pre>
+<p>Try to adapt guest display on window resize. Requires guest cooperation.</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--scaling"></a><h3>The <code class="literal">"scaling"</code> property</h3>
+<pre class="programlisting">  "scaling"                  <span class="type">gboolean</span>              : Read / Write / Construct</pre>
+<p>Whether we should use scaling.</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--session"></a><h3>The <code class="literal">"session"</code> property</h3>
+<pre class="programlisting">  "session"                  <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>*         : Read / Write / Construct Only</pre>
+<p>
+<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> for this <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay--zoom-level"></a><h3>The <code class="literal">"zoom-level"</code> property</h3>
+<pre class="programlisting">  "zoom-level"               <span class="type">gint</span>                  : Read / Write / Construct</pre>
+<p>
+Zoom level in percentage, from 10 to 400. Default to 100.
+(this option is only supported with cairo backend when scaling
+is enabled)
+</p>
+<p>Allowed values: [10,400]</p>
+<p>Default value: 100</p>
+<p class="since">Since 0.10</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplay.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="SpiceDisplay-grab-keys-pressed"></a><h3>The <code class="literal">"grab-keys-pressed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display,
+                                                        <span class="type">gpointer</span>      user_data)      : <code class="literal">Run First</code></pre>
+<p>
+Notify when the grab keys have been pressed
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>the <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay-keyboard-grab"></a><h3>The <code class="literal">"keyboard-grab"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display,
+                                                        <span class="type">gint</span>          status,
+                                                        <span class="type">gpointer</span>      user_data)      : <code class="literal">Run First</code></pre>
+<p>
+Notify when the keyboard grab is active or not.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>the <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>status</code></em> :</span></p></td>
+<td>1 if grabbed, 0 otherwise.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplay-mouse-grab"></a><h3>The <code class="literal">"mouse-grab"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> *display,
+                                                        <span class="type">gint</span>          status,
+                                                        <span class="type">gpointer</span>      user_data)      : <code class="literal">Run First</code></pre>
+<p>
+Notify when the mouse grab is active or not.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>the <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>status</code></em> :</span></p></td>
+<td>1 if grabbed, 0 otherwise.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

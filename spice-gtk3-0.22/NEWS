@@ -1,0 +1,254 @@
+v0.22
+=====
+
+- improve inverted cursor support
+- use system-wide trust certificate store
+- make sasl support work with other method than MD5
+- fix some clipboard crasher, limit clipboard size
+- fix various regressions:
+  usbredir, alt-tab on win32, palette crash, agent notification, old
+  protocol support, sasl ending crash, gthread coroutine crash, close
+  sockets on migration, pulse backend crash
+- fix a few memory leaks
+- build-sys improvements
+
+v0.21
+=====
+
+- improve inverted cursor support
+- win32 usb redirected device uninstall fix
+- add support for libusb hotplug API
+- smartcard initialization fixes
+- c&p converts line-endings if necessary
+- rendering and overall performance improvements
+- build and bindings fixes
+
+v0.20
+=====
+
+- adaptive video streaming support (sync with PulseAudio backend only)
+- add spice_usb_device_manager_get_devices_with_filter()
+- add --spice-secure-channels to explicitely specify secure channels
+- multi-monitor, win32, USB redir fixes
+- add basic gtk+ wayland and broadway backend support
+- removed the GnomeRR code
+
+v0.19
+=====
+
+This is a bugfix only release, except the snappy name change
+- snappy has been renamed to spicy-screenshot
+- Several file-xfer fixes and improvements
+- Many win32 and USB redirection related fixes
+- Compile and work again with RHEL6 and older glib releases
+- misc fixes and improvements
+
+v0.18
+=====
+
+- Build fix with Gtk+ unstable.
+- MinGW build fixes with old headers
+- Fix USB coldplug race
+- Fixes rhbz#908057
+
+v0.17
+=====
+
+- Update spice-common with fedora 875348, 826036 fixes
+- Multi-monitor fixes (avoid monitor order shuffling, fix mouse offset
+  if monitor 0 is not at +0+0 and let agent do monitor offset)
+- Add support for VD_AGENT_CAP_SPARSE_MONITORS_CONFIG
+- Add controller & session "proxy" properties
+- Add drag and drop file copy support to send file to guest, you will
+  need capable agent to use that feature. Adds spice_main_file_copy_async()
+- Introspection fixes
+- Build fixes
+
+v0.16
+=====
+
+- Fix crash with SSL connection (#890464)
+- Send monitor config to the agent on spice_main_set_display_enabled() (#881072)
+- Fix channel leak and wrong condition in spice_channel_flush()
+- Build fixes
+
+v0.15
+=====
+
+- Add HTTP Proxy support (only with glib >= 2.26)
+- Add "port" channel support, to allow arbitrary communication on top
+  of spice connection
+- usb-redir: fix migration support
+- win32: various keyboard & mouse fixes
+- Add info message when USB dialog is empty
+- Fix initial black screen on some 16bits guest
+- Various bug fixes and improvements
+
+v0.14
+=====
+
+- Support for seamless migration
+- Improve scaling handling, add downscale-only property to give more
+  control over scaling
+- Better handle key press/release events in high-latency situations,
+  this should avoid unwanted key repetitions
+- Improve unescaping in URI parsing
+- Fix symbol versioning which was broken in 0.13
+- Fix for CVE-2012-4425
+- Various bug fixes and improvements
+
+v0.13
+=====
+
+- ABI break! SONAME has been bumped, all programs and libraries
+  linking to spice-gtk need to be recompiled against this version
+- Add support for USB device redirection on Windows
+- Add monitors config support (multiple monitors in same display)
+- Inhibit automount on GNOME desktop, to ease USB redirection
+- Better video support (reduce some glitches)
+- Misc migration fixes
+- Various bug fixes and improvements
+
+v0.12
+=====
+
+- Fix memory leak when guest is resized
+- Fix color-depth setting
+- Hide/Show cursor correctly when needed
+- Fix blue-tinted video with old Spice servers
+- Correct scroll-event not received with recent Gtk+
+- Fix various migrations issues
+- Allow to disable CELT encoding at runtime with SPICE_DISABLE_CELT
+- Various crash fixes (on pubkey, recording, clipboard)
+- Build changes (common submodule) and fixes
+
+v0.11
+=====
+
+- Fix semi-seamless migration regression
+- Add Spice session UUID and name support
+- Add foreign menu support to controller library
+- Add a simple controller testing tool spice-controller-dump
+- Build fixes
+
+v0.10
+=====
+
+- USB redir is now aware of host/guest side filtering
+- you can query spice_usb_device_manager_can_redirect_device()
+- fix the usbredir channel lifetime to be equal to session lifetime
+- set keepalive on channel socket
+- fix hangs on windows when using ssl chanels
+- add a SpiceDisplay::zoom-level to maintain a scaling ratio
+- add controller ENABLE_SMARTCARD option
+- remove a few warnings, ui improvements, build fixes
+
+v0.9
+====
+
+- Add command line options for setting the cache size and the glz window size
+- Add a USB device selection widget to libspice-client-gtk
+- Various bug fixes and code improvements
+
+v0.8
+====
+
+- add USB redirection support, see Hans comments in the log and that
+  post for details: http://hansdegoede.livejournal.com/11084.html
+- introduce SpiceGtkSession to deal with session-wide Gtk events, such
+  as clipboard, instead of doing it per display
+- many cursor and keyboard handling improvements
+- handle the new "semi-seamless" migration
+- support new Spice mini-headers
+- better coroutines: fibers on windows & jmp on linux
+- add Vala vapi bindings generation
+- many bug fixes and code improvements
+
+v0.7
+====
+
+- smartcard support
+- better video playback performance (jpeg-turbo & audio improvements)
+- support for audio volume (needs qemu support)
+- controller support for Windows (NamedPipe)
+- make perl-Text-CSV optional for tarball builds
+- new spice_get_option_group()/spice_set_session_option()
+- keyboard improvements, grab-sequence can be configured, various windows fixes
+- new tool spicy-stats, to collect informations during a session
+- bugfixes: memleak fixes, SASL fixes, crash with virt-manager
+- various build fixes, should build on MacOS as well now
+
+v0.6
+====
+
+- multi-head is working now!
+- change client resolution if guest can't
+- support sharing large clipboard, and images
+- multiple clibpoard selection
+- support SASL authentication
+- add experimental/unstable controller API
+- and a bunch of various smaller fixes
+
+v0.5
+====
+
+- Compatibility with gtk2 and gtk3
+- Migrations: seamless and switch host methods
+- SSL verification: public key, subject and host checks added
+- spice:// url parsing learned "password" argument
+- spicy: recent connexions UI added
+- various minor fixes
+
+v0.4
+====
+
+- sync video with pulseaudio backend
+- build with mingw, and run on Windows
+- various minor fixes
+
+v0.3
+====
+
+- fix Windows QXL driver support
+- fully asynchronous operations using coroutines
+  (thanks go to gtk-vnc devs)
+- cairo display (old XShm display can be enabled with --with-x11)
+- scaling support for cairo display
+- experimental audio support using GStreamer
+- API reference gtk-doc
+- more cursor type support
+- various fixes and cleanup
+
+v0.2
+====
+
+- gtk: disconnect record stream when record_stop()
+- README: add a few missing dependencies
+- build: use git-version-gen
+- build: re-enable -Wflags, and fix a few warnings
+- build: fix make -j
+- gtk: add zlib decoder
+- gtk: add jpeg decoder
+- gtk: progressive agent message recomposition
+- gtk: add dispay config
+- gtk: add clipboard sharing for text
+- TODO: update
+- gtk: put some g_message() under SPICE_DEBUG
+- gtk: add channel.set_capability()
+- gtk: add {session,channel}_open_fd()
+- gtk: add CELT playback
+- gtk: add CELT recording
+- gtk: save/restore spicy configuration
+- gtk: don't uncork new streams
+- gtk: delay PA stream creation when context is ready
+- gtk: visibility option for statusbar/toolbar in spicy
+
+v0.1.0
+======
+
+- desktop display, using GLZ compression
+- audio playback/recording with PulseAudio
+- video in mjpeg
+- python and gobject-introspection modules
+- spicy: a simple Gtk client
+- snappy: a command line screenshot tool

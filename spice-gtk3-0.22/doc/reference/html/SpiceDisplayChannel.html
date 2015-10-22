@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Display Channel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="prev" href="SpiceCursorChannel.html" title="Cursor Channel">
+<link rel="next" href="SpiceInputsChannel.html" title="Inputs Channel">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="SpiceCursorChannel.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Spice-GTK Reference Manual</th>
+<td><a accesskey="n" href="SpiceInputsChannel.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#SpiceDisplayChannel.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#SpiceDisplayChannel.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#SpiceDisplayChannel.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#SpiceDisplayChannel.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#SpiceDisplayChannel.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="SpiceDisplayChannel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceDisplayChannel.top_of_page"></a>Display Channel</span></h2>
+<p>Display Channel — remote display area</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceDisplayChannel.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv">
+<a name="SpiceDisplayChannel.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;channel-display.h&gt;
+
+struct              <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-struct" title="struct SpiceDisplayChannel">SpiceDisplayChannel</a>;
+struct              <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannelClass" title="struct SpiceDisplayChannelClass">SpiceDisplayChannelClass</a>;
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplayChannel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----<a class="link" href="SpiceChannel.html" title="Spice Channel">SpiceChannel</a>
+         +----SpiceDisplayChannel
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplayChannel.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel--height" title='The "height" property'>height</a>"                   <span class="type">guint</span>                 : Read
+  "<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel--monitors" title='The "monitors" property'>monitors</a>"                 <span class="type">GArray</span>*               : Read
+  "<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel--monitors-max" title='The "monitors-max" property'>monitors-max</a>"             <span class="type">guint</span>                 : Read
+  "<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel--width" title='The "width" property'>width</a>"                    <span class="type">guint</span>                 : Read
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplayChannel.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-invalidate" title='The "display-invalidate" signal'>display-invalidate</a>"                             : <code class="literal">Run First</code>
+  "<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-mark" title='The "display-mark" signal'>display-mark</a>"                                   : <code class="literal">Run First</code>
+  "<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-primary-create" title='The "display-primary-create" signal'>display-primary-create</a>"                         : <code class="literal">Run First</code>
+  "<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-primary-destroy" title='The "display-primary-destroy" signal'>display-primary-destroy</a>"                        : <code class="literal">Run First</code>
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplayChannel.description"></a><h2>Description</h2>
+<p>
+A class that handles the rendering of the remote display and inform
+of its updates.
+</p>
+<p>
+The creation of the main graphic buffer is signaled with
+<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-primary-create" title='The "display-primary-create" signal'><span class="type">"display-primary-create"</span></a>.
+</p>
+<p>
+The update of regions is notified by
+<a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-invalidate" title='The "display-invalidate" signal'><span class="type">"display-invalidate"</span></a> signals.
+</p>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplayChannel.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="SpiceDisplayChannel-struct"></a><h3>struct SpiceDisplayChannel</h3>
+<pre class="programlisting">struct SpiceDisplayChannel;</pre>
+<p>
+The <a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a> struct is opaque and should not be accessed directly.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplayChannelClass"></a><h3>struct SpiceDisplayChannelClass</h3>
+<pre class="programlisting">struct SpiceDisplayChannelClass {
+    SpiceChannelClass parent_class;
+
+    /* signals */
+    void (*display_primary_create)(SpiceChannel *channel, gint format,
+                                   gint width, gint height, gint stride,
+                                   gint shmid, gpointer data);
+    void (*display_primary_destroy)(SpiceChannel *channel);
+    void (*display_invalidate)(SpiceChannel *channel,
+                               gint x, gint y, gint w, gint h);
+    void (*display_mark)(SpiceChannel *channel,
+                         gboolean mark);
+};
+</pre>
+<p>
+Class structure for <a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="SpiceChannel.html#SpiceChannelClass" title="SpiceChannelClass"><span class="type">SpiceChannelClass</span></a> <em class="structfield"><code><a name="SpiceDisplayChannelClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>Parent class.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="SpiceDisplayChannelClass.display-primary-create"></a>display_primary_create</code></em> ()</span></p></td>
+<td>Signal class handler for the <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-primary-create" title='The "display-primary-create" signal'><span class="type">"display-primary-create"</span></a> signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="SpiceDisplayChannelClass.display-primary-destroy"></a>display_primary_destroy</code></em> ()</span></p></td>
+<td>Signal class handler for the <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-primary-destroy" title='The "display-primary-destroy" signal'><span class="type">"display-primary-destroy"</span></a> signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="SpiceDisplayChannelClass.display-invalidate"></a>display_invalidate</code></em> ()</span></p></td>
+<td>Signal class handler for the <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-invalidate" title='The "display-invalidate" signal'><span class="type">"display-invalidate"</span></a> signal.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="structfield"><code><a name="SpiceDisplayChannelClass.display-mark"></a>display_mark</code></em> ()</span></p></td>
+<td>Signal class handler for the <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-mark" title='The "display-mark" signal'><span class="type">"display-mark"</span></a> signal.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplayChannel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpiceDisplayChannel--height"></a><h3>The <code class="literal">"height"</code> property</h3>
+<pre class="programlisting">  "height"                   <span class="type">guint</span>                 : Read</pre>
+<p>The primary surface height.</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplayChannel--monitors"></a><h3>The <code class="literal">"monitors"</code> property</h3>
+<pre class="programlisting">  "monitors"                 <span class="type">GArray</span>*               : Read</pre>
+<p>
+Current monitors configuration.
+</p>
+<p class="since">Since 0.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplayChannel--monitors-max"></a><h3>The <code class="literal">"monitors-max"</code> property</h3>
+<pre class="programlisting">  "monitors-max"             <span class="type">guint</span>                 : Read</pre>
+<p>
+The maximum number of monitors the server or guest supports.
+May change during client lifetime, for instance guest may
+reboot or dynamically adjust this.
+</p>
+<p>Allowed values: [1,256]</p>
+<p>Default value: 1</p>
+<p class="since">Since 0.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplayChannel--width"></a><h3>The <code class="literal">"width"</code> property</h3>
+<pre class="programlisting">  "width"                    <span class="type">guint</span>                 : Read</pre>
+<p>The primary surface width.</p>
+<p>Default value: 0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplayChannel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="SpiceDisplayChannel-display-invalidate"></a><h3>The <code class="literal">"display-invalidate"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a> *display,
+                                                        <span class="type">gint</span>                 x,
+                                                        <span class="type">gint</span>                 y,
+                                                        <span class="type">gint</span>                 width,
+                                                        <span class="type">gint</span>                 height,
+                                                        <span class="type">gpointer</span>             user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-invalidate" title='The "display-invalidate" signal'><span class="type">"display-invalidate"</span></a> signal is emitted
+when the rectangular region x/y/w/h of the primary buffer is
+updated.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>the <a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>x</code></em> :</span></p></td>
+<td>x position</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>y</code></em> :</span></p></td>
+<td>y position</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>width</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td>height</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplayChannel-display-mark"></a><h3>The <code class="literal">"display-mark"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a> *display,
+                                                        <span class="type">gint</span>                 arg1,
+                                                        <span class="type">gpointer</span>             user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-mark" title='The "display-mark" signal'><span class="type">"display-mark"</span></a> signal is emitted when
+the <code class="literal">RED_DISPLAY_MARK</code> command is received, and the display
+should be exposed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>the <a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplayChannel-display-primary-create"></a><h3>The <code class="literal">"display-primary-create"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a> *display,
+                                                        <span class="type">gint</span>                 format,
+                                                        <span class="type">gint</span>                 width,
+                                                        <span class="type">gint</span>                 height,
+                                                        <span class="type">gint</span>                 stride,
+                                                        <span class="type">gint</span>                 shmid,
+                                                        <span class="type">gpointer</span>             imgdata,
+                                                        <span class="type">gpointer</span>             user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-primary-create" title='The "display-primary-create" signal'><span class="type">"display-primary-create"</span></a> signal
+provides main display buffer data.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>the <a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>
+<code class="literal">SPICE_SURFACE_FMT_32_xRGB</code> or <code class="literal">SPICE_SURFACE_FMT_16_555</code>;</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>width</code></em> :</span></p></td>
+<td>width resolution</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>height</code></em> :</span></p></td>
+<td>height resolution</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stride</code></em> :</span></p></td>
+<td>the buffer stride ("width" padding)</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>shmid</code></em> :</span></p></td>
+<td>identifier of the shared memory segment associated with
+the <em class="parameter"><code>imgdata</code></em>, or -1 if not shm</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>imgdata</code></em> :</span></p></td>
+<td>pointer to surface buffer</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceDisplayChannel-display-primary-destroy"></a><h3>The <code class="literal">"display-primary-destroy"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a> *display,
+                                                        <span class="type">gpointer</span>             user_data)      : <code class="literal">Run First</code></pre>
+<p>
+The <a class="link" href="SpiceDisplayChannel.html#SpiceDisplayChannel-display-primary-destroy" title='The "display-primary-destroy" signal'><span class="type">"display-primary-destroy"</span></a> signal is
+emitted when the primary surface is freed and should not be
+accessed anymore.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>display</code></em> :</span></p></td>
+<td>the <a class="link" href="SpiceDisplayChannel.html" title="Display Channel"><span class="type">SpiceDisplayChannel</span></a> that emitted the signal</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceDisplayChannel.see-also"></a><h2>See Also</h2>
+<a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>, and the GTK widget <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

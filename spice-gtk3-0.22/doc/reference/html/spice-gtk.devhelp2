@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="Spice-GTK Reference Manual" link="index.html" author="" name="spice-gtk" version="2" language="c">
+  <chapters>
+    <sub name="API Reference" link="api-reference.html">
+      <sub name="Object Hierarchy" link="ch01.html"/>
+      <sub name="Session and Channels Objects, from spice-client-glib" link="ch02.html">
+        <sub name="Spice Session" link="SpiceSession.html"/>
+        <sub name="Spice Channel" link="SpiceChannel.html"/>
+        <sub name="Cursor Channel" link="SpiceCursorChannel.html"/>
+        <sub name="Display Channel" link="SpiceDisplayChannel.html"/>
+        <sub name="Inputs Channel" link="SpiceInputsChannel.html"/>
+        <sub name="Main Channel" link="SpiceMainChannel.html"/>
+        <sub name="Playback Channel" link="SpicePlaybackChannel.html"/>
+        <sub name="Record Channel" link="SpiceRecordChannel.html"/>
+        <sub name="Smartcard Channel" link="SpiceSmartcardChannel.html"/>
+        <sub name="USB Redirection Channel" link="SpiceUsbredirChannel.html"/>
+        <sub name="Port Channel" link="SpicePortChannel.html"/>
+      </sub>
+      <sub name="GTK Widget, from spice-client-gtk" link="ch03.html">
+        <sub name="Spice GTK Session" link="SpiceGtkSession.html"/>
+        <sub name="Spice Display" link="SpiceDisplay.html"/>
+        <sub name="Spice USB device selection widget" link="SpiceUsbDeviceWidget.html"/>
+      </sub>
+      <sub name="Application Support, from spice-client-glib" link="application-support.html">
+        <sub name="Spice Audio" link="SpiceAudio.html"/>
+        <sub name="Spice Smartcard Manager" link="SpiceSmartcardManager.html"/>
+        <sub name="Spice USB Manager" link="SpiceUsbDeviceManager.html"/>
+        <sub name="Utilities" link="spice-gtk-Utilities.html"/>
+      </sub>
+    </sub>
+    <sub name="Object Hierarchy" link="object-tree.html"/>
+    <sub name="API Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated symbols" link="api-index-deprecated.html"/>
+    <sub name="Annotation Glossary" link="annotation-glossary.html"/>
+  </chapters>
+  <functions>
+    <keyword type="struct" name="SpiceSession" link="SpiceSession.html#SpiceSession-struct"/>
+    <keyword type="struct" name="SpiceSessionClass" link="SpiceSession.html#SpiceSessionClass"/>
+    <keyword type="function" name="spice_session_new ()" link="SpiceSession.html#spice-session-new"/>
+    <keyword type="function" name="spice_session_connect ()" link="SpiceSession.html#spice-session-connect"/>
+    <keyword type="function" name="spice_session_open_fd ()" link="SpiceSession.html#spice-session-open-fd"/>
+    <keyword type="function" name="spice_session_disconnect ()" link="SpiceSession.html#spice-session-disconnect"/>
+    <keyword type="function" name="spice_session_get_channels ()" link="SpiceSession.html#spice-session-get-channels"/>
+    <keyword type="function" name="spice_session_get_read_only ()" link="SpiceSession.html#spice-session-get-read-only"/>
+    <keyword type="function" name="spice_session_has_channel_type ()" link="SpiceSession.html#spice-session-has-channel-type"/>
+    <keyword type="enum" name="enum SpiceSessionMigration" link="SpiceSession.html#SpiceSessionMigration-enum"/>
+    <keyword type="enum" name="enum SpiceSessionVerify" link="SpiceSession.html#SpiceSessionVerify-enum"/>
+    <keyword type="function" name="spice_get_option_group ()" link="SpiceSession.html#spice-get-option-group"/>
+    <keyword type="function" name="spice_set_session_option ()" link="SpiceSession.html#spice-set-session-option"/>
+    <keyword type="enum" name="enum SpiceClientError" link="SpiceSession.html#SpiceClientError"/>
+    <keyword type="macro" name="SPICE_CLIENT_ERROR" link="SpiceSession.html#SPICE-CLIENT-ERROR:CAPS"/>
+    <keyword type="function" name="spice_client_error_quark ()" link="SpiceSession.html#spice-client-error-quark"/>
+    <keyword type="property" name="The &quot;ca&quot; property" link="SpiceSession.html#SpiceSession--ca"/>
+    <keyword type="property" name="The &quot;ca-file&quot; property" link="SpiceSession.html#SpiceSession--ca-file"/>
+    <keyword type="property" name="The &quot;cache-size&quot; property" link="SpiceSession.html#SpiceSession--cache-size"/>
+    <keyword type="property" name="The &quot;cert-subject&quot; property" link="SpiceSession.html#SpiceSession--cert-subject"/>
+    <keyword type="property" name="The &quot;ciphers&quot; property" link="SpiceSession.html#SpiceSession--ciphers"/>
+    <keyword type="property" name="The &quot;client-sockets&quot; property" link="SpiceSession.html#SpiceSession--client-sockets"/>
+    <keyword type="property" name="The &quot;color-depth&quot; property" link="SpiceSession.html#SpiceSession--color-depth"/>
+    <keyword type="property" name="The &quot;disable-effects&quot; property" link="SpiceSession.html#SpiceSession--disable-effects"/>
+    <keyword type="property" name="The &quot;enable-audio&quot; property" link="SpiceSession.html#SpiceSession--enable-audio"/>
+    <keyword type="property" name="The &quot;enable-smartcard&quot; property" link="SpiceSession.html#SpiceSession--enable-smartcard"/>
+    <keyword type="property" name="The &quot;enable-usbredir&quot; property" link="SpiceSession.html#SpiceSession--enable-usbredir"/>
+    <keyword type="property" name="The &quot;glz-window-size&quot; property" link="SpiceSession.html#SpiceSession--glz-window-size"/>
+    <keyword type="property" name="The &quot;host&quot; property" link="SpiceSession.html#SpiceSession--host"/>
+    <keyword type="property" name="The &quot;inhibit-keyboard-grab&quot; property" link="SpiceSession.html#SpiceSession--inhibit-keyboard-grab"/>
+    <keyword type="property" name="The &quot;migration-state&quot; property" link="SpiceSession.html#SpiceSession--migration-state"/>
+    <keyword type="property" name="The &quot;name&quot; property" link="SpiceSession.html#SpiceSession--name"/>
+    <keyword type="property" name="The &quot;password&quot; property" link="SpiceSession.html#SpiceSession--password"/>
+    <keyword type="property" name="The &quot;port&quot; property" link="SpiceSession.html#SpiceSession--port"/>
+    <keyword type="property" name="The &quot;protocol&quot; property" link="SpiceSession.html#SpiceSession--protocol"/>
+    <keyword type="property" name="The &quot;proxy&quot; property" link="SpiceSession.html#SpiceSession--proxy"/>
+    <keyword type="property" name="The &quot;pubkey&quot; property" link="SpiceSession.html#SpiceSession--pubkey"/>
+    <keyword type="property" name="The &quot;read-only&quot; property" link="SpiceSession.html#SpiceSession--read-only"/>
+    <keyword type="property" name="The &quot;secure-channels&quot; property" link="SpiceSession.html#SpiceSession--secure-channels"/>
+    <keyword type="property" name="The &quot;smartcard-certificates&quot; property" link="SpiceSession.html#SpiceSession--smartcard-certificates"/>
+    <keyword type="property" name="The &quot;smartcard-db&quot; property" link="SpiceSession.html#SpiceSession--smartcard-db"/>
+    <keyword type="property" name="The &quot;tls-port&quot; property" link="SpiceSession.html#SpiceSession--tls-port"/>
+    <keyword type="property" name="The &quot;uri&quot; property" link="SpiceSession.html#SpiceSession--uri"/>
+    <keyword type="property" name="The &quot;uuid&quot; property" link="SpiceSession.html#SpiceSession--uuid"/>
+    <keyword type="property" name="The &quot;verify&quot; property" link="SpiceSession.html#SpiceSession--verify"/>
+    <keyword type="signal" name="The &quot;channel-destroy&quot; signal" link="SpiceSession.html#SpiceSession-channel-destroy"/>
+    <keyword type="signal" name="The &quot;channel-new&quot; signal" link="SpiceSession.html#SpiceSession-channel-new"/>
+    <keyword type="signal" name="The &quot;mm-time-reset&quot; signal" link="SpiceSession.html#SpiceSession-mm-time-reset"/>
+    <keyword type="enum" name="enum SpiceChannelEvent" link="SpiceChannel.html#SpiceChannelEvent-enum"/>
+    <keyword type="struct" name="SpiceChannel" link="SpiceChannel.html#SpiceChannel-struct"/>
+    <keyword type="struct" name="SpiceChannelClass" link="SpiceChannel.html#SpiceChannelClass"/>
+    <keyword type="function" name="spice_channel_new ()" link="SpiceChannel.html#spice-channel-new"/>
+    <keyword type="function" name="spice_channel_destroy ()" link="SpiceChannel.html#spice-channel-destroy"/>
+    <keyword type="function" name="spice_channel_connect ()" link="SpiceChannel.html#spice-channel-connect"/>
+    <keyword type="function" name="spice_channel_open_fd ()" link="SpiceChannel.html#spice-channel-open-fd"/>
+    <keyword type="function" name="spice_channel_disconnect ()" link="SpiceChannel.html#spice-channel-disconnect"/>
+    <keyword type="function" name="spice_channel_test_capability ()" link="SpiceChannel.html#spice-channel-test-capability"/>
+    <keyword type="function" name="spice_channel_test_common_capability ()" link="SpiceChannel.html#spice-channel-test-common-capability"/>
+    <keyword type="function" name="spice_channel_type_to_string ()" link="SpiceChannel.html#spice-channel-type-to-string" since="0.20"/>
+    <keyword type="function" name="spice_channel_string_to_type ()" link="SpiceChannel.html#spice-channel-string-to-type" since="0.21"/>
+    <keyword type="function" name="spice_channel_set_capability ()" link="SpiceChannel.html#spice-channel-set-capability" deprecated="0.13: this function has been removed"/>
+    <keyword type="function" name="spice_channel_flush_async ()" link="SpiceChannel.html#spice-channel-flush-async" since="0.15"/>
+    <keyword type="function" name="spice_channel_flush_finish ()" link="SpiceChannel.html#spice-channel-flush-finish" since="0.15"/>
+    <keyword type="property" name="The &quot;channel-id&quot; property" link="SpiceChannel.html#SpiceChannel--channel-id"/>
+    <keyword type="property" name="The &quot;channel-type&quot; property" link="SpiceChannel.html#SpiceChannel--channel-type"/>
+    <keyword type="property" name="The &quot;spice-session&quot; property" link="SpiceChannel.html#SpiceChannel--spice-session"/>
+    <keyword type="property" name="The &quot;total-read-bytes&quot; property" link="SpiceChannel.html#SpiceChannel--total-read-bytes"/>
+    <keyword type="signal" name="The &quot;channel-event&quot; signal" link="SpiceChannel.html#SpiceChannel-channel-event"/>
+    <keyword type="signal" name="The &quot;open-fd&quot; signal" link="SpiceChannel.html#SpiceChannel-open-fd"/>
+    <keyword type="struct" name="struct SpiceCursorChannel" link="SpiceCursorChannel.html#SpiceCursorChannel-struct"/>
+    <keyword type="struct" name="struct SpiceCursorChannelClass" link="SpiceCursorChannel.html#SpiceCursorChannelClass"/>
+    <keyword type="signal" name="The &quot;cursor-hide&quot; signal" link="SpiceCursorChannel.html#SpiceCursorChannel-cursor-hide"/>
+    <keyword type="signal" name="The &quot;cursor-move&quot; signal" link="SpiceCursorChannel.html#SpiceCursorChannel-cursor-move"/>
+    <keyword type="signal" name="The &quot;cursor-reset&quot; signal" link="SpiceCursorChannel.html#SpiceCursorChannel-cursor-reset"/>
+    <keyword type="signal" name="The &quot;cursor-set&quot; signal" link="SpiceCursorChannel.html#SpiceCursorChannel-cursor-set"/>
+    <keyword type="struct" name="struct SpiceDisplayChannel" link="SpiceDisplayChannel.html#SpiceDisplayChannel-struct"/>
+    <keyword type="struct" name="struct SpiceDisplayChannelClass" link="SpiceDisplayChannel.html#SpiceDisplayChannelClass"/>
+    <keyword type="property" name="The &quot;height&quot; property" link="SpiceDisplayChannel.html#SpiceDisplayChannel--height"/>
+    <keyword type="property" name="The &quot;monitors&quot; property" link="SpiceDisplayChannel.html#SpiceDisplayChannel--monitors"/>
+    <keyword type="property" name="The &quot;monitors-max&quot; property" link="SpiceDisplayChannel.html#SpiceDisplayChannel--monitors-max"/>
+    <keyword type="property" name="The &quot;width&quot; property" link="SpiceDisplayChannel.html#SpiceDisplayChannel--width"/>
+    <keyword type="signal" name="The &quot;display-invalidate&quot; signal" link="SpiceDisplayChannel.html#SpiceDisplayChannel-display-invalidate"/>
+    <keyword type="signal" name="The &quot;display-mark&quot; signal" link="SpiceDisplayChannel.html#SpiceDisplayChannel-display-mark"/>
+    <keyword type="signal" name="The &quot;display-primary-create&quot; signal" link="SpiceDisplayChannel.html#SpiceDisplayChannel-display-primary-create"/>
+    <keyword type="signal" name="The &quot;display-primary-destroy&quot; signal" link="SpiceDisplayChannel.html#SpiceDisplayChannel-display-primary-destroy"/>
+    <keyword type="struct" name="struct SpiceInputsChannel" link="SpiceInputsChannel.html#SpiceInputsChannel-struct"/>
+    <keyword type="struct" name="struct SpiceInputsChannelClass" link="SpiceInputsChannel.html#SpiceInputsChannelClass"/>
+    <keyword type="enum" name="enum SpiceInputsLock" link="SpiceInputsChannel.html#SpiceInputsLock-enum"/>
+    <keyword type="function" name="spice_inputs_motion ()" link="SpiceInputsChannel.html#spice-inputs-motion"/>
+    <keyword type="function" name="spice_inputs_position ()" link="SpiceInputsChannel.html#spice-inputs-position"/>
+    <keyword type="function" name="spice_inputs_button_press ()" link="SpiceInputsChannel.html#spice-inputs-button-press"/>
+    <keyword type="function" name="spice_inputs_button_release ()" link="SpiceInputsChannel.html#spice-inputs-button-release"/>
+    <keyword type="function" name="spice_inputs_key_press ()" link="SpiceInputsChannel.html#spice-inputs-key-press"/>
+    <keyword type="function" name="spice_inputs_key_press_and_release ()" link="SpiceInputsChannel.html#spice-inputs-key-press-and-release" since="0.13"/>
+    <keyword type="function" name="spice_inputs_key_release ()" link="SpiceInputsChannel.html#spice-inputs-key-release"/>
+    <keyword type="function" name="spice_inputs_set_key_locks ()" link="SpiceInputsChannel.html#spice-inputs-set-key-locks"/>
+    <keyword type="property" name="The &quot;key-modifiers&quot; property" link="SpiceInputsChannel.html#SpiceInputsChannel--key-modifiers"/>
+    <keyword type="signal" name="The &quot;inputs-modifiers&quot; signal" link="SpiceInputsChannel.html#SpiceInputsChannel-inputs-modifiers"/>
+    <keyword type="struct" name="struct SpiceMainChannel" link="SpiceMainChannel.html#SpiceMainChannel-struct"/>
+    <keyword type="struct" name="struct SpiceMainChannelClass" link="SpiceMainChannel.html#SpiceMainChannelClass"/>
+    <keyword type="function" name="spice_main_set_display ()" link="SpiceMainChannel.html#spice-main-set-display"/>
+    <keyword type="function" name="spice_main_set_display_enabled ()" link="SpiceMainChannel.html#spice-main-set-display-enabled" since="0.6"/>
+    <keyword type="function" name="spice_main_send_monitor_config ()" link="SpiceMainChannel.html#spice-main-send-monitor-config"/>
+    <keyword type="function" name="spice_main_agent_test_capability ()" link="SpiceMainChannel.html#spice-main-agent-test-capability"/>
+    <keyword type="function" name="spice_main_clipboard_selection_grab ()" link="SpiceMainChannel.html#spice-main-clipboard-selection-grab" since="0.6"/>
+    <keyword type="function" name="spice_main_clipboard_selection_notify ()" link="SpiceMainChannel.html#spice-main-clipboard-selection-notify" since="0.6"/>
+    <keyword type="function" name="spice_main_clipboard_selection_release ()" link="SpiceMainChannel.html#spice-main-clipboard-selection-release" since="0.6"/>
+    <keyword type="function" name="spice_main_clipboard_selection_request ()" link="SpiceMainChannel.html#spice-main-clipboard-selection-request" since="0.6"/>
+    <keyword type="function" name="spice_main_clipboard_grab ()" link="SpiceMainChannel.html#spice-main-clipboard-grab" deprecated="0.6: use spice_main_clipboard_selection_grab() instead."/>
+    <keyword type="function" name="spice_main_clipboard_release ()" link="SpiceMainChannel.html#spice-main-clipboard-release" deprecated="0.6: use spice_main_clipboard_selection_release() instead."/>
+    <keyword type="function" name="spice_main_clipboard_notify ()" link="SpiceMainChannel.html#spice-main-clipboard-notify" deprecated="0.6: use spice_main_clipboard_selection_notify() instead."/>
+    <keyword type="function" name="spice_main_clipboard_request ()" link="SpiceMainChannel.html#spice-main-clipboard-request" deprecated="0.6: use spice_main_clipboard_selection_request() instead."/>
+    <keyword type="property" name="The &quot;agent-caps-0&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--agent-caps-0"/>
+    <keyword type="property" name="The &quot;agent-connected&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--agent-connected"/>
+    <keyword type="property" name="The &quot;color-depth&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--color-depth"/>
+    <keyword type="property" name="The &quot;disable-animation&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--disable-animation"/>
+    <keyword type="property" name="The &quot;disable-display-align&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--disable-display-align"/>
+    <keyword type="property" name="The &quot;disable-display-position&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--disable-display-position"/>
+    <keyword type="property" name="The &quot;disable-font-smooth&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--disable-font-smooth"/>
+    <keyword type="property" name="The &quot;disable-wallpaper&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--disable-wallpaper"/>
+    <keyword type="property" name="The &quot;max-clipboard&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--max-clipboard"/>
+    <keyword type="property" name="The &quot;mouse-mode&quot; property" link="SpiceMainChannel.html#SpiceMainChannel--mouse-mode"/>
+    <keyword type="signal" name="The &quot;main-agent-update&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-agent-update"/>
+    <keyword type="signal" name="The &quot;main-clipboard&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-clipboard"/>
+    <keyword type="signal" name="The &quot;main-clipboard-grab&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-grab"/>
+    <keyword type="signal" name="The &quot;main-clipboard-release&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-release"/>
+    <keyword type="signal" name="The &quot;main-clipboard-request&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-request"/>
+    <keyword type="signal" name="The &quot;main-clipboard-selection&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-selection"/>
+    <keyword type="signal" name="The &quot;main-clipboard-selection-grab&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-selection-grab"/>
+    <keyword type="signal" name="The &quot;main-clipboard-selection-release&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-selection-release"/>
+    <keyword type="signal" name="The &quot;main-clipboard-selection-request&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-selection-request"/>
+    <keyword type="signal" name="The &quot;main-mouse-update&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-main-mouse-update"/>
+    <keyword type="signal" name="The &quot;migration-started&quot; signal" link="SpiceMainChannel.html#SpiceMainChannel-migration-started"/>
+    <keyword type="struct" name="struct SpicePlaybackChannel" link="SpicePlaybackChannel.html#SpicePlaybackChannel-struct"/>
+    <keyword type="struct" name="struct SpicePlaybackChannelClass" link="SpicePlaybackChannel.html#SpicePlaybackChannelClass"/>
+    <keyword type="function" name="spice_playback_channel_set_delay ()" link="SpicePlaybackChannel.html#spice-playback-channel-set-delay"/>
+    <keyword type="property" name="The &quot;min-latency&quot; property" link="SpicePlaybackChannel.html#SpicePlaybackChannel--min-latency"/>
+    <keyword type="property" name="The &quot;mute&quot; property" link="SpicePlaybackChannel.html#SpicePlaybackChannel--mute"/>
+    <keyword type="property" name="The &quot;nchannels&quot; property" link="SpicePlaybackChannel.html#SpicePlaybackChannel--nchannels"/>
+    <keyword type="property" name="The &quot;volume&quot; property" link="SpicePlaybackChannel.html#SpicePlaybackChannel--volume"/>
+    <keyword type="signal" name="The &quot;playback-data&quot; signal" link="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-data"/>
+    <keyword type="signal" name="The &quot;playback-get-delay&quot; signal" link="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-get-delay"/>
+    <keyword type="signal" name="The &quot;playback-start&quot; signal" link="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-start"/>
+    <keyword type="signal" name="The &quot;playback-stop&quot; signal" link="SpicePlaybackChannel.html#SpicePlaybackChannel-playback-stop"/>
+    <keyword type="struct" name="struct SpiceRecordChannel" link="SpiceRecordChannel.html#SpiceRecordChannel-struct"/>
+    <keyword type="struct" name="struct SpiceRecordChannelClass" link="SpiceRecordChannel.html#SpiceRecordChannelClass"/>
+    <keyword type="function" name="spice_record_send_data ()" link="SpiceRecordChannel.html#spice-record-send-data"/>
+    <keyword type="property" name="The &quot;mute&quot; property" link="SpiceRecordChannel.html#SpiceRecordChannel--mute"/>
+    <keyword type="property" name="The &quot;nchannels&quot; property" link="SpiceRecordChannel.html#SpiceRecordChannel--nchannels"/>
+    <keyword type="property" name="The &quot;volume&quot; property" link="SpiceRecordChannel.html#SpiceRecordChannel--volume"/>
+    <keyword type="signal" name="The &quot;record-start&quot; signal" link="SpiceRecordChannel.html#SpiceRecordChannel-record-start"/>
+    <keyword type="signal" name="The &quot;record-stop&quot; signal" link="SpiceRecordChannel.html#SpiceRecordChannel-record-stop"/>
+    <keyword type="struct" name="struct SpiceSmartcardChannel" link="SpiceSmartcardChannel.html#SpiceSmartcardChannel-struct"/>
+    <keyword type="struct" name="struct SpiceSmartcardChannelClass" link="SpiceSmartcardChannel.html#SpiceSmartcardChannelClass"/>
+    <keyword type="struct" name="struct SpiceUsbredirChannel" link="SpiceUsbredirChannel.html#SpiceUsbredirChannel-struct"/>
+    <keyword type="struct" name="struct SpiceUsbredirChannelClass" link="SpiceUsbredirChannel.html#SpiceUsbredirChannelClass"/>
+    <keyword type="struct" name="struct SpicePortChannel" link="SpicePortChannel.html#SpicePortChannel-struct"/>
+    <keyword type="struct" name="struct SpicePortChannelClass" link="SpicePortChannel.html#SpicePortChannelClass"/>
+    <keyword type="function" name="spice_port_event ()" link="SpicePortChannel.html#spice-port-event" since="0.15"/>
+    <keyword type="function" name="spice_port_write_async ()" link="SpicePortChannel.html#spice-port-write-async" since="0.15"/>
+    <keyword type="function" name="spice_port_write_finish ()" link="SpicePortChannel.html#spice-port-write-finish" since="0.15"/>
+    <keyword type="property" name="The &quot;port-name&quot; property" link="SpicePortChannel.html#SpicePortChannel--port-name"/>
+    <keyword type="property" name="The &quot;port-opened&quot; property" link="SpicePortChannel.html#SpicePortChannel--port-opened"/>
+    <keyword type="signal" name="The &quot;port-data&quot; signal" link="SpicePortChannel.html#SpicePortChannel-port-data"/>
+    <keyword type="signal" name="The &quot;port-event&quot; signal" link="SpicePortChannel.html#SpicePortChannel-port-event"/>
+    <keyword type="struct" name="struct SpiceGtkSession" link="SpiceGtkSession.html#SpiceGtkSession-struct"/>
+    <keyword type="struct" name="struct SpiceGtkSessionClass" link="SpiceGtkSession.html#SpiceGtkSessionClass"/>
+    <keyword type="function" name="spice_gtk_session_get ()" link="SpiceGtkSession.html#spice-gtk-session-get"/>
+    <keyword type="function" name="spice_gtk_session_copy_to_guest ()" link="SpiceGtkSession.html#spice-gtk-session-copy-to-guest"/>
+    <keyword type="function" name="spice_gtk_session_paste_from_guest ()" link="SpiceGtkSession.html#spice-gtk-session-paste-from-guest"/>
+    <keyword type="property" name="The &quot;auto-clipboard&quot; property" link="SpiceGtkSession.html#SpiceGtkSession--auto-clipboard"/>
+    <keyword type="property" name="The &quot;auto-usbredir&quot; property" link="SpiceGtkSession.html#SpiceGtkSession--auto-usbredir"/>
+    <keyword type="property" name="The &quot;session&quot; property" link="SpiceGtkSession.html#SpiceGtkSession--session"/>
+    <keyword type="struct" name="struct SpiceDisplay" link="SpiceDisplay.html#SpiceDisplay-struct"/>
+    <keyword type="struct" name="struct SpiceDisplayClass" link="SpiceDisplay.html#SpiceDisplayClass"/>
+    <keyword type="enum" name="enum SpiceDisplayKeyEvent" link="SpiceDisplay.html#SpiceDisplayKeyEvent"/>
+    <keyword type="function" name="spice_display_new ()" link="SpiceDisplay.html#spice-display-new"/>
+    <keyword type="function" name="spice_display_new_with_monitor ()" link="SpiceDisplay.html#spice-display-new-with-monitor" since="0.13"/>
+    <keyword type="function" name="spice_display_mouse_ungrab ()" link="SpiceDisplay.html#spice-display-mouse-ungrab"/>
+    <keyword type="function" name="spice_display_copy_to_guest ()" link="SpiceDisplay.html#spice-display-copy-to-guest" deprecated="0.8: Use spice_gtk_session_copy_to_guest() instead"/>
+    <keyword type="function" name="spice_display_paste_from_guest ()" link="SpiceDisplay.html#spice-display-paste-from-guest" deprecated="0.8: Use spice_gtk_session_paste_from_guest() instead"/>
+    <keyword type="function" name="spice_display_set_grab_keys ()" link="SpiceDisplay.html#spice-display-set-grab-keys"/>
+    <keyword type="function" name="spice_display_get_grab_keys ()" link="SpiceDisplay.html#spice-display-get-grab-keys"/>
+    <keyword type="function" name="spice_display_send_keys ()" link="SpiceDisplay.html#spice-display-send-keys"/>
+    <keyword type="function" name="spice_display_get_pixbuf ()" link="SpiceDisplay.html#spice-display-get-pixbuf"/>
+    <keyword type="struct" name="struct SpiceGrabSequence" link="SpiceDisplay.html#SpiceGrabSequence-struct"/>
+    <keyword type="function" name="spice_grab_sequence_new ()" link="SpiceDisplay.html#spice-grab-sequence-new"/>
+    <keyword type="function" name="spice_grab_sequence_new_from_string ()" link="SpiceDisplay.html#spice-grab-sequence-new-from-string"/>
+    <keyword type="function" name="spice_grab_sequence_copy ()" link="SpiceDisplay.html#spice-grab-sequence-copy"/>
+    <keyword type="function" name="spice_grab_sequence_free ()" link="SpiceDisplay.html#spice-grab-sequence-free"/>
+    <keyword type="function" name="spice_grab_sequence_as_string ()" link="SpiceDisplay.html#spice-grab-sequence-as-string"/>
+    <keyword type="property" name="The &quot;auto-clipboard&quot; property" link="SpiceDisplay.html#SpiceDisplay--auto-clipboard"/>
+    <keyword type="property" name="The &quot;channel-id&quot; property" link="SpiceDisplay.html#SpiceDisplay--channel-id"/>
+    <keyword type="property" name="The &quot;disable-inputs&quot; property" link="SpiceDisplay.html#SpiceDisplay--disable-inputs"/>
+    <keyword type="property" name="The &quot;grab-keyboard&quot; property" link="SpiceDisplay.html#SpiceDisplay--grab-keyboard"/>
+    <keyword type="property" name="The &quot;grab-mouse&quot; property" link="SpiceDisplay.html#SpiceDisplay--grab-mouse"/>
+    <keyword type="property" name="The &quot;keypress-delay&quot; property" link="SpiceDisplay.html#SpiceDisplay--keypress-delay"/>
+    <keyword type="property" name="The &quot;monitor-id&quot; property" link="SpiceDisplay.html#SpiceDisplay--monitor-id"/>
+    <keyword type="property" name="The &quot;only-downscale&quot; property" link="SpiceDisplay.html#SpiceDisplay--only-downscale"/>
+    <keyword type="property" name="The &quot;ready&quot; property" link="SpiceDisplay.html#SpiceDisplay--ready"/>
+    <keyword type="property" name="The &quot;resize-guest&quot; property" link="SpiceDisplay.html#SpiceDisplay--resize-guest"/>
+    <keyword type="property" name="The &quot;scaling&quot; property" link="SpiceDisplay.html#SpiceDisplay--scaling"/>
+    <keyword type="property" name="The &quot;session&quot; property" link="SpiceDisplay.html#SpiceDisplay--session"/>
+    <keyword type="property" name="The &quot;zoom-level&quot; property" link="SpiceDisplay.html#SpiceDisplay--zoom-level"/>
+    <keyword type="signal" name="The &quot;grab-keys-pressed&quot; signal" link="SpiceDisplay.html#SpiceDisplay-grab-keys-pressed"/>
+    <keyword type="signal" name="The &quot;keyboard-grab&quot; signal" link="SpiceDisplay.html#SpiceDisplay-keyboard-grab"/>
+    <keyword type="signal" name="The &quot;mouse-grab&quot; signal" link="SpiceDisplay.html#SpiceDisplay-mouse-grab"/>
+    <keyword type="struct" name="struct SpiceUsbDeviceWidget" link="SpiceUsbDeviceWidget.html#SpiceUsbDeviceWidget-struct"/>
+    <keyword type="struct" name="struct SpiceUsbDeviceWidgetClass" link="SpiceUsbDeviceWidget.html#SpiceUsbDeviceWidgetClass"/>
+    <keyword type="function" name="spice_usb_device_widget_new ()" link="SpiceUsbDeviceWidget.html#spice-usb-device-widget-new"/>
+    <keyword type="property" name="The &quot;device-format-string&quot; property" link="SpiceUsbDeviceWidget.html#SpiceUsbDeviceWidget--device-format-string"/>
+    <keyword type="property" name="The &quot;session&quot; property" link="SpiceUsbDeviceWidget.html#SpiceUsbDeviceWidget--session"/>
+    <keyword type="signal" name="The &quot;connect-failed&quot; signal" link="SpiceUsbDeviceWidget.html#SpiceUsbDeviceWidget-connect-failed"/>
+    <keyword type="struct" name="struct SpiceAudio" link="SpiceAudio.html#SpiceAudio-struct"/>
+    <keyword type="struct" name="struct SpiceAudioClass" link="SpiceAudio.html#SpiceAudioClass"/>
+    <keyword type="function" name="spice_audio_get ()" link="SpiceAudio.html#spice-audio-get"/>
+    <keyword type="function" name="spice_audio_new ()" link="SpiceAudio.html#spice-audio-new" deprecated="0.8: Use spice_audio_get() instead"/>
+    <keyword type="property" name="The &quot;main-context&quot; property" link="SpiceAudio.html#SpiceAudio--main-context"/>
+    <keyword type="property" name="The &quot;session&quot; property" link="SpiceAudio.html#SpiceAudio--session"/>
+    <keyword type="struct" name="struct SpiceSmartcardManager" link="SpiceSmartcardManager.html#SpiceSmartcardManager-struct"/>
+    <keyword type="struct" name="struct SpiceSmartcardManagerClass" link="SpiceSmartcardManager.html#SpiceSmartcardManagerClass"/>
+    <keyword type="struct" name="SpiceSmartcardReader" link="SpiceSmartcardManager.html#SpiceSmartcardReader"/>
+    <keyword type="function" name="spice_smartcard_manager_get ()" link="SpiceSmartcardManager.html#spice-smartcard-manager-get"/>
+    <keyword type="function" name="spice_smartcard_manager_get_readers ()" link="SpiceSmartcardManager.html#spice-smartcard-manager-get-readers" since="0.20"/>
+    <keyword type="function" name="spice_smartcard_manager_insert_card ()" link="SpiceSmartcardManager.html#spice-smartcard-manager-insert-card" since="0.20"/>
+    <keyword type="function" name="spice_smartcard_manager_remove_card ()" link="SpiceSmartcardManager.html#spice-smartcard-manager-remove-card" since="0.20"/>
+    <keyword type="function" name="spice_smartcard_reader_is_software ()" link="SpiceSmartcardManager.html#spice-smartcard-reader-is-software"/>
+    <keyword type="function" name="spice_smartcard_reader_insert_card ()" link="SpiceSmartcardManager.html#spice-smartcard-reader-insert-card"/>
+    <keyword type="function" name="spice_smartcard_reader_remove_card ()" link="SpiceSmartcardManager.html#spice-smartcard-reader-remove-card"/>
+    <keyword type="signal" name="The &quot;card-inserted&quot; signal" link="SpiceSmartcardManager.html#SpiceSmartcardManager-card-inserted"/>
+    <keyword type="signal" name="The &quot;card-removed&quot; signal" link="SpiceSmartcardManager.html#SpiceSmartcardManager-card-removed"/>
+    <keyword type="signal" name="The &quot;reader-added&quot; signal" link="SpiceSmartcardManager.html#SpiceSmartcardManager-reader-added"/>
+    <keyword type="signal" name="The &quot;reader-removed&quot; signal" link="SpiceSmartcardManager.html#SpiceSmartcardManager-reader-removed"/>
+    <keyword type="macro" name="SPICE_TYPE_USB_DEVICE" link="SpiceUsbDeviceManager.html#SPICE-TYPE-USB-DEVICE:CAPS"/>
+    <keyword type="struct" name="struct SpiceUsbDeviceManager" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManager-struct"/>
+    <keyword type="struct" name="struct SpiceUsbDeviceManagerClass" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManagerClass"/>
+    <keyword type="function" name="spice_usb_device_manager_get ()" link="SpiceUsbDeviceManager.html#spice-usb-device-manager-get"/>
+    <keyword type="function" name="spice_usb_device_manager_get_devices ()" link="SpiceUsbDeviceManager.html#spice-usb-device-manager-get-devices"/>
+    <keyword type="function" name="spice_usb_device_manager_get_devices_with_filter ()" link="SpiceUsbDeviceManager.html#spice-usb-device-manager-get-devices-with-filter" since="0.20"/>
+    <keyword type="function" name="spice_usb_device_manager_is_device_connected ()" link="SpiceUsbDeviceManager.html#spice-usb-device-manager-is-device-connected"/>
+    <keyword type="function" name="spice_usb_device_manager_disconnect_device ()" link="SpiceUsbDeviceManager.html#spice-usb-device-manager-disconnect-device"/>
+    <keyword type="function" name="spice_usb_device_manager_can_redirect_device ()" link="SpiceUsbDeviceManager.html#spice-usb-device-manager-can-redirect-device"/>
+    <keyword type="function" name="spice_usb_device_manager_connect_device_async ()" link="SpiceUsbDeviceManager.html#spice-usb-device-manager-connect-device-async"/>
+    <keyword type="function" name="spice_usb_device_manager_connect_device_finish ()" link="SpiceUsbDeviceManager.html#spice-usb-device-manager-connect-device-finish"/>
+    <keyword type="struct" name="SpiceUsbDevice" link="SpiceUsbDeviceManager.html#SpiceUsbDevice-struct"/>
+    <keyword type="function" name="spice_usb_device_get_description ()" link="SpiceUsbDeviceManager.html#spice-usb-device-get-description"/>
+    <keyword type="property" name="The &quot;auto-connect&quot; property" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManager--auto-connect"/>
+    <keyword type="property" name="The &quot;auto-connect-filter&quot; property" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManager--auto-connect-filter"/>
+    <keyword type="property" name="The &quot;redirect-on-connect&quot; property" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManager--redirect-on-connect"/>
+    <keyword type="property" name="The &quot;session&quot; property" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManager--session"/>
+    <keyword type="signal" name="The &quot;auto-connect-failed&quot; signal" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManager-auto-connect-failed"/>
+    <keyword type="signal" name="The &quot;device-added&quot; signal" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManager-device-added"/>
+    <keyword type="signal" name="The &quot;device-error&quot; signal" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManager-device-error"/>
+    <keyword type="signal" name="The &quot;device-removed&quot; signal" link="SpiceUsbDeviceManager.html#SpiceUsbDeviceManager-device-removed"/>
+    <keyword type="function" name="spice_util_set_debug ()" link="spice-gtk-Utilities.html#spice-util-set-debug"/>
+    <keyword type="function" name="spice_util_get_version_string ()" link="spice-gtk-Utilities.html#spice-util-get-version-string"/>
+    <keyword type="constant" name="SPICE_SESSION_MIGRATION_NONE" link="SpiceSession.html#SPICE-SESSION-MIGRATION-NONE:CAPS"/>
+    <keyword type="constant" name="SPICE_SESSION_MIGRATION_SWITCHING" link="SpiceSession.html#SPICE-SESSION-MIGRATION-SWITCHING:CAPS"/>
+    <keyword type="constant" name="SPICE_SESSION_MIGRATION_MIGRATING" link="SpiceSession.html#SPICE-SESSION-MIGRATION-MIGRATING:CAPS"/>
+    <keyword type="constant" name="SPICE_SESSION_VERIFY_PUBKEY" link="SpiceSession.html#SPICE-SESSION-VERIFY-PUBKEY:CAPS"/>
+    <keyword type="constant" name="SPICE_SESSION_VERIFY_HOSTNAME" link="SpiceSession.html#SPICE-SESSION-VERIFY-HOSTNAME:CAPS"/>
+    <keyword type="constant" name="SPICE_SESSION_VERIFY_SUBJECT" link="SpiceSession.html#SPICE-SESSION-VERIFY-SUBJECT:CAPS"/>
+    <keyword type="constant" name="SPICE_CLIENT_ERROR_FAILED" link="SpiceSession.html#SPICE-CLIENT-ERROR-FAILED:CAPS"/>
+    <keyword type="constant" name="SPICE_CLIENT_USB_DEVICE_REJECTED" link="SpiceSession.html#SPICE-CLIENT-USB-DEVICE-REJECTED:CAPS"/>
+    <keyword type="constant" name="SPICE_CLIENT_USB_DEVICE_LOST" link="SpiceSession.html#SPICE-CLIENT-USB-DEVICE-LOST:CAPS"/>
+    <keyword type="constant" name="SPICE_CHANNEL_NONE" link="SpiceChannel.html#SPICE-CHANNEL-NONE:CAPS"/>
+    <keyword type="constant" name="SPICE_CHANNEL_OPENED" link="SpiceChannel.html#SPICE-CHANNEL-OPENED:CAPS"/>
+    <keyword type="constant" name="SPICE_CHANNEL_SWITCHING" link="SpiceChannel.html#SPICE-CHANNEL-SWITCHING:CAPS"/>
+    <keyword type="constant" name="SPICE_CHANNEL_CLOSED" link="SpiceChannel.html#SPICE-CHANNEL-CLOSED:CAPS"/>
+    <keyword type="constant" name="SPICE_CHANNEL_ERROR_CONNECT" link="SpiceChannel.html#SPICE-CHANNEL-ERROR-CONNECT:CAPS"/>
+    <keyword type="constant" name="SPICE_CHANNEL_ERROR_TLS" link="SpiceChannel.html#SPICE-CHANNEL-ERROR-TLS:CAPS"/>
+    <keyword type="constant" name="SPICE_CHANNEL_ERROR_LINK" link="SpiceChannel.html#SPICE-CHANNEL-ERROR-LINK:CAPS"/>
+    <keyword type="constant" name="SPICE_CHANNEL_ERROR_AUTH" link="SpiceChannel.html#SPICE-CHANNEL-ERROR-AUTH:CAPS"/>
+    <keyword type="constant" name="SPICE_CHANNEL_ERROR_IO" link="SpiceChannel.html#SPICE-CHANNEL-ERROR-IO:CAPS"/>
+    <keyword type="constant" name="SPICE_INPUTS_SCROLL_LOCK" link="SpiceInputsChannel.html#SPICE-INPUTS-SCROLL-LOCK:CAPS"/>
+    <keyword type="constant" name="SPICE_INPUTS_NUM_LOCK" link="SpiceInputsChannel.html#SPICE-INPUTS-NUM-LOCK:CAPS"/>
+    <keyword type="constant" name="SPICE_INPUTS_CAPS_LOCK" link="SpiceInputsChannel.html#SPICE-INPUTS-CAPS-LOCK:CAPS"/>
+    <keyword type="constant" name="SPICE_DISPLAY_KEY_EVENT_PRESS" link="SpiceDisplay.html#SPICE-DISPLAY-KEY-EVENT-PRESS:CAPS"/>
+    <keyword type="constant" name="SPICE_DISPLAY_KEY_EVENT_RELEASE" link="SpiceDisplay.html#SPICE-DISPLAY-KEY-EVENT-RELEASE:CAPS"/>
+    <keyword type="constant" name="SPICE_DISPLAY_KEY_EVENT_CLICK" link="SpiceDisplay.html#SPICE-DISPLAY-KEY-EVENT-CLICK:CAPS"/>
+  </functions>
+</book>

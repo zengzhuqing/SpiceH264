@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice Audio</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="application-support.html" title="Application Support, from spice-client-glib">
+<link rel="prev" href="application-support.html" title="Application Support, from spice-client-glib">
+<link rel="next" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="application-support.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="application-support.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Spice-GTK Reference Manual</th>
+<td><a accesskey="n" href="SpiceSmartcardManager.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#SpiceAudio.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#SpiceAudio.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#SpiceAudio.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#SpiceAudio.properties" class="shortcut">Properties</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="SpiceAudio"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceAudio.top_of_page"></a>Spice Audio</span></h2>
+<p>Spice Audio — a helper to play and to record audio channels</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceAudio.stability-level"></a><h2>Stability Level</h2>
+Stable, unless otherwise indicated
+</div>
+<div class="refsynopsisdiv">
+<a name="SpiceAudio.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;spice-audio.h&gt;
+
+struct              <a class="link" href="SpiceAudio.html#SpiceAudio-struct" title="struct SpiceAudio">SpiceAudio</a>;
+struct              <a class="link" href="SpiceAudio.html#SpiceAudioClass" title="struct SpiceAudioClass">SpiceAudioClass</a>;
+
+<a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="returnvalue">SpiceAudio</span></a> *        <a class="link" href="SpiceAudio.html#spice-audio-get" title="spice_audio_get ()">spice_audio_get</a>                     (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">GMainContext</span> *context</code></em>);
+<a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="returnvalue">SpiceAudio</span></a> *        <a class="link" href="SpiceAudio.html#spice-audio-new" title="spice_audio_new ()">spice_audio_new</a>                     (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">GMainContext</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceAudio.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----SpiceAudio
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceAudio.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="SpiceAudio.html#SpiceAudio--main-context" title='The "main-context" property'>main-context</a>"             <span class="type">GMainContext</span>*         : Read / Write / Construct Only
+  "<a class="link" href="SpiceAudio.html#SpiceAudio--session" title='The "session" property'>session</a>"                  <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>*         : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceAudio.description"></a><h2>Description</h2>
+<p>
+A class that handles the playback and record channels for your
+application, and connect them to the default sound system.
+</p>
+</div>
+<div class="refsect1">
+<a name="SpiceAudio.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="SpiceAudio-struct"></a><h3>struct SpiceAudio</h3>
+<pre class="programlisting">struct SpiceAudio;</pre>
+<p>
+The <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a> struct is opaque and should not be accessed directly.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceAudioClass"></a><h3>struct SpiceAudioClass</h3>
+<pre class="programlisting">struct SpiceAudioClass {
+    GObjectClass parent_class;
+};
+</pre>
+<p>
+Class structure for <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="type">GObjectClass</span> <em class="structfield"><code><a name="SpiceAudioClass.parent-class"></a>parent_class</code></em>;</span></p></td>
+<td>Parent class.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-audio-get"></a><h3>spice_audio_get ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="returnvalue">SpiceAudio</span></a> *        spice_audio_get                     (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">GMainContext</span> *context</code></em>);</pre>
+<p>
+Gets the <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a> associated with the passed in <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>.
+A new <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a> instance will be created the first time this
+function is called for a certain <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>.
+</p>
+<p>
+Note that this function returns a weak reference, which should not be used
+after the <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> itself has been unref-ed by the caller.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>the <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> to connect to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>a <span class="type">GMainContext</span> to attach to (or <code class="literal">NULL</code> for default). <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a weak reference to a <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a>
+instance or <code class="literal">NULL</code> if failed. <span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-audio-new"></a><h3>spice_audio_new ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="returnvalue">SpiceAudio</span></a> *        spice_audio_new                     (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                                         <em class="parameter"><code><span class="type">GMainContext</span> *context</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">spice_audio_new</code> has been deprecated since version 0.8 and should not be used in newly-written code. Use <a class="link" href="SpiceAudio.html#spice-audio-get" title="spice_audio_get ()"><code class="function">spice_audio_get()</code></a> instead</p>
+</div>
+<p>
+Once instantiated, <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a> will handle the playback and record
+channels to stream to your local audio system.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>session</code></em> :</span></p></td>
+<td>the <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> to connect to</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>a <span class="type">GMainContext</span> to attach to (or <code class="literal">NULL</code> for
+default). <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>a name for the audio channels (or <code class="literal">NULL</code> for
+application name). <span class="annotation">[<acronym title="NULL is ok, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>a new <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a> instance or <code class="literal">NULL</code> if no backend or failed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceAudio.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpiceAudio--main-context"></a><h3>The <code class="literal">"main-context"</code> property</h3>
+<pre class="programlisting">  "main-context"             <span class="type">GMainContext</span>*         : Read / Write / Construct Only</pre>
+<p>GMainContext to use for the event source.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceAudio--session"></a><h3>The <code class="literal">"session"</code> property</h3>
+<pre class="programlisting">  "session"                  <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>*         : Read / Write / Construct Only</pre>
+<p>
+<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> this <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a> is associated with
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceAudio.see-also"></a><h2>See Also</h2>
+<a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a>, and <a class="link" href="SpicePlaybackChannel.html" title="Playback Channel"><span class="type">SpicePlaybackChannel</span></a>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>
