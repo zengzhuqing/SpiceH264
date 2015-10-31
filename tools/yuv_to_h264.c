@@ -27,7 +27,7 @@ int main(int argc, char **argv){
     FAIL_IF_ERROR(2 != sscanf( argv[1], "%dx%d", &width, &height ), "resolution not specified or incorrect\n");
 
     /* Get default params for preset/tuning */
-    if(x264_param_default_preset(&param, "medium", NULL) < 0)
+    if(x264_param_default_preset(&param, "medium", "zerolatency") < 0)
         goto fail;
 
     /* Configure non-default params */
@@ -76,6 +76,7 @@ int main(int argc, char **argv){
             if(!fwrite(nal->p_payload, i_frame_size, 1, stdout))
                 goto fail;
         }
+        fprintf(stderr, "frame size : %d\n", i_frame_size);
     }
     /* Flush delayed frames */
     while(x264_encoder_delayed_frames(h))
@@ -88,6 +89,7 @@ int main(int argc, char **argv){
             if(!fwrite(nal->p_payload, i_frame_size, 1, stdout))
                 goto fail;
         }
+        fprintf(stderr, "Delay frame size : %d\n", i_frame_size);
     }
 
     x264_encoder_close(h);
