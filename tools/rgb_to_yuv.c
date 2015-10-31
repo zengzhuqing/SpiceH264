@@ -102,6 +102,8 @@ int main(int argc, char **argv){
     fclose(out_fp);
     out_fp = NULL;         
 
+    free(rgb_data);
+
     sws_freeContext(sws); 
     sws = NULL;
 
