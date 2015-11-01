@@ -97,32 +97,23 @@ static int h264_encoder_encode(x264_t *h, const uint8_t *yuv, const int width, c
 
     *i_frame_size = x264_encoder_encode(h, nal, &i_nal, &pic, &pic_out);
    
-//tune: zerolatency, no delayed_frames
-#if 0 
-    while(x264_encoder_delayed_frames(h))
-    {
-        *i_frame_size = x264_encoder_encode(h, &nal, &i_nal, NULL, &pic_out);
-    }
-#endif
     x264_picture_clean(&pic);
 
     return 0;
 }
 
-static void h264_encode_frame(const uint8_t *rgb, const int width, const int height, const char *out_filename)
+static void h264_encode_frame(const uint8_t *rgb, const int width, const int height, FILE *out_fp)
 {
     uint8_t *yuv;
     int ret;
-    x264_t *h;
+    static x264_t *h;
     int frame_size;
     x264_nal_t *nal;
-    FILE *out_fp;
 #ifdef DEBUG
     FILE *yuv_fp;
     yuv_fp = NULL;
 #endif  
- 
-    out_fp = NULL;
+    static int flag = 0;
  
     yuv = malloc (3 * width * height / 2);
     if (yuv == NULL) {
@@ -150,10 +141,13 @@ static void h264_encode_frame(const uint8_t *rgb, const int width, const int hei
     yuv_fp = NULL;
 #endif
 
-    h = h264_encoder_init(width, height);
-    if (h == NULL) {
-        fprintf(stderr, "Failed to init h264 encoder\n");
-        goto fail;
+    if (flag == 0) {
+        h = h264_encoder_init(width, height);
+        if (h == NULL) {
+            fprintf(stderr, "Failed to init h264 encoder\n");
+            goto fail;
+        }
+        flag = 1;
     }
 
     ret = h264_encoder_encode(h, yuv, width, height, &nal, &frame_size);
@@ -162,17 +156,10 @@ static void h264_encode_frame(const uint8_t *rgb, const int width, const int hei
         goto fail;
     }
     
-    out_fp = fopen(out_filename, "wb");
-    if (out_fp == NULL) {
-        fprintf(stderr, "Failed to open '%s'", out_filename);
-        goto fail;
-    }
     if (fwrite(nal->p_payload, frame_size, 1, out_fp) != 1) {
-        fprintf(stderr, "Failed to write h264 frame to '%s'", out_filename);
+        fprintf(stderr, "Failed to write h264 frame to file\n");
         goto fail;
     }
-    (void)fclose(out_fp);
-    out_fp = NULL; 
     
     printf("frame size:%d\n", frame_size);
 
@@ -180,22 +167,23 @@ static void h264_encode_frame(const uint8_t *rgb, const int width, const int hei
         free(yuv);
         yuv = NULL;
     }
+#if 0
     x264_encoder_close(h);
     h = NULL;
+#endif
+    return;
 
 fail:
     if (yuv != NULL) {
         free(yuv);
         yuv = NULL;
     }
+#if 0
     if (h != NULL) {
         x264_encoder_close(h);
         h = NULL;
     }
-    if (out_fp != NULL) {
-        (void)fclose(out_fp);
-        out_fp = NULL;
-    } 
+#endif
 }
 
 int main(int argc, char *argv[])
@@ -243,14 +231,23 @@ int main(int argc, char *argv[])
         goto fail;
     }
 
-    if (fread(rgb, 1, size, in_fp) != size) {
-        fprintf(stderr, "Failed to read %d bytes from %s\n", size, bitmap_file);
+    out_fp = fopen(out_h264, "wb");
+    if (out_fp == NULL) {
+        fprintf(stderr, "Failed to open %s\n", out_h264);
         goto fail;
     }
+
+    while (1) {   
+        if (fread(rgb, 1, size, in_fp) != size)
+            break;
+        h264_encode_frame(rgb, width, height, out_fp);
+    }
+
     (void)fclose(in_fp);
     in_fp = NULL;
-    
-    h264_encode_frame(rgb, width, height, out_h264);
+
+    (void)fclose(out_fp);
+    out_fp = NULL;
 
     free(rgb);
     rgb = NULL;
@@ -265,6 +262,10 @@ fail:
     if (in_fp != NULL) {
         (void)fclose(in_fp);
         in_fp = NULL;
+    }
+    if (out_fp != NULL) {
+        (void)fclose(out_fp);
+        out_fp = NULL;
     }
 
     return EXIT_FAILURE;
