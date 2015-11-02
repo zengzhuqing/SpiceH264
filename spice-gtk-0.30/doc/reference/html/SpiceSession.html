@@ -1,0 +1,1400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice-GTK Reference Manual: Spice Session</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="prev" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="next" href="SpiceChannel.html" title="Spice Channel">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#SpiceSession.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#SpiceSession.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#SpiceSession.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#SpiceSession.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch02.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="SpiceChannel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="SpiceSession"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceSession.top_of_page"></a>Spice Session</span></h2>
+<p>Spice Session — handles connection details, and active channels</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceSession.stability-level"></a><h2>Stability Level</h2>
+<acronym title="The intention of a Stable interface is to enable arbitrary third parties to
+develop applications to these interfaces, release them, and have confidence that
+they will run on all minor releases of the product (after the one in which the
+interface was introduced, and within the same major release). Even at a major
+release, incompatible changes are expected to be rare, and to have strong
+justifications.
+"><span class="acronym">Stable</span></acronym>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="SpiceSession.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="SpiceSession.html" title="Spice Session"><span class="returnvalue">SpiceSession</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-session-new" title="spice_session_new ()">spice_session_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-session-connect" title="spice_session_connect ()">spice_session_connect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-session-open-fd" title="spice_session_open_fd ()">spice_session_open_fd</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-session-disconnect" title="spice_session_disconnect ()">spice_session_disconnect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-session-get-channels" title="spice_session_get_channels ()">spice_session_get_channels</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-session-get-read-only" title="spice_session_get_read_only ()">spice_session_get_read_only</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-session-has-channel-type" title="spice_session_has_channel_type ()">spice_session_has_channel_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="spice-gtk-SpiceURI.html#SpiceURI" title="SpiceURI"><span class="returnvalue">SpiceURI</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-session-get-proxy-uri" title="spice_session_get_proxy_uri ()">spice_session_get_proxy_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-session-is-for-migration" title="spice_session_is_for_migration ()">spice_session_is_for_migration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Commandline-option-parser.html#GOptionGroup"><span class="returnvalue">GOptionGroup</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-get-option-group" title="spice_get_option_group ()">spice_get_option_group</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-set-session-option" title="spice_set_session_option ()">spice_set_session_option</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSession.html#spice-client-error-quark" title="spice_client_error_quark ()">spice_client_error_quark</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--ca" title="The “ca” property">ca</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--ca-file" title="The “ca-file” property">ca-file</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--cache-size" title="The “cache-size” property">cache-size</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--cert-subject" title="The “cert-subject” property">cert-subject</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--ciphers" title="The “ciphers” property">ciphers</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--client-sockets" title="The “client-sockets” property">client-sockets</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--color-depth" title="The “color-depth” property">color-depth</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--disable-effects" title="The “disable-effects” property">disable-effects</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--enable-audio" title="The “enable-audio” property">enable-audio</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--enable-smartcard" title="The “enable-smartcard” property">enable-smartcard</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--enable-usbredir" title="The “enable-usbredir” property">enable-usbredir</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--glz-window-size" title="The “glz-window-size” property">glz-window-size</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--host" title="The “host” property">host</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--inhibit-keyboard-grab" title="The “inhibit-keyboard-grab” property">inhibit-keyboard-grab</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="SpiceSession.html#SpiceSessionMigration" title="enum SpiceSessionMigration"><span class="type">SpiceSessionMigration</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--migration-state" title="The “migration-state” property">migration-state</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--name" title="The “name” property">name</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--password" title="The “password” property">password</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--port" title="The “port” property">port</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">SpiceImageCompress</span></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--preferred-compression" title="The “preferred-compression” property">preferred-compression</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--protocol" title="The “protocol” property">protocol</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--proxy" title="The “proxy” property">proxy</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--pubkey" title="The “pubkey” property">pubkey</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--read-only" title="The “read-only” property">read-only</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--secure-channels" title="The “secure-channels” property">secure-channels</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--share-dir-ro" title="The “share-dir-ro” property">share-dir-ro</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--shared-dir" title="The “shared-dir” property">shared-dir</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--smartcard-certificates" title="The “smartcard-certificates” property">smartcard-certificates</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--smartcard-db" title="The “smartcard-db” property">smartcard-db</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--tls-port" title="The “tls-port” property">tls-port</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--unix-path" title="The “unix-path” property">unix-path</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--uri" title="The “uri” property">uri</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--username" title="The “username” property">username</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--uuid" title="The “uuid” property">uuid</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="SpiceSession.html#SpiceSessionVerify" title="enum SpiceSessionVerify"><span class="type">SpiceSessionVerify</span></a></td>
+<td class="property_name"><a class="link" href="SpiceSession.html#SpiceSession--verify" title="The “verify” property">verify</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceSession.html#SpiceSession-channel-destroy" title="The “channel-destroy” signal">channel-destroy</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceSession.html#SpiceSession-channel-new" title="The “channel-new” signal">channel-new</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceSession.html#SpiceSession-mm-time-reset" title="The “mm-time-reset” signal">mm-time-reset</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="SpiceSession.html#SpiceSession-struct" title="SpiceSession">SpiceSession</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="SpiceSession.html#SpiceSessionClass" title="SpiceSessionClass">SpiceSessionClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="SpiceSession.html#SpiceSessionMigration" title="enum SpiceSessionMigration">SpiceSessionMigration</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="SpiceSession.html#SpiceSessionVerify" title="enum SpiceSessionVerify">SpiceSessionVerify</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="SpiceSession.html#SpiceClientError" title="enum SpiceClientError">SpiceClientError</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="SpiceSession.html#SPICE-CLIENT-ERROR:CAPS" title="SPICE_CLIENT_ERROR">SPICE_CLIENT_ERROR</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-Enumeration-and-Flag-Types.html">GEnum</a>
+    <span class="lineart">╰──</span> SpiceSessionMigration
+    <a href="https://developer.gnome.org/gobject/unstable/gobject-Enumeration-and-Flag-Types.html">GFlags</a>
+    <span class="lineart">╰──</span> SpiceSessionVerify
+    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> SpiceSession
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;spice-session.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.description"></a><h2>Description</h2>
+<p>The <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> class handles all the <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> connections.
+It's also the class that contains connections informations, such as
+<a class="link" href="SpiceSession.html#SpiceSession--host" title="The “host” property"><span class="type">“host”</span></a> and <a class="link" href="SpiceSession.html#SpiceSession--port" title="The “port” property"><span class="type">“port”</span></a>.</p>
+<p>You can simply set the property <a class="link" href="SpiceSession.html#SpiceSession--uri" title="The “uri” property"><span class="type">“uri”</span></a> to something like
+"spice://127.0.0.1?port=5930" to configure your connection details.</p>
+<p>You may want to connect to <a class="link" href="SpiceSession.html#SpiceSession-channel-new" title="The “channel-new” signal"><span class="type">“channel-new”</span></a> signal, to be
+informed of the availability of channels and to interact with
+them.</p>
+<p>For example, when the <a class="link" href="SpiceInputsChannel.html" title="Inputs Channel"><span class="type">SpiceInputsChannel</span></a> is available and get the
+event <a class="link" href="SpiceChannel.html#SPICE-CHANNEL-OPENED:CAPS"><span class="type">SPICE_CHANNEL_OPENED</span></a>, you can send key events with
+<a class="link" href="SpiceInputsChannel.html#spice-inputs-key-press" title="spice_inputs_key_press ()"><code class="function">spice_inputs_key_press()</code></a>. When the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> is available,
+you can start sharing the clipboard...  .</p>
+<p>Once <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> properties set, you can call
+<a class="link" href="SpiceSession.html#spice-session-connect" title="spice_session_connect ()"><code class="function">spice_session_connect()</code></a> to start connecting and communicating with
+a Spice server.</p>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="spice-session-new"></a><h3>spice_session_new ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceSession.html" title="Spice Session"><span class="returnvalue">SpiceSession</span></a> *
+spice_session_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new Spice session.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.2.5"></a><h4>Returns</h4>
+<p> a new <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-connect"></a><h3>spice_session_connect ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_session_connect (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>Open the session using the <a class="link" href="SpiceSession.html#SpiceSession--host" title="The “host” property"><span class="type">“host”</span></a> and
+<a class="link" href="SpiceSession.html#SpiceSession--port" title="The “port” property"><span class="type">“port”</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.3.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if the session state is invalid for connection
+request. <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the connection is initiated. To know whether the
+connection is established, you must watch for channels creation
+(<a class="link" href="SpiceSession.html#SpiceSession-channel-new" title="The “channel-new” signal"><span class="type">“channel-new”</span></a>) and the channels state
+(<a class="link" href="SpiceChannel.html#SpiceChannel-channel-event" title="The “channel-event” signal"><span class="type">“channel-event”</span></a>).</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-open-fd"></a><h3>spice_session_open_fd ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_session_open_fd (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                       <em class="parameter"><code><span class="type">int</span> fd</code></em>);</pre>
+<p>Open the session using the provided <em class="parameter"><code>fd</code></em>
+ socket file
+descriptor. This is useful if you create the fd yourself, for
+example to setup a SSH tunnel.</p>
+<p>Note however that additional sockets will be needed by all the channels
+created for <em class="parameter"><code>session</code></em>
+ so users of this API should hook into
+SpiceChannel::open-fd signal for each channel they are interested in, and
+create and pass a new socket to the channel using <a class="link" href="SpiceChannel.html#spice-channel-open-fd" title="spice_channel_open_fd ()"><span class="type">spice_channel_open_fd</span></a>, in
+the signal callback.</p>
+<p>If <em class="parameter"><code>fd</code></em>
+ is -1, a valid fd will be requested later via the
+SpiceChannel::open-fd signal. Typically, you would want to just pass -1 as
+<em class="parameter"><code>fd</code></em>
+ this call since you will have to hook to SpiceChannel::open-fd signal
+anyway.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.4.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fd</p></td>
+<td class="parameter_description"><p>a file descriptor (socket) or -1</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.4.8"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-disconnect"></a><h3>spice_session_disconnect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_session_disconnect (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>Disconnect the <em class="parameter"><code>session</code></em>
+, and destroy all channels.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-get-channels"></a><h3>spice_session_get_channels ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+spice_session_get_channels (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>Get the list of current channels associated with this <em class="parameter"><code>session</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.6.6"></a><h4>Returns</h4>
+<p> a <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a>
+of unowned <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> channels. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> SpiceChannel][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-get-read-only"></a><h3>spice_session_get_read_only ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_session_get_read_only (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>Checks whether the <em class="parameter"><code>session</code></em>
+ is read-only.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.7.6"></a><h4>Returns</h4>
+<p> whether the <em class="parameter"><code>session</code></em>
+is in read-only mode.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-has-channel-type"></a><h3>spice_session_has_channel_type ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_session_has_channel_type (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type</code></em>);</pre>
+<p>See if there is a <em class="parameter"><code>type</code></em>
+ channel in the channels associated with this
+<em class="parameter"><code>session</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html#SpiceChannel--channel-type" title="The “channel-type” property"><span class="type">“channel-type”</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.8.6"></a><h4>Returns</h4>
+<p> TRUE if a <em class="parameter"><code>type</code></em>
+channel is available otherwise FALSE.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-get-proxy-uri"></a><h3>spice_session_get_proxy_uri ()</h3>
+<pre class="programlisting"><a class="link" href="spice-gtk-SpiceURI.html#SpiceURI" title="SpiceURI"><span class="returnvalue">SpiceURI</span></a> *
+spice_session_get_proxy_uri (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>Gets the <em class="parameter"><code>session</code></em>
+ proxy uri.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.9.6"></a><h4>Returns</h4>
+<p> the session proxy <a class="link" href="spice-gtk-SpiceURI.html#SpiceURI" title="SpiceURI"><span class="type">SpiceURI</span></a> or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since 0.24</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-session-is-for-migration"></a><h3>spice_session_is_for_migration ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_session_is_for_migration (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>During seamless migration, channels may be created to establish a
+connection with the target, but they are temporary and should only
+handle migration steps. In order to avoid other interactions with
+the client, channels should check this value.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a Spice session</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.10.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the session is a copy created during migration</p>
+<p></p>
+</div>
+<p class="since">Since 0.27</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-get-option-group"></a><h3>spice_get_option_group ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Commandline-option-parser.html#GOptionGroup"><span class="returnvalue">GOptionGroup</span></a> *
+spice_get_option_group (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Gets commandline options.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.11.5"></a><h4>Returns</h4>
+<p> a <a href="https://developer.gnome.org/glib/unstable/glib-Commandline-option-parser.html#GOptionGroup"><span class="type">GOptionGroup</span></a> for the commandline
+arguments specific to Spice.  You have to call
+<a class="link" href="SpiceSession.html#spice-set-session-option" title="spice_set_session_option ()"><code class="function">spice_set_session_option()</code></a> after to set the options on a
+<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-set-session-option"></a><h3>spice_set_session_option ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_set_session_option (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>Set various properties on <em class="parameter"><code>session</code></em>
+, according to the commandline
+arguments given to <a class="link" href="SpiceSession.html#spice-get-option-group" title="spice_get_option_group ()"><code class="function">spice_get_option_group()</code></a> option group.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.12.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> to set option upon</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-client-error-quark"></a><h3>spice_client_error_quark ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+spice_client_error_quark (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Gets a <a href="https://developer.gnome.org/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> representing the string "spice-client-error-quark"</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.11.13.5"></a><h4>Returns</h4>
+<p> the <a href="https://developer.gnome.org/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> representing the string.</p>
+<p></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="SpiceSession-struct"></a><h3>SpiceSession</h3>
+<pre class="programlisting">typedef struct _SpiceSession SpiceSession;</pre>
+<p>The <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> struct is opaque and should not be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSessionClass"></a><h3>SpiceSessionClass</h3>
+<pre class="programlisting">typedef struct {
+    GObjectClass parent_class;
+
+    /* signals */
+    void (*channel_new)(SpiceSession *session, SpiceChannel *channel);
+    void (*channel_destroy)(SpiceSession *session, SpiceChannel *channel);
+} SpiceSessionClass;
+</pre>
+<p>Class structure for <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.12.3.5"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> <em class="structfield"><code><a name="SpiceSessionClass.parent-class"></a>parent_class</code></em>;</p></td>
+<td class="struct_member_description"><p>Parent class.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceSessionClass.channel-new"></a>channel_new</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceSession.html#SpiceSession-channel-new" title="The “channel-new” signal"><span class="type">“channel_new”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceSessionClass.channel-destroy"></a>channel_destroy</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceSession.html#SpiceSession-channel-destroy" title="The “channel-destroy” signal"><span class="type">“channel_destroy”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSessionMigration"></a><h3>enum SpiceSessionMigration</h3>
+<p>Session migration state.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.12.4.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-SESSION-MIGRATION-NONE:CAPS"></a>SPICE_SESSION_MIGRATION_NONE</p></td>
+<td class="enum_member_description">
+<p>no migration going on</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-SESSION-MIGRATION-SWITCHING:CAPS"></a>SPICE_SESSION_MIGRATION_SWITCHING</p></td>
+<td class="enum_member_description">
+<p>the session is switching host (destroy and reconnect)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-SESSION-MIGRATION-MIGRATING:CAPS"></a>SPICE_SESSION_MIGRATION_MIGRATING</p></td>
+<td class="enum_member_description">
+<p>the session is migrating seamlessly (reconnect)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-SESSION-MIGRATION-CONNECTING:CAPS"></a>SPICE_SESSION_MIGRATION_CONNECTING</p></td>
+<td class="enum_member_description">
+<p>the migration is connecting to destination (Since: 0.27)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSessionVerify"></a><h3>enum SpiceSessionVerify</h3>
+<p>Peer certificate verification parameters flags.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.12.5.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-SESSION-VERIFY-PUBKEY:CAPS"></a>SPICE_SESSION_VERIFY_PUBKEY</p></td>
+<td class="enum_member_description">
+<p>verify certificate public key matching</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-SESSION-VERIFY-HOSTNAME:CAPS"></a>SPICE_SESSION_VERIFY_HOSTNAME</p></td>
+<td class="enum_member_description">
+<p>verify certificate hostname matching</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-SESSION-VERIFY-SUBJECT:CAPS"></a>SPICE_SESSION_VERIFY_SUBJECT</p></td>
+<td class="enum_member_description">
+<p>verify certificate subject matching</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceClientError"></a><h3>enum SpiceClientError</h3>
+<p>Error codes returned by spice-client API.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.12.6.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CLIENT-ERROR-FAILED:CAPS"></a>SPICE_CLIENT_ERROR_FAILED</p></td>
+<td class="enum_member_description">
+<p>generic error code</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CLIENT-ERROR-USB-DEVICE-REJECTED:CAPS"></a>SPICE_CLIENT_ERROR_USB_DEVICE_REJECTED</p></td>
+<td class="enum_member_description">
+<p>device redirection rejected by host</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CLIENT-ERROR-USB-DEVICE-LOST:CAPS"></a>SPICE_CLIENT_ERROR_USB_DEVICE_LOST</p></td>
+<td class="enum_member_description">
+<p>device disconnected (fatal IO error)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CLIENT-ERROR-AUTH-NEEDS-PASSWORD:CAPS"></a>SPICE_CLIENT_ERROR_AUTH_NEEDS_PASSWORD</p></td>
+<td class="enum_member_description">
+<p>password is required</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CLIENT-ERROR-AUTH-NEEDS-PASSWORD-AND-USERNAME:CAPS"></a>SPICE_CLIENT_ERROR_AUTH_NEEDS_PASSWORD_AND_USERNAME</p></td>
+<td class="enum_member_description">
+<p>password and username are required</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CLIENT-ERROR-USB-SERVICE:CAPS"></a>SPICE_CLIENT_ERROR_USB_SERVICE</p></td>
+<td class="enum_member_description">
+<p>USB service error</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SPICE-CLIENT-ERROR:CAPS"></a><h3>SPICE_CLIENT_ERROR</h3>
+<pre class="programlisting">#define SPICE_CLIENT_ERROR spice_client_error_quark()
+</pre>
+<p>Error domain for spice client errors.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpiceSession--ca"></a><h3>The <code class="literal">“ca”</code> property</h3>
+<pre class="programlisting">  “ca”                       <a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> *</pre>
+<p>CA certificates in PEM format. The text data can contain
+several CA certificates identified by:</p>
+<p> -----BEGIN CERTIFICATE-----
+ ... (CA certificate in base64 encoding) ...
+ -----END CERTIFICATE-----</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since 0.15</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--ca-file"></a><h3>The <code class="literal">“ca-file”</code> property</h3>
+<pre class="programlisting">  “ca-file”                  <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>File holding the CA certificates for the host the client is
+connecting to</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--cache-size"></a><h3>The <code class="literal">“cache-size”</code> property</h3>
+<pre class="programlisting">  “cache-size”               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Images cache size. If 0, don't set.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--cert-subject"></a><h3>The <code class="literal">“cert-subject”</code> property</h3>
+<pre class="programlisting">  “cert-subject”             <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Certificate subject to check.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--ciphers"></a><h3>The <code class="literal">“ciphers”</code> property</h3>
+<pre class="programlisting">  “ciphers”                  <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>SSL cipher list.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--client-sockets"></a><h3>The <code class="literal">“client-sockets”</code> property</h3>
+<pre class="programlisting">  “client-sockets”           <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Sockets are provided by the client.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--color-depth"></a><h3>The <code class="literal">“color-depth”</code> property</h3>
+<pre class="programlisting">  “color-depth”              <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Display color depth to set on new display channels. If 0, don't set.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [0,32]</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--disable-effects"></a><h3>The <code class="literal">“disable-effects”</code> property</h3>
+<pre class="programlisting">  “disable-effects”          <a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a></pre>
+<p>A string array of effects to disable. The settings will
+be applied on new display channels. The following effets can be
+disabled "wallpaper", "font-smooth", "animation", and "all",
+which will disable all the effects. If NULL, don't apply changes.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--enable-audio"></a><h3>The <code class="literal">“enable-audio”</code> property</h3>
+<pre class="programlisting">  “enable-audio”             <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>If set to TRUE, the audio channels will be enabled for
+playback and recording.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: TRUE</p>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--enable-smartcard"></a><h3>The <code class="literal">“enable-smartcard”</code> property</h3>
+<pre class="programlisting">  “enable-smartcard”         <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>If set to TRUE, the smartcard channel will be enabled and smartcard
+events will be forwarded to the guest</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--enable-usbredir"></a><h3>The <code class="literal">“enable-usbredir”</code> property</h3>
+<pre class="programlisting">  “enable-usbredir”          <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>If set to TRUE, the usbredir channel will be enabled and USB devices
+can be redirected to the guest</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: TRUE</p>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--glz-window-size"></a><h3>The <code class="literal">“glz-window-size”</code> property</h3>
+<pre class="programlisting">  “glz-window-size”          <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Glz window size. If 0, don't set.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [0,134217728]</p>
+<p>Default value: 0</p>
+<p class="since">Since 0.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--host"></a><h3>The <code class="literal">“host”</code> property</h3>
+<pre class="programlisting">  “host”                     <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>URL of the SPICE host to connect to</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: "localhost"</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--inhibit-keyboard-grab"></a><h3>The <code class="literal">“inhibit-keyboard-grab”</code> property</h3>
+<pre class="programlisting">  “inhibit-keyboard-grab”    <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Request that SpiceDisplays don't grab the keyboard.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--migration-state"></a><h3>The <code class="literal">“migration-state”</code> property</h3>
+<pre class="programlisting">  “migration-state”          <a class="link" href="SpiceSession.html#SpiceSessionMigration" title="enum SpiceSessionMigration"><span class="type">SpiceSessionMigration</span></a></pre>
+<p><a class="link" href="SpiceSession.html#SpiceSessionMigration" title="enum SpiceSessionMigration"><span class="type">SpiceSessionMigration</span></a> bit field indicating if a migration is in
+progress</p>
+<p>Flags: Read</p>
+<p>Default value: SPICE_SESSION_MIGRATION_NONE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--name"></a><h3>The <code class="literal">“name”</code> property</h3>
+<pre class="programlisting">  “name”                     <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Spice server name.</p>
+<p>Flags: Read</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--password"></a><h3>The <code class="literal">“password”</code> property</h3>
+<pre class="programlisting">  “password”                 <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>TLS password to use</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--port"></a><h3>The <code class="literal">“port”</code> property</h3>
+<pre class="programlisting">  “port”                     <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Port to connect to for unencrypted sessions</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--preferred-compression"></a><h3>The <code class="literal">“preferred-compression”</code> property</h3>
+<pre class="programlisting">  “preferred-compression”    <span class="type">SpiceImageCompress</span></pre>
+<p>The image compression algorithm the client prefers to use. It is
+reported to the server.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: SPICE_IMAGE_COMPRESSION_INVALID</p>
+<p class="since">Since 0.29</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--protocol"></a><h3>The <code class="literal">“protocol”</code> property</h3>
+<pre class="programlisting">  “protocol”                 <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Version of the SPICE protocol to use</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Allowed values: [1,2]</p>
+<p>Default value: 2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--proxy"></a><h3>The <code class="literal">“proxy”</code> property</h3>
+<pre class="programlisting">  “proxy”                    <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>URI to the proxy server to use when doing network connection.
+of the form  [protocol://]&lt;host&gt;[:port] </p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.17</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--pubkey"></a><h3>The <code class="literal">“pubkey”</code> property</h3>
+<pre class="programlisting">  “pubkey”                   <a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> *</pre>
+<p>Public key to check.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--read-only"></a><h3>The <code class="literal">“read-only”</code> property</h3>
+<pre class="programlisting">  “read-only”                <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Whether this connection is read-only mode.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--secure-channels"></a><h3>The <code class="literal">“secure-channels”</code> property</h3>
+<pre class="programlisting">  “secure-channels”          <a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a></pre>
+<p>A string array of channel types to be secured.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since 0.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--share-dir-ro"></a><h3>The <code class="literal">“share-dir-ro”</code> property</h3>
+<pre class="programlisting">  “share-dir-ro”             <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Whether to share the directory read-only.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.28</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--shared-dir"></a><h3>The <code class="literal">“shared-dir”</code> property</h3>
+<pre class="programlisting">  “shared-dir”               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Location of the shared directory</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: "/home/jjongsma/Public"</p>
+<p class="since">Since 0.24</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--smartcard-certificates"></a><h3>The <code class="literal">“smartcard-certificates”</code> property</h3>
+<pre class="programlisting">  “smartcard-certificates”   <a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html#GStrv"><span class="type">GStrv</span></a></pre>
+<p>This property is used when one wants to simulate a smartcard with no
+hardware smartcard reader. If it's set to a NULL-terminated string
+array containing the names of 3 valid certificates, these will be
+used to simulate a smartcard in the guest
+See also <a class="link" href="SpiceSmartcardManager.html#spice-smartcard-manager-insert-card" title="spice_smartcard_manager_insert_card ()"><code class="function">spice_smartcard_manager_insert_card()</code></a></p>
+<p>Flags: Read / Write</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--smartcard-db"></a><h3>The <code class="literal">“smartcard-db”</code> property</h3>
+<pre class="programlisting">  “smartcard-db”             <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Path to the NSS certificate database containing the certificates to
+use to simulate a software smartcard</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--tls-port"></a><h3>The <code class="literal">“tls-port”</code> property</h3>
+<pre class="programlisting">  “tls-port”                 <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Port to connect to for TLS sessions</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--unix-path"></a><h3>The <code class="literal">“unix-path”</code> property</h3>
+<pre class="programlisting">  “unix-path”                <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Path of the Unix socket to connect to</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: NULL</p>
+<p class="since">Since 0.28</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--uri"></a><h3>The <code class="literal">“uri”</code> property</h3>
+<pre class="programlisting">  “uri”                      <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>URI of the SPICE host to connect to. The URI is of the form
+spice://hostname?port=XXX or spice://hostname?tls_port=XXX</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--username"></a><h3>The <code class="literal">“username”</code> property</h3>
+<pre class="programlisting">  “username”                 <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>Username to use</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--uuid"></a><h3>The <code class="literal">“uuid”</code> property</h3>
+<pre class="programlisting">  “uuid”                     <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></pre>
+<p>Spice server uuid.</p>
+<p>Flags: Read</p>
+<p class="since">Since 0.11</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession--verify"></a><h3>The <code class="literal">“verify”</code> property</h3>
+<pre class="programlisting">  “verify”                   <a class="link" href="SpiceSession.html#SpiceSessionVerify" title="enum SpiceSessionVerify"><span class="type">SpiceSessionVerify</span></a></pre>
+<p><a class="link" href="SpiceSession.html#SpiceSessionVerify" title="enum SpiceSessionVerify"><span class="type">SpiceSessionVerify</span></a> bit field indicating which parts of the peer
+certificate should be checked</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: SPICE_SESSION_VERIFY_HOSTNAME</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="SpiceSession-channel-destroy"></a><h3>The <code class="literal">“channel-destroy”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session,
+               <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)</pre>
+<p>The <a class="link" href="SpiceSession.html#SpiceSession-channel-destroy" title="The “channel-destroy” signal"><span class="type">“channel-destroy”</span></a> signal is emitted each time a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> is destroyed.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.14.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>the session that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>the destroyed <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession-channel-new"></a><h3>The <code class="literal">“channel-new”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session,
+               <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)</pre>
+<p>The <a class="link" href="SpiceSession.html#SpiceSession-channel-new" title="The “channel-new” signal"><span class="type">“channel-new”</span></a> signal is emitted each time a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> is created.</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.14.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>the session that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>the new <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSession-mm-time-reset"></a><h3>The <code class="literal">“mm-time-reset”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)</pre>
+<p>The <a class="link" href="SpiceSession.html#SpiceSession-mm-time-reset" title="The “mm-time-reset” signal"><span class="type">“mm-time-reset”</span></a> is emitted when we identify discontinuity in mm-time</p>
+<p>Since 0.20</p>
+<div class="refsect3">
+<a name="id-1.2.3.2.14.4.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>the session that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSession.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>, and the GTK widget <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

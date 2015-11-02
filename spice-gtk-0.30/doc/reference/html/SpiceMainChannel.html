@@ -1,0 +1,1733 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice-GTK Reference Manual: Main Channel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="prev" href="SpiceInputsChannel.html" title="Inputs Channel">
+<link rel="next" href="SpicePlaybackChannel.html" title="Playback Channel">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#SpiceMainChannel.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#SpiceMainChannel.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#SpiceMainChannel.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#SpiceMainChannel.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="SpiceInputsChannel.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="SpicePlaybackChannel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="SpiceMainChannel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceMainChannel.top_of_page"></a>Main Channel</span></h2>
+<p>Main Channel — the main Spice channel</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceMainChannel.stability-level"></a><h2>Stability Level</h2>
+<acronym title="The intention of a Stable interface is to enable arbitrary third parties to
+develop applications to these interfaces, release them, and have confidence that
+they will run on all minor releases of the product (after the one in which the
+interface was introduced, and within the same major release). Even at a major
+release, incompatible changes are expected to be rare, and to have strong
+justifications.
+"><span class="acronym">Stable</span></acronym>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-set-display" title="spice_main_set_display ()">spice_main_set_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-set-display-enabled" title="spice_main_set_display_enabled ()">spice_main_set_display_enabled</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-update-display" title="spice_main_update_display ()">spice_main_update_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-update-display-enabled" title="spice_main_update_display_enabled ()">spice_main_update_display_enabled</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-send-monitor-config" title="spice_main_send_monitor_config ()">spice_main_send_monitor_config</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-agent-test-capability" title="spice_main_agent_test_capability ()">spice_main_agent_test_capability</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-clipboard-selection-grab" title="spice_main_clipboard_selection_grab ()">spice_main_clipboard_selection_grab</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-clipboard-selection-notify" title="spice_main_clipboard_selection_notify ()">spice_main_clipboard_selection_notify</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-clipboard-selection-release" title="spice_main_clipboard_selection_release ()">spice_main_clipboard_selection_release</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-clipboard-selection-request" title="spice_main_clipboard_selection_request ()">spice_main_clipboard_selection_request</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-clipboard-grab" title="spice_main_clipboard_grab ()">spice_main_clipboard_grab</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-clipboard-release" title="spice_main_clipboard_release ()">spice_main_clipboard_release</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-clipboard-notify" title="spice_main_clipboard_notify ()">spice_main_clipboard_notify</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-clipboard-request" title="spice_main_clipboard_request ()">spice_main_clipboard_request</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-file-copy-async" title="spice_main_file_copy_async ()">spice_main_file_copy_async</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceMainChannel.html#spice-main-file-copy-finish" title="spice_main_file_copy_finish ()">spice_main_file_copy_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--agent-caps-0" title="The “agent-caps-0” property">agent-caps-0</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--agent-connected" title="The “agent-connected” property">agent-connected</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--color-depth" title="The “color-depth” property">color-depth</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--disable-animation" title="The “disable-animation” property">disable-animation</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--disable-display-align" title="The “disable-display-align” property">disable-display-align</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--disable-display-position" title="The “disable-display-position” property">disable-display-position</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--disable-font-smooth" title="The “disable-font-smooth” property">disable-font-smooth</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--disable-wallpaper" title="The “disable-wallpaper” property">disable-wallpaper</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--max-clipboard" title="The “max-clipboard” property">max-clipboard</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel--mouse-mode" title="The “mouse-mode” property">mouse-mode</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-agent-update" title="The “main-agent-update” signal">main-agent-update</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard" title="The “main-clipboard” signal">main-clipboard</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-grab" title="The “main-clipboard-grab” signal">main-clipboard-grab</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-release" title="The “main-clipboard-release” signal">main-clipboard-release</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-request" title="The “main-clipboard-request” signal">main-clipboard-request</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-selection" title="The “main-clipboard-selection” signal">main-clipboard-selection</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-selection-grab" title="The “main-clipboard-selection-grab” signal">main-clipboard-selection-grab</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-selection-release" title="The “main-clipboard-selection-release” signal">main-clipboard-selection-release</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-selection-request" title="The “main-clipboard-selection-request” signal">main-clipboard-selection-request</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-mouse-update" title="The “main-mouse-update” signal">main-mouse-update</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-migration-started" title="The “migration-started” signal">migration-started</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-new-file-transfer" title="The “new-file-transfer” signal">new-file-transfer</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannel-struct" title="struct SpiceMainChannel">SpiceMainChannel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceMainChannel.html#SpiceMainChannelClass" title="struct SpiceMainChannelClass">SpiceMainChannelClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="SpiceChannel.html" title="Spice Channel">SpiceChannel</a>
+        <span class="lineart">╰──</span> SpiceMainChannel
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;channel-main.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.description"></a><h2>Description</h2>
+<p>The main channel is the Spice session control channel. It handles
+communication initialization (channels list), migrations, mouse
+modes, multimedia time, and agent communication.</p>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="spice-main-set-display"></a><h3>spice_main_set_display ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_set_display (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                        <em class="parameter"><code><span class="type">int</span> id</code></em>,
+                        <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                        <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                        <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                        <em class="parameter"><code><span class="type">int</span> height</code></em>);</pre>
+<p>Notify the guest of screen resolution change. The notification is
+sent 1 second later, if no further changes happen.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>display ID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x</p></td>
+<td class="parameter_description"><p>x position</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y</p></td>
+<td class="parameter_description"><p>y position</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>width</p></td>
+<td class="parameter_description"><p>display width</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>height</p></td>
+<td class="parameter_description"><p>display height</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-set-display-enabled"></a><h3>spice_main_set_display_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_set_display_enabled (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                                <em class="parameter"><code><span class="type">int</span> id</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);</pre>
+<p>When sending monitor configuration to agent guest, don't set
+display <em class="parameter"><code>id</code></em>
+, which the agent translates to disabling the display
+id. Note: this will take effect next time the monitor
+configuration is sent.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>display ID (if -1: set all displays)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>enabled</p></td>
+<td class="parameter_description"><p>wether display <em class="parameter"><code>id</code></em>
+is enabled</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-update-display"></a><h3>spice_main_update_display ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_update_display (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                           <em class="parameter"><code><span class="type">int</span> id</code></em>,
+                           <em class="parameter"><code><span class="type">int</span> x</code></em>,
+                           <em class="parameter"><code><span class="type">int</span> y</code></em>,
+                           <em class="parameter"><code><span class="type">int</span> width</code></em>,
+                           <em class="parameter"><code><span class="type">int</span> height</code></em>,
+                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> update</code></em>);</pre>
+<p>Update the display <em class="parameter"><code>id</code></em>
+ resolution.</p>
+<p>If <em class="parameter"><code>update</code></em>
+ is <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the remote configuration will be updated too
+after 1 second without further changes. You can send when you want
+without delay the new configuration to the remote with
+<a class="link" href="SpiceMainChannel.html#spice-main-send-monitor-config" title="spice_main_send_monitor_config ()"><code class="function">spice_main_send_monitor_config()</code></a></p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.4.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>display ID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x</p></td>
+<td class="parameter_description"><p>x position</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y</p></td>
+<td class="parameter_description"><p>y position</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>width</p></td>
+<td class="parameter_description"><p>display width</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>height</p></td>
+<td class="parameter_description"><p>display height</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>update</p></td>
+<td class="parameter_description"><p>if <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, update guest resolution after 1sec.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-update-display-enabled"></a><h3>spice_main_update_display_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_update_display_enabled (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                                   <em class="parameter"><code><span class="type">int</span> id</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> update</code></em>);</pre>
+<p>When sending monitor configuration to agent guest, if <em class="parameter"><code>enabled</code></em>
+ is <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>,
+don't set display <em class="parameter"><code>id</code></em>
+, which the agent translates to disabling the display
+id. If <em class="parameter"><code>enabled</code></em>
+ is <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, the monitor will be included in the next monitor
+update. Note: this will take effect next time the monitor configuration is
+sent.</p>
+<p>If <em class="parameter"><code>update</code></em>
+ is <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, no server update will be triggered by this call, but
+the value will be saved and used in the next configuration update.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.5.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>display ID (if -1: set all displays)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>enabled</p></td>
+<td class="parameter_description"><p>wether display <em class="parameter"><code>id</code></em>
+is enabled</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>update</p></td>
+<td class="parameter_description"><p>if <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, update guest display state after 1sec.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 0.30</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-send-monitor-config"></a><h3>spice_main_send_monitor_config ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_main_send_monitor_config (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>);</pre>
+<p>Send monitors configuration previously set with
+<a class="link" href="SpiceMainChannel.html#spice-main-set-display" title="spice_main_set_display ()"><code class="function">spice_main_set_display()</code></a> and <a class="link" href="SpiceMainChannel.html#spice-main-set-display-enabled" title="spice_main_set_display_enabled ()"><code class="function">spice_main_set_display_enabled()</code></a></p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.6.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-agent-test-capability"></a><h3>spice_main_agent_test_capability ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_main_agent_test_capability (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                                  <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> cap</code></em>);</pre>
+<p>Test capability of a remote agent.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cap</p></td>
+<td class="parameter_description"><p>an agent capability identifier</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.7.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>cap</code></em>
+(channel kind capability) is available.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-clipboard-selection-grab"></a><h3>spice_main_clipboard_selection_grab ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_clipboard_selection_grab (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> selection</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> *types</code></em>,
+                                     <em class="parameter"><code><span class="type">int</span> ntypes</code></em>);</pre>
+<p>Grab the guest clipboard, with <span class="type">VD_AGENT_CLIPBOARD</span> <em class="parameter"><code>types</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>one of the clipboard <span class="type">VD_AGENT_CLIPBOARD_SELECTION_</span>*</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>types</p></td>
+<td class="parameter_description"><p>an array of <span class="type">VD_AGENT_CLIPBOARD</span> types available in the clipboard</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ntypes</p></td>
+<td class="parameter_description"><p>the number of <em class="parameter"><code>types</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-clipboard-selection-notify"></a><h3>spice_main_clipboard_selection_notify ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_clipboard_selection_notify (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> selection</code></em>,
+                                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> type</code></em>,
+                                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *data</code></em>,
+                                       <em class="parameter"><code><span class="type">size_t</span> size</code></em>);</pre>
+<p>Send the clipboard data to the guest.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>one of the clipboard <span class="type">VD_AGENT_CLIPBOARD_SELECTION_</span>*</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>a <span class="type">VD_AGENT_CLIPBOARD</span> type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>clipboard data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>data length in bytes</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-clipboard-selection-release"></a><h3>spice_main_clipboard_selection_release ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_clipboard_selection_release
+                               (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> selection</code></em>);</pre>
+<p>Release the clipboard (for example, when the client loses the
+clipboard grab): Inform the guest no clipboard data is available.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>one of the clipboard <span class="type">VD_AGENT_CLIPBOARD_SELECTION_</span>*</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-clipboard-selection-request"></a><h3>spice_main_clipboard_selection_request ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_clipboard_selection_request
+                               (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> selection</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> type</code></em>);</pre>
+<p>Request clipboard data of <em class="parameter"><code>type</code></em>
+ from the guest. The reply is sent
+through the <a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard-selection" title="The “main-clipboard-selection” signal"><span class="type">“main-clipboard-selection”</span></a> signal.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.11.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>one of the clipboard <span class="type">VD_AGENT_CLIPBOARD_SELECTION_</span>*</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>a <span class="type">VD_AGENT_CLIPBOARD</span> type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-clipboard-grab"></a><h3>spice_main_clipboard_grab ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_clipboard_grab (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> *types</code></em>,
+                           <em class="parameter"><code><span class="type">int</span> ntypes</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">spice_main_clipboard_grab</code> has been deprecated since version 0.6 and should not be used in newly-written code.</p>
+<p>use <a class="link" href="SpiceMainChannel.html#spice-main-clipboard-selection-grab" title="spice_main_clipboard_selection_grab ()"><code class="function">spice_main_clipboard_selection_grab()</code></a> instead.</p>
+</div>
+<p>Grab the guest clipboard, with <span class="type">VD_AGENT_CLIPBOARD</span> <em class="parameter"><code>types</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.12.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>types</p></td>
+<td class="parameter_description"><p>an array of <span class="type">VD_AGENT_CLIPBOARD</span> types available in the clipboard</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ntypes</p></td>
+<td class="parameter_description"><p>the number of <em class="parameter"><code>types</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-clipboard-release"></a><h3>spice_main_clipboard_release ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_clipboard_release (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">spice_main_clipboard_release</code> has been deprecated since version 0.6 and should not be used in newly-written code.</p>
+<p>use <a class="link" href="SpiceMainChannel.html#spice-main-clipboard-selection-release" title="spice_main_clipboard_selection_release ()"><code class="function">spice_main_clipboard_selection_release()</code></a> instead.</p>
+</div>
+<p>Release the clipboard (for example, when the client loses the
+clipboard grab): Inform the guest no clipboard data is available.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.13.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-clipboard-notify"></a><h3>spice_main_clipboard_notify ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_clipboard_notify (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> type</code></em>,
+                             <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *data</code></em>,
+                             <em class="parameter"><code><span class="type">size_t</span> size</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">spice_main_clipboard_notify</code> has been deprecated since version 0.6 and should not be used in newly-written code.</p>
+<p>use <a class="link" href="SpiceMainChannel.html#spice-main-clipboard-selection-notify" title="spice_main_clipboard_selection_notify ()"><code class="function">spice_main_clipboard_selection_notify()</code></a> instead.</p>
+</div>
+<p>Send the clipboard data to the guest.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.14.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>a <span class="type">VD_AGENT_CLIPBOARD</span> type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>clipboard data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>data length in bytes</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-clipboard-request"></a><h3>spice_main_clipboard_request ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_clipboard_request (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> type</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">spice_main_clipboard_request</code> has been deprecated since version 0.6 and should not be used in newly-written code.</p>
+<p>use <a class="link" href="SpiceMainChannel.html#spice-main-clipboard-selection-request" title="spice_main_clipboard_selection_request ()"><code class="function">spice_main_clipboard_selection_request()</code></a> instead.</p>
+</div>
+<p>Request clipboard data of <em class="parameter"><code>type</code></em>
+ from the guest. The reply is sent
+through the <a class="link" href="SpiceMainChannel.html#SpiceMainChannel-main-clipboard" title="The “main-clipboard” signal"><span class="type">“main-clipboard”</span></a> signal.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.15.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>a <span class="type">VD_AGENT_CLIPBOARD</span> type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-file-copy-async"></a><h3>spice_main_file_copy_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_main_file_copy_async (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GFile.html"><span class="type">GFile</span></a> **sources</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GFile.html#GFileCopyFlags"><span class="type">GFileCopyFlags</span></a> flags</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GFile.html#GFileProgressCallback"><span class="type">GFileProgressCallback</span></a> progress_callback</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> progress_callback_data</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Copies the file <em class="parameter"><code>sources</code></em>
+ to guest</p>
+<p>If <em class="parameter"><code>cancellable</code></em>
+ is not <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, then the operation can be cancelled by
+triggering the cancellable object from another thread. If the operation
+was cancelled, the error <a href="https://developer.gnome.org/gio/unstable/gio-GIOError.html#G-IO-ERROR-CANCELLED:CAPS"><code class="literal">G_IO_ERROR_CANCELLED</code></a> will be returned.</p>
+<p>If <em class="parameter"><code>progress_callback</code></em>
+ is not <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, then the operation can be monitored by
+setting this to a <a href="https://developer.gnome.org/gio/unstable/GFile.html#GFileProgressCallback"><span class="type">GFileProgressCallback</span></a> function. <em class="parameter"><code>progress_callback_data</code></em>
+
+will be passed to this function. It is guaranteed that this callback will
+be called after all data has been transferred with the total number of bytes
+copied during the operation.</p>
+<p>When the operation is finished, callback will be called. You can then call
+<a class="link" href="SpiceMainChannel.html#spice-main-file-copy-finish" title="spice_main_file_copy_finish ()"><code class="function">spice_main_file_copy_finish()</code></a> to get the result of the operation.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.16.8"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sources</p></td>
+<td class="parameter_description"><p><a href="https://developer.gnome.org/gio/unstable/GFile.html"><span class="type">GFile</span></a> to be transfer</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>set of <a href="https://developer.gnome.org/gio/unstable/GFile.html#GFileCopyFlags"><span class="type">GFileCopyFlags</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>progress_callback</p></td>
+<td class="parameter_description"><p> function to callback with
+progress information, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if progress information is not needed. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>progress_callback_data</p></td>
+<td class="parameter_description"><p> user data to pass to <em class="parameter"><code>progress_callback</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>the data to pass to callback function</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-main-file-copy-finish"></a><h3>spice_main_file_copy_finish ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_main_file_copy_finish (<em class="parameter"><code><a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *channel</code></em>,
+                             <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes copying the file started with
+<a class="link" href="SpiceMainChannel.html#spice-main-file-copy-async" title="spice_main_file_copy_async ()"><code class="function">spice_main_file_copy_async()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.17.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.7.11.17.6"></a><h4>Returns</h4>
+<p> a <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on error.</p>
+<p></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="SpiceMainChannel-struct"></a><h3>struct SpiceMainChannel</h3>
+<pre class="programlisting">struct SpiceMainChannel;</pre>
+<p>The <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> struct is opaque and should not be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannelClass"></a><h3>struct SpiceMainChannelClass</h3>
+<pre class="programlisting">struct SpiceMainChannelClass {
+    SpiceChannelClass parent_class;
+
+    /* signals */
+    void (*mouse_update)(SpiceChannel *channel);
+    void (*agent_update)(SpiceChannel *channel);
+};
+</pre>
+<p>Class structure for <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.12.3.5"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a class="link" href="SpiceChannel.html#SpiceChannelClass" title="SpiceChannelClass"><span class="type">SpiceChannelClass</span></a> <em class="structfield"><code><a name="SpiceMainChannelClass.parent-class"></a>parent_class</code></em>;</p></td>
+<td class="struct_member_description"><p>Parent class.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceMainChannelClass.mouse-update"></a>mouse_update</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <span class="type">“mouse-update”</span> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceMainChannelClass.agent-update"></a>agent_update</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <span class="type">“agent-update”</span> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpiceMainChannel--agent-caps-0"></a><h3>The <code class="literal">“agent-caps-0”</code> property</h3>
+<pre class="programlisting">  “agent-caps-0”             <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Agent capability bits 0 -&gt; 31.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel--agent-connected"></a><h3>The <code class="literal">“agent-connected”</code> property</h3>
+<pre class="programlisting">  “agent-connected”          <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Whether the agent is connected.</p>
+<p>Flags: Read</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel--color-depth"></a><h3>The <code class="literal">“color-depth”</code> property</h3>
+<pre class="programlisting">  “color-depth”              <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a></pre>
+<p>Color depth.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Allowed values: &lt;= 32</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel--disable-animation"></a><h3>The <code class="literal">“disable-animation”</code> property</h3>
+<pre class="programlisting">  “disable-animation”        <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Disable guest animations.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel--disable-display-align"></a><h3>The <code class="literal">“disable-display-align”</code> property</h3>
+<pre class="programlisting">  “disable-display-align”    <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Disable automatic horizontal display position alignment.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.13</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel--disable-display-position"></a><h3>The <code class="literal">“disable-display-position”</code> property</h3>
+<pre class="programlisting">  “disable-display-position” <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Disable using display position when setting monitor config.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel--disable-font-smooth"></a><h3>The <code class="literal">“disable-font-smooth”</code> property</h3>
+<pre class="programlisting">  “disable-font-smooth”      <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Disable guest font smoothing.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel--disable-wallpaper"></a><h3>The <code class="literal">“disable-wallpaper”</code> property</h3>
+<pre class="programlisting">  “disable-wallpaper”        <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Disable guest wallpaper.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel--max-clipboard"></a><h3>The <code class="literal">“max-clipboard”</code> property</h3>
+<pre class="programlisting">  “max-clipboard”            <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Maximum size of clipboard operations in bytes (default 100MB,
+-1 for unlimited size);</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 104857600</p>
+<p class="since">Since 0.22</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel--mouse-mode"></a><h3>The <code class="literal">“mouse-mode”</code> property</h3>
+<pre class="programlisting">  “mouse-mode”               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Spice protocol specifies two mouse modes, client mode and
+server mode. In client mode (<code class="literal">SPICE_MOUSE_MODE_CLIENT</code>), the
+affective mouse is the client side mouse: the client sends
+mouse position within the display and the server sends mouse
+shape messages. In server mode (<code class="literal">SPICE_MOUSE_MODE_SERVER</code>), the
+client sends relative mouse movements and the server sends
+position and shape commands.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-agent-update"></a><h3>The <code class="literal">“main-agent-update”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Notify when the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><code class="literal">SpiceMainChannel</code></a>:agent-connected or
+<a class="link" href="SpiceMainChannel.html" title="Main Channel"><code class="literal">SpiceMainChannel</code></a>:agent-caps-0 property change.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-clipboard"></a><h3>The <code class="literal">“main-clipboard”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             type,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          data,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             size,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Provides guest clipboard data requested by <a class="link" href="SpiceMainChannel.html#spice-main-clipboard-request" title="spice_main_clipboard_request ()"><code class="function">spice_main_clipboard_request()</code></a>.</p>
+<div class="warning">
+<p><code class="literal">SpiceMainChannel::main-clipboard</code> has been deprecated since version 0.6 and should not be used in newly-written code.</p>
+<p>use SpiceMainChannel::main-clipboard-selection instead.</p>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.3.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>the VD_AGENT_CLIPBOARD data type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>clipboard data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>size of <em class="parameter"><code>data</code></em>
+in bytes</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-clipboard-grab"></a><h3>The <code class="literal">“main-clipboard-grab”</code> signal</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          types,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             ntypes,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Inform when clipboard data is available from the guest, and for
+which <em class="parameter"><code>types</code></em>
+.</p>
+<div class="warning">
+<p><code class="literal">SpiceMainChannel::main-clipboard-grab</code> has been deprecated since version 0.6 and should not be used in newly-written code.</p>
+<p>use SpiceMainChannel::main-clipboard-selection-grab instead.</p>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.4.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>types</p></td>
+<td class="parameter_description"><p>the VD_AGENT_CLIPBOARD data types</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ntypes</p></td>
+<td class="parameter_description"><p>the number of <em class="parameter"><code>types</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-clipboard-release"></a><h3>The <code class="literal">“main-clipboard-release”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Inform when the clipboard is released from the guest, when no
+clipboard data is available from the guest.</p>
+<div class="warning">
+<p><code class="literal">SpiceMainChannel::main-clipboard-release</code> has been deprecated since version 0.6 and should not be used in newly-written code.</p>
+<p>use SpiceMainChannel::main-clipboard-selection-release instead.</p>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.5.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-clipboard-request"></a><h3>The <code class="literal">“main-clipboard-request”</code> signal</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             types,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Request clipboard data from the client.</p>
+<div class="warning">
+<p><code class="literal">SpiceMainChannel::main-clipboard-request</code> has been deprecated since version 0.6 and should not be used in newly-written code.</p>
+<p>use SpiceMainChannel::main-clipboard-selection-request instead.</p>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.6.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>types</p></td>
+<td class="parameter_description"><p>the VD_AGENT_CLIPBOARD request type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.6.7"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the request is successful</p>
+<p></p>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-clipboard-selection"></a><h3>The <code class="literal">“main-clipboard-selection”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             selection,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             type,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          data,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             size,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Informs that clipboard selection data are available.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>a VD_AGENT_CLIPBOARD_SELECTION clipboard</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>the VD_AGENT_CLIPBOARD data type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>clipboard data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>size of <em class="parameter"><code>data</code></em>
+in bytes</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-clipboard-selection-grab"></a><h3>The <code class="literal">“main-clipboard-selection-grab”</code> signal</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             selection,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          types,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             ntypes,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Inform when clipboard data is available from the guest, and for
+which <em class="parameter"><code>types</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>a VD_AGENT_CLIPBOARD_SELECTION clipboard</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>types</p></td>
+<td class="parameter_description"><p>the VD_AGENT_CLIPBOARD data types</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ntypes</p></td>
+<td class="parameter_description"><p>the number of <em class="parameter"><code>types</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-clipboard-selection-release"></a><h3>The <code class="literal">“main-clipboard-selection-release”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             selection,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Inform when the clipboard is released from the guest, when no
+clipboard data is available from the guest.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>a VD_AGENT_CLIPBOARD_SELECTION clipboard</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-clipboard-selection-request"></a><h3>The <code class="literal">“main-clipboard-selection-request”</code> signal</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             selection,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a>             types,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Request clipboard data from the client.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>a VD_AGENT_CLIPBOARD_SELECTION clipboard</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>types</p></td>
+<td class="parameter_description"><p>the VD_AGENT_CLIPBOARD request type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.10.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the request is successful</p>
+<p></p>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p class="since">Since 0.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-main-mouse-update"></a><h3>The <code class="literal">“main-mouse-update”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Notify when the mouse mode has changed.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.11.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-migration-started"></a><h3>The <code class="literal">“migration-started”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *main,
+               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>          *session,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Inform when migration is starting. Application wishing to make
+connections themself can set the <a class="link" href="SpiceSession.html#SpiceSession--client-sockets" title="The “client-sockets” property"><span class="type">“client-sockets”</span></a>
+to <em class="parameter"><code>TRUE</code></em>
+, then follow <a class="link" href="SpiceSession.html#SpiceSession-channel-new" title="The “channel-new” signal"><span class="type">“channel-new”</span></a> creation, and
+use <a class="link" href="SpiceChannel.html#spice-channel-open-fd" title="spice_channel_open_fd ()"><code class="function">spice_channel_open_fd()</code></a> once the socket is created.</p>
+<div class="refsect3">
+<a name="id-1.2.3.7.14.12.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>main</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a migration <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceMainChannel-new-file-transfer"></a><h3>The <code class="literal">“new-file-transfer”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> *spicemainchannel,
+               <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>          *arg1,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceMainChannel.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>, and the GTK widget <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

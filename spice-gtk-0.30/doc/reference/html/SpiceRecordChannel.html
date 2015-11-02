@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice-GTK Reference Manual: Record Channel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="prev" href="SpicePlaybackChannel.html" title="Playback Channel">
+<link rel="next" href="SpiceSmartcardChannel.html" title="Smartcard Channel">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#SpiceRecordChannel.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#SpiceRecordChannel.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#SpiceRecordChannel.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#SpiceRecordChannel.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="SpicePlaybackChannel.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="SpiceSmartcardChannel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="SpiceRecordChannel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceRecordChannel.top_of_page"></a>Record Channel</span></h2>
+<p>Record Channel — audio stream for recording</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.stability-level"></a><h2>Stability Level</h2>
+<acronym title="The intention of a Stable interface is to enable arbitrary third parties to
+develop applications to these interfaces, release them, and have confidence that
+they will run on all minor releases of the product (after the one in which the
+interface was introduced, and within the same major release). Even at a major
+release, incompatible changes are expected to be rare, and to have strong
+justifications.
+"><span class="acronym">Stable</span></acronym>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody><tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceRecordChannel.html#spice-record-send-data" title="spice_record_send_data ()">spice_record_send_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel--mute" title="The “mute” property">mute</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel--nchannels" title="The “nchannels” property">nchannels</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></td>
+<td class="property_name"><a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel--volume" title="The “volume” property">volume</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel-record-start" title="The “record-start” signal">record-start</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel-record-stop" title="The “record-stop” signal">record-stop</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel-struct" title="struct SpiceRecordChannel">SpiceRecordChannel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceRecordChannel.html#SpiceRecordChannelClass" title="struct SpiceRecordChannelClass">SpiceRecordChannelClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="SpiceChannel.html" title="Spice Channel">SpiceChannel</a>
+        <span class="lineart">╰──</span> SpiceRecordChannel
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;channel-record.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.description"></a><h2>Description</h2>
+<p><a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a> class handles an audio recording stream. The
+audio stream should start when <a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel-record-start" title="The “record-start” signal"><span class="type">“record-start”</span></a> is
+emitted and should be stopped when <a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel-record-stop" title="The “record-stop” signal"><span class="type">“record-stop”</span></a>
+is received.</p>
+<p>The audio is sent to the guest by calling <a class="link" href="SpiceRecordChannel.html#spice-record-send-data" title="spice_record_send_data ()"><code class="function">spice_record_send_data()</code></a>
+with the recorded PCM data.</p>
+<p>Note: You may be interested to let the <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a> class play and
+record audio channels for your application.</p>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="spice-record-send-data"></a><h3>spice_record_send_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_record_send_data (<em class="parameter"><code><a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a> *channel</code></em>,
+                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> bytes</code></em>,
+                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> time</code></em>);</pre>
+<p>Send recorded PCM data to the guest.</p>
+<div class="refsect3">
+<a name="id-1.2.3.9.11.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>PCM data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>bytes</p></td>
+<td class="parameter_description"><p>size of <em class="parameter"><code>data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time</p></td>
+<td class="parameter_description"><p>stream timestamp</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="SpiceRecordChannel-struct"></a><h3>struct SpiceRecordChannel</h3>
+<pre class="programlisting">struct SpiceRecordChannel;</pre>
+<p>The <a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a> struct is opaque and should not be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceRecordChannelClass"></a><h3>struct SpiceRecordChannelClass</h3>
+<pre class="programlisting">struct SpiceRecordChannelClass {
+    SpiceChannelClass parent_class;
+
+    /* signals */
+    void (*record_start)(SpiceRecordChannel *channel,
+                         gint format, gint channels, gint freq);
+    void (*record_data)(SpiceRecordChannel *channel, gpointer *data, gint size);
+    void (*record_stop)(SpiceRecordChannel *channel);
+};
+</pre>
+<p>Class structure for <a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.3.9.12.3.5"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a class="link" href="SpiceChannel.html#SpiceChannelClass" title="SpiceChannelClass"><span class="type">SpiceChannelClass</span></a> <em class="structfield"><code><a name="SpiceRecordChannelClass.parent-class"></a>parent_class</code></em>;</p></td>
+<td class="struct_member_description"><p>Parent class.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceRecordChannelClass.record-start"></a>record_start</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel-record-start" title="The “record-start” signal"><span class="type">“record-start”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceRecordChannelClass.record-data"></a>record_data</code></em> ()</p></td>
+<td class="struct_member_description"><p>Unused (deprecated).</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceRecordChannelClass.record-stop"></a>record_stop</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceRecordChannel.html#SpiceRecordChannel-record-stop" title="The “record-stop” signal"><span class="type">“record-stop”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpiceRecordChannel--mute"></a><h3>The <code class="literal">“mute”</code> property</h3>
+<pre class="programlisting">  “mute”                     <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Mute.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceRecordChannel--nchannels"></a><h3>The <code class="literal">“nchannels”</code> property</h3>
+<pre class="programlisting">  “nchannels”                <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a></pre>
+<p>Number of Channels.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &lt;= 255</p>
+<p>Default value: 2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceRecordChannel--volume"></a><h3>The <code class="literal">“volume”</code> property</h3>
+<pre class="programlisting">  “volume”                   <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a></pre>
+<p>Record volume.</p>
+<p>Flags: Read / Write</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="SpiceRecordChannel-record-start"></a><h3>The <code class="literal">“record-start”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a> *channel,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                format,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                channels,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>                rate,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Notify when the recording should start, and provide audio format
+characteristics.</p>
+<div class="refsect3">
+<a name="id-1.2.3.9.14.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format</p></td>
+<td class="parameter_description"><p>a <span class="type">SPICE_AUDIO_FMT</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>channels</p></td>
+<td class="parameter_description"><p>number of channels</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rate</p></td>
+<td class="parameter_description"><p>audio rate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceRecordChannel-record-stop"></a><h3>The <code class="literal">“record-stop”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a> *channel,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>            user_data)</pre>
+<p>Notify when the recording should stop.</p>
+<div class="refsect3">
+<a name="id-1.2.3.9.14.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceRecordChannel.html" title="Record Channel"><span class="type">SpiceRecordChannel</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceRecordChannel.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>, and <a class="link" href="SpiceAudio.html" title="Spice Audio"><span class="type">SpiceAudio</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

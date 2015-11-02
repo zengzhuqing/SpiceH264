@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice-GTK Reference Manual: Spice GTK Session</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch03.html" title="GTK Widget, from spice-client-gtk">
+<link rel="prev" href="ch03.html" title="GTK Widget, from spice-client-gtk">
+<link rel="next" href="SpiceDisplay.html" title="Spice Display">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#SpiceGtkSession.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#SpiceGtkSession.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#SpiceGtkSession.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch03.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="SpiceDisplay.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="SpiceGtkSession"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceGtkSession.top_of_page"></a>Spice GTK Session</span></h2>
+<p>Spice GTK Session — handles GTK connection details</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceGtkSession.stability-level"></a><h2>Stability Level</h2>
+<acronym title="The intention of a Stable interface is to enable arbitrary third parties to
+develop applications to these interfaces, release them, and have confidence that
+they will run on all minor releases of the product (after the one in which the
+interface was introduced, and within the same major release). Even at a major
+release, incompatible changes are expected to be rare, and to have strong
+justifications.
+"><span class="acronym">Stable</span></acronym>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="returnvalue">SpiceGtkSession</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceGtkSession.html#spice-gtk-session-get" title="spice_gtk_session_get ()">spice_gtk_session_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceGtkSession.html#spice-gtk-session-copy-to-guest" title="spice_gtk_session_copy_to_guest ()">spice_gtk_session_copy_to_guest</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceGtkSession.html#spice-gtk-session-paste-from-guest" title="spice_gtk_session_paste_from_guest ()">spice_gtk_session_paste_from_guest</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceGtkSession.html#SpiceGtkSession--auto-clipboard" title="The “auto-clipboard” property">auto-clipboard</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceGtkSession.html#SpiceGtkSession--auto-usbredir" title="The “auto-usbredir” property">auto-usbredir</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_name"><a class="link" href="SpiceGtkSession.html#SpiceGtkSession--pointer-grabbed" title="The “pointer-grabbed” property">pointer-grabbed</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceGtkSession.html#SpiceGtkSession--session" title="The “session” property">session</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceGtkSession.html#SpiceGtkSession-struct" title="struct SpiceGtkSession">SpiceGtkSession</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceGtkSession.html#SpiceGtkSessionClass" title="struct SpiceGtkSessionClass">SpiceGtkSessionClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> SpiceGtkSession
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;spice-gtk-session.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.description"></a><h2>Description</h2>
+<p>The <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a> class is the spice-client-gtk counter part of
+<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>. It contains functionality which should be handled per
+session rather then per <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> (one session can have multiple
+displays), but which cannot live in <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> as it depends on
+GTK. For example the clipboard functionality.</p>
+<p>There should always be a 1:1 relation between <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a> objects
+and <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> objects. Therefor there is no spice_gtk_session_new,
+instead there is <a class="link" href="SpiceGtkSession.html#spice-gtk-session-get" title="spice_gtk_session_get ()"><code class="function">spice_gtk_session_get()</code></a> which ensures this 1:1 relation.</p>
+<p>Client and guest clipboards will be shared automatically if
+<a class="link" href="SpiceGtkSession.html#SpiceGtkSession--auto-clipboard" title="The “auto-clipboard” property"><span class="type">“auto-clipboard”</span></a> is set to <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><span class="type">TRUE</span></a>. Alternatively, you
+can send / receive clipboard data from client to guest with
+<a class="link" href="SpiceGtkSession.html#spice-gtk-session-copy-to-guest" title="spice_gtk_session_copy_to_guest ()"><code class="function">spice_gtk_session_copy_to_guest()</code></a> / <a class="link" href="SpiceGtkSession.html#spice-gtk-session-paste-from-guest" title="spice_gtk_session_paste_from_guest ()"><code class="function">spice_gtk_session_paste_from_guest()</code></a>.</p>
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="spice-gtk-session-get"></a><h3>spice_gtk_session_get ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="returnvalue">SpiceGtkSession</span></a> *
+spice_gtk_session_get (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *session</code></em>);</pre>
+<p>Gets the <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a> associated with the passed in <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>.
+A new <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a> instance will be created the first time this
+function is called for a certain <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>.</p>
+<p>Note that this function returns a weak reference, which should not be used
+after the <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> itself has been unref-ed by the caller.</p>
+<div class="refsect3">
+<a name="id-1.2.4.2.10.2.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> for which to get the <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.4.2.10.2.7"></a><h4>Returns</h4>
+<p> a weak reference to the <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a> associated with the passed in <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a></p>
+<p>Since 0.8. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-gtk-session-copy-to-guest"></a><h3>spice_gtk_session_copy_to_guest ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_gtk_session_copy_to_guest (<em class="parameter"><code><a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a> *self</code></em>);</pre>
+<p>Copy client-side clipboard to guest clipboard.</p>
+<p>Since 0.8</p>
+<div class="refsect3">
+<a name="id-1.2.4.2.10.3.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p><a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-gtk-session-paste-from-guest"></a><h3>spice_gtk_session_paste_from_guest ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_gtk_session_paste_from_guest (<em class="parameter"><code><a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a> *self</code></em>);</pre>
+<p>Copy guest clipboard to client-side clipboard.</p>
+<p>Since 0.8</p>
+<div class="refsect3">
+<a name="id-1.2.4.2.10.4.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p><a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="SpiceGtkSession-struct"></a><h3>struct SpiceGtkSession</h3>
+<pre class="programlisting">struct SpiceGtkSession;</pre>
+<p>The <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a> struct is opaque and should not be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceGtkSessionClass"></a><h3>struct SpiceGtkSessionClass</h3>
+<pre class="programlisting">struct SpiceGtkSessionClass {
+    GObjectClass parent_class;
+
+    /* signals */
+};
+</pre>
+<p>Class structure for <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.4.2.11.3.5"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="struct_member_name"><p><a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> <em class="structfield"><code><a name="SpiceGtkSessionClass.parent-class"></a>parent_class</code></em>;</p></td>
+<td class="struct_member_description"><p>Parent class.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpiceGtkSession--auto-clipboard"></a><h3>The <code class="literal">“auto-clipboard”</code> property</h3>
+<pre class="programlisting">  “auto-clipboard”           <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>When this is true the clipboard gets automatically shared between host
+and guest.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: TRUE</p>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceGtkSession--auto-usbredir"></a><h3>The <code class="literal">“auto-usbredir”</code> property</h3>
+<pre class="programlisting">  “auto-usbredir”            <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Automatically redirect newly plugged in USB devices. Note the auto
+redirection only happens when a <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a> associated with the
+session had keyboard focus.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceGtkSession--pointer-grabbed"></a><h3>The <code class="literal">“pointer-grabbed”</code> property</h3>
+<pre class="programlisting">  “pointer-grabbed”          <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<p>Returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the pointer is currently grabbed by this session.</p>
+<p>Flags: Read</p>
+<p>Default value: FALSE</p>
+<p class="since">Since 0.27</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceGtkSession--session"></a><h3>The <code class="literal">“session”</code> property</h3>
+<pre class="programlisting">  “session”                  <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *</pre>
+<p><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> this <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session"><span class="type">SpiceGtkSession</span></a> is associated with</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p class="since">Since 0.8</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceGtkSession.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>, and the GTK widget <a class="link" href="SpiceDisplay.html" title="Spice Display"><span class="type">SpiceDisplay</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

@@ -1,0 +1,977 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice-GTK Reference Manual: Spice Channel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="prev" href="SpiceSession.html" title="Spice Session">
+<link rel="next" href="SpiceCursorChannel.html" title="Cursor Channel">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#SpiceChannel.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#SpiceChannel.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#SpiceChannel.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#SpiceChannel.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="SpiceSession.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="SpiceCursorChannel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="SpiceChannel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceChannel.top_of_page"></a>Spice Channel</span></h2>
+<p>Spice Channel — the base channel class</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceChannel.stability-level"></a><h2>Stability Level</h2>
+<acronym title="The intention of a Stable interface is to enable arbitrary third parties to
+develop applications to these interfaces, release them, and have confidence that
+they will run on all minor releases of the product (after the one in which the
+interface was introduced, and within the same major release). Even at a major
+release, incompatible changes are expected to be rare, and to have strong
+justifications.
+"><span class="acronym">Stable</span></acronym>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="returnvalue">SpiceChannel</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-new" title="spice_channel_new ()">spice_channel_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-destroy" title="spice_channel_destroy ()">spice_channel_destroy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-connect" title="spice_channel_connect ()">spice_channel_connect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-open-fd" title="spice_channel_open_fd ()">spice_channel_open_fd</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-disconnect" title="spice_channel_disconnect ()">spice_channel_disconnect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-test-capability" title="spice_channel_test_capability ()">spice_channel_test_capability</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-test-common-capability" title="spice_channel_test_common_capability ()">spice_channel_test_common_capability</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-type-to-string" title="spice_channel_type_to_string ()">spice_channel_type_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-string-to-type" title="spice_channel_string_to_type ()">spice_channel_string_to_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-set-capability" title="spice_channel_set_capability ()">spice_channel_set_capability</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-flush-async" title="spice_channel_flush_async ()">spice_channel_flush_async</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-flush-finish" title="spice_channel_flush_finish ()">spice_channel_flush_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceChannel.html#spice-channel-get-error" title="spice_channel_get_error ()">spice_channel_get_error</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceChannel.html#SpiceChannel--channel-id" title="The “channel-id” property">channel-id</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="SpiceChannel.html#SpiceChannel--channel-type" title="The “channel-type” property">channel-type</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *</td>
+<td class="property_name"><a class="link" href="SpiceChannel.html#SpiceChannel--spice-session" title="The “spice-session” property">spice-session</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gulong"><span class="type">gulong</span></a></td>
+<td class="property_name"><a class="link" href="SpiceChannel.html#SpiceChannel--total-read-bytes" title="The “total-read-bytes” property">total-read-bytes</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceChannel.html#SpiceChannel-channel-event" title="The “channel-event” signal">channel-event</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceChannel.html#SpiceChannel-open-fd" title="The “open-fd” signal">open-fd</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="SpiceChannel.html#SpiceChannelEvent" title="enum SpiceChannelEvent">SpiceChannelEvent</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="SpiceChannel.html#SpiceChannel-struct" title="SpiceChannel">SpiceChannel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="SpiceChannel.html#SpiceChannelClass" title="SpiceChannelClass">SpiceChannelClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-Enumeration-and-Flag-Types.html">GEnum</a>
+    <span class="lineart">╰──</span> SpiceChannelEvent
+    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> SpiceChannel
+        <span class="lineart">├──</span> <a class="link" href="SpiceCursorChannel.html" title="Cursor Channel">SpiceCursorChannel</a>
+        <span class="lineart">├──</span> <a class="link" href="SpiceDisplayChannel.html" title="Display Channel">SpiceDisplayChannel</a>
+        <span class="lineart">├──</span> <a class="link" href="SpiceInputsChannel.html" title="Inputs Channel">SpiceInputsChannel</a>
+        <span class="lineart">├──</span> <a class="link" href="SpiceMainChannel.html" title="Main Channel">SpiceMainChannel</a>
+        <span class="lineart">├──</span> <a class="link" href="SpicePlaybackChannel.html" title="Playback Channel">SpicePlaybackChannel</a>
+        <span class="lineart">├──</span> <a class="link" href="SpiceRecordChannel.html" title="Record Channel">SpiceRecordChannel</a>
+        <span class="lineart">├──</span> <a class="link" href="SpiceSmartcardChannel.html" title="Smartcard Channel">SpiceSmartcardChannel</a>
+        <span class="lineart">├──</span> <a class="link" href="SpiceUsbredirChannel.html" title="USB Redirection Channel">SpiceUsbredirChannel</a>
+        <span class="lineart">╰──</span> <a class="link" href="SpicePortChannel.html" title="Port Channel">SpicePortChannel</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;spice-channel.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.description"></a><h2>Description</h2>
+<p><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> is the base class for the different kind of Spice
+channel connections, such as <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a>, or
+<a class="link" href="SpiceInputsChannel.html" title="Inputs Channel"><span class="type">SpiceInputsChannel</span></a>.</p>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="spice-channel-new"></a><h3>spice_channel_new ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="returnvalue">SpiceChannel</span></a> *
+spice_channel_new (<em class="parameter"><code><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *s</code></em>,
+                   <em class="parameter"><code><span class="type">int</span> type</code></em>,
+                   <em class="parameter"><code><span class="type">int</span> id</code></em>);</pre>
+<p>Create a new <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> of type <em class="parameter"><code>type</code></em>
+, and channel ID <em class="parameter"><code>id</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>s</p></td>
+<td class="parameter_description"><p>the <em class="parameter"><code>SpiceSession</code></em>
+the channel is linked to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>the requested SPICECHANNELPRIVATE type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>the channel-id</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.2.6"></a><h4>Returns</h4>
+<p> a weak reference to <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>, the session owns the reference</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-destroy"></a><h3>spice_channel_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_channel_destroy (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">spice_channel_destroy</code> has been deprecated since version 0.27 and should not be used in newly-written code.</p>
+<p>this function has been deprecated because it is
+misleading, the object is not actually destroyed. Instead, it is
+recommended to call explicitely <a class="link" href="SpiceChannel.html#spice-channel-disconnect" title="spice_channel_disconnect ()"><code class="function">spice_channel_disconnect()</code></a> and
+<a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a>.</p>
+</div>
+<p>Disconnect and unref the <em class="parameter"><code>channel</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.3.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-connect"></a><h3>spice_channel_connect ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_channel_connect (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>);</pre>
+<p>Connect the channel, using <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> connection informations</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.4.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-open-fd"></a><h3>spice_channel_open_fd ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_channel_open_fd (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>,
+                       <em class="parameter"><code><span class="type">int</span> fd</code></em>);</pre>
+<p>Connect the channel using <em class="parameter"><code>fd</code></em>
+ socket.</p>
+<p>If <em class="parameter"><code>fd</code></em>
+ is -1, a valid fd will be requested later via the
+SpiceChannel::open-fd signal.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.5.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fd</p></td>
+<td class="parameter_description"><p>a file descriptor (socket) or -1.
+request mechanism</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.5.7"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-disconnect"></a><h3>spice_channel_disconnect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_channel_disconnect (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>,
+                          <em class="parameter"><code><a class="link" href="SpiceChannel.html#SpiceChannelEvent" title="enum SpiceChannelEvent"><span class="type">SpiceChannelEvent</span></a> reason</code></em>);</pre>
+<p>Close the socket and reset connection specific data. Finally, emit
+<em class="parameter"><code>reason</code></em>
+ <a class="link" href="SpiceChannel.html#SpiceChannel-channel-event" title="The “channel-event” signal"><span class="type">“channel-event”</span></a> on main context if not
+<a class="link" href="SpiceChannel.html#SPICE-CHANNEL-NONE:CAPS"><span class="type">SPICE_CHANNEL_NONE</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>reason</p></td>
+<td class="parameter_description"><p>a channel event emitted on main context (or <a class="link" href="SpiceChannel.html#SPICE-CHANNEL-NONE:CAPS"><span class="type">SPICE_CHANNEL_NONE</span></a>)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-test-capability"></a><h3>spice_channel_test_capability ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_channel_test_capability (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> cap</code></em>);</pre>
+<p>Test availability of remote "channel kind capability".</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cap</p></td>
+<td class="parameter_description"><p>a capability</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.7.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>cap</code></em>
+(channel kind capability) is available.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-test-common-capability"></a><h3>spice_channel_test_common_capability ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_channel_test_common_capability (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> cap</code></em>);</pre>
+<p>Test availability of remote "common channel capability".</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cap</p></td>
+<td class="parameter_description"><p>a capability</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.8.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>cap</code></em>
+(common channel capability) is available.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-type-to-string"></a><h3>spice_channel_type_to_string ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+spice_channel_type_to_string (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type</code></em>);</pre>
+<p>Convert a channel-type property value to a string.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>a channel-type property value</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.9.6"></a><h4>Returns</h4>
+<p> string representation of <em class="parameter"><code>type</code></em>
+.</p>
+<p></p>
+</div>
+<p class="since">Since 0.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-string-to-type"></a><h3>spice_channel_string_to_type ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+spice_channel_string_to_type (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>);</pre>
+<p>Convert a channel-type property value to a string.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>a string representation of the channel-type property</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.10.6"></a><h4>Returns</h4>
+<p> the channel-type property value for a <em class="parameter"><code>str</code></em>
+channel</p>
+<p></p>
+</div>
+<p class="since">Since 0.21</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-set-capability"></a><h3>spice_channel_set_capability ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_channel_set_capability (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> cap</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">spice_channel_set_capability</code> has been deprecated since version 0.13 and should not be used in newly-written code.</p>
+<p>this function has been removed</p>
+</div>
+<p>Enable specific channel-kind capability.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.11.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cap</p></td>
+<td class="parameter_description"><p>a capability</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-flush-async"></a><h3>spice_channel_flush_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+spice_channel_flush_async (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>,
+                           <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                           <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Forces an asynchronous write of all user-space buffered data for
+the given channel.</p>
+<p>When the operation is finished callback will be called. You can
+then call <a class="link" href="SpiceChannel.html#spice-channel-flush-finish" title="spice_channel_flush_finish ()"><code class="function">spice_channel_flush_finish()</code></a> to get the result of the
+operation.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.12.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> optional GCancellable object, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p> callback to call when the request is satisfied. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p> the data to pass to callback function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 0.15</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-flush-finish"></a><h3>spice_channel_flush_finish ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_channel_flush_finish (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes flushing a channel.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.13.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> location to store the error occurring, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+to ignore.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.13.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if flush operation succeeded, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 0.15</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-channel-get-error"></a><h3>spice_channel_get_error ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *
+spice_channel_get_error (<em class="parameter"><code><a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel</code></em>);</pre>
+<p>Retrieves the <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> currently set on channel, if the <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>
+is in error state and can provide additional error details.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.14.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.3.3.11.14.6"></a><h4>Returns</h4>
+<p> the pointer to the error, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+<p></p>
+</div>
+<p class="since">Since 0.24</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="SpiceChannelEvent"></a><h3>enum SpiceChannelEvent</h3>
+<p>An event, emitted by <a class="link" href="SpiceChannel.html#SpiceChannel-channel-event" title="The “channel-event” signal"><span class="type">“channel-event”</span></a> signal.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.12.2.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CHANNEL-NONE:CAPS"></a>SPICE_CHANNEL_NONE</p></td>
+<td class="enum_member_description">
+<p>no event, or ignored event</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CHANNEL-OPENED:CAPS"></a>SPICE_CHANNEL_OPENED</p></td>
+<td class="enum_member_description">
+<p>connection is authentified and ready</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CHANNEL-SWITCHING:CAPS"></a>SPICE_CHANNEL_SWITCHING</p></td>
+<td class="enum_member_description">
+<p>disconnecting from the current host and connecting to the target host.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CHANNEL-CLOSED:CAPS"></a>SPICE_CHANNEL_CLOSED</p></td>
+<td class="enum_member_description">
+<p>connection is closed normally (sent if channel was ready)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CHANNEL-ERROR-CONNECT:CAPS"></a>SPICE_CHANNEL_ERROR_CONNECT</p></td>
+<td class="enum_member_description">
+<p>connection error</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CHANNEL-ERROR-TLS:CAPS"></a>SPICE_CHANNEL_ERROR_TLS</p></td>
+<td class="enum_member_description">
+<p>SSL error</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CHANNEL-ERROR-LINK:CAPS"></a>SPICE_CHANNEL_ERROR_LINK</p></td>
+<td class="enum_member_description">
+<p>error during link process</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CHANNEL-ERROR-AUTH:CAPS"></a>SPICE_CHANNEL_ERROR_AUTH</p></td>
+<td class="enum_member_description">
+<p>authentication error</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="SPICE-CHANNEL-ERROR-IO:CAPS"></a>SPICE_CHANNEL_ERROR_IO</p></td>
+<td class="enum_member_description">
+<p>IO error</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceChannel-struct"></a><h3>SpiceChannel</h3>
+<pre class="programlisting">typedef struct _SpiceChannel SpiceChannel;</pre>
+<p>The <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> struct is opaque and should not be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceChannelClass"></a><h3>SpiceChannelClass</h3>
+<pre class="programlisting">typedef struct {
+    GObjectClass parent_class;
+
+    /* signals, main context */
+    void (*channel_event)(SpiceChannel *channel, SpiceChannelEvent event);
+    void (*open_fd)(SpiceChannel *channel, int with_tls);
+} SpiceChannelClass;
+</pre>
+<p>Class structure for <a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.12.4.5"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> <em class="structfield"><code><a name="SpiceChannelClass.parent-class"></a>parent_class</code></em>;</p></td>
+<td class="struct_member_description"><p>Parent class.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceChannelClass.channel-event"></a>channel_event</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceChannel.html#SpiceChannel-channel-event" title="The “channel-event” signal"><span class="type">“channel_event”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceChannelClass.open-fd"></a>open_fd</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceChannel.html#SpiceChannel-open-fd" title="The “open-fd” signal"><span class="type">“open_fd”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="SpiceChannel--channel-id"></a><h3>The <code class="literal">“channel-id”</code> property</h3>
+<pre class="programlisting">  “channel-id”               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Channel ID.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceChannel--channel-type"></a><h3>The <code class="literal">“channel-type”</code> property</h3>
+<pre class="programlisting">  “channel-type”             <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Channel type.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceChannel--spice-session"></a><h3>The <code class="literal">“spice-session”</code> property</h3>
+<pre class="programlisting">  “spice-session”            <a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a> *</pre>
+<p>Spice session.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceChannel--total-read-bytes"></a><h3>The <code class="literal">“total-read-bytes”</code> property</h3>
+<pre class="programlisting">  “total-read-bytes”         <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gulong"><span class="type">gulong</span></a></pre>
+<p>Total read bytes.</p>
+<p>Flags: Read</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="SpiceChannel-channel-event"></a><h3>The <code class="literal">“channel-event”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a>     *channel,
+               <a class="link" href="SpiceChannel.html#SpiceChannelEvent" title="enum SpiceChannelEvent"><span class="type">SpiceChannelEvent</span></a> event,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<p>The <a class="link" href="SpiceChannel.html#SpiceChannel-channel-event" title="The “channel-event” signal"><span class="type">“channel-event”</span></a> signal is emitted when the
+state of the connection is changed. In case of errors,
+<a class="link" href="SpiceChannel.html#spice-channel-get-error" title="spice_channel_get_error ()"><code class="function">spice_channel_get_error()</code></a> may provide additional informations
+on the source of the error.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.14.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>the channel that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceChannel.html#SpiceChannelEvent" title="enum SpiceChannelEvent"><span class="type">SpiceChannelEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceChannel-open-fd"></a><h3>The <code class="literal">“open-fd”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceChannel.html" title="Spice Channel"><span class="type">SpiceChannel</span></a> *channel,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a>          with_tls,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)</pre>
+<p>The <a class="link" href="SpiceChannel.html#SpiceChannel-open-fd" title="The “open-fd” signal"><span class="type">“open-fd”</span></a> signal is emitted when a new
+connection is requested. This signal is emitted when the
+connection is made with <a class="link" href="SpiceSession.html#spice-session-open-fd" title="spice_session_open_fd ()"><code class="function">spice_session_open_fd()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.3.3.14.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>channel</p></td>
+<td class="parameter_description"><p>the channel that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>with_tls</p></td>
+<td class="parameter_description"><p>wether TLS connection is requested</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceChannel.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="SpiceSession.html" title="Spice Session"><span class="type">SpiceSession</span></a>, <a class="link" href="SpiceMainChannel.html" title="Main Channel"><span class="type">SpiceMainChannel</span></a> and other channels</p>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

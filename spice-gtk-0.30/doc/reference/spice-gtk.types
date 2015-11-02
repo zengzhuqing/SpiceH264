@@ -1,0 +1,47 @@
+#include "spice-audio.h"
+#include "spice-client.h"
+#include "spice-types.h"
+#include "spice-session.h"
+#include "spice-channel.h"
+#include "spice-glib-enums.h"
+#include "spice-util.h"
+#include "channel-main.h"
+#include "channel-display.h"
+#include "channel-cursor.h"
+#include "channel-inputs.h"
+#include "channel-playback.h"
+#include "channel-record.h"
+#include "channel-smartcard.h"
+#include "channel-usbredir.h"
+#include "channel-webdav.h"
+#include "spice-gtk-session.h"
+#include "spice-widget.h"
+#include "spice-grabsequence.h"
+#include "smartcard-manager.h"
+#include "usb-device-manager.h"
+#include "usb-device-widget.h"
+
+spice_audio_get_type
+spice_channel_event_get_type
+spice_channel_get_type
+spice_cursor_channel_get_type
+spice_display_channel_get_type
+spice_display_get_type
+spice_grab_sequence_get_type
+spice_gtk_session_get_type
+spice_inputs_channel_get_type
+spice_inputs_lock_get_type
+spice_main_channel_get_type
+spice_playback_channel_get_type
+spice_record_channel_get_type
+spice_session_get_type
+spice_session_verify_get_type
+spice_smartcard_channel_get_type
+spice_smartcard_manager_get_type
+spice_session_verify_get_type
+spice_usbredir_channel_get_type
+spice_usb_device_get_type
+spice_usb_device_manager_get_type
+spice_usb_device_widget_get_type
+spice_port_channel_get_type
+spice_webdav_channel_get_type

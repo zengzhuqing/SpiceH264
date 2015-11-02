@@ -1,0 +1,5 @@
+* implement migration support with client fd
+
+See list of open upstream bugs:
+
+https://bugs.freedesktop.org/buglist.cgi?product=Spice&component=spice-gtk&resolution=---&list_id=281013

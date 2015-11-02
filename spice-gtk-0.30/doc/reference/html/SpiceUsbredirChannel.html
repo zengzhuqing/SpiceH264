@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice-GTK Reference Manual: USB Redirection Channel</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="ch02.html" title="Session and Channels Objects, from spice-client-glib">
+<link rel="prev" href="SpiceSmartcardChannel.html" title="Smartcard Channel">
+<link rel="next" href="SpicePortChannel.html" title="Port Channel">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#SpiceUsbredirChannel.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#SpiceUsbredirChannel.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="SpiceSmartcardChannel.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="SpicePortChannel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="SpiceUsbredirChannel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceUsbredirChannel.top_of_page"></a>USB Redirection Channel</span></h2>
+<p>USB Redirection Channel — usb redirection</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceUsbredirChannel.stability-level"></a><h2>Stability Level</h2>
+<a href="http://foldoc.org/API%20Stable%20(channel%20in%20development)"><span class="acronym">API Stable (channel in development)</span></a>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="SpiceUsbredirChannel.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceUsbredirChannel.html#SpiceUsbredirChannel-struct" title="struct SpiceUsbredirChannel">SpiceUsbredirChannel</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceUsbredirChannel.html#SpiceUsbredirChannelClass" title="struct SpiceUsbredirChannelClass">SpiceUsbredirChannelClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceUsbredirChannel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="SpiceChannel.html" title="Spice Channel">SpiceChannel</a>
+        <span class="lineart">╰──</span> SpiceUsbredirChannel
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceUsbredirChannel.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;channel-usbredir.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceUsbredirChannel.description"></a><h2>Description</h2>
+<p>The Spice protocol defines a set of messages to redirect USB devices
+from the Spice client to the VM. This channel handles these messages.</p>
+</div>
+<div class="refsect1">
+<a name="SpiceUsbredirChannel.functions_details"></a><h2>Functions</h2>
+</div>
+<div class="refsect1">
+<a name="SpiceUsbredirChannel.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="SpiceUsbredirChannel-struct"></a><h3>struct SpiceUsbredirChannel</h3>
+<pre class="programlisting">struct SpiceUsbredirChannel;</pre>
+<p>The <a class="link" href="SpiceUsbredirChannel.html" title="USB Redirection Channel"><span class="type">SpiceUsbredirChannel</span></a> struct is opaque and should not be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceUsbredirChannelClass"></a><h3>struct SpiceUsbredirChannelClass</h3>
+<pre class="programlisting">struct SpiceUsbredirChannelClass {
+    SpiceChannelClass parent_class;
+
+    /* signals */
+};
+</pre>
+<p>Class structure for <a class="link" href="SpiceUsbredirChannel.html" title="USB Redirection Channel"><span class="type">SpiceUsbredirChannel</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.3.11.9.3.5"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="struct_member_name"><p><a class="link" href="SpiceChannel.html#SpiceChannelClass" title="SpiceChannelClass"><span class="type">SpiceChannelClass</span></a> <em class="structfield"><code><a name="SpiceUsbredirChannelClass.parent-class"></a>parent_class</code></em>;</p></td>
+<td class="struct_member_description"><p>Parent class.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

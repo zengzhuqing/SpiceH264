@@ -1,0 +1,235 @@
+# French translation for spice.
+# Copyright (C) 2010 Listed translators
+# This file is distributed under the same license as the gtk-vnc package.
+#
+# Marc-André Lureau <marcandre.lureau@redhat.com>, 2010
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: spice master fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-25 03:25+0100\n"
+"PO-Revision-Date: 2010-11-25 03:43+0100\n"
+"Last-Translator: Marc-André Lureau <marcandre.lureau@redhat.com>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../gtk/spicy.c:129
+msgid "Hostname"
+msgstr "Nom de l'hôte"
+
+#: ../gtk/spicy.c:130
+msgid "Port"
+msgstr "Port"
+
+#: ../gtk/spicy.c:131
+msgid "TLS Port"
+msgstr "Port TLS"
+
+#. Create the widgets
+#: ../gtk/spicy.c:140
+msgid "Connect"
+msgstr "Connexion"
+
+#: ../gtk/spicy.c:196
+#, c-format
+msgid "Use Shift+F12 to ungrab mouse."
+msgstr "Utiliser Shift+F12 pour désaisir la souris."
+
+#: ../gtk/spicy.c:198
+#, c-format
+msgid "mouse: %s, agent: %s"
+msgstr "souris: %s, agent: %s"
+
+#: ../gtk/spicy.c:257 ../gtk/spicy.c:683
+msgid "yes"
+msgstr "oui"
+
+#: ../gtk/spicy.c:257 ../gtk/spicy.c:683
+msgid "no"
+msgstr "non"
+
+#: ../gtk/spicy.c:265
+msgid ""
+"gtk client app for the\n"
+"spice remote desktop protocol"
+msgstr ""
+"Application Gtk de connexion\n"
+"au serveur de bureau spice"
+
+#: ../gtk/spicy.c:360
+msgid "_Connect ..."
+msgstr "_Ouvrir une session..."
+
+#: ../gtk/spicy.c:366
+msgid "_Close"
+msgstr "_Quitter"
+
+#: ../gtk/spicy.c:374
+msgid "_Copy to guest"
+msgstr "_Copier dans l'invité"
+
+#: ../gtk/spicy.c:380
+msgid "_Paste from guest"
+msgstr "Coller dans l'invité"
+
+#: ../gtk/spicy.c:388
+msgid "_Fullscreen"
+msgstr "_Plein écran"
+
+#: ../gtk/spicy.c:395
+msgid "_Ungrab mouse"
+msgstr "_Désaisir la souris"
+
+#: ../gtk/spicy.c:403
+msgid "_About ..."
+msgstr "_À propos"
+
+#: ../gtk/spicy.c:411
+msgid "Grab keyboard when active and focused"
+msgstr "Saisir le clavier après focus"
+
+#: ../gtk/spicy.c:415
+msgid "Grab mouse in server mode (no tabled/vdagent)"
+msgstr "Saisir la souris en mode serveur (pas d'agent)"
+
+#: ../gtk/spicy.c:419
+msgid "Resize guest to match window size"
+msgstr "Redimensionner l'invité à la taille de fenêtre"
+
+#: ../gtk/spicy.c:423
+msgid "Automagic clipboard sharing between host and guest"
+msgstr "Partage de presse-papiers automatique"
+
+#: ../gtk/spicy.c:485
+#, c-format
+msgid "spice display %d"
+msgstr "écran spice %d"
+
+#: ../gtk/spicy.c:542
+msgid "?"
+msgstr "?"
+
+#. FIXME i18
+#: ../gtk/spicy.c:639
+msgid "Authentication"
+msgstr "Authentification"
+
+#: ../gtk/spicy.c:640
+msgid "Please enter the spice server password"
+msgstr "Entrez le mot de passe du serveur spice"
+
+#: ../gtk/spicy.c:694
+msgid "SCROLL"
+msgstr "DÉFIL"
+
+#: ../gtk/spicy.c:696
+msgid "CAPS"
+msgstr "VERR.MAJ"
+
+#: ../gtk/spicy.c:698
+msgid "NUM"
+msgstr "VERR.NUM"
+
+#: ../gtk/spicy.c:831
+msgid "open in full screen mode"
+msgstr "Ouvrir en plein-écran"
+
+#: ../gtk/spicy.c:849
+msgid "- spice client application"
+msgstr "- application client spice"
+
+#: ../gtk/spicy.c:854 ../gtk/snappy.c:144
+#, c-format
+msgid "option parsing failed: %s\n"
+msgstr "échec d'analyse des options: %s\n"
+
+#: ../gtk/snappy.c:60
+#, c-format
+msgid "snappy: can't open %s: %s\n"
+msgstr "snappy: impossible d'ouvrir %s: %s\n"
+
+#: ../gtk/snappy.c:88
+#, c-format
+msgid "unsupported spice surface format %d\n"
+msgstr "format de surface spice non supporté %d\n"
+
+#: ../gtk/snappy.c:93
+#, c-format
+msgid "wrote screen shot to %s\n"
+msgstr "capture d'écran sauvée dans %s\n"
+
+#: ../gtk/snappy.c:123
+msgid "output file name (*.ppm)"
+msgstr "nom de fichier d'enregistrement (*.ppm)"
+
+#: ../gtk/snappy.c:124
+msgid "<filename>"
+msgstr "<nom de fichier>"
+
+#. parse opts
+#: ../gtk/snappy.c:140
+msgid " - write screen shots in ppm format"
+msgstr " - sauve des capture d'écran au format ppm"
+
+#: ../gtk/snappy.c:157
+#, c-format
+msgid "spice_session_connect failed\n"
+msgstr "spice_session_connect a échoué\n"
+
+#: ../gtk/spice-cmdline.c:39
+msgid "spice server uri"
+msgstr "uri du serveur spice"
+
+#: ../gtk/spice-cmdline.c:40
+msgid "<uri>"
+msgstr "<uri>"
+
+#: ../gtk/spice-cmdline.c:46
+msgid "spice server address"
+msgstr "adresse du serveur spice"
+
+#: ../gtk/spice-cmdline.c:47
+msgid "<host>"
+msgstr "<hôte>"
+
+#: ../gtk/spice-cmdline.c:53
+msgid "spice server port"
+msgstr "port du serveur spice"
+
+#: ../gtk/spice-cmdline.c:54 ../gtk/spice-cmdline.c:61
+msgid "<port>"
+msgstr "<port>"
+
+#: ../gtk/spice-cmdline.c:60
+msgid "spice server secure port"
+msgstr "port sécurisé du serveur spice"
+
+#: ../gtk/spice-cmdline.c:66
+msgid "truststore file for secure connections"
+msgstr "fichier truststore pour les connexions sécurisées"
+
+#: ../gtk/spice-cmdline.c:67
+#, fuzzy
+msgid "<file>"
+msgstr "<nom de fichier>"
+
+#: ../gtk/spice-cmdline.c:73
+msgid "server password"
+msgstr "mot de passe du serveur"
+
+#: ../gtk/spice-cmdline.c:74
+msgid "<password>"
+msgstr "<mot de passe>"
+
+#: ../gtk/spice-cmdline.c:86
+msgid "Spice Options:"
+msgstr "Options Spice:"
+
+#: ../gtk/spice-cmdline.c:87
+msgid "Show spice Options"
+msgstr "Affiche les options de spice"

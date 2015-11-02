@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice-GTK Reference Manual: Object Hierarchy</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="prev" href="spice-gtk-SpiceURI.html" title="SpiceURI">
+<link rel="next" href="api-index-full.html" title="API Index">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
+<td><a accesskey="p" href="spice-gtk-SpiceURI.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="chapter">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="object-tree"></a>Object Hierarchy</h1></div></div></div>
+<pre class="screen">
+    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">├──</span> <a class="link" href="SpiceAudio.html" title="Spice Audio">SpiceAudio</a>
+    <span class="lineart">├──</span> <a class="link" href="SpiceChannel.html" title="Spice Channel">SpiceChannel</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="SpiceCursorChannel.html" title="Cursor Channel">SpiceCursorChannel</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="SpiceDisplayChannel.html" title="Display Channel">SpiceDisplayChannel</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="SpiceInputsChannel.html" title="Inputs Channel">SpiceInputsChannel</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="SpiceMainChannel.html" title="Main Channel">SpiceMainChannel</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="SpicePlaybackChannel.html" title="Playback Channel">SpicePlaybackChannel</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="SpiceRecordChannel.html" title="Record Channel">SpiceRecordChannel</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="SpiceSmartcardChannel.html" title="Smartcard Channel">SpiceSmartcardChannel</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="SpiceUsbredirChannel.html" title="USB Redirection Channel">SpiceUsbredirChannel</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="SpicePortChannel.html" title="Port Channel">SpicePortChannel</a>
+    <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="SpiceWebdavChannel.html" title="WebDAV Channel">SpiceWebdavChannel</a>
+    <span class="lineart">├──</span> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GInitiallyUnowned">GInitiallyUnowned</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a href="http://developer.gnome.org/gtk2/GtkWidget.html">GtkWidget</a>
+    <span class="lineart">│</span>       <span class="lineart">├──</span> <a href="http://developer.gnome.org/gtk2/GtkDrawingArea.html">GtkDrawingArea</a>
+    <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="SpiceDisplay.html" title="Spice Display">SpiceDisplay</a>
+    <span class="lineart">│</span>       <span class="lineart">╰──</span> <a href="http://developer.gnome.org/gtk2/GtkContainer.html">GtkContainer</a>
+    <span class="lineart">│</span>           <span class="lineart">╰──</span> <a href="http://developer.gnome.org/gtk2/GtkBox.html">GtkBox</a>
+    <span class="lineart">│</span>               <span class="lineart">╰──</span> <a class="link" href="SpiceUsbDeviceWidget.html" title="Spice USB device selection widget">SpiceUsbDeviceWidget</a>
+    <span class="lineart">├──</span> <a class="link" href="SpiceGtkSession.html" title="Spice GTK Session">SpiceGtkSession</a>
+    <span class="lineart">├──</span> <a class="link" href="SpiceSession.html" title="Spice Session">SpiceSession</a>
+    <span class="lineart">├──</span> <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager">SpiceSmartcardManager</a>
+    <span class="lineart">╰──</span> <a class="link" href="SpiceUsbDeviceManager.html" title="Spice USB Manager">SpiceUsbDeviceManager</a>
+    <a href="https://developer.gnome.org/gobject/unstable/gobject-Enumeration-and-Flag-Types.html">GEnum</a>
+    <span class="lineart">├──</span> <a class="link" href="SpiceChannel.html#SpiceChannelEvent" title="enum SpiceChannelEvent">SpiceChannelEvent</a>
+    <span class="lineart">╰──</span> <a class="link" href="SpiceSession.html#SpiceSessionMigration" title="enum SpiceSessionMigration">SpiceSessionMigration</a>
+    <a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html">GBoxed</a>
+    <span class="lineart">├──</span> <a class="link" href="SpiceDisplay.html#SpiceGrabSequence">SpiceGrabSequence</a>
+    <span class="lineart">╰──</span> <a class="link" href="SpiceUsbDeviceManager.html#SpiceUsbDevice">SpiceUsbDevice</a>
+    <a href="https://developer.gnome.org/gobject/unstable/gobject-Enumeration-and-Flag-Types.html">GFlags</a>
+    <span class="lineart">├──</span> <a class="link" href="SpiceInputsChannel.html#SpiceInputsLock" title="enum SpiceInputsLock">SpiceInputsLock</a>
+    <span class="lineart">╰──</span> <a class="link" href="SpiceSession.html#SpiceSessionVerify" title="enum SpiceSessionVerify">SpiceSessionVerify</a>
+</pre>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

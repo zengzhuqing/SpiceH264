@@ -1,0 +1,195 @@
+=head1 NAME
+
+Spice-GTK - a client-side library to access remote SPICE displays
+
+=head1 DESCRIPTION
+
+Spice-GTK is a library allowing access to remote displays over the SPICE
+protocol. At the moment It's mainly used to access remote virtual machines.
+
+The Spice-GTK library provides a set of command line options which
+can be used to tweak some SPICE-specific option.
+
+=head1 URI
+
+The most basic SPICE URI which can be used is in the form
+  spice://hostname.example.com:5900
+
+This will try to initiate a SPICE connection to hostname.example.com
+to port 5900. This connection will be unencrypted. This URI is
+equivalent to
+  spice://hostname.example.com?port=5900
+
+In order to start a TLS connection, one would use
+  spice://hostname.example.com?tls-port=5900
+
+Other valid URI parameters are 'username' and 'password'. Be careful that
+passing a password through a SPICE URI might cause the password to be
+visible by any local user through 'ps'.
+
+Several parameters can be specified at once if they are separated
+by & or ;
+  spice://hostname.example.com?port=5900;tls-port=5901
+
+When using 'tls-port', it's recommended to not specify any non-TLS port.
+If you give both 'port' and 'tls-port', make sure you use the
+--spice-secure-channels options to indicate which channels must be secure.
+Otherwise, Spice-GTK first attempts a connection to the non-TLS port, and
+then try to use the TLS port. This means a man-in-the-middle could force
+the whole SPICE session to go in clear text regardless of the TLS settings
+of the SPICE server.
+
+=head1 OPTIONS
+
+The following options are accepted when running a SPICE client which
+makes use of the default Spice-GTK options:
+
+=over 4
+
+=item --spice-secure-channels=<main,display,inputs,...,all>
+
+Force the specified channels to be secured
+
+This instructs the SPICE client that it must use a TLS connection for these
+channels. If the server only offers non-TLS connections for these channels,
+the client will not use these. If the special value "all" is used, this
+indicates that all SPICE channels must be encrypted.
+
+The current SPICE channels are: main, display, inputs, cursor, playback,
+record, smartcard, usbredir.
+
+=item --spice-disable-effects=<wallpaper,font-smooth,animation,all>
+
+Disable guest display effects
+
+This tells the SPICE client that it should attempt to disable some guest
+features in order to lower bandwidth usage. This requires guest support,
+usually through a SPICE agent. This is currently only supported on Windows
+guests.
+
+"wallpaper" will disable the guest wallpaper, "font-smooth" will disable
+font antialiasing, "animation" will try to disable some of the desktop
+environment animations. "all" will attempt to disable everything which
+can be disabled.
+
+=item --spice-color-depth=<16,32>
+
+Guest display color depth
+
+This tells the SPICE client that it should attempt to force the guest OS
+color depth. A lower color depth should lower bandwith usage. This requires
+guest support, usually through a SPICE agent. This is currently only
+supported on Windows guests.
+
+=item --spice-ca-file=<file>
+
+Truststore file for secure connections
+
+This option is used to specify a .crt file containing the CA certificate with which
+the SPICE server TLS certificates are signed. This is useful when using self-signed
+TLS certificates rather than certificates signed by an official CA.
+
+
+=item --spice-host-subject=<host-subject>
+
+Subject of the host certificate (field=value pairs separated by commas)
+
+When using self-signed certificates, or when the guest is migrated between
+different hosts, the subject/altSubject of the TLS certificate the SPICE
+server will provide will not necessarily match the hostname we are connecting to.
+This option makes it possible to override the expected subject of the TLS certificate.
+
+The subject must correspond to the "Subject:" line returned by:
+  openssl x509 -noout -text -in server-cert.pem
+
+=item --spice-debug
+
+Enable Spice-GTK debugging. This can also be toggled on with the
+SPICE_DEBUG environment variable, or using G_MESSAGES_DEBUG=all
+
+=item --spice-disable-audio
+
+Disable audio support
+
+=item --spice-disable-usbredir
+
+Disable USB redirection support
+
+=item --spice-usbredir-auto-redirect-filter=<filter-string>
+
+Filter selecting USB devices to be auto-redirected when plugged in
+
+This filter specifies which USB devices should be automatically redirected
+when they are plugged in during the lifetime of a SPICE session.
+
+A rule has the form of:
+C<class,vendor,product,version,allow>
+
+-1 can be used instead of class, vendor, product or version in order to accept
+any value. Several rules can be concatenated with '|':
+C<rule1|rule2|rule3>
+
+=item --spice-usbredir-redirect-on-connect=<filter-string>
+
+Filter selecting USB devices to redirect on connect
+
+This filter specifies which USB devices should be automatically redirected
+when a SPICE connection to a remote display has been established.
+
+=item --spice-gtk-version
+
+Display Spice-GTK version information
+
+=item --spice-smartcard
+
+Enable smartcard support
+
+=item --spice-smartcard-db=<certificate-db>
+
+Path to the local certificate database to use for software smartcard certificates
+
+This option is only useful for testing purpose. Instead of having a hardware
+smartcard reader, and a physical smartcard, you can specify a file containing 3
+certificates which will be used to emulate a smartcard in software. See
+C<http://www.spice-space.org/page/SmartcardUsage#Using_a_software_smartcard>
+for more details about how to generate these certificates.
+
+=item --spice-smartcard-certificates=<certificates>
+
+Certificates to use for software smartcards (field=values separated by commas)
+
+This option is only useful for testing purpose. This allows to specify which
+certificates from the certificate database specified with --spice-smartcard-db
+should be used for smartcard emulation.
+
+=item --spice-cache-size=<bytes>
+
+Image cache size
+
+This option should only be used for testing/debugging.
+
+=item --spice-glz-window-size=<bytes>
+
+Glz compression history size
+
+This option should only be used for testing/debugging.
+
+=back
+
+=head1 BUGS
+
+Report bugs to the mailing list C<http://lists.freedesktop.org/mailman/listinfo/spice-devel>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2011, 2014 Red Hat, Inc., and various contributors.
+This is free software. You may redistribute copies of it under the terms of
+the GNU Lesser General Public License
+C<https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html>.
+There is NO WARRANTY, to the extent permitted by law.
+
+=head1 SEE ALSO
+
+C<virt-viewer(1)>, the project website C<http://spice-space.org>
+
+=cut

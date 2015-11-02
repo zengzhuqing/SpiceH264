@@ -1,0 +1,4 @@
+data/spicy.desktop.in
+spice-common/python_modules/spice_parser.py
+spice-common/spice_codegen.py
+src/glib-compat.c

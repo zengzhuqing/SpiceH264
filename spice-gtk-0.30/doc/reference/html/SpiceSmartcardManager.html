@@ -1,0 +1,618 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Spice-GTK Reference Manual: Spice Smartcard Manager</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Spice-GTK Reference Manual">
+<link rel="up" href="application-support.html" title="Application Support, from spice-client-glib">
+<link rel="prev" href="SpiceAudio.html" title="Spice Audio">
+<link rel="next" href="SpiceUsbDeviceManager.html" title="Spice USB Manager">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#SpiceSmartcardManager.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#SpiceSmartcardManager.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#SpiceSmartcardManager.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="application-support.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="SpiceAudio.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="SpiceUsbDeviceManager.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="SpiceSmartcardManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="SpiceSmartcardManager.top_of_page"></a>Spice Smartcard Manager</span></h2>
+<p>Spice Smartcard Manager — smartcard management</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.stability-level"></a><h2>Stability Level</h2>
+<acronym title="The intention of a Stable interface is to enable arbitrary third parties to
+develop applications to these interfaces, release them, and have confidence that
+they will run on all minor releases of the product (after the one in which the
+interface was introduced, and within the same major release). Even at a major
+release, incompatible changes are expected to be rare, and to have strong
+justifications.
+"><span class="acronym">Stable</span></acronym>, unless otherwise indicated
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="returnvalue">SpiceSmartcardManager</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSmartcardManager.html#spice-smartcard-manager-get" title="spice_smartcard_manager_get ()">spice_smartcard_manager_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSmartcardManager.html#spice-smartcard-manager-get-readers" title="spice_smartcard_manager_get_readers ()">spice_smartcard_manager_get_readers</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSmartcardManager.html#spice-smartcard-manager-insert-card" title="spice_smartcard_manager_insert_card ()">spice_smartcard_manager_insert_card</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSmartcardManager.html#spice-smartcard-manager-remove-card" title="spice_smartcard_manager_remove_card ()">spice_smartcard_manager_remove_card</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSmartcardManager.html#spice-smartcard-reader-is-software" title="spice_smartcard_reader_is_software ()">spice_smartcard_reader_is_software</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSmartcardManager.html#spice-smartcard-reader-insert-card" title="spice_smartcard_reader_insert_card ()">spice_smartcard_reader_insert_card</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="SpiceSmartcardManager.html#spice-smartcard-reader-remove-card" title="spice_smartcard_reader_remove_card ()">spice_smartcard_reader_remove_card</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-card-inserted" title="The “card-inserted” signal">card-inserted</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-card-removed" title="The “card-removed” signal">card-removed</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-reader-added" title="The “reader-added” signal">reader-added</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-reader-removed" title="The “reader-removed” signal">reader-removed</a></td>
+<td class="signal_flags"><a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-struct" title="struct SpiceSmartcardManager">SpiceSmartcardManager</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManagerClass" title="struct SpiceSmartcardManagerClass">SpiceSmartcardManagerClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardReader" title="SpiceSmartcardReader">SpiceSmartcardReader</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> SpiceSmartcardManager
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;smartcard-manager.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.description"></a><h2>Description</h2>
+<p><a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> monitors smartcard reader plugging/unplugging,
+and smartcard insertions/removals. It also provides methods to handle
+software smartcards (to emulate a smartcard reader/smartcard on the
+guest using 3 certificates available to the client).</p>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="spice-smartcard-manager-get"></a><h3>spice_smartcard_manager_get ()</h3>
+<pre class="programlisting"><a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="returnvalue">SpiceSmartcardManager</span></a> *
+spice_smartcard_manager_get (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p><a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> is a singleton, use this function to get a pointer
+to it. A new SpiceSmartcardManager instance will be created the first
+time this function is called</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.2.5"></a><h4>Returns</h4>
+<p> a weak reference to the <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-smartcard-manager-get-readers"></a><h3>spice_smartcard_manager_get_readers ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+spice_smartcard_manager_get_readers (<em class="parameter"><code><a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> *manager</code></em>);</pre>
+<p>Gets the list of smartcard readers that are currently available, they
+can be either software (emulated) readers, or hardware ones.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.3.6"></a><h4>Returns</h4>
+<p> a newly
+allocated list of SpiceSmartcardReader instances, or NULL if none were
+found. When no longer needed, the list must be freed after unreferencing
+its elements with <a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html#g-boxed-free"><code class="function">g_boxed_free()</code></a>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> SpiceSmartcardReader][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since 0.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-smartcard-manager-insert-card"></a><h3>spice_smartcard_manager_insert_card ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_smartcard_manager_insert_card (<em class="parameter"><code><a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> *manager</code></em>);</pre>
+<p>Simulates the insertion of a smartcard in the guest. Valid certificates
+must have been set in <a class="link" href="SpiceSession.html#SpiceSession--smartcard-certificates" title="The “smartcard-certificates” property"><span class="type">“smartcard-certificates”</span></a> for software
+smartcard support to work. At the moment, only one software smartcard
+reader is supported, that's why there is no parameter to indicate which
+reader to insert the card in.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.4.6"></a><h4>Returns</h4>
+<p> TRUE if smartcard insertion was successfully simulated, FALSE
+if this failed, or if software smartcard support isn't enabled.</p>
+<p></p>
+</div>
+<p class="since">Since 0.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-smartcard-manager-remove-card"></a><h3>spice_smartcard_manager_remove_card ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_smartcard_manager_remove_card (<em class="parameter"><code><a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> *manager</code></em>);</pre>
+<p>Simulates the removal of a smartcard in the guest. At the moment, only
+one software smartcard reader is supported, that's why there is no
+parameter to indicate which reader to insert the card in.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.5.6"></a><h4>Returns</h4>
+<p> TRUE if smartcard removal was successfully simulated, FALSE
+if this failed, or if software smartcard support isn't enabled.</p>
+<p></p>
+</div>
+<p class="since">Since 0.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-smartcard-reader-is-software"></a><h3>spice_smartcard_reader_is_software ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_smartcard_reader_is_software (<em class="parameter"><code><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardReader" title="SpiceSmartcardReader"><span class="type">SpiceSmartcardReader</span></a> *reader</code></em>);</pre>
+<p>Tests if <em class="parameter"><code>reader</code></em>
+ is a software (emulated) smartcard reader.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>reader</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardReader" title="SpiceSmartcardReader"><span class="type">SpiceSmartcardReader</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.6.6"></a><h4>Returns</h4>
+<p> TRUE if <em class="parameter"><code>reader</code></em>
+is a software (emulated) smartcard reader,
+FALSE otherwise</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-smartcard-reader-insert-card"></a><h3>spice_smartcard_reader_insert_card ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_smartcard_reader_insert_card (<em class="parameter"><code><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardReader" title="SpiceSmartcardReader"><span class="type">SpiceSmartcardReader</span></a> *reader</code></em>);</pre>
+<p>Simulates insertion of a smartcard in the software smartcard reader
+<em class="parameter"><code>reader</code></em>
+. If <em class="parameter"><code>reader</code></em>
+ is not a software smartcard reader, FALSE will be
+returned.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>reader</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardReader" title="SpiceSmartcardReader"><span class="type">SpiceSmartcardReader</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.7.6"></a><h4>Returns</h4>
+<p> TRUE if insertion of a card was successfully simulated, FALSE
+otherwise</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="spice-smartcard-reader-remove-card"></a><h3>spice_smartcard_reader_remove_card ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+spice_smartcard_reader_remove_card (<em class="parameter"><code><a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardReader" title="SpiceSmartcardReader"><span class="type">SpiceSmartcardReader</span></a> *reader</code></em>);</pre>
+<p>Simulates removal of a smartcard from the software smartcard reader
+<em class="parameter"><code>reader</code></em>
+. If <em class="parameter"><code>reader</code></em>
+ is not a software smartcard reader, FALSE will be
+returned.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>reader</p></td>
+<td class="parameter_description"><p>a <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardReader" title="SpiceSmartcardReader"><span class="type">SpiceSmartcardReader</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.5.3.10.8.6"></a><h4>Returns</h4>
+<p> TRUE if removal of a card was successfully simulated, FALSE
+otherwise</p>
+<p></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="SpiceSmartcardManager-struct"></a><h3>struct SpiceSmartcardManager</h3>
+<pre class="programlisting">struct SpiceSmartcardManager;</pre>
+<p>The <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> struct is opaque and should not be accessed directly.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSmartcardManagerClass"></a><h3>struct SpiceSmartcardManagerClass</h3>
+<pre class="programlisting">struct SpiceSmartcardManagerClass {
+    GObjectClass parent_class;
+    /* signals */
+    void (*reader_added)(SpiceSmartcardManager *manager, SpiceSmartcardReader *reader);
+    void (*reader_removed)(SpiceSmartcardManager *manager, SpiceSmartcardReader *reader);
+    void (*card_inserted)(SpiceSmartcardManager *manager, SpiceSmartcardReader *reader);
+    void (*card_removed)(SpiceSmartcardManager *manager, SpiceSmartcardReader *reader );
+};
+</pre>
+<p>Class structure for <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.11.3.5"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> <em class="structfield"><code><a name="SpiceSmartcardManagerClass.parent-class"></a>parent_class</code></em>;</p></td>
+<td class="struct_member_description"><p>Parent class.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceSmartcardManagerClass.reader-added"></a>reader_added</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-reader-added" title="The “reader-added” signal"><span class="type">“reader_added”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceSmartcardManagerClass.reader-removed"></a>reader_removed</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-reader-removed" title="The “reader-removed” signal"><span class="type">“reader_removed”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceSmartcardManagerClass.card-inserted"></a>card_inserted</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-card-inserted" title="The “card-inserted” signal"><span class="type">“card_inserted”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="SpiceSmartcardManagerClass.card-removed"></a>card_removed</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal class handler for the <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-card-removed" title="The “card-removed” signal"><span class="type">“card_removed”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSmartcardReader"></a><h3>SpiceSmartcardReader</h3>
+<pre class="programlisting">typedef struct _SpiceSmartcardReader SpiceSmartcardReader;</pre>
+<p>The <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardReader" title="SpiceSmartcardReader"><span class="type">SpiceSmartcardReader</span></a> struct is opaque and cannot be accessed directly.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="SpiceSmartcardManager.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="SpiceSmartcardManager-card-inserted"></a><h3>The <code class="literal">“card-inserted”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> *manager,
+               <span class="type">VReader</span>               *vreader,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)</pre>
+<p>The <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-card-inserted" title="The “card-inserted” signal"><span class="type">“card-inserted”</span></a> signal is emitted whenever
+a smartcard is inserted in a reader</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.12.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vreader</p></td>
+<td class="parameter_description"><p><span class="type">VReader</span> boxed object corresponding to the reader a new
+card was inserted in</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSmartcardManager-card-removed"></a><h3>The <code class="literal">“card-removed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> *manager,
+               <span class="type">VReader</span>               *vreader,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)</pre>
+<p>The <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-card-removed" title="The “card-removed” signal"><span class="type">“card-removed”</span></a> signal is emitted whenever
+a smartcard was removed from a reader.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.12.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vreader</p></td>
+<td class="parameter_description"><p><span class="type">VReader</span> boxed object corresponding to the reader a card
+was removed from</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSmartcardManager-reader-added"></a><h3>The <code class="literal">“reader-added”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> *manager,
+               <span class="type">VReader</span>               *vreader,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)</pre>
+<p>The <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-reader-added" title="The “reader-added” signal"><span class="type">“reader-added”</span></a> signal is emitted whenever
+a new smartcard reader (software or hardware) has been plugged in.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.12.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vreader</p></td>
+<td class="parameter_description"><p><span class="type">VReader</span> boxed object corresponding to the added reader</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="SpiceSmartcardManager-reader-removed"></a><h3>The <code class="literal">“reader-removed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> *manager,
+               <span class="type">VReader</span>               *vreader,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)</pre>
+<p>The <a class="link" href="SpiceSmartcardManager.html#SpiceSmartcardManager-reader-removed" title="The “reader-removed” signal"><span class="type">“reader-removed”</span></a> signal is emitted whenever
+a smartcard reader (software or hardware) has been removed.</p>
+<div class="refsect3">
+<a name="id-1.2.5.3.12.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>the <a class="link" href="SpiceSmartcardManager.html" title="Spice Smartcard Manager"><span class="type">SpiceSmartcardManager</span></a> that emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vreader</p></td>
+<td class="parameter_description"><p><span class="type">VReader</span> boxed object corresponding to the removed reader</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="https://developer.gnome.org/gobject/unstable/gobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>
