@@ -252,6 +252,16 @@ AC_SUBST(CELT051_LIBS)
 AC_SUBST(CELT051_LIBDIR)
 SPICE_REQUIRES+=" celt051 >= 0.5.1.1"
 
+PKG_CHECK_MODULES(X264, x264 >= 0.148.2)
+AC_SUBST(X264_CFLAGS)
+AC_SUBST(X264_LIBS)
+SPICE_REQUIRES+=" x264 >= 0.148.2"
+
+PKG_CHECK_MODULES(SWSCALE, libswscale >= 3.1.101)
+AC_SUBST(SWSCALE_CFLAGS)
+AC_SUBST(SWSCALE_LIBS)
+SPICE_REQUIRES+=" libswscale >= 3.1.101"
+
 if test ! -e client/generated_marshallers.cpp; then
 AC_MSG_CHECKING([for pyparsing python module])
 echo "import pyparsing" | ${PYTHON} - >/dev/null 2>&1
