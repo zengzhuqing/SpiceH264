@@ -103,6 +103,10 @@ SPICE_COMMON_CPPFLAGS =						\
 	$(SOUP_CFLAGS)						\
 	$(PHODAV_CFLAGS)					\
 	$(LZ4_CFLAGS)					\
+	$(SWSCALE_CFLAGS)				\
+	$(AVCODEC_CFLAGS)				\
+	$(AVUTIL_CFLAGS)				\
+	$(AVFORMAT_CFLAGS)				\
 	$(NULL)
 
 AM_CPPFLAGS =					\
@@ -213,6 +217,10 @@ libspice_client_glib_2_0_la_LIBADD =					\
 	$(USBREDIR_LIBS)						\
 	$(GUDEV_LIBS)							\
 	$(PHODAV_LIBS)							\
+	$(SWSCALE_LIBS)							\
+	$(AVCODEC_LIBS)							\
+	$(AVUTIL_LIBS)							\
+	$(AVFORMAT_LIBS)						\
 	$(NULL)
 
 if WITH_POLKIT
