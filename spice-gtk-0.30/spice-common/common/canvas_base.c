@@ -973,7 +973,13 @@ static void dump_bitmap(SpiceBitmap *bitmap, SpicePalette *palette)
 
 #endif
 
-static pixman_image_t *canvas_get_bits(CanvasBase *canvas, SpiceBitmap *bitmap,
+/*
+ * ZZQ change the function from static to extern,
+ * so that display_handle_h264_stream_data can call it
+ *
+ * FIXME: tmp code
+ */
+pixman_image_t *canvas_get_bits(CanvasBase *canvas, SpiceBitmap *bitmap,
                                        int want_original)
 {
     pixman_image_t* surface;
@@ -998,7 +1004,13 @@ static pixman_image_t *canvas_get_bits(CanvasBase *canvas, SpiceBitmap *bitmap,
 #else
 
 
-static pixman_image_t *canvas_get_bits(CanvasBase *canvas, SpiceBitmap *bitmap,
+/*
+ * ZZQ change the function from static to extern,
+ * so that display_handle_h264_stream_data can call it
+ *
+ * FIXME: tmp code
+ */
+pixman_image_t *canvas_get_bits(CanvasBase *canvas, SpiceBitmap *bitmap,
                                        int want_original)
 {
     SpicePalette *palette;

@@ -397,7 +397,13 @@ static void __blit_image(SpiceCanvas *spice_canvas,
     }
 }
 
-static void blit_image(SpiceCanvas *spice_canvas,
+/*
+ * ZZQ change the function from static to extern,
+ * so that display_handle_h264_stream_data can call it
+ *
+ * FIXME: tmp code
+ */
+void blit_image(SpiceCanvas *spice_canvas,
                        pixman_region32_t *region,
                        pixman_image_t *src_image,
                        int offset_x, int offset_y)

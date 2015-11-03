@@ -29,6 +29,12 @@
 #include <sys/ipc.h>
 #endif
 
+#include <libavcodec/avcodec.h>
+#include <libavutil/frame.h>
+#include <libavformat/avformat.h>
+#include <libswscale/swscale.h>
+#include <libavutil/imgutils.h>
+
 #include "glib-compat.h"
 #include "spice-client.h"
 #include "spice-common.h"
@@ -1337,6 +1343,317 @@ static void display_stream_test_frames_mm_time_reset(display_stream *st,
 
 #define STREAM_PLAYBACK_SYNC_DROP_SEQ_LEN_LIMIT 5
 
+static int yuv2rgb(const uint8_t *yuv, const int width, const int height, uint8_t *rgb)
+{
+    struct SwsContext *sws;
+    const uint8_t *yuv_slice[3];
+    int yuv_stride[3];
+    uint8_t *rgb_slice[3];
+    int rgb_stride[3];
+    int n;
+
+    sws = sws_getContext(width, height, PIX_FMT_YUV420P,
+                width, height, PIX_FMT_RGB32,
+                1, NULL, NULL, NULL);
+    if (sws == NULL) {
+        fprintf(stderr, "Failed to get swscale context\n");
+        return -1;
+    }
+
+    yuv_slice[0] = yuv;
+    yuv_slice[1] = yuv + width * height;
+    yuv_slice[2] = yuv_slice[1] + width * height / 4;
+    yuv_stride[0] = width;
+    yuv_stride[1] = width / 2;
+    yuv_stride[2] = width / 2;
+    rgb_slice[0] = rgb;
+    rgb_slice[1] = NULL;
+    rgb_slice[2] = NULL;
+    rgb_stride[0] = width * 4;
+    rgb_stride[1] = 0;
+    rgb_stride[2] = 0;
+
+    n = sws_scale(sws, yuv_slice, yuv_stride, 0, height,
+            rgb_slice, rgb_stride);
+    sws_freeContext(sws);
+    sws = NULL;
+
+    if (n != height){
+        fprintf(stderr, "Failed to run swscale\n");
+        return -1;
+    }
+
+    return 0;
+}
+
+static AVCodecContext *h264_decoder_init(const int width, const int height)
+{
+    AVCodec *codec;
+    AVCodecContext *ctx;
+    int result;
+
+    codec = NULL;
+    ctx = NULL;
+
+    av_register_all();
+
+    avcodec_register_all();
+
+    codec = avcodec_find_decoder(AV_CODEC_ID_H264);
+
+    ctx = avcodec_alloc_context3(codec);
+
+    ctx->width = width;
+    ctx->height = height;
+
+    result = avcodec_open2(ctx, codec, NULL);
+    if (result < 0) {
+        fprintf(stderr, "Can't open decoder\n");
+        goto fail;
+    }
+
+    return ctx;
+
+fail:
+    return NULL;
+}
+
+static void fill_bitmap(SpiceBitmap *bitmap, SpiceChunks *chunks,
+                const int width, const int height)
+{
+    bitmap->format = 8;
+    bitmap->flags = 4;
+    bitmap->x = width;
+    bitmap->y = height;
+    bitmap->stride = width * 4;
+    bitmap->palette = NULL;
+    bitmap->palette_id = 0;
+    bitmap->data = chunks;
+}
+
+static int h264_decode(uint8_t *data, const int data_size,
+                const int width, const int height, uint8_t *rgb)
+{
+    static AVCodecContext *ctx = NULL;
+    static AVFrame *fr = NULL;
+    static AVPacket pkt;
+    static int last_width = 0;
+    static int last_height = 0;
+
+    int result;
+    int got_frame;
+    uint8_t *yuv;
+    int yuv_size;
+    int n;
+
+    yuv = NULL;
+
+    if (width != last_width || height != last_height) {
+        fprintf(stderr, "[ZZQ] decode init\n");
+        if (ctx != NULL) {
+            avcodec_free_context(&ctx);
+            ctx = NULL;
+        }
+        av_free_packet(&pkt);
+        av_frame_free(&fr);
+        ctx = h264_decoder_init(width, height);
+        if (ctx == NULL) {
+            fprintf(stderr, "Failed to init decoder\n");
+            goto fail;
+        }
+        fr = av_frame_alloc();
+        if (fr == NULL) {
+            fprintf(stderr, "Failed to allocate frame\n");
+            goto fail;
+        }
+        av_init_packet(&pkt);
+        last_width = width;
+        last_height = height;
+    }
+
+    yuv_size = 3 * width * height / 2;
+    yuv = malloc(yuv_size);
+    if (yuv == NULL) {
+        fprintf(stderr, "Failed to allocate buffer for yuv\n");
+        goto fail;
+    }
+
+    pkt.data = data;
+    pkt.size = data_size;
+
+   result = avcodec_decode_video2(ctx, fr, &got_frame, &pkt);
+   if (result < 0) {
+        fprintf(stderr, "Failed to decode frame\n");
+        goto fail;
+   }
+
+   if (got_frame) {
+        n = av_image_copy_to_buffer(yuv, yuv_size,
+                (const uint8_t* const *)fr->data, (const int*) fr->linesize,
+                ctx->pix_fmt, ctx->width, ctx->height, 1);
+        if (n < 0) {
+            fprintf(stderr, "Can't copy image to buffer\n");
+            goto fail;
+        }
+        //color space transfer
+        result = yuv2rgb(yuv, width, height, rgb);
+        if (result < 0) {
+            fprintf(stderr, "Failed to transfer yuv to rgb\n");
+            goto fail;
+        }
+    } else {
+        fprintf(stderr, "Got No frame\n");
+        goto fail;
+    }
+
+    free(yuv);
+    yuv = NULL;
+
+    return 0;
+
+fail:
+    if (yuv != NULL) {
+        free(yuv);
+        yuv= NULL;
+    }
+
+    return -1;
+}
+
+static int h264_display(uint8_t *rgb, SpiceChannel *channel,
+                int surface_id, const int width, const int height)
+{
+    SpiceRect box;
+    pixman_region32_t dest_region;
+    pixman_image_t *src_image;
+    SpiceBitmap bitmap;
+    SpiceChunks *chunks;
+    display_surface *surface;
+        
+
+    surface = find_surface(SPICE_DISPLAY_CHANNEL(channel)->priv, surface_id);
+    if (surface == NULL) {
+        fprintf(stderr, "Can not find surface\n");
+        return -1; 
+    }
+    
+    box.left = 0;
+    box.top = 0;
+    box.right = width;
+    box.bottom = height;
+
+    chunks = malloc(sizeof(SpiceChunks) + sizeof(SpiceChunk));
+
+    chunks->data_size = 4 * width * height;
+    chunks->num_chunks = 1;
+    chunks->flags = 0;
+    chunks->chunk[0].len = 4 * width * height;
+    chunks->chunk[0].data = rgb;
+
+    pixman_region32_init_rect(&dest_region,
+                          box.left, box.top,
+                          box.right - box.left,
+                          box.bottom - box.top);
+
+    fill_bitmap(&bitmap, chunks, width, height);
+
+    src_image = canvas_get_bits(surface->canvas, &bitmap, TRUE);
+
+    blit_image(surface->canvas, &dest_region, src_image, 0, 0);
+    if (surface->primary) {
+        emit_invalidate(channel, &box);
+    }
+    pixman_image_unref(src_image);
+    pixman_region32_fini(&dest_region);
+
+    free(chunks);
+    chunks = NULL;
+
+    return 0;
+}
+
+static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
+{
+/*
+ *  At present, I just use SpiceMsgDisplayStreamData, I use its base.id as width
+ *  its base.multi_media_time as height
+ *  FIXME: add a new Msg in spice-common
+ */
+    SpiceMsgDisplayStreamData *stream_data_op;
+
+    /* data from Msg */
+    int width;
+    int height;
+    int surface_id;
+    uint8_t *data;
+    int data_size;
+    
+    uint8_t *rgb;
+
+    rgb = NULL;
+
+    stream_data_op = spice_msg_in_parsed(in);
+    
+    surface_id = 0; //FIXME
+    width = stream_data_op->base.id;
+    height = stream_data_op->base.multi_media_time;
+    data = stream_data_op->data;
+    data_size = stream_data_op->data_size;
+
+/*
+ * this code is t test whether decode is right or not
+ * generate a rawh264 stream, use ffplay to test it
+ */
+#if 0
+    static FILE *est_fp;
+    static int cn = 0;
+    if (cnt == 0){
+        test_fp =fopen("/tmp/test.264", "wb");
+        spice_assrt(test_fp != NULL);
+        cnt++;
+    }
+    if (cnt < 50){
+        spice_assrt(fwrite(stream_data_op->data, stream_data_op->data_size, 1, test_fp) == 1);
+        cnt++;
+    }
+    else if (cnt = 50) {
+        (void)fclse(test_fp);
+        test_fp =NULL;
+        cnt++;
+    }
+    return;
+#endif
+
+#if 0
+    fprintf(stder, "[ZZQ] I have received, data_size = %d\n", stream_data_op->data_size);
+    fprintf(stder, "[ZZQ] width = %d, height = %d\n", width, height);
+#endif
+
+    rgb = malloc(4 * width *height);
+    if (rgb == NULL) {
+        fprintf(stderr, "Failed to allocate buffer for rgb\n");
+        goto fail;
+    }
+
+    if (h264_decode(data, data_size, width, height, rgb) == 0) {
+        if (h264_display(rgb, channel, surface_id, width, height) < 0) {
+            fprintf(stderr, "Failed to display\n");
+            goto fail;
+        }
+    } else {
+        fprintf(stderr, "Failed to decode a h264 frame\n");
+        goto fail;
+    }
+
+    free(rgb);
+    rgb = NULL;
+
+    return;
+
+fail:
+    spice_assert(FALSE);
+}
+
 /* coroutine context */
 static void display_handle_stream_data(SpiceChannel *channel, SpiceMsgIn *in)
 {
@@ -1767,7 +2084,7 @@ static void channel_set_handlers(SpiceChannelClass *klass)
         [ SPICE_MSG_DISPLAY_INVAL_ALL_PALETTES ] = display_handle_inv_palette_all,
 
         [ SPICE_MSG_DISPLAY_STREAM_CREATE ]      = display_handle_stream_create,
-        [ SPICE_MSG_DISPLAY_STREAM_DATA ]        = display_handle_stream_data,
+        [ SPICE_MSG_DISPLAY_STREAM_DATA ]        = display_handle_h264_data,
         [ SPICE_MSG_DISPLAY_STREAM_CLIP ]        = display_handle_stream_clip,
         [ SPICE_MSG_DISPLAY_STREAM_DESTROY ]     = display_handle_stream_destroy,
         [ SPICE_MSG_DISPLAY_STREAM_DESTROY_ALL ] = display_handle_stream_destroy_all,
