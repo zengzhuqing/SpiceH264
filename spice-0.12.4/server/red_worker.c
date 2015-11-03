@@ -47,6 +47,10 @@
 #include <openssl/ssl.h>
 #include <inttypes.h>
 
+//ZZQ
+#include <libswscale/swscale.h>
+#include <x264.h>
+
 #include <spice/protocol.h>
 #include <spice/qxl_dev.h>
 #include "common/lz.h"
@@ -85,7 +89,7 @@
 #include "red_time.h"
 
 //#define COMPRESS_STAT
-#define DUMP_BITMAP
+//#define DUMP_BITMAP
 //#define PIPE_DEBUG
 //#define RED_WORKER_STAT
 //#define DRAW_ALL
@@ -108,7 +112,7 @@
 #define RED_STREAM_DETACTION_MAX_DELTA ((1000 * 1000 * 1000) / 5) // 1/5 sec
 #define RED_STREAM_CONTINUS_MAX_DELTA (1000 * 1000 * 1000)
 #define RED_STREAM_TIMOUT (1000 * 1000 * 1000)
-#define RED_STREAM_FRAMES_START_CONDITION 20
+#define RED_STREAM_FRAMES_START_CONDITION 20 //ZZQ video region identification
 #define RED_STREAM_GRADUAL_FRAMES_START_CONDITION 0.2
 #define RED_STREAM_FRAMES_RESET_CONDITION 100
 #define RED_STREAM_MIN_SIZE (96 * 96)
@@ -3251,7 +3255,7 @@ static inline int __red_is_next_stream_frame(RedWorker *worker,
 {
     RedDrawable *red_drawable;
     int is_frame_container = FALSE;
-
+    
     if (!candidate->streamable) {
         return STREAM_FRAME_NONE;
     }
@@ -3316,7 +3320,7 @@ static inline int red_is_next_stream_frame(RedWorker *worker, const Drawable *ca
     if (!candidate->streamable) {
         return FALSE;
     }
-
+    
     SpiceRect* prev_src = &prev->red_drawable->u.copy.src_area;
     return __red_is_next_stream_frame(worker, candidate, prev_src->right - prev_src->left,
                                       prev_src->bottom - prev_src->top,
@@ -3425,9 +3429,10 @@ static inline void red_update_copy_graduality(RedWorker* worker, Drawable *drawa
 
 static inline int red_is_stream_start(Drawable *drawable)
 {
-    return ((drawable->frames_count >= RED_STREAM_FRAMES_START_CONDITION) &&
-            (drawable->gradual_frames_count >=
-            (RED_STREAM_GRADUAL_FRAMES_START_CONDITION * drawable->frames_count)));
+    return TRUE;//ZZQ for test
+    //return ((drawable->frames_count >= RED_STREAM_FRAMES_START_CONDITION) &&
+    //        (drawable->gradual_frames_count >=
+    //        (RED_STREAM_GRADUAL_FRAMES_START_CONDITION * drawable->frames_count)));
 }
 
 // returns whether a stream was created
@@ -3515,7 +3520,7 @@ static inline int red_current_add_equal(RedWorker *worker, DrawItem *item, TreeI
     DrawItem *other_draw_item;
     Drawable *drawable;
     Drawable *other_drawable;
-
+    
     if (other->type != TREE_ITEM_TYPE_DRAWABLE) {
         return FALSE;
     }
@@ -3694,7 +3699,7 @@ static inline int red_current_add(RedWorker *worker, Ring *ring, Drawable *drawa
     spice_assert(!region_is_empty(&item->base.rgn));
     region_init(&exclude_rgn);
     now = ring_next(ring, ring);
-
+    
     while (now) {
         TreeItem *sibling = SPICE_CONTAINEROF(now, TreeItem, siblings_link);
         int test_res;
@@ -3881,10 +3886,11 @@ static inline void red_update_streamable(RedWorker *worker, Drawable *drawable,
                                          RedDrawable *red_drawable)
 {
     SpiceImage *image;
-
+    
     if (worker->streaming_video == STREAM_VIDEO_OFF) {
         return;
     }
+    
 
     if (!is_primary_surface(worker, drawable->surface_id)) {
         return;
@@ -6905,6 +6911,7 @@ static FillBitsType fill_bits(DisplayChannelClient *dcc, SpiceMarshaller *m,
             }
 
             spice_assert(!comp_send_data.is_lossy || can_lossy);
+            
             return (comp_send_data.is_lossy ? FILL_BITS_TYPE_COMPRESS_LOSSY :
                                               FILL_BITS_TYPE_COMPRESS_LOSSLESS);
         }
@@ -7574,7 +7581,7 @@ static FillBitsType red_marshall_qxl_draw_copy(RedWorker *worker,
                         &mask_bitmap_out);
 
     src_send_type = fill_bits(dcc, src_bitmap_out, copy.src_bitmap, item, src_allowed_lossy);
-    fill_mask(rcc, mask_bitmap_out, copy.mask.bitmap, item);
+    fill_mask(rcc, mask_bitmap_out, copy.mask.bitmap, item);//ZZQ: do nothing
 
     return src_send_type;
 }
@@ -8726,6 +8733,232 @@ static inline int red_marshall_stream_data(RedChannelClient *rcc,
     return TRUE;
 }
 
+/*
+ * stream h264 data 
+ * add by zengzhuqing
+ */
+static int rgb2yuv(const uint8_t *rgb, const int width, const int height, uint8_t *yuv)
+{
+	struct SwsContext *sws;
+	const uint8_t *rgb_slice[3];
+	int rgb_stride[3];
+	uint8_t *yuv_slice[3];
+	int yuv_stride[3];
+	int n;
+
+	sws = sws_getContext(width, height, PIX_FMT_RGB32,
+				width, height, PIX_FMT_YUV420P,
+				1, NULL, NULL, NULL);
+	if (sws == NULL) {
+		return -1;
+	}
+	rgb_slice[0] = rgb;
+	rgb_slice[1] = NULL;
+	rgb_slice[2] = NULL;
+	rgb_stride[0] = width * 4;
+	rgb_stride[1] = 0;
+	rgb_stride[2] = 0;
+	yuv_slice[0] = yuv;
+	yuv_slice[1] = yuv + width * height;
+	yuv_slice[2] = yuv_slice[1] + width * height / 4;
+	yuv_stride[0] = width;
+	yuv_stride[1] = width / 2;
+	yuv_stride[2] = width / 2;
+    
+    n = sws_scale(sws, rgb_slice, rgb_stride, 0, height,
+			yuv_slice, yuv_stride);
+	sws_freeContext(sws);
+	sws = NULL;
+
+	if (n != height)
+		return -1;
+	return 0;
+}
+
+static x264_t *h264_encoder_init(const int width, const int height)
+{
+    x264_param_t param;
+    x264_t *h;
+
+    /* Get default params for preset/tuning */
+    if (x264_param_default_preset(&param, "medium", "zerolatency") < 0) {
+        fprintf(stderr, "Failed to get default params\n");
+        return NULL;
+    }
+
+    /* Configure non-default param */
+    param.i_csp = X264_CSP_I420;
+    param.i_width =  width;
+    param.i_height = height;
+    param.b_vfr_input = 0;
+    param.b_repeat_headers = 1;
+    param.b_annexb = 1;
+
+    /* Apply profile restrictions */
+    if (x264_param_apply_profile(&param, "baseline") < 0) {
+        fprintf(stderr, "Failed to apply profile\n");
+        return NULL;
+    }
+
+    h = x264_encoder_open(&param);
+
+    return h;
+}
+
+static int h264_encoder_encode(x264_t *h, const uint8_t *yuv, const int width, const int height, x264_nal_t **nal, int *i_frame_size)
+{
+    x264_picture_t pic;
+    static x264_picture_t pic_out;
+    int luma_size;
+    int chroma_size;
+    static int i_frame = 0;
+    int i_nal;
+    int ret;
+
+    fprintf(stderr, "[ZZQ] %s\n", __func__); 
+
+    luma_size = width * height;
+    chroma_size = luma_size / 4;
+
+    if (x264_picture_alloc(&pic, X264_CSP_I420, width, height) < 0)
+        return -1;
+    pic.i_pts = i_frame++;
+
+    memcpy(pic.img.plane[0], yuv, luma_size);
+    memcpy(pic.img.plane[1], yuv + luma_size, chroma_size);
+    memcpy(pic.img.plane[2], yuv + luma_size + chroma_size, chroma_size);
+
+    *i_frame_size = x264_encoder_encode(h, nal, &i_nal, &pic, &pic_out);
+   
+    x264_picture_clean(&pic);
+
+    return 0;
+}
+
+static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
+                  SpiceMarshaller *base_marshaller, Drawable *drawable)
+{
+    DisplayChannelClient *dcc = RCC_TO_DCC(rcc);
+    SpiceImage *image;
+    SpiceChunk *chunk;
+    static int last_width = 0;
+    static int last_height = 0;
+    int width, height;
+    int ret;
+    uint8_t *rgb_data;
+    SpiceRect *src_rect;
+    uint8_t *yuv;
+    static x264_t *h = NULL;//FIXME
+    int frame_size;
+    x264_nal_t *nal;
+    int surface_id;
+
+    spice_assert(drawable->red_drawable->type == QXL_DRAW_COPY);
+
+    image = drawable->red_drawable->u.copy.src_bitmap;
+
+    if (image->descriptor.type != SPICE_IMAGE_TYPE_BITMAP) {
+        return FALSE;
+    }
+
+    src_rect = &drawable->red_drawable->u.copy.src_area;
+
+    surface_id = drawable->red_drawable->surface_id;
+
+    width = src_rect->right - src_rect->left;
+    height = src_rect->bottom - src_rect->top;
+  
+    RedDrawable *draw = drawable->red_drawable;
+
+    SpiceBitmap *bitmap = &image->u.bitmap;
+
+    //only transfer the latter part 800x600
+    //if (width == 1024) {
+    //    return FALSE; 
+    //}
+ 
+    fprintf(stderr, "[ZZQ] surface_id = %d, width = %d, height = %d\n",
+                    surface_id, width, height);
+    fflush(stderr);    
+    #if 0
+    fprintf(stderr, "[ZZQ] box left = %d, box top = %d, box right = %d, box bottom = %d\n",
+                    draw->bbox.left, draw->bbox.top,
+                    draw->bbox.right, draw->bbox.bottom);
+    fprintf(stderr, "[ZZQ] clip %d\n", draw->clip.rects);
+   
+    fprintf(stderr, "[ZZQ] format = %d, flags = %d, x = %d, y = %d, stride = %d, palette = %d, palette_id = %d\n", bitmap->format, bitmap->flags, bitmap->x, bitmap->y, bitmap->stride, bitmap->palette, bitmap->palette_id);
+    fprintf(stderr, "[ZZQ] data_size = %d, num_chunks = %d, flags = %d\n", bitmap->data->data_size, bitmap->data->num_chunks, bitmap->data->flags);  
+    fprintf(stderr, "[ZZQ] chunk len = %d\n", bitmap->data->chunk[0].len);  
+    #endif
+
+    chunk = &image->u.bitmap.data->chunk[0];
+    rgb_data = chunk->data;
+
+    yuv = malloc(3 * width * height / 2);
+    spice_assert(yuv != NULL);
+
+    ret = rgb2yuv(rgb_data, width, height, yuv);
+    spice_assert(ret == 0);
+
+    //FIXME
+    if (width != last_width || height != last_height) {
+        fprintf(stderr, "[ZZQ] Init h264 encode\n");
+        if (h != NULL) {
+            x264_encoder_close(h);
+            h = NULL;
+        } 
+        h = h264_encoder_init(width, height);
+        spice_assert(h != NULL);
+        last_width = width;
+        last_height = height;
+    }
+    
+    ret = h264_encoder_encode(h, yuv, width, height, &nal, &frame_size);
+    spice_assert(ret == 0); 
+    fprintf(stderr, "[ZZQ] frame size : %d\n", frame_size);
+#if 1
+    dcc->send_data.stream_outbuf_size = frame_size;
+
+    SpiceMsgDisplayStreamData stream_data;
+
+    red_channel_client_init_send_data(rcc, SPICE_MSG_DISPLAY_STREAM_DATA, NULL);
+
+    //stream_data.base.surface_id = surface_id;
+    stream_data.base.id = width;
+    stream_data.base.multi_media_time = height;
+    stream_data.data_size = frame_size;
+
+    spice_marshall_msg_display_stream_data(base_marshaller, &stream_data);
+    spice_marshaller_add_ref(base_marshaller, nal->p_payload, frame_size);
+#endif
+
+    if (yuv != NULL) {
+        free(yuv);
+        yuv = NULL;
+    }
+//FIXME:
+#if 0
+    x264_encoder_close(h);
+    h = NULL;
+#endif
+
+    return TRUE;
+
+fail:
+    if (yuv != NULL) {
+        free(yuv);
+        yuv = NULL;
+    }
+//FIXME
+#if 0 
+    if (h != NULL) {
+        x264_encoder_close(h);
+        h = NULL;
+    }
+#endif
+    return FALSE;   
+}
+
 static inline void marshall_qxl_drawable(RedChannelClient *rcc,
     SpiceMarshaller *m, DrawablePipeItem *dpi)
 {
@@ -8735,13 +8968,17 @@ static inline void marshall_qxl_drawable(RedChannelClient *rcc,
     spice_assert(display_channel && rcc);
     /* allow sized frames to be streamed, even if they where replaced by another frame, since
      * newer frames might not cover sized frames completely if they are bigger */
-    if ((item->stream || item->sized_stream) && red_marshall_stream_data(rcc, m, item)) {
+    //ZZQ add stream data to h264 stream in a new red_marshall_stream_data_for_h264 here 
+    spice_assert(red_marshall_stream_h264_data(rcc, m, item));
+#if 0
+    if ((item->stream || item->sized_stream) && red_marshall_stream_data(rcc, m, item)) { //ZZQ stream data not call
         return;
     }
-    if (!display_channel->enable_jpeg)
+    if (!display_channel->enable_jpeg)// ZZQ: enable_jpeg = 0
         red_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
     else
         red_lossy_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
+#endif
 }
 
 static inline void red_marshall_verb(RedChannelClient *rcc, uint16_t verb)
@@ -10848,7 +11085,9 @@ static void handle_new_display_channel(RedWorker *worker, RedClient *client, Red
     } else {
         display_channel->enable_jpeg = (worker->jpeg_state == SPICE_WAN_COMPRESSION_ALWAYS);
     }
-
+    // ZZQ: set enable_jpeg = true for test
+    display_channel->enable_jpeg = TRUE;
+ 
     // todo: tune quality according to bandwidth
     display_channel->jpeg_quality = 85;
 
@@ -12380,7 +12619,7 @@ static void dump_bitmap(RedWorker *worker, SpiceBitmap *bitmap, uint32_t group_i
         spice_error("Error creating bmp");
         return;
     }
-
+#if 0
     /* writing the bmp v3 header */
     fprintf(f, "BM");
     fwrite(&file_size, sizeof(file_size), 1, f);
@@ -12416,6 +12655,7 @@ static void dump_bitmap(RedWorker *worker, SpiceBitmap *bitmap, uint32_t group_i
     if (plt) {
         dump_palette(f, plt);
     }
+#endif
     /* writing the data */
     for (i = 0; i < bitmap->data->num_chunks; i++) {
         SpiceChunk *chunk = &bitmap->data->chunk[i];
