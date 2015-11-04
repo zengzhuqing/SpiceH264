@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>6. CAC smartcard redirection</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Spice User Manual" /><link rel="up" href="index.html" title="Spice User Manual" /><link rel="prev" href="ar01s05.html" title="5. USB redirection" /><link rel="next" href="ar01s07.html" title="7. Multiple monitor support" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ar01s05.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s07.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_cac_smartcard_redirection"></a>6. CAC smartcard redirection</h2></div></div></div><p>Spice has a dedicated channel for smartcard redirection, using
+libcacard, which currently supports limited CAC emulation.</p><p>You may consider redirecting your USB card reader instead. This is
+easier to setup but will prevent from sharing the smartcard with both
+the client and the remote simultaneously.</p><p>libcacard is actually emulating a simple CAC card, sharing the card
+and its certificates. It can successfully be used with the coolkey
+PKCS#11 module.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_configuration_4"></a>6.1. Configuration</h3></div></div></div><p><strong>Using virt-manager. </strong>In the hardware details, click on "Add Hardware", then select
+"Smartcard". Add a "passthrough" device type.</p><p><strong>Using libvirt. </strong>Setup a "passthrough" smartcard of type "spicevmc" on a CCID
+controller:</p><pre class="programlisting">&lt;controller type='ccid' index='0'/&gt;
+&lt;smartcard mode='passthrough' type='spicevmc'&gt;
+  &lt;address type='ccid' controller='0' slot='0'/&gt;
+&lt;/smartcard&gt;</pre><p><strong>Using QEMU. </strong>With the qemu command line, you must add a USB CCID device, and a
+"ccid-card-passthru" associated with a "spicevmc" channel with the
+name "smartcard":</p><pre class="programlisting">-device usb-ccid -chardev spicevmc,name=smartcard -device ccid-card-passthru,chardev=ccid</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_client_3"></a>6.2. Client</h3></div></div></div><p>In order for the client certificates to be shared with the remote, you
+need a NSS database configured to access the smartcard. Please look
+for instructions on coolkey or NSS setup and make sure you certficates
+can be listed with certutil.</p><div class="note" style="margin-left: 0; margin-right: 10%;"><h3 class="title">Note</h3><p>Most Spice clients disable smartcard support by default, and
+need <code class="literal">--spice-smartcard</code> or similar configuration.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s05.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

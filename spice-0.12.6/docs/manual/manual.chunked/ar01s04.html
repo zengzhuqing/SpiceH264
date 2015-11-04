@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>4. Agent</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Spice User Manual" /><link rel="up" href="index.html" title="Spice User Manual" /><link rel="prev" href="ar01s03.html" title="3. Ticketing" /><link rel="next" href="ar01s05.html" title="5. USB redirection" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ar01s03.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s05.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="agent"></a>4. Agent</h2></div></div></div><p>Agent support allows better integration with the guest. For example,
+it allows copy and paste between the guest and the host OSes, dynamic
+resolution changes when the client window is resized/full-screened,
+file transfers through drag and drop, …</p><p>The agent is a daemon/service running in the guest OS so it must be
+installed if it was not installed by default during the guest OS
+installation. It also relies on a virtio-serial PCI device and a
+dedicated spicevmc char device to achieve communication between the
+guest and the host. These devices must be added to the virtual machine
+for the agent to work in the guest.</p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_configuration_2"></a>4.1. Configuration</h3></div></div></div><p><strong>Using virt-manager. </strong>The needed devices can be added from the virtual machine
+details. Click on "Add hardware" and then add a "Channel" device with
+type "Spice agent (spicevmc)". This will automatically add the needed
+virtio-serial device in addition to the spicevmc channel.</p><p><strong>Using libvirt. </strong>Two distinct devices must be added:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+<a class="ulink" href="http://libvirt.org/formatdomain.html#elementsControllers" target="_top">a virtio serial device</a>
+</li><li class="listitem">
+<a class="ulink" href="http://libvirt.org/formatdomain.html#elementCharChannel" target="_top">a spicevmc channel</a>
+</li></ul></div><pre class="programlisting">&lt;devices&gt;
+    &lt;controller type='virtio-serial' index='0'/&gt;
+    &lt;channel type='spicevmc'&gt;
+        &lt;target type='virtio' name='com.redhat.spice.0'/&gt;
+    &lt;/channel&gt;
+&lt;/devices&gt;</pre><p><strong>Using QEMU. </strong>Adding the following parameters to your QEMU command line will enable
+the needed devices for agent support in the guest OS:</p><pre class="programlisting">-device virtio-serial \
+-chardev spicevmc,id=vdagent,debug=0,name=vdagent \
+-device virtserialport,chardev=vdagent,name=com.redhat.spice.0 \</pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s03.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>

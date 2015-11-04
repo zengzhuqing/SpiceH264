@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>14. Debugging</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.78.1" /><link rel="home" href="index.html" title="Spice User Manual" /><link rel="up" href="index.html" title="Spice User Manual" /><link rel="prev" href="ar01s13.html" title="13. Installation" /><link rel="next" href="apa.html" title="A. Manual authors" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><td width="20%" align="left"><a accesskey="p" href="ar01s13.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="apa.html">Next</a></td></tr></table><hr /></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_debugging"></a>14. Debugging</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_server_side"></a>14.1. Server side</h3></div></div></div><p>If the virtual machine was started using QEMU directly, SPICE server logs will be output to
+your console stdout.
+When using libvirt, logs are located in <code class="literal">/var/log/libvirt/qemu/</code> for the qemu
+system instance (<code class="literal">qemu:///system</code>), and in <code class="literal">~/.cache/libvirt/qemu/log</code> for the
+qemu session instance (<code class="literal">qemu:///session</code>).</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_client_side"></a>14.2. Client side</h3></div></div></div><p>remote-viewer can be started with <code class="literal">SPICE_DEBUG=1</code> in the environment, or with
+<code class="literal">--spice-debug</code> in order to get it to output more logs on stdout. <code class="literal">SPICE_DEBUG</code>
+should work with any application using spice-gtk (virt-manager, gnome-boxes, …).</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_guest_side"></a>14.3. Guest side</h3></div></div></div><p><strong>QXL KMS driver. </strong>On recent Linux kernels using the QXL kms driver, booting the kernel with the
+<code class="literal">drm.debug=0xf</code> parameter.  <code class="literal">journalctl -k</code>/<code class="literal">dmesg</code> will then contain debug
+logs for the QXL kms driver. This can also be changed at runtime by echo’ing
+this value to <code class="literal">/sys/module/drm/parameters/debug</code>.</p><p><strong>qxl.guestdebug QEMU parameter. </strong>It’s also possible to get some host-side debugging logs from the guest QXL driver.
+The driver reads a guestdebug parameter from the rom, which can be set when starting
+the VM. Only the Windows QXL driver is using this feature, see <code class="literal">qxl.cmdlog</code> for
+something guest-agnostic.  This can be enabled with <code class="literal">-global
+qxl-vga.guestdebug=3</code>, or <code class="literal">-global qxl.guestdebug=3</code> for secondary devices.</p><p>The corresponding libvirt XML is:</p><pre class="programlisting">&lt;domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'&gt;
+  ....
+  &lt;qemu:commandline&gt;
+    &lt;qemu:arg value='-global'/&gt;
+    &lt;qemu:arg value='qxl-vga.guestdebug=3'/&gt;
+  &lt;/qemu:commandline&gt;
+&lt;/domain&gt;</pre><p>(don’t forget to add the
+xmlns:qemu=<span class="emphasis"><em>http://libvirt.org/schemas/domain/qemu/1.0</em></span> attribute to the
+toplevel <code class="literal">&lt;domain&gt;</code> node)</p><p>You can go up to 12 (or more, look for DEBUG_PRINT in the driver), you get really a lot of debug information. Interesting values are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+3 - will give you all the highlevel commands (DrvCopyBits, DrvBitBlt, etc.)
+</li><li class="listitem">
+6 - will also show QXLGetBitMap
+</li><li class="listitem">
+11 - will show caching of images (this is a driver cache, not to be confused with the server&lt;→client shared cache).
+</li></ul></div><p><strong>qxl.cmdlog QEMU parameter. </strong>This will dump all the commands passing through the ringbuffer on the device
+side. It is driver and hence guest agnostic. This can be enabled with
+<code class="literal">-global qxl-vga.cmdlog=1</code>, or <code class="literal">-global qxl.cmdlog=1</code> for secondary devices.
+See the section above for the libvirt XML to use.</p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="_agent"></a>Agent</h4></div></div></div><p>On Linux, <code class="literal">journalctl -t spice-vdagentd -t spice-vdagent</code> will display the agent log messages.
+spice-vdagent can also be restarted by hand with the <code class="literal">-d</code> argument in order to display more logs.</p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="_recording_replaying_spice_server_traffic"></a>14.4. Recording/replaying SPICE server traffic</h3></div></div></div><p>Since spice-server 0.12.6, it’s possible to record display traffic sent by the
+SPICE server in order to replay it afterwards for a client without needing to
+start a VM. This is achieved by setting the environment variable
+<code class="literal">SPICE_WORKER_RECORD_FILENAME</code> to the filename to write the traffic to before starting
+QEMU.</p><p>Once the recording session is done, the <code class="literal">spice-server-replay</code> tool can be used
+to replay the previously recorded SPICE session, for example:</p><pre class="programlisting">spice-server-replay -p 5900 -c "remote-viewer spice://localhost:5900" recorded-session.spice</pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s13.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="apa.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>
