@@ -15,6 +15,8 @@ AM_CPPFLAGS =					\
 	$(SSL_CFLAGS)				\
 	$(VISIBILITY_HIDDEN_CFLAGS)		\
 	$(WARN_CFLAGS)				\
+	$(X264_CFLAGS)				\
+	$(SWSCALE_CFLAGS)				\
 	$(NULL)
 
 lib_LTLIBRARIES = libspice-server.la
@@ -45,6 +47,8 @@ libspice_server_la_LIBADD =						\
 	$(SSL_LIBS)							\
 	$(Z_LIBS)							\
 	$(SPICE_NONPKGCONFIG_LIBS)					\
+	$(X264_LIBS)					\
+	$(SWSCALE_LIBS)					\
 	$(NULL)
 
 libspice_serverincludedir = $(includedir)/spice-server

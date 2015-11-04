@@ -122,6 +122,16 @@ AC_SUBST(PIXMAN_CFLAGS)
 AC_SUBST(PIXMAN_LIBS)
 AS_VAR_APPEND([SPICE_REQUIRES], [" pixman-1 >= 0.17.7"])
 
+PKG_CHECK_MODULES(X264, x264 >= 0.148.2)
+AC_SUBST(X264_CFLAGS)
+AC_SUBST(X264_LIBS)
+SPICE_REQUIRES+=" x264 >= 0.148.2"
+
+PKG_CHECK_MODULES(SWSCALE, libswscale >= 3.1.101)
+AC_SUBST(SWSCALE_CFLAGS)
+AC_SUBST(SWSCALE_LIBS)
+SPICE_REQUIRES+=" libswscale >= 3.1.101"
+
 AC_ARG_ENABLE([celt051],
               AS_HELP_STRING([--disable-celt051], [Disable celt051 audio codec (enabled by default)]),,
               [enable_celt051="yes"])

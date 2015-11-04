@@ -48,6 +48,9 @@
 #include <inttypes.h>
 #include <glib.h>
 
+#include <libswscale/swscale.h>
+#include <x264.h>
+
 #include <spice/protocol.h>
 #include <spice/qxl_dev.h>
 #include "common/lz.h"
@@ -118,7 +121,7 @@
 #define RED_STREAM_DETACTION_MAX_DELTA ((1000 * 1000 * 1000) / 5) // 1/5 sec
 #define RED_STREAM_CONTINUS_MAX_DELTA (1000 * 1000 * 1000)
 #define RED_STREAM_TIMOUT (1000 * 1000 * 1000)
-#define RED_STREAM_FRAMES_START_CONDITION 20
+#define RED_STREAM_FRAMES_START_CONDITION 20 //ZZQ video region identification
 #define RED_STREAM_GRADUAL_FRAMES_START_CONDITION 0.2
 #define RED_STREAM_FRAMES_RESET_CONDITION 100
 #define RED_STREAM_MIN_SIZE (96 * 96)
@@ -8652,6 +8655,220 @@ static inline int red_marshall_stream_data(RedChannelClient *rcc,
     return TRUE;
 }
 
+static int rgb2yuv(const uint8_t *rgb, const int width, const int height,
+            uint8_t *yuv)
+{
+	struct SwsContext *sws;
+	const uint8_t *rgb_slice[3];
+	int rgb_stride[3];
+	uint8_t *yuv_slice[3];
+	int yuv_stride[3];
+	int n;
+
+	sws = sws_getContext(width, height, PIX_FMT_RGB32,
+				width, height, PIX_FMT_YUV420P,
+				1, NULL, NULL, NULL);
+	if (sws == NULL) {
+		return -1;
+	}
+	rgb_slice[0] = rgb;
+	rgb_slice[1] = NULL;
+	rgb_slice[2] = NULL;
+	rgb_stride[0] = width * 4;
+	rgb_stride[1] = 0;
+	rgb_stride[2] = 0;
+	yuv_slice[0] = yuv;
+	yuv_slice[1] = yuv + width * height;
+	yuv_slice[2] = yuv_slice[1] + width * height / 4;
+	yuv_stride[0] = width;
+	yuv_stride[1] = width / 2;
+	yuv_stride[2] = width / 2;
+
+    n = sws_scale(sws, rgb_slice, rgb_stride, 0, height,
+			yuv_slice, yuv_stride);
+	sws_freeContext(sws);
+	sws = NULL;
+
+	if (n != height)
+		return -1;
+	return 0;
+}
+
+static x264_t *h264_encoder_init(const int width, const int height)
+{
+    x264_param_t param;
+    x264_t *h;
+
+    /* Get default params for preset/tuning */
+    if (x264_param_default_preset(&param, "medium", "zerolatency") < 0) {
+        fprintf(stderr, "Failed to get default params\n");
+        return NULL;
+    }
+
+    /* Configure non-default param */
+    param.i_csp = X264_CSP_I420;
+    param.i_width =  width;
+    param.i_height = height;
+    param.b_vfr_input = 0;
+    param.b_repeat_headers = 1;
+    param.b_annexb = 1;
+
+    /* Apply profile restrictions */
+    if (x264_param_apply_profile(&param, "baseline") < 0) {
+        fprintf(stderr, "Failed to apply profile\n");
+        return NULL;
+    }
+
+    h = x264_encoder_open(&param);
+
+    return h;
+}
+
+static int h264_encoder_encode(const uint8_t *rgb_data, const int width,
+                        const int height, x264_nal_t **nal, int *i_frame_size)
+{
+    uint8_t *yuv;
+    int ret;
+    static int last_width = 0;
+    static int last_height = 0;
+    static x264_t *h = NULL;
+    
+    x264_picture_t pic;
+    static x264_picture_t pic_out;
+    int luma_size;
+    int chroma_size;
+    static int i_frame = 0;
+    int i_nal;
+
+    yuv = malloc(3 * width * height / 2);
+    if (yuv == NULL) {
+        fprintf(stderr, "Failed to allocate yuv buffer\n");
+        goto fail;
+    }
+
+    ret = rgb2yuv(rgb_data, width, height, yuv);
+    if (ret != 0) {
+        fprintf(stderr, "Failed to transfer rgb to yuv\n");
+        goto fail;
+    }
+
+    if (width != last_width || height != last_height) {
+        fprintf(stderr, "[ZZQ] Init h264 encode\n");
+        if (h != NULL) {
+            x264_encoder_close(h);
+            h = NULL;
+        }
+        h = h264_encoder_init(width, height);
+        if (h == NULL) {
+            fprintf(stderr, "Failed to init h264 encoder\n");
+            goto fail;
+        }
+        last_width = width;
+        last_height = height;
+    }
+
+    luma_size = width * height;
+    chroma_size = luma_size / 4;
+
+    if (x264_picture_alloc(&pic, X264_CSP_I420, width, height) < 0) {
+        fprintf(stderr, "Failed to allocate for x264 picture\n");
+        goto fail;
+    }
+    pic.i_pts = i_frame++;
+
+    memcpy(pic.img.plane[0], yuv, luma_size);
+    memcpy(pic.img.plane[1], yuv + luma_size, chroma_size);
+    memcpy(pic.img.plane[2], yuv + luma_size + chroma_size, chroma_size);
+
+    *i_frame_size = x264_encoder_encode(h, nal, &i_nal, &pic, &pic_out);
+
+    x264_picture_clean(&pic);
+
+    free(yuv);
+    yuv = NULL;
+
+    return 0;
+fail:
+    if (yuv != NULL) {
+        free(yuv);
+        yuv = NULL;
+    }
+
+    return -1; 
+}
+
+static void h264_send(RedChannelClient *rcc, SpiceMarshaller *base_marshaller,
+                uint8_t *data, int data_size, const int surface_id,
+                const int width, const int height)
+{
+/*
+ *  At present, I just use SpiceMsgDisplayStreamData, I use its base.id as width
+ *  its base.multi_media_time as height
+ *  FIXME: add a new Msg in spice-common
+ */
+    DisplayChannelClient *dcc;
+    SpiceMsgDisplayStreamData stream_data;
+
+    dcc = RCC_TO_DCC(rcc);
+    
+    dcc->send_data.stream_outbuf_size = data_size;
+
+    red_channel_client_init_send_data(rcc, SPICE_MSG_DISPLAY_STREAM_DATA, NULL);
+
+    stream_data.base.id = width;
+    stream_data.base.multi_media_time = height;
+    stream_data.data_size = data_size;
+
+    spice_marshall_msg_display_stream_data(base_marshaller, &stream_data);
+    spice_marshaller_add_ref(base_marshaller, data, data_size);
+}
+
+static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
+                  SpiceMarshaller *base_marshaller, Drawable *drawable)
+{
+    SpiceImage *image;
+    SpiceChunk *chunk;
+    int width, height;
+    int ret;
+    uint8_t *rgb_data;
+    SpiceRect *src_rect;
+    int frame_size;
+    x264_nal_t *nal;
+    int surface_id;
+
+    spice_assert(drawable->red_drawable->type == QXL_DRAW_COPY);
+
+    image = drawable->red_drawable->u.copy.src_bitmap;
+
+    if (image->descriptor.type != SPICE_IMAGE_TYPE_BITMAP) {
+        return FALSE;
+    }
+
+    src_rect = &drawable->red_drawable->u.copy.src_area;
+
+    surface_id = drawable->red_drawable->surface_id;
+
+    width = src_rect->right - src_rect->left;
+    height = src_rect->bottom - src_rect->top;
+
+    chunk = &image->u.bitmap.data->chunk[0];
+    rgb_data = chunk->data;
+
+    ret = h264_encoder_encode(rgb_data, width, height, &nal, &frame_size);
+    if (ret != 0) {
+        fprintf(stderr, "Failed to encode a h264 frame\n");
+        goto fail;
+    }
+
+    h264_send(rcc, base_marshaller, nal->p_payload, frame_size, surface_id,
+            width, height);
+
+    return TRUE;
+
+fail:
+    return FALSE;
+}
+
 static inline void marshall_qxl_drawable(RedChannelClient *rcc,
     SpiceMarshaller *m, DrawablePipeItem *dpi)
 {
@@ -8661,6 +8878,8 @@ static inline void marshall_qxl_drawable(RedChannelClient *rcc,
     spice_assert(display_channel && rcc);
     /* allow sized frames to be streamed, even if they where replaced by another frame, since
      * newer frames might not cover sized frames completely if they are bigger */
+    spice_assert(red_marshall_stream_h264_data(rcc, m, item));
+#if 0
     if ((item->stream || item->sized_stream) && red_marshall_stream_data(rcc, m, item)) {
         return;
     }
@@ -8668,6 +8887,7 @@ static inline void marshall_qxl_drawable(RedChannelClient *rcc,
         red_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
     else
         red_lossy_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
+#endif
 }
 
 static inline void red_marshall_verb(RedChannelClient *rcc, uint16_t verb)
