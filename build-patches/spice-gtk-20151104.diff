@@ -1,0 +1,2660 @@
+diff -Nupr spice-gtk-0.30/aclocal.m4 ../spice-gtk-0.30/aclocal.m4
+--- spice-gtk-0.30/aclocal.m4	2015-11-04 15:03:03.659045750 +0800
++++ ../spice-gtk-0.30/aclocal.m4	2015-11-02 16:56:03.989779578 +0800
+@@ -1,4 +1,4 @@
+-# generated automatically by aclocal 1.14.1 -*- Autoconf -*-
++# generated automatically by aclocal 1.13.4 -*- Autoconf -*-
+ 
+ # Copyright (C) 1996-2013 Free Software Foundation, Inc.
+ 
+@@ -554,7 +554,7 @@ AC_DEFUN([GOBJECT_INTROSPECTION_REQUIRE]
+ ])
+ 
+ # nls.m4 serial 5 (gettext-0.18)
+-dnl Copyright (C) 1995-2003, 2005-2006, 2008-2014 Free Software Foundation,
++dnl Copyright (C) 1995-2003, 2005-2006, 2008-2013 Free Software Foundation,
+ dnl Inc.
+ dnl This file is free software; the Free Software Foundation
+ dnl gives unlimited permission to copy and/or distribute it,
+@@ -786,21 +786,6 @@ m4_popdef([pkg_default])
+ m4_popdef([pkg_description])
+ ]) dnl PKG_NOARCH_INSTALLDIR
+ 
+-
+-# PKG_CHECK_VAR(VARIABLE, MODULE, CONFIG-VARIABLE,
+-# [ACTION-IF-FOUND], [ACTION-IF-NOT-FOUND])
+-# -------------------------------------------
+-# Retrieves the value of the pkg-config variable for the given module.
+-AC_DEFUN([PKG_CHECK_VAR],
+-[AC_REQUIRE([PKG_PROG_PKG_CONFIG])dnl
+-AC_ARG_VAR([$1], [value of $3 for $2, overriding pkg-config])dnl
+-
+-_PKG_CONFIG([$1], [variable="][$3]["], [$2])
+-AS_VAR_COPY([$1], [pkg_cv_][$1])
+-
+-AS_VAR_IF([$1], [""], [$5], [$4])dnl
+-])# PKG_CHECK_VAR
+-
+ # Copyright (C) 2002-2013 Free Software Foundation, Inc.
+ #
+ # This file is free software; the Free Software Foundation
+@@ -813,10 +798,10 @@ AS_VAR_IF([$1], [""], [$5], [$4])dnl
+ # generated from the m4 files accompanying Automake X.Y.
+ # (This private macro should not be called outside this file.)
+ AC_DEFUN([AM_AUTOMAKE_VERSION],
+-[am__api_version='1.14'
++[am__api_version='1.13'
+ dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
+ dnl require some minimum version.  Point them to the right macro.
+-m4_if([$1], [1.14.1], [],
++m4_if([$1], [1.13.4], [],
+       [AC_FATAL([Do not call $0, use AM_INIT_AUTOMAKE([$1]).])])dnl
+ ])
+ 
+@@ -832,7 +817,7 @@ m4_define([_AM_AUTOCONF_VERSION], [])
+ # Call AM_AUTOMAKE_VERSION and AM_AUTOMAKE_VERSION so they can be traced.
+ # This function is AC_REQUIREd by AM_INIT_AUTOMAKE.
+ AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
+-[AM_AUTOMAKE_VERSION([1.14.1])dnl
++[AM_AUTOMAKE_VERSION([1.13.4])dnl
+ m4_ifndef([AC_AUTOCONF_VERSION],
+   [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
+ _AM_AUTOCONF_VERSION(m4_defn([AC_AUTOCONF_VERSION]))])
+@@ -857,8 +842,7 @@ AC_CHECK_TOOLS([AR], [ar lib "link -lib"
+ : ${AR=ar}
+ 
+ AC_CACHE_CHECK([the archiver ($AR) interface], [am_cv_ar_interface],
+-  [AC_LANG_PUSH([C])
+-   am_cv_ar_interface=ar
++  [am_cv_ar_interface=ar
+    AC_COMPILE_IFELSE([AC_LANG_SOURCE([[int some_variable = 0;]])],
+      [am_ar_try='$AR cru libconftest.a conftest.$ac_objext >&AS_MESSAGE_LOG_FD'
+       AC_TRY_EVAL([am_ar_try])
+@@ -875,7 +859,7 @@ AC_CACHE_CHECK([the archiver ($AR) inter
+       fi
+       rm -f conftest.lib libconftest.a
+      ])
+-   AC_LANG_POP([C])])
++   ])
+ 
+ case $am_cv_ar_interface in
+ ar)
+@@ -1259,12 +1243,6 @@ AC_DEFUN([AM_OUTPUT_DEPENDENCY_COMMANDS]
+ # This macro actually does too much.  Some checks are only needed if
+ # your package does certain things.  But this isn't really a big deal.
+ 
+-dnl Redefine AC_PROG_CC to automatically invoke _AM_PROG_CC_C_O.
+-m4_define([AC_PROG_CC],
+-m4_defn([AC_PROG_CC])
+-[_AM_PROG_CC_C_O
+-])
+-
+ # AM_INIT_AUTOMAKE(PACKAGE, VERSION, [NO-DEFINE])
+ # AM_INIT_AUTOMAKE([OPTIONS])
+ # -----------------------------------------------
+@@ -1373,48 +1351,7 @@ dnl macro is hooked onto _AC_COMPILER_EX
+ AC_CONFIG_COMMANDS_PRE(dnl
+ [m4_provide_if([_AM_COMPILER_EXEEXT],
+   [AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])])])dnl
+-
+-# POSIX will say in a future version that running "rm -f" with no argument
+-# is OK; and we want to be able to make that assumption in our Makefile
+-# recipes.  So use an aggressive probe to check that the usage we want is
+-# actually supported "in the wild" to an acceptable degree.
+-# See automake bug#10828.
+-# To make any issue more visible, cause the running configure to be aborted
+-# by default if the 'rm' program in use doesn't match our expectations; the
+-# user can still override this though.
+-if rm -f && rm -fr && rm -rf; then : OK; else
+-  cat >&2 <<'END'
+-Oops!
+-
+-Your 'rm' program seems unable to run without file operands specified
+-on the command line, even when the '-f' option is present.  This is contrary
+-to the behaviour of most rm programs out there, and not conforming with
+-the upcoming POSIX standard: <http://austingroupbugs.net/view.php?id=542>
+-
+-Please tell bug-automake@gnu.org about your system, including the value
+-of your $PATH and any error possibly output before this message.  This
+-can help us improve future automake versions.
+-
+-END
+-  if test x"$ACCEPT_INFERIOR_RM_PROGRAM" = x"yes"; then
+-    echo 'Configuration will proceed anyway, since you have set the' >&2
+-    echo 'ACCEPT_INFERIOR_RM_PROGRAM variable to "yes"' >&2
+-    echo >&2
+-  else
+-    cat >&2 <<'END'
+-Aborting the configuration process, to ensure you take notice of the issue.
+-
+-You can download and install GNU coreutils to get an 'rm' implementation
+-that behaves properly: <http://www.gnu.org/software/coreutils/>.
+-
+-If you want to complete the configuration process using your problematic
+-'rm' anyway, export the environment variable ACCEPT_INFERIOR_RM_PROGRAM
+-to "yes", and re-run configure.
+-
+-END
+-    AC_MSG_ERROR([Your 'rm' program is bad, sorry.])
+-  fi
+-fi])
++])
+ 
+ dnl Hook into '_AC_COMPILER_EXEEXT' early to learn its expansion.  Do not
+ dnl add the conditional right here, as _AC_COMPILER_EXEEXT may be further
+@@ -1422,6 +1359,7 @@ dnl mangled by Autoconf and run in a she
+ m4_define([_AC_COMPILER_EXEEXT],
+ m4_defn([_AC_COMPILER_EXEEXT])[m4_provide([_AM_COMPILER_EXEEXT])])
+ 
++
+ # When config.status generates a header, we must update the stamp-h file.
+ # This file resides in the same directory as the config header
+ # that is generated.  The stamp files are numbered to have different names.
+@@ -1569,6 +1507,38 @@ AC_MSG_RESULT([$_am_result])
+ rm -f confinc confmf
+ ])
+ 
++# Copyright (C) 1999-2013 Free Software Foundation, Inc.
++#
++# This file is free software; the Free Software Foundation
++# gives unlimited permission to copy and/or distribute it,
++# with or without modifications, as long as this notice is preserved.
++
++# AM_PROG_CC_C_O
++# --------------
++# Like AC_PROG_CC_C_O, but changed for automake.
++AC_DEFUN([AM_PROG_CC_C_O],
++[AC_REQUIRE([AC_PROG_CC_C_O])dnl
++AC_REQUIRE([AM_AUX_DIR_EXPAND])dnl
++AC_REQUIRE_AUX_FILE([compile])dnl
++# FIXME: we rely on the cache variable name because
++# there is no other way.
++set dummy $CC
++am_cc=`echo $[2] | sed ['s/[^a-zA-Z0-9_]/_/g;s/^[0-9]/_/']`
++eval am_t=\$ac_cv_prog_cc_${am_cc}_c_o
++if test "$am_t" != yes; then
++   # Losing compiler, so override with the script.
++   # FIXME: It is wrong to rewrite CC.
++   # But if we don't then we get into trouble of one sort or another.
++   # A longer-term fix would be to have automake use am__CC in this case,
++   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
++   CC="$am_aux_dir/compile $CC"
++fi
++dnl Make sure AC_PROG_CC is never called again, or it will override our
++dnl setting of CC.
++m4_define([AC_PROG_CC],
++          [m4_fatal([AC_PROG_CC cannot be called after AM_PROG_CC_C_O])])
++])
++
+ # Fake the existence of programs that GNU maintainers use.  -*- Autoconf -*-
+ 
+ # Copyright (C) 1997-2013 Free Software Foundation, Inc.
+@@ -1641,53 +1611,6 @@ AC_DEFUN([_AM_IF_OPTION],
+ 
+ # Copyright (C) 1999-2013 Free Software Foundation, Inc.
+ #
+-# This file is free software; the Free Software Foundation
+-# gives unlimited permission to copy and/or distribute it,
+-# with or without modifications, as long as this notice is preserved.
+-
+-# _AM_PROG_CC_C_O
+-# ---------------
+-# Like AC_PROG_CC_C_O, but changed for automake.  We rewrite AC_PROG_CC
+-# to automatically call this.
+-AC_DEFUN([_AM_PROG_CC_C_O],
+-[AC_REQUIRE([AM_AUX_DIR_EXPAND])dnl
+-AC_REQUIRE_AUX_FILE([compile])dnl
+-AC_LANG_PUSH([C])dnl
+-AC_CACHE_CHECK(
+-  [whether $CC understands -c and -o together],
+-  [am_cv_prog_cc_c_o],
+-  [AC_LANG_CONFTEST([AC_LANG_PROGRAM([])])
+-  # Make sure it works both with $CC and with simple cc.
+-  # Following AC_PROG_CC_C_O, we do the test twice because some
+-  # compilers refuse to overwrite an existing .o file with -o,
+-  # though they will create one.
+-  am_cv_prog_cc_c_o=yes
+-  for am_i in 1 2; do
+-    if AM_RUN_LOG([$CC -c conftest.$ac_ext -o conftest2.$ac_objext]) \
+-         && test -f conftest2.$ac_objext; then
+-      : OK
+-    else
+-      am_cv_prog_cc_c_o=no
+-      break
+-    fi
+-  done
+-  rm -f core conftest*
+-  unset am_i])
+-if test "$am_cv_prog_cc_c_o" != yes; then
+-   # Losing compiler, so override with the script.
+-   # FIXME: It is wrong to rewrite CC.
+-   # But if we don't then we get into trouble of one sort or another.
+-   # A longer-term fix would be to have automake use am__CC in this case,
+-   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
+-   CC="$am_aux_dir/compile $CC"
+-fi
+-AC_LANG_POP([C])])
+-
+-# For backward compatibility.
+-AC_DEFUN_ONCE([AM_PROG_CC_C_O], [AC_REQUIRE([AC_PROG_CC])])
+-
+-# Copyright (C) 1999-2013 Free Software Foundation, Inc.
+-#
+ # This file is free software; the Free Software Foundation
+ # gives unlimited permission to copy and/or distribute it,
+ # with or without modifications, as long as this notice is preserved.
+diff -Nupr spice-gtk-0.30/config.h.in ../spice-gtk-0.30/config.h.in
+--- spice-gtk-0.30/config.h.in	2015-11-04 15:03:03.340050673 +0800
++++ ../spice-gtk-0.30/config.h.in	2015-11-02 16:56:20.542556053 +0800
+@@ -113,6 +113,9 @@
+    */
+ #undef LT_OBJDIR
+ 
++/* Define to 1 if your C compiler doesn't accept -c and -o together. */
++#undef NO_MINUS_C_MINUS_O
++
+ /* Name of package */
+ #undef PACKAGE
+ 
+diff -Nupr spice-gtk-0.30/configure ../spice-gtk-0.30/configure
+--- spice-gtk-0.30/configure	2015-11-04 15:03:03.655045812 +0800
++++ ../spice-gtk-0.30/configure	2015-11-02 16:57:23.415706949 +0800
+@@ -1,6 +1,6 @@
+ #! /bin/sh
+ # Guess values for system-dependent variables and create Makefiles.
+-# Generated by GNU Autoconf 2.69 for spice-gtk 0.30.
++# Generated by GNU Autoconf 2.69 for spice-gtk 0.30-dirty.
+ #
+ # Report bugs to <spice-devel@lists.freedesktop.org>.
+ #
+@@ -650,8 +650,8 @@ MAKEFLAGS=
+ # Identity of this package.
+ PACKAGE_NAME='spice-gtk'
+ PACKAGE_TARNAME='spice-gtk'
+-PACKAGE_VERSION='0.30'
+-PACKAGE_STRING='spice-gtk 0.30'
++PACKAGE_VERSION='0.30-dirty'
++PACKAGE_STRING='spice-gtk 0.30-dirty'
+ PACKAGE_BUGREPORT='spice-devel@lists.freedesktop.org'
+ PACKAGE_URL=''
+ 
+@@ -820,6 +820,14 @@ SASL_LIBS
+ SASL_CFLAGS
+ HAVE_SASL_FALSE
+ HAVE_SASL_TRUE
++AVFORMAT_LIBS
++AVFORMAT_CFLAGS
++AVUTIL_LIBS
++AVUTIL_CFLAGS
++AVCODEC_LIBS
++AVCODEC_CFLAGS
++SWSCALE_LIBS
++SWSCALE_CFLAGS
+ SSL_LIBS
+ SSL_CFLAGS
+ PIXMAN_LIBS
+@@ -1086,6 +1094,14 @@ PIXMAN_CFLAGS
+ PIXMAN_LIBS
+ SSL_CFLAGS
+ SSL_LIBS
++SWSCALE_CFLAGS
++SWSCALE_LIBS
++AVCODEC_CFLAGS
++AVCODEC_LIBS
++AVUTIL_CFLAGS
++AVUTIL_LIBS
++AVFORMAT_CFLAGS
++AVFORMAT_LIBS
+ GTK_CFLAGS
+ GTK_LIBS
+ XRANDR_CFLAGS
+@@ -1661,7 +1677,7 @@ if test "$ac_init_help" = "long"; then
+   # Omit some internal or obsolete options to make the list less imposing.
+   # This message is too long to be a string in the A/UX 3.1 sh.
+   cat <<_ACEOF
+-\`configure' configures spice-gtk 0.30 to adapt to many kinds of systems.
++\`configure' configures spice-gtk 0.30-dirty to adapt to many kinds of systems.
+ 
+ Usage: $0 [OPTION]... [VAR=VALUE]...
+ 
+@@ -1731,7 +1747,7 @@ fi
+ 
+ if test -n "$ac_init_help"; then
+   case $ac_init_help in
+-     short | recursive ) echo "Configuration of spice-gtk 0.30:";;
++     short | recursive ) echo "Configuration of spice-gtk 0.30-dirty:";;
+    esac
+   cat <<\_ACEOF
+ 
+@@ -1832,6 +1848,21 @@ Some influential environment variables:
+   PIXMAN_LIBS linker flags for PIXMAN, overriding pkg-config
+   SSL_CFLAGS  C compiler flags for SSL, overriding pkg-config
+   SSL_LIBS    linker flags for SSL, overriding pkg-config
++  SWSCALE_CFLAGS
++              C compiler flags for SWSCALE, overriding pkg-config
++  SWSCALE_LIBS
++              linker flags for SWSCALE, overriding pkg-config
++  AVCODEC_CFLAGS
++              C compiler flags for AVCODEC, overriding pkg-config
++  AVCODEC_LIBS
++              linker flags for AVCODEC, overriding pkg-config
++  AVUTIL_CFLAGS
++              C compiler flags for AVUTIL, overriding pkg-config
++  AVUTIL_LIBS linker flags for AVUTIL, overriding pkg-config
++  AVFORMAT_CFLAGS
++              C compiler flags for AVFORMAT, overriding pkg-config
++  AVFORMAT_LIBS
++              linker flags for AVFORMAT, overriding pkg-config
+   GTK_CFLAGS  C compiler flags for GTK, overriding pkg-config
+   GTK_LIBS    linker flags for GTK, overriding pkg-config
+   XRANDR_CFLAGS
+@@ -1952,7 +1983,7 @@ fi
+ test -n "$ac_init_help" && exit $ac_status
+ if $ac_init_version; then
+   cat <<\_ACEOF
+-spice-gtk configure 0.30
++spice-gtk configure 0.30-dirty
+ generated by GNU Autoconf 2.69
+ 
+ Copyright (C) 2012 Free Software Foundation, Inc.
+@@ -2321,7 +2352,7 @@ cat >config.log <<_ACEOF
+ This file contains any messages produced by compilers while
+ running configure, to aid debugging if configure makes a mistake.
+ 
+-It was created by spice-gtk $as_me 0.30, which was
++It was created by spice-gtk $as_me 0.30-dirty, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   $ $0 $@
+@@ -2790,7 +2821,7 @@ ac_configure="$SHELL $ac_aux_dir/configu
+ 
+ 
+ 
+-am__api_version='1.14'
++am__api_version='1.13'
+ 
+ # Find a good install program.  We prefer a C program (faster),
+ # so one script is as good as another.  But avoid the broken or
+@@ -3276,7 +3307,7 @@ fi
+ 
+ # Define the identity of the package.
+  PACKAGE='spice-gtk'
+- VERSION='0.30'
++ VERSION='0.30-dirty'
+ 
+ 
+ cat >>confdefs.h <<_ACEOF
+@@ -3327,47 +3358,6 @@ am__tar='$${TAR-tar} chof - "$$tardir"'
+ 
+ 
+ 
+-# POSIX will say in a future version that running "rm -f" with no argument
+-# is OK; and we want to be able to make that assumption in our Makefile
+-# recipes.  So use an aggressive probe to check that the usage we want is
+-# actually supported "in the wild" to an acceptable degree.
+-# See automake bug#10828.
+-# To make any issue more visible, cause the running configure to be aborted
+-# by default if the 'rm' program in use doesn't match our expectations; the
+-# user can still override this though.
+-if rm -f && rm -fr && rm -rf; then : OK; else
+-  cat >&2 <<'END'
+-Oops!
+-
+-Your 'rm' program seems unable to run without file operands specified
+-on the command line, even when the '-f' option is present.  This is contrary
+-to the behaviour of most rm programs out there, and not conforming with
+-the upcoming POSIX standard: <http://austingroupbugs.net/view.php?id=542>
+-
+-Please tell bug-automake@gnu.org about your system, including the value
+-of your $PATH and any error possibly output before this message.  This
+-can help us improve future automake versions.
+-
+-END
+-  if test x"$ACCEPT_INFERIOR_RM_PROGRAM" = x"yes"; then
+-    echo 'Configuration will proceed anyway, since you have set the' >&2
+-    echo 'ACCEPT_INFERIOR_RM_PROGRAM variable to "yes"' >&2
+-    echo >&2
+-  else
+-    cat >&2 <<'END'
+-Aborting the configuration process, to ensure you take notice of the issue.
+-
+-You can download and install GNU coreutils to get an 'rm' implementation
+-that behaves properly: <http://www.gnu.org/software/coreutils/>.
+-
+-If you want to complete the configuration process using your problematic
+-'rm' anyway, export the environment variable ACCEPT_INFERIOR_RM_PROGRAM
+-to "yes", and re-run configure.
+-
+-END
+-    as_fn_error $? "Your 'rm' program is bad, sorry." "$LINENO" 5
+-  fi
+-fi
+ DEPDIR="${am__leading_dot}deps"
+ 
+ ac_config_commands="$ac_config_commands depfiles"
+@@ -4220,65 +4210,6 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS con
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+-ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $CC understands -c and -o together" >&5
+-$as_echo_n "checking whether $CC understands -c and -o together... " >&6; }
+-if ${am_cv_prog_cc_c_o+:} false; then :
+-  $as_echo_n "(cached) " >&6
+-else
+-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-
+-int
+-main ()
+-{
+-
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-  # Make sure it works both with $CC and with simple cc.
+-  # Following AC_PROG_CC_C_O, we do the test twice because some
+-  # compilers refuse to overwrite an existing .o file with -o,
+-  # though they will create one.
+-  am_cv_prog_cc_c_o=yes
+-  for am_i in 1 2; do
+-    if { echo "$as_me:$LINENO: $CC -c conftest.$ac_ext -o conftest2.$ac_objext" >&5
+-   ($CC -c conftest.$ac_ext -o conftest2.$ac_objext) >&5 2>&5
+-   ac_status=$?
+-   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-   (exit $ac_status); } \
+-         && test -f conftest2.$ac_objext; then
+-      : OK
+-    else
+-      am_cv_prog_cc_c_o=no
+-      break
+-    fi
+-  done
+-  rm -f core conftest*
+-  unset am_i
+-fi
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_prog_cc_c_o" >&5
+-$as_echo "$am_cv_prog_cc_c_o" >&6; }
+-if test "$am_cv_prog_cc_c_o" != yes; then
+-   # Losing compiler, so override with the script.
+-   # FIXME: It is wrong to rewrite CC.
+-   # But if we don't then we get into trouble of one sort or another.
+-   # A longer-term fix would be to have automake use am__CC in this case,
+-   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
+-   CC="$am_aux_dir/compile $CC"
+-fi
+-ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-
+-
+ depcc="$CC"   am_compiler_list=
+ 
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking dependency style of $depcc" >&5
+@@ -4515,13 +4446,7 @@ $as_echo_n "checking the archiver ($AR)
+ if ${am_cv_ar_interface+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+-  ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-
+-   am_cv_ar_interface=ar
++  am_cv_ar_interface=ar
+    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ int some_variable = 0;
+@@ -4552,11 +4477,6 @@ if ac_fn_c_try_compile "$LINENO"; then :
+ 
+ fi
+ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+-   ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_ar_interface" >&5
+@@ -14824,65 +14744,6 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS con
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+-ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $CC understands -c and -o together" >&5
+-$as_echo_n "checking whether $CC understands -c and -o together... " >&6; }
+-if ${am_cv_prog_cc_c_o+:} false; then :
+-  $as_echo_n "(cached) " >&6
+-else
+-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-
+-int
+-main ()
+-{
+-
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-  # Make sure it works both with $CC and with simple cc.
+-  # Following AC_PROG_CC_C_O, we do the test twice because some
+-  # compilers refuse to overwrite an existing .o file with -o,
+-  # though they will create one.
+-  am_cv_prog_cc_c_o=yes
+-  for am_i in 1 2; do
+-    if { echo "$as_me:$LINENO: $CC -c conftest.$ac_ext -o conftest2.$ac_objext" >&5
+-   ($CC -c conftest.$ac_ext -o conftest2.$ac_objext) >&5 2>&5
+-   ac_status=$?
+-   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-   (exit $ac_status); } \
+-         && test -f conftest2.$ac_objext; then
+-      : OK
+-    else
+-      am_cv_prog_cc_c_o=no
+-      break
+-    fi
+-  done
+-  rm -f core conftest*
+-  unset am_i
+-fi
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_prog_cc_c_o" >&5
+-$as_echo "$am_cv_prog_cc_c_o" >&6; }
+-if test "$am_cv_prog_cc_c_o" != yes; then
+-   # Losing compiler, so override with the script.
+-   # FIXME: It is wrong to rewrite CC.
+-   # But if we don't then we get into trouble of one sort or another.
+-   # A longer-term fix would be to have automake use am__CC in this case,
+-   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
+-   CC="$am_aux_dir/compile $CC"
+-fi
+-ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-
+-
+ depcc="$CC"   am_compiler_list=
+ 
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking dependency style of $depcc" >&5
+@@ -15242,6 +15103,131 @@ fi
+ 
+ 
+ 
++if test "x$CC" != xcc; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $CC and cc understand -c and -o together" >&5
++$as_echo_n "checking whether $CC and cc understand -c and -o together... " >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether cc understands -c and -o together" >&5
++$as_echo_n "checking whether cc understands -c and -o together... " >&6; }
++fi
++set dummy $CC; ac_cc=`$as_echo "$2" |
++		      sed 's/[^a-zA-Z0-9_]/_/g;s/^[0-9]/_/'`
++if eval \${ac_cv_prog_cc_${ac_cc}_c_o+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++
++int
++main ()
++{
++
++  ;
++  return 0;
++}
++_ACEOF
++# Make sure it works both with $CC and with simple cc.
++# We do the test twice because some compilers refuse to overwrite an
++# existing .o file with -o, though they will create one.
++ac_try='$CC -c conftest.$ac_ext -o conftest2.$ac_objext >&5'
++rm -f conftest2.*
++if { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; } &&
++   test -f conftest2.$ac_objext && { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; };
++then
++  eval ac_cv_prog_cc_${ac_cc}_c_o=yes
++  if test "x$CC" != xcc; then
++    # Test first that cc exists at all.
++    if { ac_try='cc -c conftest.$ac_ext >&5'
++  { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; }; then
++      ac_try='cc -c conftest.$ac_ext -o conftest2.$ac_objext >&5'
++      rm -f conftest2.*
++      if { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; } &&
++	 test -f conftest2.$ac_objext && { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; };
++      then
++	# cc works too.
++	:
++      else
++	# cc exists but doesn't like -o.
++	eval ac_cv_prog_cc_${ac_cc}_c_o=no
++      fi
++    fi
++  fi
++else
++  eval ac_cv_prog_cc_${ac_cc}_c_o=no
++fi
++rm -f core conftest*
++
++fi
++if eval test \$ac_cv_prog_cc_${ac_cc}_c_o = yes; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++
++$as_echo "#define NO_MINUS_C_MINUS_O 1" >>confdefs.h
++
++fi
++
++# FIXME: we rely on the cache variable name because
++# there is no other way.
++set dummy $CC
++am_cc=`echo $2 | sed 's/[^a-zA-Z0-9_]/_/g;s/^[0-9]/_/'`
++eval am_t=\$ac_cv_prog_cc_${am_cc}_c_o
++if test "$am_t" != yes; then
++   # Losing compiler, so override with the script.
++   # FIXME: It is wrong to rewrite CC.
++   # But if we don't then we get into trouble of one sort or another.
++   # A longer-term fix would be to have automake use am__CC in this case,
++   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
++   CC="$am_aux_dir/compile $CC"
++fi
++
+ 
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether byte ordering is bigendian" >&5
+ $as_echo_n "checking whether byte ordering is bigendian... " >&6; }
+@@ -16077,6 +16063,386 @@ fi
+ SPICE_GLIB_REQUIRES="${SPICE_GLIB_REQUIRES} openssl"
+ 
+ 
++pkg_failed=no
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SWSCALE" >&5
++$as_echo_n "checking for SWSCALE... " >&6; }
++
++if test -n "$SWSCALE_CFLAGS"; then
++    pkg_cv_SWSCALE_CFLAGS="$SWSCALE_CFLAGS"
++ elif test -n "$PKG_CONFIG"; then
++    if test -n "$PKG_CONFIG" && \
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libswscale >= 3.1.101\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libswscale >= 3.1.101") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; then
++  pkg_cv_SWSCALE_CFLAGS=`$PKG_CONFIG --cflags "libswscale >= 3.1.101" 2>/dev/null`
++		      test "x$?" != "x0" && pkg_failed=yes
++else
++  pkg_failed=yes
++fi
++ else
++    pkg_failed=untried
++fi
++if test -n "$SWSCALE_LIBS"; then
++    pkg_cv_SWSCALE_LIBS="$SWSCALE_LIBS"
++ elif test -n "$PKG_CONFIG"; then
++    if test -n "$PKG_CONFIG" && \
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libswscale >= 3.1.101\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libswscale >= 3.1.101") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; then
++  pkg_cv_SWSCALE_LIBS=`$PKG_CONFIG --libs "libswscale >= 3.1.101" 2>/dev/null`
++		      test "x$?" != "x0" && pkg_failed=yes
++else
++  pkg_failed=yes
++fi
++ else
++    pkg_failed=untried
++fi
++
++
++
++if test $pkg_failed = yes; then
++   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++
++if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
++        _pkg_short_errors_supported=yes
++else
++        _pkg_short_errors_supported=no
++fi
++        if test $_pkg_short_errors_supported = yes; then
++	        SWSCALE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
++        else
++	        SWSCALE_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
++        fi
++	# Put the nasty error message in config.log where it belongs
++	echo "$SWSCALE_PKG_ERRORS" >&5
++
++	as_fn_error $? "Package requirements (libswscale >= 3.1.101) were not met:
++
++$SWSCALE_PKG_ERRORS
++
++Consider adjusting the PKG_CONFIG_PATH environment variable if you
++installed software in a non-standard prefix.
++
++Alternatively, you may set the environment variables SWSCALE_CFLAGS
++and SWSCALE_LIBS to avoid the need to call pkg-config.
++See the pkg-config man page for more details." "$LINENO" 5
++elif test $pkg_failed = untried; then
++     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
++$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
++as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
++is in your PATH or set the PKG_CONFIG environment variable to the full
++path to pkg-config.
++
++Alternatively, you may set the environment variables SWSCALE_CFLAGS
++and SWSCALE_LIBS to avoid the need to call pkg-config.
++See the pkg-config man page for more details.
++
++To get pkg-config, see <http://pkg-config.freedesktop.org/>.
++See \`config.log' for more details" "$LINENO" 5; }
++else
++	SWSCALE_CFLAGS=$pkg_cv_SWSCALE_CFLAGS
++	SWSCALE_LIBS=$pkg_cv_SWSCALE_LIBS
++        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++
++fi
++
++
++SPICE_GLIB_REQUIRES+=" libswscale >= 3.1.101"
++
++
++pkg_failed=no
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for AVCODEC" >&5
++$as_echo_n "checking for AVCODEC... " >&6; }
++
++if test -n "$AVCODEC_CFLAGS"; then
++    pkg_cv_AVCODEC_CFLAGS="$AVCODEC_CFLAGS"
++ elif test -n "$PKG_CONFIG"; then
++    if test -n "$PKG_CONFIG" && \
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavcodec >= 56.60.100\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libavcodec >= 56.60.100") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; then
++  pkg_cv_AVCODEC_CFLAGS=`$PKG_CONFIG --cflags "libavcodec >= 56.60.100" 2>/dev/null`
++		      test "x$?" != "x0" && pkg_failed=yes
++else
++  pkg_failed=yes
++fi
++ else
++    pkg_failed=untried
++fi
++if test -n "$AVCODEC_LIBS"; then
++    pkg_cv_AVCODEC_LIBS="$AVCODEC_LIBS"
++ elif test -n "$PKG_CONFIG"; then
++    if test -n "$PKG_CONFIG" && \
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavcodec >= 56.60.100\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libavcodec >= 56.60.100") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; then
++  pkg_cv_AVCODEC_LIBS=`$PKG_CONFIG --libs "libavcodec >= 56.60.100" 2>/dev/null`
++		      test "x$?" != "x0" && pkg_failed=yes
++else
++  pkg_failed=yes
++fi
++ else
++    pkg_failed=untried
++fi
++
++
++
++if test $pkg_failed = yes; then
++   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++
++if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
++        _pkg_short_errors_supported=yes
++else
++        _pkg_short_errors_supported=no
++fi
++        if test $_pkg_short_errors_supported = yes; then
++	        AVCODEC_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libavcodec >= 56.60.100" 2>&1`
++        else
++	        AVCODEC_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libavcodec >= 56.60.100" 2>&1`
++        fi
++	# Put the nasty error message in config.log where it belongs
++	echo "$AVCODEC_PKG_ERRORS" >&5
++
++	as_fn_error $? "Package requirements (libavcodec >= 56.60.100) were not met:
++
++$AVCODEC_PKG_ERRORS
++
++Consider adjusting the PKG_CONFIG_PATH environment variable if you
++installed software in a non-standard prefix.
++
++Alternatively, you may set the environment variables AVCODEC_CFLAGS
++and AVCODEC_LIBS to avoid the need to call pkg-config.
++See the pkg-config man page for more details." "$LINENO" 5
++elif test $pkg_failed = untried; then
++     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
++$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
++as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
++is in your PATH or set the PKG_CONFIG environment variable to the full
++path to pkg-config.
++
++Alternatively, you may set the environment variables AVCODEC_CFLAGS
++and AVCODEC_LIBS to avoid the need to call pkg-config.
++See the pkg-config man page for more details.
++
++To get pkg-config, see <http://pkg-config.freedesktop.org/>.
++See \`config.log' for more details" "$LINENO" 5; }
++else
++	AVCODEC_CFLAGS=$pkg_cv_AVCODEC_CFLAGS
++	AVCODEC_LIBS=$pkg_cv_AVCODEC_LIBS
++        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++
++fi
++
++
++SPICE_GLIB_REQUIRES+=" libavcodec >= 56.60.100"
++
++
++pkg_failed=no
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for AVUTIL" >&5
++$as_echo_n "checking for AVUTIL... " >&6; }
++
++if test -n "$AVUTIL_CFLAGS"; then
++    pkg_cv_AVUTIL_CFLAGS="$AVUTIL_CFLAGS"
++ elif test -n "$PKG_CONFIG"; then
++    if test -n "$PKG_CONFIG" && \
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavutil >= 54.31.100\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libavutil >= 54.31.100") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; then
++  pkg_cv_AVUTIL_CFLAGS=`$PKG_CONFIG --cflags "libavutil >= 54.31.100" 2>/dev/null`
++		      test "x$?" != "x0" && pkg_failed=yes
++else
++  pkg_failed=yes
++fi
++ else
++    pkg_failed=untried
++fi
++if test -n "$AVUTIL_LIBS"; then
++    pkg_cv_AVUTIL_LIBS="$AVUTIL_LIBS"
++ elif test -n "$PKG_CONFIG"; then
++    if test -n "$PKG_CONFIG" && \
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavutil >= 54.31.100\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libavutil >= 54.31.100") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; then
++  pkg_cv_AVUTIL_LIBS=`$PKG_CONFIG --libs "libavutil >= 54.31.100" 2>/dev/null`
++		      test "x$?" != "x0" && pkg_failed=yes
++else
++  pkg_failed=yes
++fi
++ else
++    pkg_failed=untried
++fi
++
++
++
++if test $pkg_failed = yes; then
++   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++
++if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
++        _pkg_short_errors_supported=yes
++else
++        _pkg_short_errors_supported=no
++fi
++        if test $_pkg_short_errors_supported = yes; then
++	        AVUTIL_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libavutil >= 54.31.100" 2>&1`
++        else
++	        AVUTIL_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libavutil >= 54.31.100" 2>&1`
++        fi
++	# Put the nasty error message in config.log where it belongs
++	echo "$AVUTIL_PKG_ERRORS" >&5
++
++	as_fn_error $? "Package requirements (libavutil >= 54.31.100) were not met:
++
++$AVUTIL_PKG_ERRORS
++
++Consider adjusting the PKG_CONFIG_PATH environment variable if you
++installed software in a non-standard prefix.
++
++Alternatively, you may set the environment variables AVUTIL_CFLAGS
++and AVUTIL_LIBS to avoid the need to call pkg-config.
++See the pkg-config man page for more details." "$LINENO" 5
++elif test $pkg_failed = untried; then
++     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
++$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
++as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
++is in your PATH or set the PKG_CONFIG environment variable to the full
++path to pkg-config.
++
++Alternatively, you may set the environment variables AVUTIL_CFLAGS
++and AVUTIL_LIBS to avoid the need to call pkg-config.
++See the pkg-config man page for more details.
++
++To get pkg-config, see <http://pkg-config.freedesktop.org/>.
++See \`config.log' for more details" "$LINENO" 5; }
++else
++	AVUTIL_CFLAGS=$pkg_cv_AVUTIL_CFLAGS
++	AVUTIL_LIBS=$pkg_cv_AVUTIL_LIBS
++        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++
++fi
++
++
++SPICE_GLIB_REQUIRES+=" libavutil >= 54.31.100"
++
++
++pkg_failed=no
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for AVFORMAT" >&5
++$as_echo_n "checking for AVFORMAT... " >&6; }
++
++if test -n "$AVFORMAT_CFLAGS"; then
++    pkg_cv_AVFORMAT_CFLAGS="$AVFORMAT_CFLAGS"
++ elif test -n "$PKG_CONFIG"; then
++    if test -n "$PKG_CONFIG" && \
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavformat >= 56.40.101\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libavformat >= 56.40.101") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; then
++  pkg_cv_AVFORMAT_CFLAGS=`$PKG_CONFIG --cflags "libavformat >= 56.40.101" 2>/dev/null`
++		      test "x$?" != "x0" && pkg_failed=yes
++else
++  pkg_failed=yes
++fi
++ else
++    pkg_failed=untried
++fi
++if test -n "$AVFORMAT_LIBS"; then
++    pkg_cv_AVFORMAT_LIBS="$AVFORMAT_LIBS"
++ elif test -n "$PKG_CONFIG"; then
++    if test -n "$PKG_CONFIG" && \
++    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavformat >= 56.40.101\""; } >&5
++  ($PKG_CONFIG --exists --print-errors "libavformat >= 56.40.101") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; then
++  pkg_cv_AVFORMAT_LIBS=`$PKG_CONFIG --libs "libavformat >= 56.40.101" 2>/dev/null`
++		      test "x$?" != "x0" && pkg_failed=yes
++else
++  pkg_failed=yes
++fi
++ else
++    pkg_failed=untried
++fi
++
++
++
++if test $pkg_failed = yes; then
++   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++
++if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
++        _pkg_short_errors_supported=yes
++else
++        _pkg_short_errors_supported=no
++fi
++        if test $_pkg_short_errors_supported = yes; then
++	        AVFORMAT_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libavformat >= 56.40.101" 2>&1`
++        else
++	        AVFORMAT_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libavformat >= 56.40.101" 2>&1`
++        fi
++	# Put the nasty error message in config.log where it belongs
++	echo "$AVFORMAT_PKG_ERRORS" >&5
++
++	as_fn_error $? "Package requirements (libavformat >= 56.40.101) were not met:
++
++$AVFORMAT_PKG_ERRORS
++
++Consider adjusting the PKG_CONFIG_PATH environment variable if you
++installed software in a non-standard prefix.
++
++Alternatively, you may set the environment variables AVFORMAT_CFLAGS
++and AVFORMAT_LIBS to avoid the need to call pkg-config.
++See the pkg-config man page for more details." "$LINENO" 5
++elif test $pkg_failed = untried; then
++     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
++$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
++as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
++is in your PATH or set the PKG_CONFIG environment variable to the full
++path to pkg-config.
++
++Alternatively, you may set the environment variables AVFORMAT_CFLAGS
++and AVFORMAT_LIBS to avoid the need to call pkg-config.
++See the pkg-config man page for more details.
++
++To get pkg-config, see <http://pkg-config.freedesktop.org/>.
++See \`config.log' for more details" "$LINENO" 5; }
++else
++	AVFORMAT_CFLAGS=$pkg_cv_AVFORMAT_CFLAGS
++	AVFORMAT_LIBS=$pkg_cv_AVFORMAT_LIBS
++        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++
++fi
++
++
++SPICE_GLIB_REQUIRES+=" libavformat >= 56.40.101"
++
++
+ # Check whether --with-sasl was given.
+ if test "${with_sasl+set}" = set; then :
+   withval=$with_sasl;
+@@ -21142,7 +21508,7 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_wri
+ # report actual input values of CONFIG_FILES etc. instead of their
+ # values after options handling.
+ ac_log="
+-This file was extended by spice-gtk $as_me 0.30, which was
++This file was extended by spice-gtk $as_me 0.30-dirty, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   CONFIG_FILES    = $CONFIG_FILES
+@@ -21208,7 +21574,7 @@ _ACEOF
+ cat >>$CONFIG_STATUS <<_ACEOF || ac_write_fail=1
+ ac_cs_config="`$as_echo "$ac_configure_args" | sed 's/^ //; s/[\\""\`\$]/\\\\&/g'`"
+ ac_cs_version="\\
+-spice-gtk config.status 0.30
++spice-gtk config.status 0.30-dirty
+ configured by $0, generated by GNU Autoconf 2.69,
+   with options \\"\$ac_cs_config\\"
+ 
+diff -Nupr spice-gtk-0.30/configure.ac ../spice-gtk-0.30/configure.ac
+--- spice-gtk-0.30/configure.ac	2015-11-04 15:03:03.444049068 +0800
++++ ../spice-gtk-0.30/configure.ac	2015-11-02 16:53:09.187139518 +0800
+@@ -114,6 +114,26 @@ AC_SUBST(SSL_CFLAGS)
+ AC_SUBST(SSL_LIBS)
+ SPICE_GLIB_REQUIRES="${SPICE_GLIB_REQUIRES} openssl"
+ 
++PKG_CHECK_MODULES(SWSCALE, libswscale >= 3.1.101)
++AC_SUBST(SWSCALE_CFLAGS)
++AC_SUBST(SWSCALE_LIBS)
++SPICE_GLIB_REQUIRES+=" libswscale >= 3.1.101"
++
++PKG_CHECK_MODULES(AVCODEC, libavcodec >= 56.60.100)
++AC_SUBST(AVCODEC_CFLAGS)
++AC_SUBST(AVCODEC_LIBS)
++SPICE_GLIB_REQUIRES+=" libavcodec >= 56.60.100"
++
++PKG_CHECK_MODULES(AVUTIL, libavutil >= 54.31.100)
++AC_SUBST(AVUTIL_CFLAGS)
++AC_SUBST(AVUTIL_LIBS)
++SPICE_GLIB_REQUIRES+=" libavutil >= 54.31.100"
++
++PKG_CHECK_MODULES(AVFORMAT, libavformat >= 56.40.101)
++AC_SUBST(AVFORMAT_CFLAGS)
++AC_SUBST(AVFORMAT_LIBS)
++SPICE_GLIB_REQUIRES+=" libavformat >= 56.40.101"
++
+ dnl Cyrus SASL
+ AC_ARG_WITH([sasl],
+   [AS_HELP_STRING([--with-sasl=@<:@yes/no/auto@:>@], [use cyrus SASL for authentication @<:@default=auto@:>@])],
+diff -Nupr spice-gtk-0.30/data/Makefile.in ../spice-gtk-0.30/data/Makefile.in
+--- spice-gtk-0.30/data/Makefile.in	2015-11-04 15:03:03.660045735 +0800
++++ ../spice-gtk-0.30/data/Makefile.in	2015-11-02 16:56:24.714499715 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -159,6 +159,12 @@ AS = @AS@
+ AUTOCONF = @AUTOCONF@
+ AUTOHEADER = @AUTOHEADER@
+ AUTOMAKE = @AUTOMAKE@
++AVCODEC_CFLAGS = @AVCODEC_CFLAGS@
++AVCODEC_LIBS = @AVCODEC_LIBS@
++AVFORMAT_CFLAGS = @AVFORMAT_CFLAGS@
++AVFORMAT_LIBS = @AVFORMAT_LIBS@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
+ AWK = @AWK@
+ CAIRO_CFLAGS = @CAIRO_CFLAGS@
+ CAIRO_LIBS = @CAIRO_LIBS@
+@@ -320,6 +326,8 @@ SSL_CFLAGS = @SSL_CFLAGS@
+ SSL_LIBS = @SSL_LIBS@
+ STOW = @STOW@
+ STRIP = @STRIP@
++SWSCALE_CFLAGS = @SWSCALE_CFLAGS@
++SWSCALE_LIBS = @SWSCALE_LIBS@
+ USBREDIR_CFLAGS = @USBREDIR_CFLAGS@
+ USBREDIR_LIBS = @USBREDIR_LIBS@
+ USB_IDS = @USB_IDS@
+diff -Nupr spice-gtk-0.30/doc/Makefile.in ../spice-gtk-0.30/doc/Makefile.in
+--- spice-gtk-0.30/doc/Makefile.in	2015-11-04 15:03:03.442049099 +0800
++++ ../spice-gtk-0.30/doc/Makefile.in	2015-11-02 16:56:24.825498216 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -188,6 +188,12 @@ AS = @AS@
+ AUTOCONF = @AUTOCONF@
+ AUTOHEADER = @AUTOHEADER@
+ AUTOMAKE = @AUTOMAKE@
++AVCODEC_CFLAGS = @AVCODEC_CFLAGS@
++AVCODEC_LIBS = @AVCODEC_LIBS@
++AVFORMAT_CFLAGS = @AVFORMAT_CFLAGS@
++AVFORMAT_LIBS = @AVFORMAT_LIBS@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
+ AWK = @AWK@
+ CAIRO_CFLAGS = @CAIRO_CFLAGS@
+ CAIRO_LIBS = @CAIRO_LIBS@
+@@ -349,6 +355,8 @@ SSL_CFLAGS = @SSL_CFLAGS@
+ SSL_LIBS = @SSL_LIBS@
+ STOW = @STOW@
+ STRIP = @STRIP@
++SWSCALE_CFLAGS = @SWSCALE_CFLAGS@
++SWSCALE_LIBS = @SWSCALE_LIBS@
+ USBREDIR_CFLAGS = @USBREDIR_CFLAGS@
+ USBREDIR_LIBS = @USBREDIR_LIBS@
+ USB_IDS = @USB_IDS@
+diff -Nupr spice-gtk-0.30/doc/reference/Makefile.in ../spice-gtk-0.30/doc/reference/Makefile.in
+--- spice-gtk-0.30/doc/reference/Makefile.in	2015-11-04 15:03:03.441049115 +0800
++++ ../spice-gtk-0.30/doc/reference/Makefile.in	2015-11-02 16:56:24.959496407 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -135,6 +135,12 @@ AS = @AS@
+ AUTOCONF = @AUTOCONF@
+ AUTOHEADER = @AUTOHEADER@
+ AUTOMAKE = @AUTOMAKE@
++AVCODEC_CFLAGS = @AVCODEC_CFLAGS@
++AVCODEC_LIBS = @AVCODEC_LIBS@
++AVFORMAT_CFLAGS = @AVFORMAT_CFLAGS@
++AVFORMAT_LIBS = @AVFORMAT_LIBS@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
+ AWK = @AWK@
+ CAIRO_CFLAGS = @CAIRO_CFLAGS@
+ CAIRO_LIBS = @CAIRO_LIBS@
+@@ -296,6 +302,8 @@ SSL_CFLAGS = @SSL_CFLAGS@
+ SSL_LIBS = @SSL_LIBS@
+ STOW = @STOW@
+ STRIP = @STRIP@
++SWSCALE_CFLAGS = @SWSCALE_CFLAGS@
++SWSCALE_LIBS = @SWSCALE_LIBS@
+ USBREDIR_CFLAGS = @USBREDIR_CFLAGS@
+ USBREDIR_LIBS = @USBREDIR_LIBS@
+ USB_IDS = @USB_IDS@
+diff -Nupr spice-gtk-0.30/Makefile.in ../spice-gtk-0.30/Makefile.in
+--- spice-gtk-0.30/Makefile.in	2015-11-04 15:03:03.658045766 +0800
++++ ../spice-gtk-0.30/Makefile.in	2015-11-02 16:56:24.605501187 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -88,10 +88,10 @@ DIST_COMMON = $(srcdir)/Makefile.in $(sr
+ 	$(srcdir)/config.h.in $(srcdir)/spice-client-glib-2.0.pc.in \
+ 	$(srcdir)/spice-client-gtk-2.0.pc.in \
+ 	$(srcdir)/spice-client-gtk-3.0.pc.in \
+-	$(srcdir)/spice-controller.pc.in AUTHORS COPYING NEWS README \
+-	TODO build-aux/ar-lib build-aux/compile build-aux/config.guess \
+-	build-aux/config.sub build-aux/depcomp build-aux/install-sh \
+-	build-aux/missing build-aux/ltmain.sh \
++	$(srcdir)/spice-controller.pc.in AUTHORS COPYING ChangeLog \
++	NEWS README THANKS TODO build-aux/ar-lib build-aux/compile \
++	build-aux/config.guess build-aux/config.sub build-aux/depcomp \
++	build-aux/install-sh build-aux/missing build-aux/ltmain.sh \
+ 	$(top_srcdir)/build-aux/ar-lib $(top_srcdir)/build-aux/compile \
+ 	$(top_srcdir)/build-aux/config.guess \
+ 	$(top_srcdir)/build-aux/config.sub \
+@@ -257,6 +257,12 @@ AS = @AS@
+ AUTOCONF = @AUTOCONF@
+ AUTOHEADER = @AUTOHEADER@
+ AUTOMAKE = @AUTOMAKE@
++AVCODEC_CFLAGS = @AVCODEC_CFLAGS@
++AVCODEC_LIBS = @AVCODEC_LIBS@
++AVFORMAT_CFLAGS = @AVFORMAT_CFLAGS@
++AVFORMAT_LIBS = @AVFORMAT_LIBS@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
+ AWK = @AWK@
+ CAIRO_CFLAGS = @CAIRO_CFLAGS@
+ CAIRO_LIBS = @CAIRO_LIBS@
+@@ -418,6 +424,8 @@ SSL_CFLAGS = @SSL_CFLAGS@
+ SSL_LIBS = @SSL_LIBS@
+ STOW = @STOW@
+ STRIP = @STRIP@
++SWSCALE_CFLAGS = @SWSCALE_CFLAGS@
++SWSCALE_LIBS = @SWSCALE_LIBS@
+ USBREDIR_CFLAGS = @USBREDIR_CFLAGS@
+ USBREDIR_LIBS = @USBREDIR_LIBS@
+ USB_IDS = @USB_IDS@
+@@ -597,8 +605,8 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(
+ $(am__aclocal_m4_deps):
+ 
+ config.h: stamp-h1
+-	@test -f $@ || rm -f stamp-h1
+-	@test -f $@ || $(MAKE) $(AM_MAKEFLAGS) stamp-h1
++	@if test ! -f $@; then rm -f stamp-h1; else :; fi
++	@if test ! -f $@; then $(MAKE) $(AM_MAKEFLAGS) stamp-h1; else :; fi
+ 
+ stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
+ 	@rm -f stamp-h1
+@@ -838,16 +846,10 @@ dist-xz: distdir
+ 	$(am__post_remove_distdir)
+ 
+ dist-tarZ: distdir
+-	@echo WARNING: "Support for shar distribution archives is" \
+-	               "deprecated." >&2
+-	@echo WARNING: "It will be removed altogether in Automake 2.0" >&2
+ 	tardir=$(distdir) && $(am__tar) | compress -c >$(distdir).tar.Z
+ 	$(am__post_remove_distdir)
+ 
+ dist-shar: distdir
+-	@echo WARNING: "Support for distribution archives compressed with" \
+-		       "legacy program 'compress' is deprecated." >&2
+-	@echo WARNING: "It will be removed altogether in Automake 2.0" >&2
+ 	shar $(distdir) | GZIP=$(GZIP_ENV) gzip -c >$(distdir).shar.gz
+ 	$(am__post_remove_distdir)
+ 
+@@ -889,10 +891,9 @@ distcheck: dist
+ 	  && dc_destdir="$${TMPDIR-/tmp}/am-dc-$$$$/" \
+ 	  && am__cwd=`pwd` \
+ 	  && $(am__cd) $(distdir)/_build \
+-	  && ../configure \
++	  && ../configure --srcdir=.. --prefix="$$dc_install_base" \
+ 	    $(AM_DISTCHECK_CONFIGURE_FLAGS) \
+ 	    $(DISTCHECK_CONFIGURE_FLAGS) \
+-	    --srcdir=.. --prefix="$$dc_install_base" \
+ 	  && $(MAKE) $(AM_MAKEFLAGS) \
+ 	  && $(MAKE) $(AM_MAKEFLAGS) dvi \
+ 	  && $(MAKE) $(AM_MAKEFLAGS) check \
+diff -Nupr spice-gtk-0.30/man/Makefile.in ../spice-gtk-0.30/man/Makefile.in
+--- spice-gtk-0.30/man/Makefile.in	2015-11-04 15:03:03.341050658 +0800
++++ ../spice-gtk-0.30/man/Makefile.in	2015-11-02 16:56:25.077494813 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -160,6 +160,12 @@ AS = @AS@
+ AUTOCONF = @AUTOCONF@
+ AUTOHEADER = @AUTOHEADER@
+ AUTOMAKE = @AUTOMAKE@
++AVCODEC_CFLAGS = @AVCODEC_CFLAGS@
++AVCODEC_LIBS = @AVCODEC_LIBS@
++AVFORMAT_CFLAGS = @AVFORMAT_CFLAGS@
++AVFORMAT_LIBS = @AVFORMAT_LIBS@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
+ AWK = @AWK@
+ CAIRO_CFLAGS = @CAIRO_CFLAGS@
+ CAIRO_LIBS = @CAIRO_LIBS@
+@@ -321,6 +327,8 @@ SSL_CFLAGS = @SSL_CFLAGS@
+ SSL_LIBS = @SSL_LIBS@
+ STOW = @STOW@
+ STRIP = @STRIP@
++SWSCALE_CFLAGS = @SWSCALE_CFLAGS@
++SWSCALE_LIBS = @SWSCALE_LIBS@
+ USBREDIR_CFLAGS = @USBREDIR_CFLAGS@
+ USBREDIR_LIBS = @USBREDIR_LIBS@
+ USB_IDS = @USB_IDS@
+diff -Nupr spice-gtk-0.30/spice-common/aclocal.m4 ../spice-gtk-0.30/spice-common/aclocal.m4
+--- spice-gtk-0.30/spice-common/aclocal.m4	2015-11-04 15:03:03.620046352 +0800
++++ ../spice-gtk-0.30/spice-common/aclocal.m4	2015-11-02 16:56:15.258627407 +0800
+@@ -1,4 +1,4 @@
+-# generated automatically by aclocal 1.14.1 -*- Autoconf -*-
++# generated automatically by aclocal 1.13.4 -*- Autoconf -*-
+ 
+ # Copyright (C) 1996-2013 Free Software Foundation, Inc.
+ 
+@@ -220,21 +220,6 @@ m4_popdef([pkg_default])
+ m4_popdef([pkg_description])
+ ]) dnl PKG_NOARCH_INSTALLDIR
+ 
+-
+-# PKG_CHECK_VAR(VARIABLE, MODULE, CONFIG-VARIABLE,
+-# [ACTION-IF-FOUND], [ACTION-IF-NOT-FOUND])
+-# -------------------------------------------
+-# Retrieves the value of the pkg-config variable for the given module.
+-AC_DEFUN([PKG_CHECK_VAR],
+-[AC_REQUIRE([PKG_PROG_PKG_CONFIG])dnl
+-AC_ARG_VAR([$1], [value of $3 for $2, overriding pkg-config])dnl
+-
+-_PKG_CONFIG([$1], [variable="][$3]["], [$2])
+-AS_VAR_COPY([$1], [pkg_cv_][$1])
+-
+-AS_VAR_IF([$1], [""], [$5], [$4])dnl
+-])# PKG_CHECK_VAR
+-
+ # Copyright (C) 2002-2013 Free Software Foundation, Inc.
+ #
+ # This file is free software; the Free Software Foundation
+@@ -247,10 +232,10 @@ AS_VAR_IF([$1], [""], [$5], [$4])dnl
+ # generated from the m4 files accompanying Automake X.Y.
+ # (This private macro should not be called outside this file.)
+ AC_DEFUN([AM_AUTOMAKE_VERSION],
+-[am__api_version='1.14'
++[am__api_version='1.13'
+ dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
+ dnl require some minimum version.  Point them to the right macro.
+-m4_if([$1], [1.14.1], [],
++m4_if([$1], [1.13.4], [],
+       [AC_FATAL([Do not call $0, use AM_INIT_AUTOMAKE([$1]).])])dnl
+ ])
+ 
+@@ -266,7 +251,7 @@ m4_define([_AM_AUTOCONF_VERSION], [])
+ # Call AM_AUTOMAKE_VERSION and AM_AUTOMAKE_VERSION so they can be traced.
+ # This function is AC_REQUIREd by AM_INIT_AUTOMAKE.
+ AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
+-[AM_AUTOMAKE_VERSION([1.14.1])dnl
++[AM_AUTOMAKE_VERSION([1.13.4])dnl
+ m4_ifndef([AC_AUTOCONF_VERSION],
+   [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
+ _AM_AUTOCONF_VERSION(m4_defn([AC_AUTOCONF_VERSION]))])
+@@ -291,8 +276,7 @@ AC_CHECK_TOOLS([AR], [ar lib "link -lib"
+ : ${AR=ar}
+ 
+ AC_CACHE_CHECK([the archiver ($AR) interface], [am_cv_ar_interface],
+-  [AC_LANG_PUSH([C])
+-   am_cv_ar_interface=ar
++  [am_cv_ar_interface=ar
+    AC_COMPILE_IFELSE([AC_LANG_SOURCE([[int some_variable = 0;]])],
+      [am_ar_try='$AR cru libconftest.a conftest.$ac_objext >&AS_MESSAGE_LOG_FD'
+       AC_TRY_EVAL([am_ar_try])
+@@ -309,7 +293,7 @@ AC_CACHE_CHECK([the archiver ($AR) inter
+       fi
+       rm -f conftest.lib libconftest.a
+      ])
+-   AC_LANG_POP([C])])
++   ])
+ 
+ case $am_cv_ar_interface in
+ ar)
+@@ -730,12 +714,6 @@ AC_DEFUN([AM_OUTPUT_DEPENDENCY_COMMANDS]
+ # This macro actually does too much.  Some checks are only needed if
+ # your package does certain things.  But this isn't really a big deal.
+ 
+-dnl Redefine AC_PROG_CC to automatically invoke _AM_PROG_CC_C_O.
+-m4_define([AC_PROG_CC],
+-m4_defn([AC_PROG_CC])
+-[_AM_PROG_CC_C_O
+-])
+-
+ # AM_INIT_AUTOMAKE(PACKAGE, VERSION, [NO-DEFINE])
+ # AM_INIT_AUTOMAKE([OPTIONS])
+ # -----------------------------------------------
+@@ -844,48 +822,7 @@ dnl macro is hooked onto _AC_COMPILER_EX
+ AC_CONFIG_COMMANDS_PRE(dnl
+ [m4_provide_if([_AM_COMPILER_EXEEXT],
+   [AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])])])dnl
+-
+-# POSIX will say in a future version that running "rm -f" with no argument
+-# is OK; and we want to be able to make that assumption in our Makefile
+-# recipes.  So use an aggressive probe to check that the usage we want is
+-# actually supported "in the wild" to an acceptable degree.
+-# See automake bug#10828.
+-# To make any issue more visible, cause the running configure to be aborted
+-# by default if the 'rm' program in use doesn't match our expectations; the
+-# user can still override this though.
+-if rm -f && rm -fr && rm -rf; then : OK; else
+-  cat >&2 <<'END'
+-Oops!
+-
+-Your 'rm' program seems unable to run without file operands specified
+-on the command line, even when the '-f' option is present.  This is contrary
+-to the behaviour of most rm programs out there, and not conforming with
+-the upcoming POSIX standard: <http://austingroupbugs.net/view.php?id=542>
+-
+-Please tell bug-automake@gnu.org about your system, including the value
+-of your $PATH and any error possibly output before this message.  This
+-can help us improve future automake versions.
+-
+-END
+-  if test x"$ACCEPT_INFERIOR_RM_PROGRAM" = x"yes"; then
+-    echo 'Configuration will proceed anyway, since you have set the' >&2
+-    echo 'ACCEPT_INFERIOR_RM_PROGRAM variable to "yes"' >&2
+-    echo >&2
+-  else
+-    cat >&2 <<'END'
+-Aborting the configuration process, to ensure you take notice of the issue.
+-
+-You can download and install GNU coreutils to get an 'rm' implementation
+-that behaves properly: <http://www.gnu.org/software/coreutils/>.
+-
+-If you want to complete the configuration process using your problematic
+-'rm' anyway, export the environment variable ACCEPT_INFERIOR_RM_PROGRAM
+-to "yes", and re-run configure.
+-
+-END
+-    AC_MSG_ERROR([Your 'rm' program is bad, sorry.])
+-  fi
+-fi])
++])
+ 
+ dnl Hook into '_AC_COMPILER_EXEEXT' early to learn its expansion.  Do not
+ dnl add the conditional right here, as _AC_COMPILER_EXEEXT may be further
+@@ -893,6 +830,7 @@ dnl mangled by Autoconf and run in a she
+ m4_define([_AC_COMPILER_EXEEXT],
+ m4_defn([_AC_COMPILER_EXEEXT])[m4_provide([_AM_COMPILER_EXEEXT])])
+ 
++
+ # When config.status generates a header, we must update the stamp-h file.
+ # This file resides in the same directory as the config header
+ # that is generated.  The stamp files are numbered to have different names.
+@@ -1040,6 +978,38 @@ AC_MSG_RESULT([$_am_result])
+ rm -f confinc confmf
+ ])
+ 
++# Copyright (C) 1999-2013 Free Software Foundation, Inc.
++#
++# This file is free software; the Free Software Foundation
++# gives unlimited permission to copy and/or distribute it,
++# with or without modifications, as long as this notice is preserved.
++
++# AM_PROG_CC_C_O
++# --------------
++# Like AC_PROG_CC_C_O, but changed for automake.
++AC_DEFUN([AM_PROG_CC_C_O],
++[AC_REQUIRE([AC_PROG_CC_C_O])dnl
++AC_REQUIRE([AM_AUX_DIR_EXPAND])dnl
++AC_REQUIRE_AUX_FILE([compile])dnl
++# FIXME: we rely on the cache variable name because
++# there is no other way.
++set dummy $CC
++am_cc=`echo $[2] | sed ['s/[^a-zA-Z0-9_]/_/g;s/^[0-9]/_/']`
++eval am_t=\$ac_cv_prog_cc_${am_cc}_c_o
++if test "$am_t" != yes; then
++   # Losing compiler, so override with the script.
++   # FIXME: It is wrong to rewrite CC.
++   # But if we don't then we get into trouble of one sort or another.
++   # A longer-term fix would be to have automake use am__CC in this case,
++   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
++   CC="$am_aux_dir/compile $CC"
++fi
++dnl Make sure AC_PROG_CC is never called again, or it will override our
++dnl setting of CC.
++m4_define([AC_PROG_CC],
++          [m4_fatal([AC_PROG_CC cannot be called after AM_PROG_CC_C_O])])
++])
++
+ # Fake the existence of programs that GNU maintainers use.  -*- Autoconf -*-
+ 
+ # Copyright (C) 1997-2013 Free Software Foundation, Inc.
+@@ -1141,53 +1111,6 @@ AC_DEFUN([_AM_IF_OPTION],
+ 
+ # Copyright (C) 1999-2013 Free Software Foundation, Inc.
+ #
+-# This file is free software; the Free Software Foundation
+-# gives unlimited permission to copy and/or distribute it,
+-# with or without modifications, as long as this notice is preserved.
+-
+-# _AM_PROG_CC_C_O
+-# ---------------
+-# Like AC_PROG_CC_C_O, but changed for automake.  We rewrite AC_PROG_CC
+-# to automatically call this.
+-AC_DEFUN([_AM_PROG_CC_C_O],
+-[AC_REQUIRE([AM_AUX_DIR_EXPAND])dnl
+-AC_REQUIRE_AUX_FILE([compile])dnl
+-AC_LANG_PUSH([C])dnl
+-AC_CACHE_CHECK(
+-  [whether $CC understands -c and -o together],
+-  [am_cv_prog_cc_c_o],
+-  [AC_LANG_CONFTEST([AC_LANG_PROGRAM([])])
+-  # Make sure it works both with $CC and with simple cc.
+-  # Following AC_PROG_CC_C_O, we do the test twice because some
+-  # compilers refuse to overwrite an existing .o file with -o,
+-  # though they will create one.
+-  am_cv_prog_cc_c_o=yes
+-  for am_i in 1 2; do
+-    if AM_RUN_LOG([$CC -c conftest.$ac_ext -o conftest2.$ac_objext]) \
+-         && test -f conftest2.$ac_objext; then
+-      : OK
+-    else
+-      am_cv_prog_cc_c_o=no
+-      break
+-    fi
+-  done
+-  rm -f core conftest*
+-  unset am_i])
+-if test "$am_cv_prog_cc_c_o" != yes; then
+-   # Losing compiler, so override with the script.
+-   # FIXME: It is wrong to rewrite CC.
+-   # But if we don't then we get into trouble of one sort or another.
+-   # A longer-term fix would be to have automake use am__CC in this case,
+-   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
+-   CC="$am_aux_dir/compile $CC"
+-fi
+-AC_LANG_POP([C])])
+-
+-# For backward compatibility.
+-AC_DEFUN_ONCE([AM_PROG_CC_C_O], [AC_REQUIRE([AC_PROG_CC])])
+-
+-# Copyright (C) 1999-2013 Free Software Foundation, Inc.
+-#
+ # This file is free software; the Free Software Foundation
+ # gives unlimited permission to copy and/or distribute it,
+ # with or without modifications, as long as this notice is preserved.
+diff -Nupr spice-gtk-0.30/spice-common/common/canvas_base.c ../spice-gtk-0.30/spice-common/common/canvas_base.c
+--- spice-gtk-0.30/spice-common/common/canvas_base.c	2015-11-04 15:03:03.508048081 +0800
++++ ../spice-gtk-0.30/spice-common/common/canvas_base.c	2015-11-03 20:53:41.518666151 +0800
+@@ -973,7 +973,13 @@ static void dump_bitmap(SpiceBitmap *bit
+ 
+ #endif
+ 
+-static pixman_image_t *canvas_get_bits(CanvasBase *canvas, SpiceBitmap *bitmap,
++/*
++ * ZZQ change the function from static to extern,
++ * so that display_handle_h264_stream_data can call it
++ *
++ * FIXME: tmp code
++ */
++pixman_image_t *canvas_get_bits(CanvasBase *canvas, SpiceBitmap *bitmap,
+                                        int want_original)
+ {
+     pixman_image_t* surface;
+@@ -998,7 +1004,13 @@ static pixman_image_t *canvas_get_bits(C
+ #else
+ 
+ 
+-static pixman_image_t *canvas_get_bits(CanvasBase *canvas, SpiceBitmap *bitmap,
++/*
++ * ZZQ change the function from static to extern,
++ * so that display_handle_h264_stream_data can call it
++ *
++ * FIXME: tmp code
++ */
++pixman_image_t *canvas_get_bits(CanvasBase *canvas, SpiceBitmap *bitmap,
+                                        int want_original)
+ {
+     SpicePalette *palette;
+diff -Nupr spice-gtk-0.30/spice-common/common/Makefile.in ../spice-gtk-0.30/spice-common/common/Makefile.in
+--- spice-gtk-0.30/spice-common/common/Makefile.in	2015-11-04 15:03:03.563047232 +0800
++++ ../spice-gtk-0.30/spice-common/common/Makefile.in	2015-11-02 16:56:18.890578362 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -532,14 +532,14 @@ distclean-compile:
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ $<
++@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c $<
+ 
+ .c.obj:
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c `$(CYGPATH_W) '$<'`
+ 
+ .c.lo:
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+diff -Nupr spice-gtk-0.30/spice-common/common/sw_canvas.c ../spice-gtk-0.30/spice-common/common/sw_canvas.c
+--- spice-gtk-0.30/spice-common/common/sw_canvas.c	2015-11-04 15:03:03.514047988 +0800
++++ ../spice-gtk-0.30/spice-common/common/sw_canvas.c	2015-11-03 20:56:06.279604173 +0800
+@@ -397,7 +397,13 @@ static void __blit_image(SpiceCanvas *sp
+     }
+ }
+ 
+-static void blit_image(SpiceCanvas *spice_canvas,
++/*
++ * ZZQ change the function from static to extern,
++ * so that display_handle_h264_stream_data can call it
++ *
++ * FIXME: tmp code
++ */
++void blit_image(SpiceCanvas *spice_canvas,
+                        pixman_region32_t *region,
+                        pixman_image_t *src_image,
+                        int offset_x, int offset_y)
+diff -Nupr spice-gtk-0.30/spice-common/config.h.in ../spice-gtk-0.30/spice-common/config.h.in
+--- spice-gtk-0.30/spice-common/config.h.in	2015-11-04 15:03:03.573047078 +0800
++++ ../spice-gtk-0.30/spice-common/config.h.in	2015-11-02 16:56:17.356599076 +0800
+@@ -112,6 +112,9 @@
+    */
+ #undef LT_OBJDIR
+ 
++/* Define to 1 if your C compiler doesn't accept -c and -o together. */
++#undef NO_MINUS_C_MINUS_O
++
+ /* Name of package */
+ #undef PACKAGE
+ 
+diff -Nupr spice-gtk-0.30/spice-common/configure ../spice-gtk-0.30/spice-common/configure
+--- spice-gtk-0.30/spice-common/configure	2015-11-04 15:03:03.617046399 +0800
++++ ../spice-gtk-0.30/spice-common/configure	2015-11-02 16:57:20.897740957 +0800
+@@ -3309,65 +3309,6 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS con
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+-ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $CC understands -c and -o together" >&5
+-$as_echo_n "checking whether $CC understands -c and -o together... " >&6; }
+-if ${am_cv_prog_cc_c_o+:} false; then :
+-  $as_echo_n "(cached) " >&6
+-else
+-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-
+-int
+-main ()
+-{
+-
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-  # Make sure it works both with $CC and with simple cc.
+-  # Following AC_PROG_CC_C_O, we do the test twice because some
+-  # compilers refuse to overwrite an existing .o file with -o,
+-  # though they will create one.
+-  am_cv_prog_cc_c_o=yes
+-  for am_i in 1 2; do
+-    if { echo "$as_me:$LINENO: $CC -c conftest.$ac_ext -o conftest2.$ac_objext" >&5
+-   ($CC -c conftest.$ac_ext -o conftest2.$ac_objext) >&5 2>&5
+-   ac_status=$?
+-   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-   (exit $ac_status); } \
+-         && test -f conftest2.$ac_objext; then
+-      : OK
+-    else
+-      am_cv_prog_cc_c_o=no
+-      break
+-    fi
+-  done
+-  rm -f core conftest*
+-  unset am_i
+-fi
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_prog_cc_c_o" >&5
+-$as_echo "$am_cv_prog_cc_c_o" >&6; }
+-if test "$am_cv_prog_cc_c_o" != yes; then
+-   # Losing compiler, so override with the script.
+-   # FIXME: It is wrong to rewrite CC.
+-   # But if we don't then we get into trouble of one sort or another.
+-   # A longer-term fix would be to have automake use am__CC in this case,
+-   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
+-   CC="$am_aux_dir/compile $CC"
+-fi
+-ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-
+-
+ 
+ if test -n "$ac_tool_prefix"; then
+   for ac_prog in ar lib "link -lib"
+@@ -3476,13 +3417,7 @@ $as_echo_n "checking the archiver ($AR)
+ if ${am_cv_ar_interface+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+-  ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-
+-   am_cv_ar_interface=ar
++  am_cv_ar_interface=ar
+    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ int some_variable = 0;
+@@ -3513,11 +3448,6 @@ if ac_fn_c_try_compile "$LINENO"; then :
+ 
+ fi
+ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+-   ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_ar_interface" >&5
+@@ -3542,7 +3472,7 @@ esac
+ 
+ 
+ # Checks for programs
+-am__api_version='1.14'
++am__api_version='1.13'
+ 
+ # Find a good install program.  We prefer a C program (faster),
+ # so one script is as good as another.  But avoid the broken or
+@@ -4383,47 +4313,6 @@ fi
+ 
+ 
+ 
+-# POSIX will say in a future version that running "rm -f" with no argument
+-# is OK; and we want to be able to make that assumption in our Makefile
+-# recipes.  So use an aggressive probe to check that the usage we want is
+-# actually supported "in the wild" to an acceptable degree.
+-# See automake bug#10828.
+-# To make any issue more visible, cause the running configure to be aborted
+-# by default if the 'rm' program in use doesn't match our expectations; the
+-# user can still override this though.
+-if rm -f && rm -fr && rm -rf; then : OK; else
+-  cat >&2 <<'END'
+-Oops!
+-
+-Your 'rm' program seems unable to run without file operands specified
+-on the command line, even when the '-f' option is present.  This is contrary
+-to the behaviour of most rm programs out there, and not conforming with
+-the upcoming POSIX standard: <http://austingroupbugs.net/view.php?id=542>
+-
+-Please tell bug-automake@gnu.org about your system, including the value
+-of your $PATH and any error possibly output before this message.  This
+-can help us improve future automake versions.
+-
+-END
+-  if test x"$ACCEPT_INFERIOR_RM_PROGRAM" = x"yes"; then
+-    echo 'Configuration will proceed anyway, since you have set the' >&2
+-    echo 'ACCEPT_INFERIOR_RM_PROGRAM variable to "yes"' >&2
+-    echo >&2
+-  else
+-    cat >&2 <<'END'
+-Aborting the configuration process, to ensure you take notice of the issue.
+-
+-You can download and install GNU coreutils to get an 'rm' implementation
+-that behaves properly: <http://www.gnu.org/software/coreutils/>.
+-
+-If you want to complete the configuration process using your problematic
+-'rm' anyway, export the environment variable ACCEPT_INFERIOR_RM_PROGRAM
+-to "yes", and re-run configure.
+-
+-END
+-    as_fn_error $? "Your 'rm' program is bad, sorry." "$LINENO" 5
+-  fi
+-fi
+ 
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether to enable maintainer-specific portions of Makefiles" >&5
+ $as_echo_n "checking whether to enable maintainer-specific portions of Makefiles... " >&6; }
+@@ -12617,65 +12506,6 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS con
+ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+-ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $CC understands -c and -o together" >&5
+-$as_echo_n "checking whether $CC understands -c and -o together... " >&6; }
+-if ${am_cv_prog_cc_c_o+:} false; then :
+-  $as_echo_n "(cached) " >&6
+-else
+-  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-
+-int
+-main ()
+-{
+-
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-  # Make sure it works both with $CC and with simple cc.
+-  # Following AC_PROG_CC_C_O, we do the test twice because some
+-  # compilers refuse to overwrite an existing .o file with -o,
+-  # though they will create one.
+-  am_cv_prog_cc_c_o=yes
+-  for am_i in 1 2; do
+-    if { echo "$as_me:$LINENO: $CC -c conftest.$ac_ext -o conftest2.$ac_objext" >&5
+-   ($CC -c conftest.$ac_ext -o conftest2.$ac_objext) >&5 2>&5
+-   ac_status=$?
+-   echo "$as_me:$LINENO: \$? = $ac_status" >&5
+-   (exit $ac_status); } \
+-         && test -f conftest2.$ac_objext; then
+-      : OK
+-    else
+-      am_cv_prog_cc_c_o=no
+-      break
+-    fi
+-  done
+-  rm -f core conftest*
+-  unset am_i
+-fi
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_prog_cc_c_o" >&5
+-$as_echo "$am_cv_prog_cc_c_o" >&6; }
+-if test "$am_cv_prog_cc_c_o" != yes; then
+-   # Losing compiler, so override with the script.
+-   # FIXME: It is wrong to rewrite CC.
+-   # But if we don't then we get into trouble of one sort or another.
+-   # A longer-term fix would be to have automake use am__CC in this case,
+-   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
+-   CC="$am_aux_dir/compile $CC"
+-fi
+-ac_ext=c
+-ac_cpp='$CPP $CPPFLAGS'
+-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+-
+-
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $CC option to accept ISO C99" >&5
+ $as_echo_n "checking for $CC option to accept ISO C99... " >&6; }
+ if ${ac_cv_prog_cc_c99+:} false; then :
+@@ -12856,6 +12686,131 @@ fi
+ if test "x$ac_cv_prog_cc_c99" = xno; then
+     as_fn_error $? "C99 compiler is required." "$LINENO" 5
+ fi
++if test "x$CC" != xcc; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $CC and cc understand -c and -o together" >&5
++$as_echo_n "checking whether $CC and cc understand -c and -o together... " >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether cc understands -c and -o together" >&5
++$as_echo_n "checking whether cc understands -c and -o together... " >&6; }
++fi
++set dummy $CC; ac_cc=`$as_echo "$2" |
++		      sed 's/[^a-zA-Z0-9_]/_/g;s/^[0-9]/_/'`
++if eval \${ac_cv_prog_cc_${ac_cc}_c_o+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++
++int
++main ()
++{
++
++  ;
++  return 0;
++}
++_ACEOF
++# Make sure it works both with $CC and with simple cc.
++# We do the test twice because some compilers refuse to overwrite an
++# existing .o file with -o, though they will create one.
++ac_try='$CC -c conftest.$ac_ext -o conftest2.$ac_objext >&5'
++rm -f conftest2.*
++if { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; } &&
++   test -f conftest2.$ac_objext && { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; };
++then
++  eval ac_cv_prog_cc_${ac_cc}_c_o=yes
++  if test "x$CC" != xcc; then
++    # Test first that cc exists at all.
++    if { ac_try='cc -c conftest.$ac_ext >&5'
++  { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }; }; then
++      ac_try='cc -c conftest.$ac_ext -o conftest2.$ac_objext >&5'
++      rm -f conftest2.*
++      if { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; } &&
++	 test -f conftest2.$ac_objext && { { case "(($ac_try" in
++  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
++  *) ac_try_echo=$ac_try;;
++esac
++eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
++$as_echo "$ac_try_echo"; } >&5
++  (eval "$ac_try") 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; };
++      then
++	# cc works too.
++	:
++      else
++	# cc exists but doesn't like -o.
++	eval ac_cv_prog_cc_${ac_cc}_c_o=no
++      fi
++    fi
++  fi
++else
++  eval ac_cv_prog_cc_${ac_cc}_c_o=no
++fi
++rm -f core conftest*
++
++fi
++if eval test \$ac_cv_prog_cc_${ac_cc}_c_o = yes; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++
++$as_echo "#define NO_MINUS_C_MINUS_O 1" >>confdefs.h
++
++fi
++
++# FIXME: we rely on the cache variable name because
++# there is no other way.
++set dummy $CC
++am_cc=`echo $2 | sed 's/[^a-zA-Z0-9_]/_/g;s/^[0-9]/_/'`
++eval am_t=\$ac_cv_prog_cc_${am_cc}_c_o
++if test "$am_t" != yes; then
++   # Losing compiler, so override with the script.
++   # FIXME: It is wrong to rewrite CC.
++   # But if we don't then we get into trouble of one sort or another.
++   # A longer-term fix would be to have automake use am__CC in this case,
++   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
++   CC="$am_aux_dir/compile $CC"
++fi
++
+ 
+ 
+ ac_fn_c_check_type "$LINENO" "size_t" "ac_cv_type_size_t" "$ac_includes_default"
+diff -Nupr spice-gtk-0.30/spice-common/Makefile.in ../spice-gtk-0.30/spice-common/Makefile.in
+--- spice-gtk-0.30/spice-common/Makefile.in	2015-11-04 15:03:03.618046383 +0800
++++ ../spice-gtk-0.30/spice-common/Makefile.in	2015-11-02 16:56:18.760580117 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -403,8 +403,8 @@ $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(
+ $(am__aclocal_m4_deps):
+ 
+ config.h: stamp-h1
+-	@test -f $@ || rm -f stamp-h1
+-	@test -f $@ || $(MAKE) $(AM_MAKEFLAGS) stamp-h1
++	@if test ! -f $@; then rm -f stamp-h1; else :; fi
++	@if test ! -f $@; then $(MAKE) $(AM_MAKEFLAGS) stamp-h1; else :; fi
+ 
+ stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
+ 	@rm -f stamp-h1
+@@ -612,16 +612,10 @@ dist-xz: distdir
+ 	$(am__post_remove_distdir)
+ 
+ dist-tarZ: distdir
+-	@echo WARNING: "Support for shar distribution archives is" \
+-	               "deprecated." >&2
+-	@echo WARNING: "It will be removed altogether in Automake 2.0" >&2
+ 	tardir=$(distdir) && $(am__tar) | compress -c >$(distdir).tar.Z
+ 	$(am__post_remove_distdir)
+ 
+ dist-shar: distdir
+-	@echo WARNING: "Support for distribution archives compressed with" \
+-		       "legacy program 'compress' is deprecated." >&2
+-	@echo WARNING: "It will be removed altogether in Automake 2.0" >&2
+ 	shar $(distdir) | GZIP=$(GZIP_ENV) gzip -c >$(distdir).shar.gz
+ 	$(am__post_remove_distdir)
+ 
+@@ -663,10 +657,9 @@ distcheck: dist
+ 	  && dc_destdir="$${TMPDIR-/tmp}/am-dc-$$$$/" \
+ 	  && am__cwd=`pwd` \
+ 	  && $(am__cd) $(distdir)/_build \
+-	  && ../configure \
++	  && ../configure --srcdir=.. --prefix="$$dc_install_base" \
+ 	    $(AM_DISTCHECK_CONFIGURE_FLAGS) \
+ 	    $(DISTCHECK_CONFIGURE_FLAGS) \
+-	    --srcdir=.. --prefix="$$dc_install_base" \
+ 	  && $(MAKE) $(AM_MAKEFLAGS) \
+ 	  && $(MAKE) $(AM_MAKEFLAGS) dvi \
+ 	  && $(MAKE) $(AM_MAKEFLAGS) check \
+diff -Nupr spice-gtk-0.30/src/channel-display.c ../spice-gtk-0.30/src/channel-display.c
+--- spice-gtk-0.30/src/channel-display.c	2015-11-04 15:03:03.210052679 +0800
++++ ../spice-gtk-0.30/src/channel-display.c	2015-11-03 22:03:57.533348522 +0800
+@@ -29,6 +29,12 @@
+ #include <sys/ipc.h>
+ #endif
+ 
++#include <libavcodec/avcodec.h>
++#include <libavutil/frame.h>
++#include <libavformat/avformat.h>
++#include <libswscale/swscale.h>
++#include <libavutil/imgutils.h>
++
+ #include "glib-compat.h"
+ #include "spice-client.h"
+ #include "spice-common.h"
+@@ -1337,6 +1343,317 @@ static void display_stream_test_frames_m
+ 
+ #define STREAM_PLAYBACK_SYNC_DROP_SEQ_LEN_LIMIT 5
+ 
++static int yuv2rgb(const uint8_t *yuv, const int width, const int height, uint8_t *rgb)
++{
++    struct SwsContext *sws;
++    const uint8_t *yuv_slice[3];
++    int yuv_stride[3];
++    uint8_t *rgb_slice[3];
++    int rgb_stride[3];
++    int n;
++
++    sws = sws_getContext(width, height, PIX_FMT_YUV420P,
++                width, height, PIX_FMT_RGB32,
++                1, NULL, NULL, NULL);
++    if (sws == NULL) {
++        fprintf(stderr, "Failed to get swscale context\n");
++        return -1;
++    }
++
++    yuv_slice[0] = yuv;
++    yuv_slice[1] = yuv + width * height;
++    yuv_slice[2] = yuv_slice[1] + width * height / 4;
++    yuv_stride[0] = width;
++    yuv_stride[1] = width / 2;
++    yuv_stride[2] = width / 2;
++    rgb_slice[0] = rgb;
++    rgb_slice[1] = NULL;
++    rgb_slice[2] = NULL;
++    rgb_stride[0] = width * 4;
++    rgb_stride[1] = 0;
++    rgb_stride[2] = 0;
++
++    n = sws_scale(sws, yuv_slice, yuv_stride, 0, height,
++            rgb_slice, rgb_stride);
++    sws_freeContext(sws);
++    sws = NULL;
++
++    if (n != height){
++        fprintf(stderr, "Failed to run swscale\n");
++        return -1;
++    }
++
++    return 0;
++}
++
++static AVCodecContext *h264_decoder_init(const int width, const int height)
++{
++    AVCodec *codec;
++    AVCodecContext *ctx;
++    int result;
++
++    codec = NULL;
++    ctx = NULL;
++
++    av_register_all();
++
++    avcodec_register_all();
++
++    codec = avcodec_find_decoder(AV_CODEC_ID_H264);
++
++    ctx = avcodec_alloc_context3(codec);
++
++    ctx->width = width;
++    ctx->height = height;
++
++    result = avcodec_open2(ctx, codec, NULL);
++    if (result < 0) {
++        fprintf(stderr, "Can't open decoder\n");
++        goto fail;
++    }
++
++    return ctx;
++
++fail:
++    return NULL;
++}
++
++static void fill_bitmap(SpiceBitmap *bitmap, SpiceChunks *chunks,
++                const int width, const int height)
++{
++    bitmap->format = 8;
++    bitmap->flags = 4;
++    bitmap->x = width;
++    bitmap->y = height;
++    bitmap->stride = width * 4;
++    bitmap->palette = NULL;
++    bitmap->palette_id = 0;
++    bitmap->data = chunks;
++}
++
++static int h264_decode(uint8_t *data, const int data_size,
++                const int width, const int height, uint8_t *rgb)
++{
++    static AVCodecContext *ctx = NULL;
++    static AVFrame *fr = NULL;
++    static AVPacket pkt;
++    static int last_width = 0;
++    static int last_height = 0;
++
++    int result;
++    int got_frame;
++    uint8_t *yuv;
++    int yuv_size;
++    int n;
++
++    yuv = NULL;
++
++    if (width != last_width || height != last_height) {
++        fprintf(stderr, "[ZZQ] decode init\n");
++        if (ctx != NULL) {
++            avcodec_free_context(&ctx);
++            ctx = NULL;
++        }
++        av_free_packet(&pkt);
++        av_frame_free(&fr);
++        ctx = h264_decoder_init(width, height);
++        if (ctx == NULL) {
++            fprintf(stderr, "Failed to init decoder\n");
++            goto fail;
++        }
++        fr = av_frame_alloc();
++        if (fr == NULL) {
++            fprintf(stderr, "Failed to allocate frame\n");
++            goto fail;
++        }
++        av_init_packet(&pkt);
++        last_width = width;
++        last_height = height;
++    }
++
++    yuv_size = 3 * width * height / 2;
++    yuv = malloc(yuv_size);
++    if (yuv == NULL) {
++        fprintf(stderr, "Failed to allocate buffer for yuv\n");
++        goto fail;
++    }
++
++    pkt.data = data;
++    pkt.size = data_size;
++
++   result = avcodec_decode_video2(ctx, fr, &got_frame, &pkt);
++   if (result < 0) {
++        fprintf(stderr, "Failed to decode frame\n");
++        goto fail;
++   }
++
++   if (got_frame) {
++        n = av_image_copy_to_buffer(yuv, yuv_size,
++                (const uint8_t* const *)fr->data, (const int*) fr->linesize,
++                ctx->pix_fmt, ctx->width, ctx->height, 1);
++        if (n < 0) {
++            fprintf(stderr, "Can't copy image to buffer\n");
++            goto fail;
++        }
++        //color space transfer
++        result = yuv2rgb(yuv, width, height, rgb);
++        if (result < 0) {
++            fprintf(stderr, "Failed to transfer yuv to rgb\n");
++            goto fail;
++        }
++    } else {
++        fprintf(stderr, "Got No frame\n");
++        goto fail;
++    }
++
++    free(yuv);
++    yuv = NULL;
++
++    return 0;
++
++fail:
++    if (yuv != NULL) {
++        free(yuv);
++        yuv= NULL;
++    }
++
++    return -1;
++}
++
++static int h264_display(uint8_t *rgb, SpiceChannel *channel,
++                int surface_id, const int width, const int height)
++{
++    SpiceRect box;
++    pixman_region32_t dest_region;
++    pixman_image_t *src_image;
++    SpiceBitmap bitmap;
++    SpiceChunks *chunks;
++    display_surface *surface;
++        
++
++    surface = find_surface(SPICE_DISPLAY_CHANNEL(channel)->priv, surface_id);
++    if (surface == NULL) {
++        fprintf(stderr, "Can not find surface\n");
++        return -1; 
++    }
++    
++    box.left = 0;
++    box.top = 0;
++    box.right = width;
++    box.bottom = height;
++
++    chunks = malloc(sizeof(SpiceChunks) + sizeof(SpiceChunk));
++
++    chunks->data_size = 4 * width * height;
++    chunks->num_chunks = 1;
++    chunks->flags = 0;
++    chunks->chunk[0].len = 4 * width * height;
++    chunks->chunk[0].data = rgb;
++
++    pixman_region32_init_rect(&dest_region,
++                          box.left, box.top,
++                          box.right - box.left,
++                          box.bottom - box.top);
++
++    fill_bitmap(&bitmap, chunks, width, height);
++
++    src_image = canvas_get_bits(surface->canvas, &bitmap, TRUE);
++
++    blit_image(surface->canvas, &dest_region, src_image, 0, 0);
++    if (surface->primary) {
++        emit_invalidate(channel, &box);
++    }
++    pixman_image_unref(src_image);
++    pixman_region32_fini(&dest_region);
++
++    free(chunks);
++    chunks = NULL;
++
++    return 0;
++}
++
++static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
++{
++/*
++ *  At present, I just use SpiceMsgDisplayStreamData, I use its base.id as width
++ *  its base.multi_media_time as height
++ *  FIXME: add a new Msg in spice-common
++ */
++    SpiceMsgDisplayStreamData *stream_data_op;
++
++    /* data from Msg */
++    int width;
++    int height;
++    int surface_id;
++    uint8_t *data;
++    int data_size;
++    
++    uint8_t *rgb;
++
++    rgb = NULL;
++
++    stream_data_op = spice_msg_in_parsed(in);
++    
++    surface_id = 0; //FIXME
++    width = stream_data_op->base.id;
++    height = stream_data_op->base.multi_media_time;
++    data = stream_data_op->data;
++    data_size = stream_data_op->data_size;
++
++/*
++ * this code is t test whether decode is right or not
++ * generate a rawh264 stream, use ffplay to test it
++ */
++#if 0
++    static FILE *est_fp;
++    static int cn = 0;
++    if (cnt == 0){
++        test_fp =fopen("/tmp/test.264", "wb");
++        spice_assrt(test_fp != NULL);
++        cnt++;
++    }
++    if (cnt < 50){
++        spice_assrt(fwrite(stream_data_op->data, stream_data_op->data_size, 1, test_fp) == 1);
++        cnt++;
++    }
++    else if (cnt = 50) {
++        (void)fclse(test_fp);
++        test_fp =NULL;
++        cnt++;
++    }
++    return;
++#endif
++
++#if 0
++    fprintf(stder, "[ZZQ] I have received, data_size = %d\n", stream_data_op->data_size);
++    fprintf(stder, "[ZZQ] width = %d, height = %d\n", width, height);
++#endif
++
++    rgb = malloc(4 * width *height);
++    if (rgb == NULL) {
++        fprintf(stderr, "Failed to allocate buffer for rgb\n");
++        goto fail;
++    }
++
++    if (h264_decode(data, data_size, width, height, rgb) == 0) {
++        if (h264_display(rgb, channel, surface_id, width, height) < 0) {
++            fprintf(stderr, "Failed to display\n");
++            goto fail;
++        }
++    } else {
++        fprintf(stderr, "Failed to decode a h264 frame\n");
++        goto fail;
++    }
++
++    free(rgb);
++    rgb = NULL;
++
++    return;
++
++fail:
++    spice_assert(FALSE);
++}
++
+ /* coroutine context */
+ static void display_handle_stream_data(SpiceChannel *channel, SpiceMsgIn *in)
+ {
+@@ -1767,7 +2084,7 @@ static void channel_set_handlers(SpiceCh
+         [ SPICE_MSG_DISPLAY_INVAL_ALL_PALETTES ] = display_handle_inv_palette_all,
+ 
+         [ SPICE_MSG_DISPLAY_STREAM_CREATE ]      = display_handle_stream_create,
+-        [ SPICE_MSG_DISPLAY_STREAM_DATA ]        = display_handle_stream_data,
++        [ SPICE_MSG_DISPLAY_STREAM_DATA ]        = display_handle_h264_data,
+         [ SPICE_MSG_DISPLAY_STREAM_CLIP ]        = display_handle_stream_clip,
+         [ SPICE_MSG_DISPLAY_STREAM_DESTROY ]     = display_handle_stream_destroy,
+         [ SPICE_MSG_DISPLAY_STREAM_DESTROY_ALL ] = display_handle_stream_destroy_all,
+diff -Nupr spice-gtk-0.30/src/controller/Makefile.in ../spice-gtk-0.30/src/controller/Makefile.in
+--- spice-gtk-0.30/src/controller/Makefile.in	2015-11-04 15:03:03.198052864 +0800
++++ ../spice-gtk-0.30/src/controller/Makefile.in	2015-11-02 16:59:29.523019246 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -253,6 +253,12 @@ AS = @AS@
+ AUTOCONF = @AUTOCONF@
+ AUTOHEADER = @AUTOHEADER@
+ AUTOMAKE = @AUTOMAKE@
++AVCODEC_CFLAGS = @AVCODEC_CFLAGS@
++AVCODEC_LIBS = @AVCODEC_LIBS@
++AVFORMAT_CFLAGS = @AVFORMAT_CFLAGS@
++AVFORMAT_LIBS = @AVFORMAT_LIBS@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
+ AWK = @AWK@
+ CAIRO_CFLAGS = @CAIRO_CFLAGS@
+ CAIRO_LIBS = @CAIRO_LIBS@
+@@ -414,6 +420,8 @@ SSL_CFLAGS = @SSL_CFLAGS@
+ SSL_LIBS = @SSL_LIBS@
+ STOW = @STOW@
+ STRIP = @STRIP@
++SWSCALE_CFLAGS = @SWSCALE_CFLAGS@
++SWSCALE_LIBS = @SWSCALE_LIBS@
+ USBREDIR_CFLAGS = @USBREDIR_CFLAGS@
+ USBREDIR_LIBS = @USBREDIR_LIBS@
+ USB_IDS = @USB_IDS@
+@@ -667,14 +675,14 @@ distclean-compile:
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ $<
++@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c $<
+ 
+ .c.obj:
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c `$(CYGPATH_W) '$<'`
+ 
+ .c.lo:
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+diff -Nupr spice-gtk-0.30/src/Makefile.am ../spice-gtk-0.30/src/Makefile.am
+--- spice-gtk-0.30/src/Makefile.am	2015-11-04 15:03:03.262051877 +0800
++++ ../spice-gtk-0.30/src/Makefile.am	2015-11-02 16:59:01.049388740 +0800
+@@ -103,6 +103,10 @@ SPICE_COMMON_CPPFLAGS =						\
+ 	$(SOUP_CFLAGS)						\
+ 	$(PHODAV_CFLAGS)					\
+ 	$(LZ4_CFLAGS)					\
++	$(SWSCALE_CFLAGS)				\
++	$(AVCODEC_CFLAGS)				\
++	$(AVUTIL_CFLAGS)				\
++	$(AVFORMAT_CFLAGS)				\
+ 	$(NULL)
+ 
+ AM_CPPFLAGS =					\
+@@ -213,6 +217,10 @@ libspice_client_glib_2_0_la_LIBADD =
+ 	$(USBREDIR_LIBS)						\
+ 	$(GUDEV_LIBS)							\
+ 	$(PHODAV_LIBS)							\
++	$(SWSCALE_LIBS)							\
++	$(AVCODEC_LIBS)							\
++	$(AVUTIL_LIBS)							\
++	$(AVFORMAT_LIBS)						\
+ 	$(NULL)
+ 
+ if WITH_POLKIT
+diff -Nupr spice-gtk-0.30/src/Makefile.in ../spice-gtk-0.30/src/Makefile.in
+--- spice-gtk-0.30/src/Makefile.in	2015-11-04 15:03:03.274051692 +0800
++++ ../spice-gtk-0.30/src/Makefile.in	2015-11-02 16:59:29.329021766 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -484,6 +484,12 @@ AS = @AS@
+ AUTOCONF = @AUTOCONF@
+ AUTOHEADER = @AUTOHEADER@
+ AUTOMAKE = @AUTOMAKE@
++AVCODEC_CFLAGS = @AVCODEC_CFLAGS@
++AVCODEC_LIBS = @AVCODEC_LIBS@
++AVFORMAT_CFLAGS = @AVFORMAT_CFLAGS@
++AVFORMAT_LIBS = @AVFORMAT_LIBS@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
+ AWK = @AWK@
+ CAIRO_CFLAGS = @CAIRO_CFLAGS@
+ CAIRO_LIBS = @CAIRO_LIBS@
+@@ -645,6 +651,8 @@ SSL_CFLAGS = @SSL_CFLAGS@
+ SSL_LIBS = @SSL_LIBS@
+ STOW = @STOW@
+ STRIP = @STRIP@
++SWSCALE_CFLAGS = @SWSCALE_CFLAGS@
++SWSCALE_LIBS = @SWSCALE_LIBS@
+ USBREDIR_CFLAGS = @USBREDIR_CFLAGS@
+ USBREDIR_LIBS = @USBREDIR_LIBS@
+ USB_IDS = @USB_IDS@
+@@ -798,6 +806,10 @@ SPICE_COMMON_CPPFLAGS = \
+ 	$(SOUP_CFLAGS)						\
+ 	$(PHODAV_CFLAGS)					\
+ 	$(LZ4_CFLAGS)					\
++	$(SWSCALE_CFLAGS)				\
++	$(AVCODEC_CFLAGS)				\
++	$(AVUTIL_CFLAGS)				\
++	$(AVFORMAT_CFLAGS)				\
+ 	$(NULL)
+ 
+ AM_CPPFLAGS = $(SPICE_COMMON_CPPFLAGS) $(SPICE_CFLAGS) $(NULL) \
+@@ -864,7 +876,8 @@ libspice_client_glib_2_0_la_LIBADD =  \
+ 	$(GLIB2_LIBS) $(SOUP_LIBS) $(GIO_LIBS) $(GOBJECT2_LIBS) \
+ 	$(JPEG_LIBS) $(Z_LIBS) $(LZ4_LIBS) $(PIXMAN_LIBS) $(SSL_LIBS) \
+ 	$(PULSE_LIBS) $(GST_LIBS) $(SASL_LIBS) $(SMARTCARD_LIBS) \
+-	$(USBREDIR_LIBS) $(GUDEV_LIBS) $(PHODAV_LIBS) $(NULL) \
++	$(USBREDIR_LIBS) $(GUDEV_LIBS) $(PHODAV_LIBS) $(SWSCALE_LIBS) \
++	$(AVCODEC_LIBS) $(AVUTIL_LIBS) $(AVFORMAT_LIBS) $(NULL) \
+ 	$(am__append_14) $(am__append_16)
+ @WITH_POLKIT_FALSE@USB_ACL_HELPER_SRCS = 
+ @WITH_POLKIT_TRUE@USB_ACL_HELPER_SRCS = \
+@@ -1389,14 +1402,14 @@ distclean-compile:
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ $<
++@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c $<
+ 
+ .c.obj:
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c `$(CYGPATH_W) '$<'`
+ 
+ .c.lo:
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+diff -Nupr spice-gtk-0.30/tests/Makefile.in ../spice-gtk-0.30/tests/Makefile.in
+--- spice-gtk-0.30/tests/Makefile.in	2015-11-04 15:03:03.444049068 +0800
++++ ../spice-gtk-0.30/tests/Makefile.in	2015-11-02 16:59:29.686017128 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -410,6 +410,12 @@ AS = @AS@
+ AUTOCONF = @AUTOCONF@
+ AUTOHEADER = @AUTOHEADER@
+ AUTOMAKE = @AUTOMAKE@
++AVCODEC_CFLAGS = @AVCODEC_CFLAGS@
++AVCODEC_LIBS = @AVCODEC_LIBS@
++AVFORMAT_CFLAGS = @AVFORMAT_CFLAGS@
++AVFORMAT_LIBS = @AVFORMAT_LIBS@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
+ AWK = @AWK@
+ CAIRO_CFLAGS = @CAIRO_CFLAGS@
+ CAIRO_LIBS = @CAIRO_LIBS@
+@@ -571,6 +577,8 @@ SSL_CFLAGS = @SSL_CFLAGS@
+ SSL_LIBS = @SSL_LIBS@
+ STOW = @STOW@
+ STRIP = @STRIP@
++SWSCALE_CFLAGS = @SWSCALE_CFLAGS@
++SWSCALE_LIBS = @SWSCALE_LIBS@
+ USBREDIR_CFLAGS = @USBREDIR_CFLAGS@
+ USBREDIR_LIBS = @USBREDIR_LIBS@
+ USB_IDS = @USB_IDS@
+@@ -739,14 +747,14 @@ distclean-compile:
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ $<
++@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c $<
+ 
+ .c.obj:
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+ @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+ @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
++@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c `$(CYGPATH_W) '$<'`
+ 
+ .c.lo:
+ @am__fastdepCC_TRUE@	$(AM_V_CC)$(LTCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+diff -Nupr spice-gtk-0.30/vapi/Makefile.in ../spice-gtk-0.30/vapi/Makefile.in
+--- spice-gtk-0.30/vapi/Makefile.in	2015-11-04 15:03:03.384049994 +0800
++++ ../spice-gtk-0.30/vapi/Makefile.in	2015-11-02 16:59:29.804015595 +0800
+@@ -1,4 +1,4 @@
+-# Makefile.in generated by automake 1.14.1 from Makefile.am.
++# Makefile.in generated by automake 1.13.4 from Makefile.am.
+ # @configure_input@
+ 
+ # Copyright (C) 1994-2013 Free Software Foundation, Inc.
+@@ -163,6 +163,12 @@ AS = @AS@
+ AUTOCONF = @AUTOCONF@
+ AUTOHEADER = @AUTOHEADER@
+ AUTOMAKE = @AUTOMAKE@
++AVCODEC_CFLAGS = @AVCODEC_CFLAGS@
++AVCODEC_LIBS = @AVCODEC_LIBS@
++AVFORMAT_CFLAGS = @AVFORMAT_CFLAGS@
++AVFORMAT_LIBS = @AVFORMAT_LIBS@
++AVUTIL_CFLAGS = @AVUTIL_CFLAGS@
++AVUTIL_LIBS = @AVUTIL_LIBS@
+ AWK = @AWK@
+ CAIRO_CFLAGS = @CAIRO_CFLAGS@
+ CAIRO_LIBS = @CAIRO_LIBS@
+@@ -324,6 +330,8 @@ SSL_CFLAGS = @SSL_CFLAGS@
+ SSL_LIBS = @SSL_LIBS@
+ STOW = @STOW@
+ STRIP = @STRIP@
++SWSCALE_CFLAGS = @SWSCALE_CFLAGS@
++SWSCALE_LIBS = @SWSCALE_LIBS@
+ USBREDIR_CFLAGS = @USBREDIR_CFLAGS@
+ USBREDIR_LIBS = @USBREDIR_LIBS@
+ USB_IDS = @USB_IDS@
