@@ -8732,7 +8732,7 @@ static int h264_encoder_encode(const uint8_t *rgb_data, const int width,
     static int last_width = 0;
     static int last_height = 0;
     static x264_t *h = NULL;
-    
+
     x264_picture_t pic;
     static x264_picture_t pic_out;
     int luma_size;
@@ -8794,23 +8794,18 @@ fail:
         yuv = NULL;
     }
 
-    return -1; 
+    return -1;
 }
 
 static void h264_send(RedChannelClient *rcc, SpiceMarshaller *base_marshaller,
                 uint8_t *data, int data_size, const int surface_id,
                 const int width, const int height)
 {
-/*
- *  At present, I just use SpiceMsgDisplayStreamData, I use its base.id as width
- *  its base.multi_media_time as height
- *  FIXME: add a new Msg in spice-common
- */
     DisplayChannelClient *dcc;
     SpiceMsgDisplayH264StreamData stream_data;
 
     dcc = RCC_TO_DCC(rcc);
-    
+
     dcc->send_data.stream_outbuf_size = data_size;
 
     red_channel_client_init_send_data(rcc, SPICE_MSG_DISPLAY_H264_STREAM_DATA, NULL);

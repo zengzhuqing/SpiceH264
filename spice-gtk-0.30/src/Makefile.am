@@ -94,6 +94,10 @@ SPICE_COMMON_CPPFLAGS =						\
 	$(GLIB2_CFLAGS)						\
 	$(GIO_CFLAGS)						\
 	$(GOBJECT2_CFLAGS)					\
+	$(LIBAVCODEC_CFLAGS)					\
+	$(LIBAVFORMAT_CFLAGS)					\
+	$(LIBAVUTIL_CFLAGS)					\
+	$(LIBSWSCALE_CFLAGS)					\
 	$(SSL_CFLAGS)						\
 	$(SASL_CFLAGS)						\
 	$(GST_CFLAGS)						\
@@ -103,10 +107,6 @@ SPICE_COMMON_CPPFLAGS =						\
 	$(SOUP_CFLAGS)						\
 	$(PHODAV_CFLAGS)					\
 	$(LZ4_CFLAGS)					\
-	$(SWSCALE_CFLAGS)				\
-	$(AVCODEC_CFLAGS)				\
-	$(AVUTIL_CFLAGS)				\
-	$(AVFORMAT_CFLAGS)				\
 	$(NULL)
 
 AM_CPPFLAGS =					\
@@ -207,6 +207,10 @@ libspice_client_glib_2_0_la_LIBADD =					\
 	$(GOBJECT2_LIBS)						\
 	$(JPEG_LIBS)							\
 	$(Z_LIBS)							\
+	$(LIBAVCODEC_LIBS)						\
+	$(LIBAVFORMAT_LIBS)						\
+	$(LIBAVUTIL_LIBS)						\
+	$(LIBSWSCALE_LIBS)						\
 	$(LZ4_LIBS)							\
 	$(PIXMAN_LIBS)							\
 	$(SSL_LIBS)							\
@@ -217,10 +221,6 @@ libspice_client_glib_2_0_la_LIBADD =					\
 	$(USBREDIR_LIBS)						\
 	$(GUDEV_LIBS)							\
 	$(PHODAV_LIBS)							\
-	$(SWSCALE_LIBS)							\
-	$(AVCODEC_LIBS)							\
-	$(AVUTIL_LIBS)							\
-	$(AVFORMAT_LIBS)						\
 	$(NULL)
 
 if WITH_POLKIT

@@ -666,8 +666,8 @@ SSL_LIBS
 SSL_CFLAGS
 CELT051_LIBS
 CELT051_CFLAGS
-SWSCALE_LIBS
-SWSCALE_CFLAGS
+LIBSWSCALE_LIBS
+LIBSWSCALE_CFLAGS
 X264_LIBS
 X264_CFLAGS
 PIXMAN_LIBS
@@ -862,8 +862,8 @@ PIXMAN_CFLAGS
 PIXMAN_LIBS
 X264_CFLAGS
 X264_LIBS
-SWSCALE_CFLAGS
-SWSCALE_LIBS
+LIBSWSCALE_CFLAGS
+LIBSWSCALE_LIBS
 CELT051_CFLAGS
 CELT051_LIBS
 SSL_CFLAGS
@@ -1560,10 +1560,10 @@ Some influential environment variables:
   PIXMAN_LIBS linker flags for PIXMAN, overriding pkg-config
   X264_CFLAGS C compiler flags for X264, overriding pkg-config
   X264_LIBS   linker flags for X264, overriding pkg-config
-  SWSCALE_CFLAGS
-              C compiler flags for SWSCALE, overriding pkg-config
-  SWSCALE_LIBS
-              linker flags for SWSCALE, overriding pkg-config
+  LIBSWSCALE_CFLAGS
+              C compiler flags for LIBSWSCALE, overriding pkg-config
+  LIBSWSCALE_LIBS
+              linker flags for LIBSWSCALE, overriding pkg-config
   CELT051_CFLAGS
               C compiler flags for CELT051, overriding pkg-config
   CELT051_LIBS
@@ -14019,17 +14019,15 @@ else
 $as_echo "yes" >&6; }
 
 fi
-
-
 SPICE_REQUIRES+=" x264 >= 0.148.2"
 
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SWSCALE" >&5
-$as_echo_n "checking for SWSCALE... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBSWSCALE" >&5
+$as_echo_n "checking for LIBSWSCALE... " >&6; }
 
-if test -n "$SWSCALE_CFLAGS"; then
-    pkg_cv_SWSCALE_CFLAGS="$SWSCALE_CFLAGS"
+if test -n "$LIBSWSCALE_CFLAGS"; then
+    pkg_cv_LIBSWSCALE_CFLAGS="$LIBSWSCALE_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libswscale >= 3.1.101\""; } >&5
@@ -14037,7 +14035,7 @@ if test -n "$SWSCALE_CFLAGS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_SWSCALE_CFLAGS=`$PKG_CONFIG --cflags "libswscale >= 3.1.101" 2>/dev/null`
+  pkg_cv_LIBSWSCALE_CFLAGS=`$PKG_CONFIG --cflags "libswscale >= 3.1.101" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -14045,8 +14043,8 @@ fi
  else
     pkg_failed=untried
 fi
-if test -n "$SWSCALE_LIBS"; then
-    pkg_cv_SWSCALE_LIBS="$SWSCALE_LIBS"
+if test -n "$LIBSWSCALE_LIBS"; then
+    pkg_cv_LIBSWSCALE_LIBS="$LIBSWSCALE_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libswscale >= 3.1.101\""; } >&5
@@ -14054,7 +14052,7 @@ if test -n "$SWSCALE_LIBS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_SWSCALE_LIBS=`$PKG_CONFIG --libs "libswscale >= 3.1.101" 2>/dev/null`
+  pkg_cv_LIBSWSCALE_LIBS=`$PKG_CONFIG --libs "libswscale >= 3.1.101" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -14075,22 +14073,22 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        SWSCALE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
+	        LIBSWSCALE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
         else
-	        SWSCALE_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
+	        LIBSWSCALE_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$SWSCALE_PKG_ERRORS" >&5
+	echo "$LIBSWSCALE_PKG_ERRORS" >&5
 
 	as_fn_error $? "Package requirements (libswscale >= 3.1.101) were not met:
 
-$SWSCALE_PKG_ERRORS
+$LIBSWSCALE_PKG_ERRORS
 
 Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
-Alternatively, you may set the environment variables SWSCALE_CFLAGS
-and SWSCALE_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBSWSCALE_CFLAGS
+and LIBSWSCALE_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
@@ -14101,21 +14099,19 @@ as_fn_error $? "The pkg-config script could not be found or is too old.  Make su
 is in your PATH or set the PKG_CONFIG environment variable to the full
 path to pkg-config.
 
-Alternatively, you may set the environment variables SWSCALE_CFLAGS
-and SWSCALE_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBSWSCALE_CFLAGS
+and LIBSWSCALE_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
 See \`config.log' for more details" "$LINENO" 5; }
 else
-	SWSCALE_CFLAGS=$pkg_cv_SWSCALE_CFLAGS
-	SWSCALE_LIBS=$pkg_cv_SWSCALE_LIBS
+	LIBSWSCALE_CFLAGS=$pkg_cv_LIBSWSCALE_CFLAGS
+	LIBSWSCALE_LIBS=$pkg_cv_LIBSWSCALE_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
 fi
-
-
 SPICE_REQUIRES+=" libswscale >= 3.1.101"
 
 # Check whether --enable-celt051 was given.

@@ -820,14 +820,14 @@ SASL_LIBS
 SASL_CFLAGS
 HAVE_SASL_FALSE
 HAVE_SASL_TRUE
-AVFORMAT_LIBS
-AVFORMAT_CFLAGS
-AVUTIL_LIBS
-AVUTIL_CFLAGS
-AVCODEC_LIBS
-AVCODEC_CFLAGS
-SWSCALE_LIBS
-SWSCALE_CFLAGS
+LIBAVFORMAT_LIBS
+LIBAVFORMAT_CFLAGS
+LIBAVUTIL_LIBS
+LIBAVUTIL_CFLAGS
+LIBAVCODEC_LIBS
+LIBAVCODEC_CFLAGS
+LIBSWSCALE_LIBS
+LIBSWSCALE_CFLAGS
 SSL_LIBS
 SSL_CFLAGS
 PIXMAN_LIBS
@@ -1094,14 +1094,14 @@ PIXMAN_CFLAGS
 PIXMAN_LIBS
 SSL_CFLAGS
 SSL_LIBS
-SWSCALE_CFLAGS
-SWSCALE_LIBS
-AVCODEC_CFLAGS
-AVCODEC_LIBS
-AVUTIL_CFLAGS
-AVUTIL_LIBS
-AVFORMAT_CFLAGS
-AVFORMAT_LIBS
+LIBSWSCALE_CFLAGS
+LIBSWSCALE_LIBS
+LIBAVCODEC_CFLAGS
+LIBAVCODEC_LIBS
+LIBAVUTIL_CFLAGS
+LIBAVUTIL_LIBS
+LIBAVFORMAT_CFLAGS
+LIBAVFORMAT_LIBS
 GTK_CFLAGS
 GTK_LIBS
 XRANDR_CFLAGS
@@ -1848,21 +1848,22 @@ Some influential environment variables:
   PIXMAN_LIBS linker flags for PIXMAN, overriding pkg-config
   SSL_CFLAGS  C compiler flags for SSL, overriding pkg-config
   SSL_LIBS    linker flags for SSL, overriding pkg-config
-  SWSCALE_CFLAGS
-              C compiler flags for SWSCALE, overriding pkg-config
-  SWSCALE_LIBS
-              linker flags for SWSCALE, overriding pkg-config
-  AVCODEC_CFLAGS
-              C compiler flags for AVCODEC, overriding pkg-config
-  AVCODEC_LIBS
-              linker flags for AVCODEC, overriding pkg-config
-  AVUTIL_CFLAGS
-              C compiler flags for AVUTIL, overriding pkg-config
-  AVUTIL_LIBS linker flags for AVUTIL, overriding pkg-config
-  AVFORMAT_CFLAGS
-              C compiler flags for AVFORMAT, overriding pkg-config
-  AVFORMAT_LIBS
-              linker flags for AVFORMAT, overriding pkg-config
+  LIBSWSCALE_CFLAGS
+              C compiler flags for LIBSWSCALE, overriding pkg-config
+  LIBSWSCALE_LIBS
+              linker flags for LIBSWSCALE, overriding pkg-config
+  LIBAVCODEC_CFLAGS
+              C compiler flags for LIBAVCODEC, overriding pkg-config
+  LIBAVCODEC_LIBS
+              linker flags for LIBAVCODEC, overriding pkg-config
+  LIBAVUTIL_CFLAGS
+              C compiler flags for LIBAVUTIL, overriding pkg-config
+  LIBAVUTIL_LIBS
+              linker flags for LIBAVUTIL, overriding pkg-config
+  LIBAVFORMAT_CFLAGS
+              C compiler flags for LIBAVFORMAT, overriding pkg-config
+  LIBAVFORMAT_LIBS
+              linker flags for LIBAVFORMAT, overriding pkg-config
   GTK_CFLAGS  C compiler flags for GTK, overriding pkg-config
   GTK_LIBS    linker flags for GTK, overriding pkg-config
   XRANDR_CFLAGS
@@ -16064,11 +16065,11 @@ SPICE_GLIB_REQUIRES="${SPICE_GLIB_REQUIRES} openssl"
 
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for SWSCALE" >&5
-$as_echo_n "checking for SWSCALE... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBSWSCALE" >&5
+$as_echo_n "checking for LIBSWSCALE... " >&6; }
 
-if test -n "$SWSCALE_CFLAGS"; then
-    pkg_cv_SWSCALE_CFLAGS="$SWSCALE_CFLAGS"
+if test -n "$LIBSWSCALE_CFLAGS"; then
+    pkg_cv_LIBSWSCALE_CFLAGS="$LIBSWSCALE_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libswscale >= 3.1.101\""; } >&5
@@ -16076,7 +16077,7 @@ if test -n "$SWSCALE_CFLAGS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_SWSCALE_CFLAGS=`$PKG_CONFIG --cflags "libswscale >= 3.1.101" 2>/dev/null`
+  pkg_cv_LIBSWSCALE_CFLAGS=`$PKG_CONFIG --cflags "libswscale >= 3.1.101" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -16084,8 +16085,8 @@ fi
  else
     pkg_failed=untried
 fi
-if test -n "$SWSCALE_LIBS"; then
-    pkg_cv_SWSCALE_LIBS="$SWSCALE_LIBS"
+if test -n "$LIBSWSCALE_LIBS"; then
+    pkg_cv_LIBSWSCALE_LIBS="$LIBSWSCALE_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libswscale >= 3.1.101\""; } >&5
@@ -16093,7 +16094,7 @@ if test -n "$SWSCALE_LIBS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_SWSCALE_LIBS=`$PKG_CONFIG --libs "libswscale >= 3.1.101" 2>/dev/null`
+  pkg_cv_LIBSWSCALE_LIBS=`$PKG_CONFIG --libs "libswscale >= 3.1.101" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -16114,22 +16115,22 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        SWSCALE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
+	        LIBSWSCALE_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
         else
-	        SWSCALE_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
+	        LIBSWSCALE_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libswscale >= 3.1.101" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$SWSCALE_PKG_ERRORS" >&5
+	echo "$LIBSWSCALE_PKG_ERRORS" >&5
 
 	as_fn_error $? "Package requirements (libswscale >= 3.1.101) were not met:
 
-$SWSCALE_PKG_ERRORS
+$LIBSWSCALE_PKG_ERRORS
 
 Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
-Alternatively, you may set the environment variables SWSCALE_CFLAGS
-and SWSCALE_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBSWSCALE_CFLAGS
+and LIBSWSCALE_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
@@ -16140,30 +16141,28 @@ as_fn_error $? "The pkg-config script could not be found or is too old.  Make su
 is in your PATH or set the PKG_CONFIG environment variable to the full
 path to pkg-config.
 
-Alternatively, you may set the environment variables SWSCALE_CFLAGS
-and SWSCALE_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBSWSCALE_CFLAGS
+and LIBSWSCALE_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
 See \`config.log' for more details" "$LINENO" 5; }
 else
-	SWSCALE_CFLAGS=$pkg_cv_SWSCALE_CFLAGS
-	SWSCALE_LIBS=$pkg_cv_SWSCALE_LIBS
+	LIBSWSCALE_CFLAGS=$pkg_cv_LIBSWSCALE_CFLAGS
+	LIBSWSCALE_LIBS=$pkg_cv_LIBSWSCALE_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
 fi
-
-
 SPICE_GLIB_REQUIRES+=" libswscale >= 3.1.101"
 
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for AVCODEC" >&5
-$as_echo_n "checking for AVCODEC... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBAVCODEC" >&5
+$as_echo_n "checking for LIBAVCODEC... " >&6; }
 
-if test -n "$AVCODEC_CFLAGS"; then
-    pkg_cv_AVCODEC_CFLAGS="$AVCODEC_CFLAGS"
+if test -n "$LIBAVCODEC_CFLAGS"; then
+    pkg_cv_LIBAVCODEC_CFLAGS="$LIBAVCODEC_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavcodec >= 56.60.100\""; } >&5
@@ -16171,7 +16170,7 @@ if test -n "$AVCODEC_CFLAGS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_AVCODEC_CFLAGS=`$PKG_CONFIG --cflags "libavcodec >= 56.60.100" 2>/dev/null`
+  pkg_cv_LIBAVCODEC_CFLAGS=`$PKG_CONFIG --cflags "libavcodec >= 56.60.100" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -16179,8 +16178,8 @@ fi
  else
     pkg_failed=untried
 fi
-if test -n "$AVCODEC_LIBS"; then
-    pkg_cv_AVCODEC_LIBS="$AVCODEC_LIBS"
+if test -n "$LIBAVCODEC_LIBS"; then
+    pkg_cv_LIBAVCODEC_LIBS="$LIBAVCODEC_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavcodec >= 56.60.100\""; } >&5
@@ -16188,7 +16187,7 @@ if test -n "$AVCODEC_LIBS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_AVCODEC_LIBS=`$PKG_CONFIG --libs "libavcodec >= 56.60.100" 2>/dev/null`
+  pkg_cv_LIBAVCODEC_LIBS=`$PKG_CONFIG --libs "libavcodec >= 56.60.100" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -16209,22 +16208,22 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        AVCODEC_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libavcodec >= 56.60.100" 2>&1`
+	        LIBAVCODEC_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libavcodec >= 56.60.100" 2>&1`
         else
-	        AVCODEC_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libavcodec >= 56.60.100" 2>&1`
+	        LIBAVCODEC_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libavcodec >= 56.60.100" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$AVCODEC_PKG_ERRORS" >&5
+	echo "$LIBAVCODEC_PKG_ERRORS" >&5
 
 	as_fn_error $? "Package requirements (libavcodec >= 56.60.100) were not met:
 
-$AVCODEC_PKG_ERRORS
+$LIBAVCODEC_PKG_ERRORS
 
 Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
-Alternatively, you may set the environment variables AVCODEC_CFLAGS
-and AVCODEC_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBAVCODEC_CFLAGS
+and LIBAVCODEC_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
@@ -16235,30 +16234,28 @@ as_fn_error $? "The pkg-config script could not be found or is too old.  Make su
 is in your PATH or set the PKG_CONFIG environment variable to the full
 path to pkg-config.
 
-Alternatively, you may set the environment variables AVCODEC_CFLAGS
-and AVCODEC_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBAVCODEC_CFLAGS
+and LIBAVCODEC_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
 See \`config.log' for more details" "$LINENO" 5; }
 else
-	AVCODEC_CFLAGS=$pkg_cv_AVCODEC_CFLAGS
-	AVCODEC_LIBS=$pkg_cv_AVCODEC_LIBS
+	LIBAVCODEC_CFLAGS=$pkg_cv_LIBAVCODEC_CFLAGS
+	LIBAVCODEC_LIBS=$pkg_cv_LIBAVCODEC_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
 fi
-
-
 SPICE_GLIB_REQUIRES+=" libavcodec >= 56.60.100"
 
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for AVUTIL" >&5
-$as_echo_n "checking for AVUTIL... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBAVUTIL" >&5
+$as_echo_n "checking for LIBAVUTIL... " >&6; }
 
-if test -n "$AVUTIL_CFLAGS"; then
-    pkg_cv_AVUTIL_CFLAGS="$AVUTIL_CFLAGS"
+if test -n "$LIBAVUTIL_CFLAGS"; then
+    pkg_cv_LIBAVUTIL_CFLAGS="$LIBAVUTIL_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavutil >= 54.31.100\""; } >&5
@@ -16266,7 +16263,7 @@ if test -n "$AVUTIL_CFLAGS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_AVUTIL_CFLAGS=`$PKG_CONFIG --cflags "libavutil >= 54.31.100" 2>/dev/null`
+  pkg_cv_LIBAVUTIL_CFLAGS=`$PKG_CONFIG --cflags "libavutil >= 54.31.100" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -16274,8 +16271,8 @@ fi
  else
     pkg_failed=untried
 fi
-if test -n "$AVUTIL_LIBS"; then
-    pkg_cv_AVUTIL_LIBS="$AVUTIL_LIBS"
+if test -n "$LIBAVUTIL_LIBS"; then
+    pkg_cv_LIBAVUTIL_LIBS="$LIBAVUTIL_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavutil >= 54.31.100\""; } >&5
@@ -16283,7 +16280,7 @@ if test -n "$AVUTIL_LIBS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_AVUTIL_LIBS=`$PKG_CONFIG --libs "libavutil >= 54.31.100" 2>/dev/null`
+  pkg_cv_LIBAVUTIL_LIBS=`$PKG_CONFIG --libs "libavutil >= 54.31.100" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -16304,22 +16301,22 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        AVUTIL_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libavutil >= 54.31.100" 2>&1`
+	        LIBAVUTIL_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libavutil >= 54.31.100" 2>&1`
         else
-	        AVUTIL_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libavutil >= 54.31.100" 2>&1`
+	        LIBAVUTIL_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libavutil >= 54.31.100" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$AVUTIL_PKG_ERRORS" >&5
+	echo "$LIBAVUTIL_PKG_ERRORS" >&5
 
 	as_fn_error $? "Package requirements (libavutil >= 54.31.100) were not met:
 
-$AVUTIL_PKG_ERRORS
+$LIBAVUTIL_PKG_ERRORS
 
 Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
-Alternatively, you may set the environment variables AVUTIL_CFLAGS
-and AVUTIL_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBAVUTIL_CFLAGS
+and LIBAVUTIL_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
@@ -16330,30 +16327,28 @@ as_fn_error $? "The pkg-config script could not be found or is too old.  Make su
 is in your PATH or set the PKG_CONFIG environment variable to the full
 path to pkg-config.
 
-Alternatively, you may set the environment variables AVUTIL_CFLAGS
-and AVUTIL_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBAVUTIL_CFLAGS
+and LIBAVUTIL_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
 See \`config.log' for more details" "$LINENO" 5; }
 else
-	AVUTIL_CFLAGS=$pkg_cv_AVUTIL_CFLAGS
-	AVUTIL_LIBS=$pkg_cv_AVUTIL_LIBS
+	LIBAVUTIL_CFLAGS=$pkg_cv_LIBAVUTIL_CFLAGS
+	LIBAVUTIL_LIBS=$pkg_cv_LIBAVUTIL_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
 fi
-
-
 SPICE_GLIB_REQUIRES+=" libavutil >= 54.31.100"
 
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for AVFORMAT" >&5
-$as_echo_n "checking for AVFORMAT... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for LIBAVFORMAT" >&5
+$as_echo_n "checking for LIBAVFORMAT... " >&6; }
 
-if test -n "$AVFORMAT_CFLAGS"; then
-    pkg_cv_AVFORMAT_CFLAGS="$AVFORMAT_CFLAGS"
+if test -n "$LIBAVFORMAT_CFLAGS"; then
+    pkg_cv_LIBAVFORMAT_CFLAGS="$LIBAVFORMAT_CFLAGS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavformat >= 56.40.101\""; } >&5
@@ -16361,7 +16356,7 @@ if test -n "$AVFORMAT_CFLAGS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_AVFORMAT_CFLAGS=`$PKG_CONFIG --cflags "libavformat >= 56.40.101" 2>/dev/null`
+  pkg_cv_LIBAVFORMAT_CFLAGS=`$PKG_CONFIG --cflags "libavformat >= 56.40.101" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -16369,8 +16364,8 @@ fi
  else
     pkg_failed=untried
 fi
-if test -n "$AVFORMAT_LIBS"; then
-    pkg_cv_AVFORMAT_LIBS="$AVFORMAT_LIBS"
+if test -n "$LIBAVFORMAT_LIBS"; then
+    pkg_cv_LIBAVFORMAT_LIBS="$LIBAVFORMAT_LIBS"
  elif test -n "$PKG_CONFIG"; then
     if test -n "$PKG_CONFIG" && \
     { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"libavformat >= 56.40.101\""; } >&5
@@ -16378,7 +16373,7 @@ if test -n "$AVFORMAT_LIBS"; then
   ac_status=$?
   $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
   test $ac_status = 0; }; then
-  pkg_cv_AVFORMAT_LIBS=`$PKG_CONFIG --libs "libavformat >= 56.40.101" 2>/dev/null`
+  pkg_cv_LIBAVFORMAT_LIBS=`$PKG_CONFIG --libs "libavformat >= 56.40.101" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes
 else
   pkg_failed=yes
@@ -16399,22 +16394,22 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        AVFORMAT_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libavformat >= 56.40.101" 2>&1`
+	        LIBAVFORMAT_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "libavformat >= 56.40.101" 2>&1`
         else
-	        AVFORMAT_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libavformat >= 56.40.101" 2>&1`
+	        LIBAVFORMAT_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "libavformat >= 56.40.101" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
-	echo "$AVFORMAT_PKG_ERRORS" >&5
+	echo "$LIBAVFORMAT_PKG_ERRORS" >&5
 
 	as_fn_error $? "Package requirements (libavformat >= 56.40.101) were not met:
 
-$AVFORMAT_PKG_ERRORS
+$LIBAVFORMAT_PKG_ERRORS
 
 Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
-Alternatively, you may set the environment variables AVFORMAT_CFLAGS
-and AVFORMAT_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBAVFORMAT_CFLAGS
+and LIBAVFORMAT_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details." "$LINENO" 5
 elif test $pkg_failed = untried; then
      	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
@@ -16425,21 +16420,19 @@ as_fn_error $? "The pkg-config script could not be found or is too old.  Make su
 is in your PATH or set the PKG_CONFIG environment variable to the full
 path to pkg-config.
 
-Alternatively, you may set the environment variables AVFORMAT_CFLAGS
-and AVFORMAT_LIBS to avoid the need to call pkg-config.
+Alternatively, you may set the environment variables LIBAVFORMAT_CFLAGS
+and LIBAVFORMAT_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.
 See \`config.log' for more details" "$LINENO" 5; }
 else
-	AVFORMAT_CFLAGS=$pkg_cv_AVFORMAT_CFLAGS
-	AVFORMAT_LIBS=$pkg_cv_AVFORMAT_LIBS
+	LIBAVFORMAT_CFLAGS=$pkg_cv_LIBAVFORMAT_CFLAGS
+	LIBAVFORMAT_LIBS=$pkg_cv_LIBAVFORMAT_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
 fi
-
-
 SPICE_GLIB_REQUIRES+=" libavformat >= 56.40.101"
 
 
