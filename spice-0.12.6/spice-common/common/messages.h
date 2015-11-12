@@ -339,6 +339,17 @@ typedef struct SpiceMsgDisplayStreamData {
     uint8_t data[0];
 } SpiceMsgDisplayStreamData;
 
+typedef struct SpiceH264StreamDataHeader {
+    uint32_t width;
+    uint32_t height;
+} SpiceH264StreamDataHeader;
+
+typedef struct SpiceMsgDisplayH264StreamData {
+    SpiceH264StreamDataHeader base;
+    uint32_t data_size;
+    uint8_t data[0];
+} SpiceMsgDisplayH264StreamData;
+
 typedef struct SpiceMsgDisplayStreamDataSized {
     SpiceStreamDataHeader base;
     uint32_t width;

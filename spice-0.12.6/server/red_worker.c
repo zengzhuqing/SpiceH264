@@ -8807,19 +8807,19 @@ static void h264_send(RedChannelClient *rcc, SpiceMarshaller *base_marshaller,
  *  FIXME: add a new Msg in spice-common
  */
     DisplayChannelClient *dcc;
-    SpiceMsgDisplayStreamData stream_data;
+    SpiceMsgDisplayH264StreamData stream_data;
 
     dcc = RCC_TO_DCC(rcc);
     
     dcc->send_data.stream_outbuf_size = data_size;
 
-    red_channel_client_init_send_data(rcc, SPICE_MSG_DISPLAY_STREAM_DATA, NULL);
+    red_channel_client_init_send_data(rcc, SPICE_MSG_DISPLAY_H264_STREAM_DATA, NULL);
 
-    stream_data.base.id = width;
-    stream_data.base.multi_media_time = height;
+    stream_data.base.width = width;
+    stream_data.base.height = height;
     stream_data.data_size = data_size;
 
-    spice_marshall_msg_display_stream_data(base_marshaller, &stream_data);
+    spice_marshall_msg_display_h264_stream_data(base_marshaller, &stream_data);
     spice_marshaller_add_ref(base_marshaller, data, data_size);
 }
 

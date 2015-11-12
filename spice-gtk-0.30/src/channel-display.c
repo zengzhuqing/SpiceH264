@@ -1579,7 +1579,7 @@ static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
  *  its base.multi_media_time as height
  *  FIXME: add a new Msg in spice-common
  */
-    SpiceMsgDisplayStreamData *stream_data_op;
+    SpiceMsgDisplayH264StreamData *stream_data_op;
 
     /* data from Msg */
     int width;
@@ -1595,8 +1595,8 @@ static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
     stream_data_op = spice_msg_in_parsed(in);
     
     surface_id = 0; //FIXME
-    width = stream_data_op->base.id;
-    height = stream_data_op->base.multi_media_time;
+    width = stream_data_op->base.width;
+    height = stream_data_op->base.height;
     data = stream_data_op->data;
     data_size = stream_data_op->data_size;
 
@@ -2084,7 +2084,8 @@ static void channel_set_handlers(SpiceChannelClass *klass)
         [ SPICE_MSG_DISPLAY_INVAL_ALL_PALETTES ] = display_handle_inv_palette_all,
 
         [ SPICE_MSG_DISPLAY_STREAM_CREATE ]      = display_handle_stream_create,
-        [ SPICE_MSG_DISPLAY_STREAM_DATA ]        = display_handle_h264_data,
+        [ SPICE_MSG_DISPLAY_H264_STREAM_DATA ]        = display_handle_h264_data,
+        [ SPICE_MSG_DISPLAY_STREAM_DATA ]        = display_handle_stream_data,
         [ SPICE_MSG_DISPLAY_STREAM_CLIP ]        = display_handle_stream_clip,
         [ SPICE_MSG_DISPLAY_STREAM_DESTROY ]     = display_handle_stream_destroy,
         [ SPICE_MSG_DISPLAY_STREAM_DESTROY_ALL ] = display_handle_stream_destroy_all,

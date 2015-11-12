@@ -668,6 +668,11 @@ struct StreamDataHeader {
 	uint32 multi_media_time;
 };
 
+struct H264StreamDataHeader {
+	uint32 width;
+	uint32 height;
+};
+
 struct Head {
     uint32 id;
     uint32 surface_id;
@@ -728,6 +733,12 @@ channel DisplayChannel : BaseChannel {
 	uint32 data_size;
 	uint8 data[data_size] @end @nomarshal;
     } stream_data;
+    
+    message {
+	H264StreamDataHeader base;
+	uint32 data_size;
+	uint8 data[data_size] @end @nomarshal;
+    } h264_stream_data;
 
     message {
 	uint32 id;
