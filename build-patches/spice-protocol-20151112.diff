@@ -1,0 +1,69 @@
+diff -Nupr spice-protocol-0.12.10/spice/enums.h ../spice-protocol-0.12.10/spice/enums.h
+--- spice-protocol-0.12.10/spice/enums.h	2015-11-12 16:12:12.279814939 +0800
++++ ../spice-protocol-0.12.10/spice/enums.h	2015-11-12 16:04:21.019862570 +0800
+@@ -485,6 +485,7 @@ enum {
+     SPICE_MSG_DISPLAY_STREAM_CLIP,
+     SPICE_MSG_DISPLAY_STREAM_DESTROY,
+     SPICE_MSG_DISPLAY_STREAM_DESTROY_ALL,
++    SPICE_MSG_DISPLAY_H264_STREAM_DATA,
+     SPICE_MSG_DISPLAY_DRAW_FILL = 302,
+     SPICE_MSG_DISPLAY_DRAW_OPAQUE,
+     SPICE_MSG_DISPLAY_DRAW_COPY,
+diff -Nupr spice-protocol-0.12.10/spice1.proto ../spice-protocol-0.12.10/spice1.proto
+--- spice-protocol-0.12.10/spice1.proto	2015-11-12 16:12:12.283814888 +0800
++++ ../spice-protocol-0.12.10/spice1.proto	2015-11-12 15:50:01.412907903 +0800
+@@ -542,6 +542,11 @@ struct StreamDataHeader {
+ 	uint32 multi_media_time;
+ };
+ 
++struct H264StreamDataHeader {
++	uint32 width;
++	uint32 height;
++};
++
+ channel DisplayChannel : BaseChannel {
+  server:
+     message {
+@@ -595,6 +600,14 @@ channel DisplayChannel : BaseChannel {
+ 	uint8 data[data_size] @end  @nomarshal;
+ 	/* Ignore: uint8 padding[pad_size] */
+     } stream_data;
++    
++    message {
++	H264StreamDataHeader base;
++	uint32 data_size;
++	uint32 pad_size @zero;
++	uint8 data[data_size] @end  @nomarshal;
++	/* Ignore: uint8 padding[pad_size] */
++    } h264_stream_data;
+ 
+     message {
+ 	uint32 id;
+diff -Nupr spice-protocol-0.12.10/spice.proto ../spice-protocol-0.12.10/spice.proto
+--- spice-protocol-0.12.10/spice.proto	2015-11-12 16:12:12.288814823 +0800
++++ ../spice-protocol-0.12.10/spice.proto	2015-11-12 15:48:48.835841509 +0800
+@@ -668,6 +668,11 @@ struct StreamDataHeader {
+ 	uint32 multi_media_time;
+ };
+ 
++struct H264StreamDataHeader {
++	uint32 width;
++	uint32 height;
++};
++
+ struct Head {
+     uint32 id;
+     uint32 surface_id;
+@@ -728,6 +733,12 @@ channel DisplayChannel : BaseChannel {
+ 	uint32 data_size;
+ 	uint8 data[data_size] @end @nomarshal;
+     } stream_data;
++    
++    message {
++	H264StreamDataHeader base;
++	uint32 data_size;
++	uint8 data[data_size] @end @nomarshal;
++    } h264_stream_data;
+ 
+     message {
+ 	uint32 id;
