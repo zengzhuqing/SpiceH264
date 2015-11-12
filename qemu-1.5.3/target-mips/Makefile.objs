@@ -1,0 +1,2 @@
+obj-y += translate.o dsp_helper.o op_helper.o lmi_helper.o helper.o cpu.o
+obj-$(CONFIG_SOFTMMU) += machine.o
