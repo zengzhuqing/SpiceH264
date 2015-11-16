@@ -8658,40 +8658,40 @@ static inline int red_marshall_stream_data(RedChannelClient *rcc,
 static int rgb2yuv(const uint8_t *rgb, const int width, const int height,
             uint8_t *yuv)
 {
-	struct SwsContext *sws;
-	const uint8_t *rgb_slice[3];
-	int rgb_stride[3];
-	uint8_t *yuv_slice[3];
-	int yuv_stride[3];
-	int n;
+    struct SwsContext *sws;
+    const uint8_t *rgb_slice[3];
+    int rgb_stride[3];
+    uint8_t *yuv_slice[3];
+    int yuv_stride[3];
+    int n;
 
-	sws = sws_getContext(width, height, PIX_FMT_RGB32,
-				width, height, PIX_FMT_YUV420P,
-				1, NULL, NULL, NULL);
-	if (sws == NULL) {
-		return -1;
-	}
-	rgb_slice[0] = rgb;
-	rgb_slice[1] = NULL;
-	rgb_slice[2] = NULL;
-	rgb_stride[0] = width * 4;
-	rgb_stride[1] = 0;
-	rgb_stride[2] = 0;
-	yuv_slice[0] = yuv;
-	yuv_slice[1] = yuv + width * height;
-	yuv_slice[2] = yuv_slice[1] + width * height / 4;
-	yuv_stride[0] = width;
-	yuv_stride[1] = width / 2;
-	yuv_stride[2] = width / 2;
+    sws = sws_getContext(width, height, PIX_FMT_RGB32,
+                width, height, PIX_FMT_YUV420P,
+                1, NULL, NULL, NULL);
+    if (sws == NULL) {
+        return -1;
+    }
+    rgb_slice[0] = rgb;
+    rgb_slice[1] = NULL;
+    rgb_slice[2] = NULL;
+    rgb_stride[0] = width * 4;
+    rgb_stride[1] = 0;
+    rgb_stride[2] = 0;
+    yuv_slice[0] = yuv;
+    yuv_slice[1] = yuv + width * height;
+    yuv_slice[2] = yuv_slice[1] + width * height / 4;
+    yuv_stride[0] = width;
+    yuv_stride[1] = width / 2;
+    yuv_stride[2] = width / 2;
 
     n = sws_scale(sws, rgb_slice, rgb_stride, 0, height,
-			yuv_slice, yuv_stride);
-	sws_freeContext(sws);
-	sws = NULL;
+            yuv_slice, yuv_stride);
+    sws_freeContext(sws);
+    sws = NULL;
 
-	if (n != height)
-		return -1;
-	return 0;
+    if (n != height)
+        return -1;
+    return 0;
 }
 
 static x264_t *h264_encoder_init(const int width, const int height)
@@ -8803,10 +8803,6 @@ static void h264_send(RedChannelClient *rcc, SpiceMarshaller *base_marshaller,
 {
     DisplayChannelClient *dcc;
     SpiceMsgDisplayH264StreamData stream_data;
-
-    dcc = RCC_TO_DCC(rcc);
-
-    dcc->send_data.stream_outbuf_size = data_size;
 
     red_channel_client_init_send_data(rcc, SPICE_MSG_DISPLAY_H264_STREAM_DATA, NULL);
 
@@ -12332,7 +12328,7 @@ static void red_init(RedWorker *worker, WorkerInitData *init_data)
         if (worker->record_fd == NULL) {
             spice_error("failed to open recording file %s\n", record_filename);
         }
-	if (fwrite(header, sizeof(header)-1, 1, worker->record_fd) != 1) {
+    if (fwrite(header, sizeof(header)-1, 1, worker->record_fd) != 1) {
             spice_error("failed to write replay header");
         }
     }
