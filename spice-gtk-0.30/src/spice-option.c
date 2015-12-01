@@ -37,6 +37,7 @@ static char *usbredir_redirect_on_connect = NULL;
 static gboolean smartcard = FALSE;
 static gboolean disable_audio = FALSE;
 static gboolean disable_usbredir = FALSE;
+static gboolean enable_avc = FALSE;
 static gint cache_size = 0;
 static gint glz_window_size = 0;
 static gchar *secure_channels = NULL;
@@ -211,6 +212,8 @@ GOptionGroup* spice_get_option_group(void)
           N_("Path to the local certificate database to use for software smartcard certificates"), N_("<certificate-db>") },
         { "spice-disable-usbredir", '\0', 0, G_OPTION_ARG_NONE, &disable_usbredir,
           N_("Disable USB redirection support"), NULL },
+        { "spice-enable-avc", '\0', 0, G_OPTION_ARG_NONE, &enable_avc,
+          N_("Enable H.264/AVC support"), NULL },
         /* Backward compats version of spice-usbredir-auto-redirect-filter */
         { "spice-usbredir-filter", '\0', G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_CALLBACK, parse_usbredir_filter,
           NULL, NULL },
@@ -310,6 +313,8 @@ void spice_set_session_option(SpiceSession *session)
     }
     if (disable_usbredir)
         g_object_set(session, "enable-usbredir", FALSE, NULL);
+    if (enable_avc)
+        g_object_set(session, "enable-avc", TRUE, NULL);
     if (disable_audio)
         g_object_set(session, "enable-audio", FALSE, NULL);
     if (cache_size)

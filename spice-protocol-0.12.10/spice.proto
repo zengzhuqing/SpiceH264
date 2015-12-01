@@ -948,6 +948,10 @@ channel DisplayChannel : BaseChannel {
     message {
         image_compression image_compression;
     } preferred_compression;
+
+    message {
+        uint8 enable_avc;
+    } avc;
 };
 
 flags16 keyboard_modifier_flags {

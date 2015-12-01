@@ -1,0 +1,285 @@
+diff --git a/spice-0.12.6/server/red_worker.c b/spice-0.12.6/server/red_worker.c
+index 5050a83..f32f0be 100644
+--- a/spice-0.12.6/server/red_worker.c
++++ b/spice-0.12.6/server/red_worker.c
+@@ -990,6 +990,8 @@ typedef struct RedWorker {
+     spice_wan_compression_t jpeg_state;
+     spice_wan_compression_t zlib_glz_state;
+ 
++    uint8_t enable_avc;
++
+     uint32_t mouse_mode;
+ 
+     uint32_t streaming_video;
+@@ -8869,16 +8871,17 @@ static inline void marshall_qxl_drawable(RedChannelClient *rcc,
+     spice_assert(display_channel && rcc);
+     /* allow sized frames to be streamed, even if they where replaced by another frame, since
+      * newer frames might not cover sized frames completely if they are bigger */
+-    spice_assert(red_marshall_stream_h264_data(rcc, m, item));
+-#if 0
+-    if ((item->stream || item->sized_stream) && red_marshall_stream_data(rcc, m, item)) {
+-        return;
++    if (display_channel->common.worker->enable_avc) {
++        spice_assert(red_marshall_stream_h264_data(rcc, m, item));
++    } else {
++        if ((item->stream || item->sized_stream) && red_marshall_stream_data(rcc, m, item)) {
++            return;
++        }
++        if (!display_channel->enable_jpeg)
++            red_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
++        else
++            red_lossy_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
+     }
+-    if (!display_channel->enable_jpeg)
+-        red_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
+-    else
+-        red_lossy_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
+-#endif
+ }
+ 
+ static inline void red_marshall_verb(RedChannelClient *rcc, uint16_t verb)
+@@ -10489,6 +10492,15 @@ static int display_channel_handle_preferred_compression(DisplayChannelClient *dc
+     }
+ }
+ 
++static int display_channel_handle_avc(DisplayChannelClient *dcc,
++        SpiceMsgcDisplayAvc *pc) {
++    DisplayChannel *display_channel = DCC_TO_DC(dcc);
++
++    display_channel->common.worker->enable_avc = pc->enable_avc;
++
++    return TRUE;
++}
++
+ static int display_channel_handle_message(RedChannelClient *rcc, uint32_t size, uint16_t type,
+                                           void *message)
+ {
+@@ -10509,6 +10521,9 @@ static int display_channel_handle_message(RedChannelClient *rcc, uint32_t size,
+         return display_channel_handle_preferred_compression(dcc,
+             (SpiceMsgcDisplayPreferredCompression *)message);
+ 
++    case SPICE_MSGC_DISPLAY_AVC:
++        return display_channel_handle_avc(dcc, (SpiceMsgcDisplayAvc *)message);
++
+     default:
+         return red_channel_client_handle_message(rcc, size, type, message);
+     }
+diff --git a/spice-0.12.6/spice-common/common/client_marshallers.h b/spice-0.12.6/spice-common/common/client_marshallers.h
+index 522f620..96ed7c2 100644
+--- a/spice-0.12.6/spice-common/common/client_marshallers.h
++++ b/spice-0.12.6/spice-common/common/client_marshallers.h
+@@ -73,6 +73,7 @@ typedef struct {
+ #endif
+     void (*msgc_port_event)(SpiceMarshaller *m, SpiceMsgcPortEvent *msg);
+     void (*msgc_display_preferred_compression)(SpiceMarshaller *m, SpiceMsgcDisplayPreferredCompression *msg);
++    void (*msgc_display_avc)(SpiceMarshaller *m, SpiceMsgcDisplayAvc *msg);
+ } SpiceMessageMarshallers;
+ 
+ SpiceMessageMarshallers *spice_message_marshallers_get(void);
+diff --git a/spice-0.12.6/spice-common/common/messages.h b/spice-0.12.6/spice-common/common/messages.h
+index 3646e29..99c4569 100644
+--- a/spice-0.12.6/spice-common/common/messages.h
++++ b/spice-0.12.6/spice-common/common/messages.h
+@@ -645,6 +645,10 @@ typedef struct SpiceMsgcDisplayPreferredCompression {
+     uint8_t image_compression;
+ } SpiceMsgcDisplayPreferredCompression;
+ 
++typedef struct SpiceMsgcDisplayAvc {
++    uint8_t enable_avc;
++} SpiceMsgcDisplayAvc;
++
+ SPICE_END_DECLS
+ 
+ #endif /* _H_SPICE_PROTOCOL */
+diff --git a/spice-gtk-0.30/spice-common/common/client_marshallers.h b/spice-gtk-0.30/spice-common/common/client_marshallers.h
+index 522f620..96ed7c2 100644
+--- a/spice-gtk-0.30/spice-common/common/client_marshallers.h
++++ b/spice-gtk-0.30/spice-common/common/client_marshallers.h
+@@ -73,6 +73,7 @@ typedef struct {
+ #endif
+     void (*msgc_port_event)(SpiceMarshaller *m, SpiceMsgcPortEvent *msg);
+     void (*msgc_display_preferred_compression)(SpiceMarshaller *m, SpiceMsgcDisplayPreferredCompression *msg);
++    void (*msgc_display_avc)(SpiceMarshaller *m, SpiceMsgcDisplayAvc *msg);
+ } SpiceMessageMarshallers;
+ 
+ SpiceMessageMarshallers *spice_message_marshallers_get(void);
+diff --git a/spice-gtk-0.30/spice-common/common/messages.h b/spice-gtk-0.30/spice-common/common/messages.h
+index 3646e29..99c4569 100644
+--- a/spice-gtk-0.30/spice-common/common/messages.h
++++ b/spice-gtk-0.30/spice-common/common/messages.h
+@@ -645,6 +645,10 @@ typedef struct SpiceMsgcDisplayPreferredCompression {
+     uint8_t image_compression;
+ } SpiceMsgcDisplayPreferredCompression;
+ 
++typedef struct SpiceMsgcDisplayAvc {
++    uint8_t enable_avc;
++} SpiceMsgcDisplayAvc;
++
+ SPICE_END_DECLS
+ 
+ #endif /* _H_SPICE_PROTOCOL */
+diff --git a/spice-gtk-0.30/src/channel-display.c b/spice-gtk-0.30/src/channel-display.c
+index 2cc7338..60d16a5 100644
+--- a/spice-gtk-0.30/src/channel-display.c
++++ b/spice-gtk-0.30/src/channel-display.c
+@@ -796,6 +796,7 @@ static void spice_display_channel_up(SpiceChannel *channel)
+     SpiceSession *s = spice_channel_get_session(channel);
+     SpiceMsgcDisplayInit init;
+     SpiceMsgcDisplayPreferredCompression pref_comp_msg;
++    SpiceMsgcDisplayAvc avc_msg;
+     int cache_size;
+     int glz_window_size;
+     SpiceImageCompression preferred_compression = SPICE_IMAGE_COMPRESSION_INVALID;
+@@ -825,6 +826,14 @@ static void spice_display_channel_up(SpiceChannel *channel)
+         out->marshallers->msgc_display_preferred_compression(out->marshaller, &pref_comp_msg);
+         spice_msg_out_send_internal(out);
+     }
++
++    fprintf(stderr, "[ZZQ] avc check: %d\n", spice_session_get_avc_enabled(s));
++    if (spice_session_get_avc_enabled(s)) {
++        avc_msg.enable_avc = TRUE;
++        out = spice_msg_out_new(channel, SPICE_MSGC_DISPLAY_AVC);
++        out->marshallers->msgc_display_avc(out->marshaller, &avc_msg);
++        spice_msg_out_send_internal(out);
++    }
+ }
+ 
+ #define DRAW(type) {                                                    \
+diff --git a/spice-gtk-0.30/src/spice-option.c b/spice-gtk-0.30/src/spice-option.c
+index 06b9b19..63dcf7f 100644
+--- a/spice-gtk-0.30/src/spice-option.c
++++ b/spice-gtk-0.30/src/spice-option.c
+@@ -37,6 +37,7 @@ static char *usbredir_redirect_on_connect = NULL;
+ static gboolean smartcard = FALSE;
+ static gboolean disable_audio = FALSE;
+ static gboolean disable_usbredir = FALSE;
++static gboolean enable_avc = FALSE;
+ static gint cache_size = 0;
+ static gint glz_window_size = 0;
+ static gchar *secure_channels = NULL;
+@@ -211,6 +212,8 @@ GOptionGroup* spice_get_option_group(void)
+           N_("Path to the local certificate database to use for software smartcard certificates"), N_("<certificate-db>") },
+         { "spice-disable-usbredir", '\0', 0, G_OPTION_ARG_NONE, &disable_usbredir,
+           N_("Disable USB redirection support"), NULL },
++        { "spice-enable-avc", '\0', 0, G_OPTION_ARG_NONE, &enable_avc,
++          N_("Enable H.264/AVC support"), NULL },
+         /* Backward compats version of spice-usbredir-auto-redirect-filter */
+         { "spice-usbredir-filter", '\0', G_OPTION_FLAG_HIDDEN, G_OPTION_ARG_CALLBACK, parse_usbredir_filter,
+           NULL, NULL },
+@@ -310,6 +313,8 @@ void spice_set_session_option(SpiceSession *session)
+     }
+     if (disable_usbredir)
+         g_object_set(session, "enable-usbredir", FALSE, NULL);
++    if (enable_avc)
++        g_object_set(session, "enable-avc", TRUE, NULL);
+     if (disable_audio)
+         g_object_set(session, "enable-audio", FALSE, NULL);
+     if (cache_size)
+diff --git a/spice-gtk-0.30/src/spice-session.c b/spice-gtk-0.30/src/spice-session.c
+index e1d9997..af3a47e 100644
+--- a/spice-gtk-0.30/src/spice-session.c
++++ b/spice-gtk-0.30/src/spice-session.c
+@@ -84,6 +84,9 @@ struct _SpiceSessionPrivate {
+     /* whether to enable USB redirection */
+     gboolean          usbredir;
+ 
++    /* whether to enable H.264/AVC */
++    gboolean          avc;
++
+     /* Set when a usbredir channel has requested the keyboard grab to be
+        temporarily released (because it is going to invoke policykit) */
+     gboolean          inhibit_keyboard_grab;
+@@ -189,6 +192,7 @@ enum {
+     PROP_SMARTCARD_CERTIFICATES,
+     PROP_SMARTCARD_DB,
+     PROP_USBREDIR,
++    PROP_AVC,
+     PROP_INHIBIT_KEYBOARD_GRAB,
+     PROP_DISABLE_EFFECTS,
+     PROP_COLOR_DEPTH,
+@@ -653,6 +657,9 @@ static void spice_session_get_property(GObject    *gobject,
+     case PROP_USBREDIR:
+         g_value_set_boolean(value, s->usbredir);
+         break;
++    case PROP_AVC:
++        g_value_set_boolean(value, s->avc);
++        break;
+     case PROP_INHIBIT_KEYBOARD_GRAB:
+         g_value_set_boolean(value, s->inhibit_keyboard_grab);
+         break;
+@@ -791,6 +798,9 @@ static void spice_session_set_property(GObject      *gobject,
+     case PROP_USBREDIR:
+         s->usbredir = g_value_get_boolean(value);
+         break;
++    case PROP_AVC:
++        s->avc = g_value_get_boolean(value);
++        break;
+     case PROP_INHIBIT_KEYBOARD_GRAB:
+         s->inhibit_keyboard_grab = g_value_get_boolean(value);
+         break;
+@@ -1204,6 +1214,15 @@ static void spice_session_class_init(SpiceSessionClass *klass)
+                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
+                           G_PARAM_STATIC_STRINGS));
+ 
++    g_object_class_install_property
++        (gobject_class, PROP_AVC,
++         g_param_spec_boolean("enable-avc",
++                          "Enable H.264/AVC support",
++                          "USE AVC to transfer screen data",
++                          FALSE,
++                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT |
++                          G_PARAM_STATIC_STRINGS));
++
+     /**
+      * SpiceSession::inhibit-keyboard-grab:
+      *
+@@ -1528,6 +1547,7 @@ SpiceSession *spice_session_new_from_session(SpiceSession *session)
+                  "enable-smartcard", &c->smartcard,
+                  "enable-audio", &c->audio,
+                  "enable-usbredir", &c->usbredir,
++                 "enable-avc", &c->avc,
+                  "ca", &c->ca,
+                  NULL);
+ 
+@@ -2710,6 +2730,14 @@ gboolean spice_session_get_usbredir_enabled(SpiceSession *session)
+ }
+ 
+ G_GNUC_INTERNAL
++gboolean spice_session_get_avc_enabled(SpiceSession *session)
++{
++    g_return_val_if_fail(SPICE_IS_SESSION(session), FALSE);
++
++    return session->priv->avc;
++}
++
++G_GNUC_INTERNAL
+ gboolean spice_session_get_smartcard_enabled(SpiceSession *session)
+ {
+     g_return_val_if_fail(SPICE_IS_SESSION(session), FALSE);
+diff --git a/spice-protocol-0.12.10/spice.proto b/spice-protocol-0.12.10/spice.proto
+index 9de4156..8467870 100644
+--- a/spice-protocol-0.12.10/spice.proto
++++ b/spice-protocol-0.12.10/spice.proto
+@@ -948,6 +948,10 @@ channel DisplayChannel : BaseChannel {
+     message {
+         image_compression image_compression;
+     } preferred_compression;
++
++    message {
++        uint8 enable_avc;
++    } avc;
+ };
+ 
+ flags16 keyboard_modifier_flags {
+diff --git a/spice-protocol-0.12.10/spice/enums.h b/spice-protocol-0.12.10/spice/enums.h
+index 409d032..efc3455 100644
+--- a/spice-protocol-0.12.10/spice/enums.h
++++ b/spice-protocol-0.12.10/spice/enums.h
+@@ -512,6 +512,7 @@ enum {
+     SPICE_MSGC_DISPLAY_INIT = 101,
+     SPICE_MSGC_DISPLAY_STREAM_REPORT,
+     SPICE_MSGC_DISPLAY_PREFERRED_COMPRESSION,
++    SPICE_MSGC_DISPLAY_AVC,
+ 
+     SPICE_MSGC_END_DISPLAY
+ };

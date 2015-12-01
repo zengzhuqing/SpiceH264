@@ -990,6 +990,8 @@ typedef struct RedWorker {
     spice_wan_compression_t jpeg_state;
     spice_wan_compression_t zlib_glz_state;
 
+    uint8_t enable_avc;
+
     uint32_t mouse_mode;
 
     uint32_t streaming_video;
@@ -8869,16 +8871,17 @@ static inline void marshall_qxl_drawable(RedChannelClient *rcc,
     spice_assert(display_channel && rcc);
     /* allow sized frames to be streamed, even if they where replaced by another frame, since
      * newer frames might not cover sized frames completely if they are bigger */
-    spice_assert(red_marshall_stream_h264_data(rcc, m, item));
-#if 0
-    if ((item->stream || item->sized_stream) && red_marshall_stream_data(rcc, m, item)) {
-        return;
+    if (display_channel->common.worker->enable_avc) {
+        spice_assert(red_marshall_stream_h264_data(rcc, m, item));
+    } else {
+        if ((item->stream || item->sized_stream) && red_marshall_stream_data(rcc, m, item)) {
+            return;
+        }
+        if (!display_channel->enable_jpeg)
+            red_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
+        else
+            red_lossy_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
     }
-    if (!display_channel->enable_jpeg)
-        red_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
-    else
-        red_lossy_marshall_qxl_drawable(display_channel->common.worker, rcc, m, dpi);
-#endif
 }
 
 static inline void red_marshall_verb(RedChannelClient *rcc, uint16_t verb)
@@ -10489,6 +10492,15 @@ static int display_channel_handle_preferred_compression(DisplayChannelClient *dc
     }
 }
 
+static int display_channel_handle_avc(DisplayChannelClient *dcc,
+        SpiceMsgcDisplayAvc *pc) {
+    DisplayChannel *display_channel = DCC_TO_DC(dcc);
+
+    display_channel->common.worker->enable_avc = pc->enable_avc;
+
+    return TRUE;
+}
+
 static int display_channel_handle_message(RedChannelClient *rcc, uint32_t size, uint16_t type,
                                           void *message)
 {
@@ -10508,6 +10520,9 @@ static int display_channel_handle_message(RedChannelClient *rcc, uint32_t size, 
     case SPICE_MSGC_DISPLAY_PREFERRED_COMPRESSION:
         return display_channel_handle_preferred_compression(dcc,
             (SpiceMsgcDisplayPreferredCompression *)message);
+
+    case SPICE_MSGC_DISPLAY_AVC:
+        return display_channel_handle_avc(dcc, (SpiceMsgcDisplayAvc *)message);
 
     default:
         return red_channel_client_handle_message(rcc, size, type, message);

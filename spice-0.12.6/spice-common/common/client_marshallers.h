@@ -73,6 +73,7 @@ typedef struct {
 #endif
     void (*msgc_port_event)(SpiceMarshaller *m, SpiceMsgcPortEvent *msg);
     void (*msgc_display_preferred_compression)(SpiceMarshaller *m, SpiceMsgcDisplayPreferredCompression *msg);
+    void (*msgc_display_avc)(SpiceMarshaller *m, SpiceMsgcDisplayAvc *msg);
 } SpiceMessageMarshallers;
 
 SpiceMessageMarshallers *spice_message_marshallers_get(void);

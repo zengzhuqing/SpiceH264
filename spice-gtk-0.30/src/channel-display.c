@@ -796,6 +796,7 @@ static void spice_display_channel_up(SpiceChannel *channel)
     SpiceSession *s = spice_channel_get_session(channel);
     SpiceMsgcDisplayInit init;
     SpiceMsgcDisplayPreferredCompression pref_comp_msg;
+    SpiceMsgcDisplayAvc avc_msg;
     int cache_size;
     int glz_window_size;
     SpiceImageCompression preferred_compression = SPICE_IMAGE_COMPRESSION_INVALID;
@@ -823,6 +824,14 @@ static void spice_display_channel_up(SpiceChannel *channel)
         pref_comp_msg.image_compression = preferred_compression;
         out = spice_msg_out_new(channel, SPICE_MSGC_DISPLAY_PREFERRED_COMPRESSION);
         out->marshallers->msgc_display_preferred_compression(out->marshaller, &pref_comp_msg);
+        spice_msg_out_send_internal(out);
+    }
+
+    fprintf(stderr, "[ZZQ] avc check: %d\n", spice_session_get_avc_enabled(s));
+    if (spice_session_get_avc_enabled(s)) {
+        avc_msg.enable_avc = TRUE;
+        out = spice_msg_out_new(channel, SPICE_MSGC_DISPLAY_AVC);
+        out->marshallers->msgc_display_avc(out->marshaller, &avc_msg);
         spice_msg_out_send_internal(out);
     }
 }
@@ -1529,14 +1538,13 @@ static int h264_display(uint8_t *rgb, SpiceChannel *channel,
     SpiceBitmap bitmap;
     SpiceChunks *chunks;
     display_surface *surface;
-        
 
     surface = find_surface(SPICE_DISPLAY_CHANNEL(channel)->priv, surface_id);
     if (surface == NULL) {
         fprintf(stderr, "Can not find surface\n");
-        return -1; 
+        return -1;
     }
-    
+
     box.left = 0;
     box.top = 0;
     box.right = width;
@@ -1587,13 +1595,13 @@ static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
     int surface_id;
     uint8_t *data;
     int data_size;
-    
+
     uint8_t *rgb;
 
     rgb = NULL;
 
     stream_data_op = spice_msg_in_parsed(in);
-    
+
     surface_id = 0; //FIXME
     width = stream_data_op->base.width;
     height = stream_data_op->base.height;

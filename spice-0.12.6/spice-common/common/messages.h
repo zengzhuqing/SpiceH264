@@ -645,6 +645,10 @@ typedef struct SpiceMsgcDisplayPreferredCompression {
     uint8_t image_compression;
 } SpiceMsgcDisplayPreferredCompression;
 
+typedef struct SpiceMsgcDisplayAvc {
+    uint8_t enable_avc;
+} SpiceMsgcDisplayAvc;
+
 SPICE_END_DECLS
 
 #endif /* _H_SPICE_PROTOCOL */
