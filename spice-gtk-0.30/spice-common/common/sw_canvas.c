@@ -95,7 +95,7 @@ static pixman_image_t *get_image(SpiceCanvas *canvas, int force_opaque)
         uint32_t *data;
         int stride;
         int width, height;
-        
+
         /* Remove alpha bits from format */
         format = (pixman_format_code_t)(((uint32_t)format) & ~(0xf << 12));
         data = pixman_image_get_data (sw_canvas->image);
@@ -1336,4 +1336,31 @@ void sw_canvas_init(void) //unsafe global function
     sw_canvas_ops.copy_region = copy_region;
     sw_canvas_ops.get_image = get_image;
     rop3_init();
+}
+
+pixman_image_t *sw_canvas_get_image(SpiceCanvas *c)
+{
+    SwCanvas *canvas = (SwCanvas *)c;
+    return canvas->image;
+}
+
+void sw_canvas_test(SpiceCanvas *c)
+{
+    SwCanvas *canvas = (SwCanvas *)c;
+    int width = pixman_image_get_width(canvas->image);
+    int height = pixman_image_get_height(canvas->image);
+    int stride = pixman_image_get_stride(canvas->image);
+    fprintf(stderr, "[ZZQ-S] width = %d, height = %d, stride = %d\n", width, height, stride);
+    uint8_t *data = (uint8_t*)pixman_image_get_data(canvas->image);
+    //data = data - width * (height - 1) * 4;
+    FILE *fp;
+    static int i = 0;
+    char filename[100];
+    sprintf(filename, "/tmp/tmpfs/%d.raw", i++);
+    fp = fopen(filename, "w+");
+    int idx;
+    for(idx = 0; idx < height; idx++) {
+        fwrite(data + stride * idx, sizeof(uint32_t), width, fp);
+    }
+    fclose(fp);
 }

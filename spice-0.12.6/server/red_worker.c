@@ -101,7 +101,7 @@
 //#define PIPE_DEBUG
 //#define RED_WORKER_STAT
 /* TODO: DRAW_ALL is broken. */
-//#define DRAW_ALL
+#define DRAW_ALL
 //#define COMPRESS_DEBUG
 //#define ACYCLIC_SURFACE_DEBUG
 //#define DEBUG_CURSORS
@@ -1011,6 +1011,7 @@ typedef struct RedWorker {
     JpegData jpeg_data;
     JpegEncoderContext *jpeg;
 
+    x264_t *x264_h;
 #ifdef USE_LZ4
     Lz4Data lz4_data;
     Lz4EncoderContext *lz4;
@@ -1061,6 +1062,7 @@ static void red_draw_qxl_drawable(RedWorker *worker, Drawable *drawable);
 static void red_current_flush(RedWorker *worker, int surface_id);
 #ifdef DRAW_ALL
 #define red_update_area(worker, rect, surface_id)
+#define red_update_area_till(worker, rect, surface_id, last)
 #define red_draw_drawable(worker, item)
 #else
 static void red_draw_drawable(RedWorker *worker, Drawable *item);
@@ -1521,6 +1523,9 @@ static inline void red_pipes_add_drawable(RedWorker *worker, Drawable *drawable)
 {
     DisplayChannelClient *dcc;
     RingItem *dcc_ring_item, *next;
+#ifdef DRAW_ALL
+    red_draw_qxl_drawable(worker, drawable);
+#endif
 
     spice_warn_if(!ring_is_empty(&drawable->pipes));
     WORKER_FOREACH_DCC_SAFE(worker, dcc_ring_item, next, dcc) {
@@ -4251,8 +4256,11 @@ static inline void red_process_drawable(RedWorker *worker, RedDrawable *red_draw
             worker->transparent_count++;
         }
         red_pipes_add_drawable(worker, drawable);
+//ZZQ, move this inside red_pipes_add_drawable, mind that red_pipe_add_drawable is called other place
+#if 0
 #ifdef DRAW_ALL
         red_draw_qxl_drawable(worker, drawable);
+#endif
 #endif
     }
 cleanup:
@@ -8701,6 +8709,8 @@ static x264_t *h264_encoder_init(const int width, const int height)
     x264_param_t param;
     x264_t *h;
 
+    fprintf(stderr, "[ZZQ] Init h264 encode, width = %d, height = %d\n", width, height);
+
     /* Get default params for preset/tuning */
     if (x264_param_default_preset(&param, "medium", "zerolatency") < 0) {
         fprintf(stderr, "Failed to get default params\n");
@@ -8726,14 +8736,13 @@ static x264_t *h264_encoder_init(const int width, const int height)
     return h;
 }
 
-static int h264_encoder_encode(const uint8_t *rgb_data, const int width,
+static int h264_encoder_encode(x264_t **ph, const uint8_t *rgb_data, const int width,
                         const int height, x264_nal_t **nal, int *i_frame_size)
 {
     uint8_t *yuv;
     int ret;
     static int last_width = 0;
     static int last_height = 0;
-    static x264_t *h = NULL;
 
     x264_picture_t pic;
     static x264_picture_t pic_out;
@@ -8754,14 +8763,16 @@ static int h264_encoder_encode(const uint8_t *rgb_data, const int width,
         goto fail;
     }
 
-    if (width != last_width || height != last_height) {
-        fprintf(stderr, "[ZZQ] Init h264 encode\n");
-        if (h != NULL) {
-            x264_encoder_close(h);
-            h = NULL;
+    if (width % 2 != 0 || height %2 != 0)
+        return 0;
+
+    if (*ph == NULL || width != last_width || height != last_height) {
+        if (*ph != NULL) {
+            x264_encoder_close(*ph);
+            *ph = NULL;
         }
-        h = h264_encoder_init(width, height);
-        if (h == NULL) {
+        *ph = h264_encoder_init(width, height);
+        if (*ph == NULL) {
             fprintf(stderr, "Failed to init h264 encoder\n");
             goto fail;
         }
@@ -8782,7 +8793,7 @@ static int h264_encoder_encode(const uint8_t *rgb_data, const int width,
     memcpy(pic.img.plane[1], yuv + luma_size, chroma_size);
     memcpy(pic.img.plane[2], yuv + luma_size + chroma_size, chroma_size);
 
-    *i_frame_size = x264_encoder_encode(h, nal, &i_nal, &pic, &pic_out);
+    *i_frame_size = x264_encoder_encode(*ph, nal, &i_nal, &pic, &pic_out);
 
     x264_picture_clean(&pic);
 
@@ -8819,8 +8830,10 @@ static void h264_send(RedChannelClient *rcc, SpiceMarshaller *base_marshaller,
 static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
                   SpiceMarshaller *base_marshaller, Drawable *drawable)
 {
+#if 0
     SpiceImage *image;
     SpiceChunk *chunk;
+#endif
     int width, height;
     int ret;
     uint8_t *rgb_data;
@@ -8828,7 +8841,25 @@ static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
     int frame_size;
     x264_nal_t *nal;
     int surface_id;
+    DisplayChannel *display_channel;
+    SpiceCanvas *canvas;
+    pixman_image_t *image;
+    int stride;
+    x264_t **ph;
 
+    surface_id = drawable->red_drawable->surface_id;
+    display_channel = SPICE_CONTAINEROF(rcc->channel, DisplayChannel, common.base);
+    canvas = display_channel->common.worker->surfaces[surface_id].context.canvas;
+
+    image = sw_canvas_get_image(canvas);
+    rgb_data = (uint8_t *)pixman_image_get_data(image);
+    width = pixman_image_get_width(image);
+    height = pixman_image_get_height(image);
+    stride = pixman_image_get_stride(image);
+    if (stride < 0)
+        rgb_data = rgb_data - width * (height - 1) * 4;
+
+#if 0
     spice_assert(drawable->red_drawable->type == QXL_DRAW_COPY);
 
     image = drawable->red_drawable->u.copy.src_bitmap;
@@ -8836,7 +8867,6 @@ static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
     if (image->descriptor.type != SPICE_IMAGE_TYPE_BITMAP) {
         return FALSE;
     }
-
     src_rect = &drawable->red_drawable->u.copy.src_area;
 
     surface_id = drawable->red_drawable->surface_id;
@@ -8846,8 +8876,11 @@ static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
 
     chunk = &image->u.bitmap.data->chunk[0];
     rgb_data = chunk->data;
+#endif
 
-    ret = h264_encoder_encode(rgb_data, width, height, &nal, &frame_size);
+    ph = &(display_channel->common.worker->x264_h);
+
+    ret = h264_encoder_encode(ph, rgb_data, width, height, &nal, &frame_size);
     if (ret != 0) {
         fprintf(stderr, "Failed to encode a h264 frame\n");
         goto fail;
@@ -9483,7 +9516,6 @@ static void display_channel_send_item(RedChannelClient *rcc, PipeItem *pipe_item
     default:
         spice_error("invalid pipe item type");
     }
-
     display_channel_client_release_item_before_push(dcc, pipe_item);
 
     // a message is pending
@@ -11054,6 +11086,11 @@ static void handle_new_display_channel(RedWorker *worker, RedClient *client, Red
     // todo: tune level according to bandwidth
     display_channel->zlib_level = ZLIB_DEFAULT_COMPRESSION_LEVEL;
     red_display_client_init_streams(dcc);
+    //ZZQ close old x264 handler
+    if (worker->x264_h != NULL) {
+        x264_encoder_close(worker->x264_h);
+        worker->x264_h = NULL;
+    }
     on_new_display_channel_client(dcc);
 }
 

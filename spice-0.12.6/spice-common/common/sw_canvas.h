@@ -54,6 +54,8 @@ SpiceCanvas *canvas_create_for_data(int width, int height, uint32_t format, uint
 
 void sw_canvas_init(void);
 
+pixman_image_t *sw_canvas_get_image(SpiceCanvas *c);
+void sw_canvas_test(SpiceCanvas *c);
 SPICE_END_DECLS
 
 #endif

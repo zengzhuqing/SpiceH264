@@ -828,12 +828,10 @@ static void spice_display_channel_up(SpiceChannel *channel)
     }
 
     fprintf(stderr, "[ZZQ] avc check: %d\n", spice_session_get_avc_enabled(s));
-    if (spice_session_get_avc_enabled(s)) {
-        avc_msg.enable_avc = TRUE;
-        out = spice_msg_out_new(channel, SPICE_MSGC_DISPLAY_AVC);
-        out->marshallers->msgc_display_avc(out->marshaller, &avc_msg);
-        spice_msg_out_send_internal(out);
-    }
+    avc_msg.enable_avc = spice_session_get_avc_enabled(s);
+    out = spice_msg_out_new(channel, SPICE_MSGC_DISPLAY_AVC);
+    out->marshallers->msgc_display_avc(out->marshaller, &avc_msg);
+    spice_msg_out_send_internal(out);
 }
 
 #define DRAW(type) {                                                    \
@@ -1434,7 +1432,7 @@ static void fill_bitmap(SpiceBitmap *bitmap, SpiceChunks *chunks,
     bitmap->flags = 4;
     bitmap->x = width;
     bitmap->y = height;
-    bitmap->stride = width * 4;
+    bitmap->stride = - width * 4;
     bitmap->palette = NULL;
     bitmap->palette_id = 0;
     bitmap->data = chunks;
@@ -1556,7 +1554,7 @@ static int h264_display(uint8_t *rgb, SpiceChannel *channel,
     chunks->num_chunks = 1;
     chunks->flags = 0;
     chunks->chunk[0].len = 4 * width * height;
-    chunks->chunk[0].data = rgb;
+    chunks->chunk[0].data = rgb + width * (height - 1) * 4;
 
     pixman_region32_init_rect(&dest_region,
                           box.left, box.top,
@@ -1582,11 +1580,6 @@ static int h264_display(uint8_t *rgb, SpiceChannel *channel,
 
 static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
 {
-/*
- *  At present, I just use SpiceMsgDisplayStreamData, I use its base.id as width
- *  its base.multi_media_time as height
- *  FIXME: add a new Msg in spice-common
- */
     SpiceMsgDisplayH264StreamData *stream_data_op;
 
     /* data from Msg */
@@ -1613,7 +1606,7 @@ static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
  * generate a rawh264 stream, use ffplay to test it
  */
 #if 0
-    static FILE *est_fp;
+    static FILE *test_fp;
     static int cn = 0;
     if (cnt == 0){
         test_fp =fopen("/tmp/test.264", "wb");
@@ -1637,7 +1630,7 @@ static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
     fprintf(stder, "[ZZQ] width = %d, height = %d\n", width, height);
 #endif
 
-    rgb = malloc(4 * width *height);
+    rgb = malloc(4 * width * height);
     if (rgb == NULL) {
         fprintf(stderr, "Failed to allocate buffer for rgb\n");
         goto fail;
