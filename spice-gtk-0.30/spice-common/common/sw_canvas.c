@@ -1356,7 +1356,7 @@ void sw_canvas_test(SpiceCanvas *c)
     FILE *fp;
     static int i = 0;
     char filename[100];
-    sprintf(filename, "/tmp/tmpfs/%d.raw", i++);
+    sprintf(filename, "/tmp/tmpfs_client/%d.raw", i++);
     fp = fopen(filename, "w+");
     int idx;
     for(idx = 0; idx < height; idx++) {

@@ -340,8 +340,10 @@ typedef struct SpiceMsgDisplayStreamData {
 } SpiceMsgDisplayStreamData;
 
 typedef struct SpiceH264StreamDataHeader {
+    uint32_t surface_id;
     uint32_t width;
     uint32_t height;
+    uint8_t flags;
 } SpiceH264StreamDataHeader;
 
 typedef struct SpiceMsgDisplayH264StreamData {

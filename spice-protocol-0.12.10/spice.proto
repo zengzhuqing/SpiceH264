@@ -669,8 +669,10 @@ struct StreamDataHeader {
 };
 
 struct H264StreamDataHeader {
+	uint32 surface_id;
 	uint32 width;
 	uint32 height;
+	uint8 flags;
 };
 
 struct Head {

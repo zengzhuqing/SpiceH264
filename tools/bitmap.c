@@ -52,6 +52,7 @@ int GenBmpFile(U8 *pData, U8 bitCountPerPix, U32 width, U32 height, const char *
     memset(pEachLinBuf, 0, bmppitch);  
     U8 BytePerPix = bitCountPerPix >> 3;  
     U32 pitch = width * BytePerPix;  
+    //FIXME:terrible, here, pdata copy!!!
     if(pEachLinBuf)  
     {  
         int h,w;  

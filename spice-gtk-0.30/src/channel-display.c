@@ -1426,13 +1426,13 @@ fail:
 }
 
 static void fill_bitmap(SpiceBitmap *bitmap, SpiceChunks *chunks,
-                const int width, const int height)
+                const int width, const int height, const uint8_t flags)
 {
     bitmap->format = 8;
-    bitmap->flags = 4;
+    bitmap->flags = flags;
     bitmap->x = width;
     bitmap->y = height;
-    bitmap->stride = - width * 4;
+    bitmap->stride = 4 * width;
     bitmap->palette = NULL;
     bitmap->palette_id = 0;
     bitmap->data = chunks;
@@ -1528,7 +1528,8 @@ fail:
 }
 
 static int h264_display(uint8_t *rgb, SpiceChannel *channel,
-                int surface_id, const int width, const int height)
+                int surface_id, const int width, const int height,
+                const uint8_t flags)
 {
     SpiceRect box;
     pixman_region32_t dest_region;
@@ -1554,14 +1555,14 @@ static int h264_display(uint8_t *rgb, SpiceChannel *channel,
     chunks->num_chunks = 1;
     chunks->flags = 0;
     chunks->chunk[0].len = 4 * width * height;
-    chunks->chunk[0].data = rgb + width * (height - 1) * 4;
+    chunks->chunk[0].data = rgb;
 
     pixman_region32_init_rect(&dest_region,
                           box.left, box.top,
                           box.right - box.left,
                           box.bottom - box.top);
 
-    fill_bitmap(&bitmap, chunks, width, height);
+    fill_bitmap(&bitmap, chunks, width, height, flags);
 
     src_image = canvas_get_bits(surface->canvas, &bitmap, TRUE);
 
@@ -1586,6 +1587,7 @@ static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
     int width;
     int height;
     int surface_id;
+    uint8_t flags;
     uint8_t *data;
     int data_size;
 
@@ -1595,11 +1597,13 @@ static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
 
     stream_data_op = spice_msg_in_parsed(in);
 
-    surface_id = 0; //FIXME
+    surface_id = stream_data_op->base.surface_id;
     width = stream_data_op->base.width;
     height = stream_data_op->base.height;
+    flags = stream_data_op->base.flags;
     data = stream_data_op->data;
     data_size = stream_data_op->data_size;
+
 
 /*
  * this code is t test whether decode is right or not
@@ -1637,7 +1641,7 @@ static void display_handle_h264_data(SpiceChannel *channel, SpiceMsgIn *in)
     }
 
     if (h264_decode(data, data_size, width, height, rgb) == 0) {
-        if (h264_display(rgb, channel, surface_id, width, height) < 0) {
+        if (h264_display(rgb, channel, surface_id, width, height, flags) < 0) {
             fprintf(stderr, "Failed to display\n");
             goto fail;
         }

@@ -101,12 +101,16 @@
 //#define PIPE_DEBUG
 //#define RED_WORKER_STAT
 /* TODO: DRAW_ALL is broken. */
-#define DRAW_ALL
 //#define COMPRESS_DEBUG
 //#define ACYCLIC_SURFACE_DEBUG
 //#define DEBUG_CURSORS
 
 //#define UPDATE_AREA_BY_TREE
+//#define USE_VGA_MODE
+#ifdef USE_VGA_MODE
+#else
+#define DRAW_ALL
+#endif
 
 #define CMD_RING_POLL_TIMEOUT 10 //milli
 #define CMD_RING_POLL_RETRIES 200
@@ -8812,16 +8816,18 @@ fail:
 
 static void h264_send(RedChannelClient *rcc, SpiceMarshaller *base_marshaller,
                 uint8_t *data, int data_size, const int surface_id,
-                const int width, const int height)
+                const int width, const int height, const uint8_t flags)
 {
     DisplayChannelClient *dcc;
     SpiceMsgDisplayH264StreamData stream_data;
 
     red_channel_client_init_send_data(rcc, SPICE_MSG_DISPLAY_H264_STREAM_DATA, NULL);
 
+    stream_data.base.surface_id = surface_id;
     stream_data.base.width = width;
     stream_data.base.height = height;
     stream_data.data_size = data_size;
+    stream_data.base.flags = flags;
 
     spice_marshall_msg_display_h264_stream_data(base_marshaller, &stream_data);
     spice_marshaller_add_ref(base_marshaller, data, data_size);
@@ -8830,10 +8836,8 @@ static void h264_send(RedChannelClient *rcc, SpiceMarshaller *base_marshaller,
 static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
                   SpiceMarshaller *base_marshaller, Drawable *drawable)
 {
-#if 0
-    SpiceImage *image;
+    SpiceImage *copy_image;
     SpiceChunk *chunk;
-#endif
     int width, height;
     int ret;
     uint8_t *rgb_data;
@@ -8845,10 +8849,38 @@ static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
     SpiceCanvas *canvas;
     pixman_image_t *image;
     int stride;
+    uint8_t flags;
     x264_t **ph;
 
     surface_id = drawable->red_drawable->surface_id;
     display_channel = SPICE_CONTAINEROF(rcc->channel, DisplayChannel, common.base);
+//ZZQ statistics about the time of stream h264
+#if 0
+    struct timeval time;
+    spice_assert(gettimeofday(&time, NULL) == 0);
+    fprintf(stderr, "[ZZQ-S] time %d %d\n", time.tv_sec, time.tv_usec);
+#endif
+
+//ZZQ try to drop the too nearest frame, FIXME
+#if 0
+    static struct timeval last_time;
+    struct timeval time;
+    spice_assert(gettimeofday(&time, NULL) == 0);
+    if (time.tv_sec == last_time.tv_sec
+            && time.tv_usec - last_time.tv_usec <= 28000) {
+        last_time = time;
+        return TRUE;
+    } else if(time.tv_sec == last_time.tv_sec + 1
+            && time.tv_usec + 1000000 - last_time.tv_usec <= 28000 ){
+        last_time = time;
+        return TRUE;
+    }
+    else {
+        last_time = time;
+    }
+#endif
+
+#ifndef USE_VGA_MODE
     canvas = display_channel->common.worker->surfaces[surface_id].context.canvas;
 
     image = sw_canvas_get_image(canvas);
@@ -8856,25 +8888,27 @@ static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
     width = pixman_image_get_width(image);
     height = pixman_image_get_height(image);
     stride = pixman_image_get_stride(image);
-    if (stride < 0)
-        rgb_data = rgb_data - width * (height - 1) * 4;
-
-#if 0
+    spice_assert(stride < 0);
+    rgb_data += stride * (height - 1);
+    stride = - stride;
+    flags = 0;
+#else
     spice_assert(drawable->red_drawable->type == QXL_DRAW_COPY);
 
-    image = drawable->red_drawable->u.copy.src_bitmap;
+    copy_image = drawable->red_drawable->u.copy.src_bitmap;
 
-    if (image->descriptor.type != SPICE_IMAGE_TYPE_BITMAP) {
+    if (copy_image->descriptor.type != SPICE_IMAGE_TYPE_BITMAP) {
         return FALSE;
     }
     src_rect = &drawable->red_drawable->u.copy.src_area;
 
-    surface_id = drawable->red_drawable->surface_id;
-
     width = src_rect->right - src_rect->left;
     height = src_rect->bottom - src_rect->top;
 
-    chunk = &image->u.bitmap.data->chunk[0];
+    stride = copy_image->u.bitmap.stride;
+    flags = copy_image->u.bitmap.flags;
+
+    chunk = &copy_image->u.bitmap.data->chunk[0];
     rgb_data = chunk->data;
 #endif
 
@@ -8887,7 +8921,7 @@ static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
     }
 
     h264_send(rcc, base_marshaller, nal->p_payload, frame_size, surface_id,
-            width, height);
+            width, height, flags);
 
     return TRUE;
 
