@@ -1344,7 +1344,7 @@ void sw_canvas_test(SpiceCanvas *c)
     int width = pixman_image_get_width(canvas->image);
     int height = pixman_image_get_height(canvas->image);
     int stride = pixman_image_get_stride(canvas->image);
-    fprintf(stderr, "[ZZQ-S] width = %d, height = %d, stride = %d\n", width, height, stride);
+    //fprintf(stderr, "[ZZQ-S] width = %d, height = %d, stride = %d\n", width, height, stride);
     uint8_t *data = (uint8_t*)pixman_image_get_data(canvas->image);
     //data = data - width * (height - 1) * 4;
     FILE *fp;

@@ -8716,7 +8716,7 @@ static x264_t *h264_encoder_init(const int width, const int height)
     fprintf(stderr, "[ZZQ] Init h264 encode, width = %d, height = %d\n", width, height);
 
     /* Get default params for preset/tuning */
-    if (x264_param_default_preset(&param, "medium", "zerolatency") < 0) {
+    if (x264_param_default_preset(&param, "ultrafast", "zerolatency") < 0) {
         fprintf(stderr, "Failed to get default params\n");
         return NULL;
     }
