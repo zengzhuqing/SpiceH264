@@ -15,8 +15,10 @@ export PATH=$HOME/bin:$PATH
 yum install SDL-devel.x86_64
 
 4.install ffmpeg(libswscale inside)
-/configure --prefix=/home/zengzhuqing/install --bindir=/home/zengzhuqing/bin
+./configure --prefix=/home/zengzhuqing/install --enable-shared --disable-static --bindir=/home/zengzhuqing/bin --enable-libmfx --enable-nonfree
 make && make install
+# if "/usr/bin/ld: libavutil/display.o: relocation R_X86_64_PC32 against undefined symbol `hypot@@GLIBC_2.2.5' can not be used when making a shared object; recompile with -fPIC"
+# That may be because, you have old display.o, just delete it and make again
 
 5.install x264
 git clone --depth 1 git://git.videolan.org/x264
