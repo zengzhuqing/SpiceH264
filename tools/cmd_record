@@ -8,3 +8,5 @@ x264 --profile baseline --input-fmt raw --input-csp i420 --input-res 1280x768 -v
 ffplay yuv.264
 # 5. use x264 to encode lossless 264 video
 x264 --qp 0 -o output.264 inout.yuv
+# 6. use ffmpeg to encode mpeg4 video
+ffmpeg -vcodec rawvideo -f rawvideo -pix_fmt bgra -s 1366x768 -i ppt_edit.rgb -f rawvideo -bf 0 -q:v 6 -vcodec mpeg4 ppt_edit.mpeg4
