@@ -446,7 +446,7 @@ static inline int red_channel_client_urgent_marshaller_is_active(RedChannelClien
     return (rcc->send_data.marshaller == rcc->send_data.urgent.marshaller);
 }
 
-static void red_channel_client_reset_send_data(RedChannelClient *rcc)
+void red_channel_client_reset_send_data(RedChannelClient *rcc)
 {
     spice_marshaller_reset(rcc->send_data.marshaller);
     rcc->send_data.header.data = spice_marshaller_reserve_space(rcc->send_data.marshaller,

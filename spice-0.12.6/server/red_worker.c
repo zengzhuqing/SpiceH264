@@ -12527,8 +12527,7 @@ static void insert_surface_image(RedWorker *worker)
     }
 }
 
-//ZZQ write this according to display_channel_send_item
-//Has bug after many inserts, I haven't fixed it
+//ZZQ write this according to red_channel_client_send_item
 static void insert_h264_frame(RedWorker *worker)
 {
     RedChannelClient *rcc;
@@ -12543,6 +12542,7 @@ static void insert_h264_frame(RedWorker *worker)
             fprintf(stderr, "[ZZQ] insert a frame\n");
             rcc = SPICE_CONTAINEROF(link, RedChannelClient, channel_link);
             dcc = RCC_TO_DCC(rcc);
+            red_channel_client_reset_send_data(rcc);
             red_display_reset_send_data(dcc);
             m = red_channel_client_get_marshaller(rcc);
             spice_assert(red_marshall_stream_h264_data(rcc, m, NULL));
