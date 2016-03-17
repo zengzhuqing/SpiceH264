@@ -995,7 +995,10 @@ typedef struct RedWorker {
     spice_wan_compression_t zlib_glz_state;
 
     uint8_t enable_avc;
-
+#ifndef USE_VGA_MODE
+    uint8_t last_drop;
+    struct timeval last_time;
+#endif
     uint32_t mouse_mode;
 
     uint32_t streaming_video;
@@ -8852,31 +8855,36 @@ static inline int red_marshall_stream_h264_data(RedChannelClient *rcc,
     uint8_t flags;
     x264_t **ph;
 
-    surface_id = drawable->red_drawable->surface_id;
+    //FIXME: for compatibilities of insert_h264_frame
+    surface_id = 0;
+    //surface_id = drawable->red_drawable->surface_id;
     display_channel = SPICE_CONTAINEROF(rcc->channel, DisplayChannel, common.base);
-//ZZQ statistics about the time of stream h264
-#if 0
-    struct timeval time;
-    spice_assert(gettimeofday(&time, NULL) == 0);
-    fprintf(stderr, "[ZZQ-S] time %d %d\n", time.tv_sec, time.tv_usec);
-#endif
 
-//ZZQ try to drop the too nearest frame, FIXME
-#if 0
-    static struct timeval last_time;
+//ZZQ try to drop the too nearest frame(make sure that <= 30fps)
+#ifndef USE_VGA_MODE
+    RedWorker *worker = display_channel->common.worker;
     struct timeval time;
+    static int cnt = 0;
+    static int total = 0;
+    total++;
+    if (cnt % 10 == 0) {
+        fprintf(stderr, "[ZZQ] drop %d frames, total = %d\n", cnt, total);
+    }
     spice_assert(gettimeofday(&time, NULL) == 0);
-    if (time.tv_sec == last_time.tv_sec
-            && time.tv_usec - last_time.tv_usec <= 28000) {
-        last_time = time;
+    if (time.tv_sec == worker->last_time.tv_sec
+            && time.tv_usec - worker->last_time.tv_usec <= 33000) {
+        cnt++;
+        display_channel->common.worker->last_drop = TRUE;
         return TRUE;
-    } else if(time.tv_sec == last_time.tv_sec + 1
-            && time.tv_usec + 1000000 - last_time.tv_usec <= 28000 ){
-        last_time = time;
+    } else if(time.tv_sec == worker->last_time.tv_sec + 1
+            && time.tv_usec + 1000000 - worker->last_time.tv_usec <= 33000 ){
+        cnt++;
+        display_channel->common.worker->last_drop = TRUE;
         return TRUE;
     }
     else {
-        last_time = time;
+        display_channel->common.worker->last_drop = FALSE;
+        worker->last_time = time;
     }
 #endif
 
@@ -11125,6 +11133,11 @@ static void handle_new_display_channel(RedWorker *worker, RedClient *client, Red
         x264_encoder_close(worker->x264_h);
         worker->x264_h = NULL;
     }
+#ifndef USE_VGA_MODE
+    worker->last_drop = FALSE;
+    worker->last_time.tv_sec = 0;
+    worker->last_time.tv_usec = 0;
+#endif
     on_new_display_channel_client(dcc);
 }
 
@@ -12499,6 +12512,49 @@ static void red_display_cc_free_glz_drawables(RedChannelClient *rcc)
     red_display_handle_glz_drawables_to_free(dcc);
 }
 
+#ifndef USE_VGA_MODE
+static void insert_surface_image(RedWorker *worker)
+{
+    RedChannelClient *rcc;
+    RingItem *link;
+    RingItem *next;
+    RedChannel *channel = &(worker->display_channel->common.base);
+    if (channel != NULL) {
+        RING_FOREACH_SAFE(link, next, &channel->clients) {
+            rcc = SPICE_CONTAINEROF(link, RedChannelClient, channel_link);
+            red_push_surface_image(rcc, 0);
+        }
+    }
+}
+
+//ZZQ write this according to display_channel_send_item
+//Has bug after many inserts, I haven't fixed it
+static void insert_h264_frame(RedWorker *worker)
+{
+    RedChannelClient *rcc;
+    RingItem *link;
+    RingItem *next;
+    RedChannel *channel = &(worker->display_channel->common.base);
+    SpiceMarshaller *m;
+    DisplayChannelClient *dcc;
+
+    if (channel != NULL) {
+        RING_FOREACH_SAFE(link, next, &channel->clients) {
+            fprintf(stderr, "[ZZQ] insert a frame\n");
+            rcc = SPICE_CONTAINEROF(link, RedChannelClient, channel_link);
+            dcc = RCC_TO_DCC(rcc);
+            red_display_reset_send_data(dcc);
+            m = red_channel_client_get_marshaller(rcc);
+            spice_assert(red_marshall_stream_h264_data(rcc, m, NULL));
+            // a message is pending
+            if (red_channel_client_send_message_pending(rcc)) {
+                display_begin_send_message(rcc);
+            }
+        }
+    }
+}
+#endif
+
 SPICE_GNUC_NORETURN void *red_worker_main(void *arg)
 {
     RedWorker *worker = spice_malloc(sizeof(RedWorker));
@@ -12569,6 +12625,21 @@ SPICE_GNUC_NORETURN void *red_worker_main(void *arg)
             int ring_is_empty;
             red_process_cursor(worker, MAX_PIPE_SIZE, &ring_is_empty);
             red_process_commands(worker, MAX_PIPE_SIZE, &ring_is_empty);
+#ifndef USE_VGA_MODE
+            struct timeval time;
+            if (ring_is_empty) {
+                if (worker->last_drop && worker->enable_avc) {
+                    spice_assert(gettimeofday(&time, NULL) == 0);
+                    // ZZQ if timeout, try insert a h264 frame
+                    if (time.tv_sec >= worker->last_time.tv_sec + 2) {
+                        insert_h264_frame(worker);
+                    } else if(time.tv_sec == worker->last_time.tv_sec + 1
+                            && time.tv_usec >= worker->last_time.tv_usec){
+                        insert_h264_frame(worker);
+                    }
+                }
+        }
+#endif
         }
         red_push(worker);
     }
