@@ -37,6 +37,7 @@ AM_INIT_AUTOMAKE([dist-bzip2 no-dist-gzip subdir-objects])
 AM_MAINTAINER_MODE
 
 AC_PROG_CC
+AC_PROG_CXX
 AC_PROG_CC_C99
 if test x"$ac_cv_prog_cc_c99" = xno; then
     AC_MSG_ERROR([C99 compiler is required.])
@@ -127,6 +128,9 @@ SPICE_REQUIRES+=" x264 >= 0.148.2"
 
 PKG_CHECK_MODULES(LIBSWSCALE, libswscale >= 3.1.101)
 SPICE_REQUIRES+=" libswscale >= 3.1.101"
+
+PKG_CHECK_MODULES(LIBMFX, libmfx >= 16.4.2)
+SPICE_REQUIRES+=" libmfx >= 16.4.2"
 
 AC_ARG_ENABLE([celt051],
               AS_HELP_STRING([--disable-celt051], [Disable celt051 audio codec (enabled by default)]),,

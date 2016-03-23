@@ -6,6 +6,7 @@ AM_CPPFLAGS =					\
 	-DRED_STATISTICS			\
 	$(COMMON_CFLAGS)			\
 	$(GLIB2_CFLAGS)				\
+	$(LIBMFX_CFLAGS)			\
 	$(LIBSWSCALE_CFLAGS)			\
 	$(LZ4_CFLAGS)				\
 	$(PIXMAN_CFLAGS)			\
@@ -41,6 +42,7 @@ libspice_server_la_LIBADD =						\
 	$(JPEG_LIBS)							\
 	$(LZ4_LIBS)							\
 	$(LIBRT)							\
+	$(LIBMFX_LIBS)						\
 	$(LIBSWSCALE_LIBS)						\
 	$(PIXMAN_LIBS)							\
 	$(SASL_LIBS)							\
@@ -71,6 +73,11 @@ libspice_server_la_SOURCES =			\
 	agent-msg-filter.h			\
 	char_device.c				\
 	char_device.h				\
+	common_utils.cpp			\
+	common_utils.h				\
+	common_utils_linux.cpp		\
+	common_vaapi.cpp			\
+	common_vaapi.h				\
 	demarshallers.h				\
 	glz_encoder.c				\
 	glz_encoder.h				\
