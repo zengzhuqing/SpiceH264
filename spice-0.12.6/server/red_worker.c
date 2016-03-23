@@ -8682,8 +8682,8 @@ static int rgb2yuv(const uint8_t *rgb, const int width, const int height,
     int yuv_stride[3];
     int n;
 
-    sws = sws_getContext(width, height, PIX_FMT_RGB32,
-                width, height, PIX_FMT_YUV420P,
+    sws = sws_getContext(width, height, AV_PIX_FMT_RGB32,
+                width, height, AV_PIX_FMT_YUV420P,
                 1, NULL, NULL, NULL);
     if (sws == NULL) {
         return -1;
