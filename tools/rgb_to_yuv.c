@@ -87,7 +87,7 @@ int main(int argc, char **argv){
     
     struct SwsContext *sws;
 
-    sws= sws_getContext(width, height, PIX_FMT_RGB32, width, height, PIX_FMT_YUV420P, 1, NULL, NULL, NULL);
+    sws= sws_getContext(width, height, AV_PIX_FMT_RGB32, width, height, AV_PIX_FMT_YUV420P, 1, NULL, NULL, NULL);
     assert(sws != NULL);
 
     int ret = sws_scale(sws, rgb_src, rgb_stride, 0, height, yuv_src, yuv_stride);
