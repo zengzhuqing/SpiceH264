@@ -1359,8 +1359,8 @@ static int yuv2rgb(const uint8_t *yuv, const int width, const int height, uint8_
     int rgb_stride[3];
     int n;
 
-    sws = sws_getContext(width, height, PIX_FMT_YUV420P,
-                width, height, PIX_FMT_RGB32,
+    sws = sws_getContext(width, height, AV_PIX_FMT_YUV420P,
+                width, height, AV_PIX_FMT_RGB32,
                 1, NULL, NULL, NULL);
     if (sws == NULL) {
         fprintf(stderr, "Failed to get swscale context\n");
