@@ -155,6 +155,27 @@ mfxStatus LoadRawFrame(mfxFrameSurface1* pSurface, FILE* fSource)
     return MFX_ERR_NONE;
 }
 
+mfxStatus LoadRawRGBFrameFromRGB(mfxFrameSurface1* pSurface, const unsigned char *rgb, const int size)
+{
+    size_t nBytesRead;
+    mfxU16 w, h;
+    mfxFrameInfo* pInfo = &pSurface->Info;
+
+    if (pInfo->CropH > 0 && pInfo->CropW > 0) {
+        w = pInfo->CropW;
+        h = pInfo->CropH;
+    } else {
+        w = pInfo->Width;
+        h = pInfo->Height;
+    }
+
+    for (mfxU16 i = 0; i < h; i++) {
+        (void)memcpy(pSurface->Data.B + i * pSurface->Data.Pitch, rgb + i * 4 * w, 4 * w);
+    }
+
+    return MFX_ERR_NONE;
+}
+
 mfxStatus LoadRawRGBFrame(mfxFrameSurface1* pSurface, FILE* fSource)
 {
     if (!fSource) {

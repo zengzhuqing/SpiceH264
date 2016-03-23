@@ -67,6 +67,7 @@ extern "C" void PrintErrString(int err,const char* filestr,int line);
 
 extern "C" mfxStatus LoadRawFrame(mfxFrameSurface1* pSurface, FILE* fSource);
 extern "C" mfxStatus LoadRawRGBFrame(mfxFrameSurface1* pSurface, FILE* fSource);
+extern "C" mfxStatus LoadRawRGBFrameFromRGB(mfxFrameSurface1* pSurface, const unsigned char *rgb, const int size);
 
 // Write raw YUV (NV12) surface to YUV (YV12) file
 mfxStatus WriteRawFrame(mfxFrameSurface1* pSurface, FILE* fSink);
