@@ -1,0 +1,5 @@
+experiment data
+qsv_full_video_net.log: SpiceH.264 with QSV encoder, test net bandwidth, 实验数据的单位为B
+qsv_full_video_pcpu.log: SpiceH.264 with QSV encoder, test server cpu usage rate, 实验数据的单位为%
+spice_without_stream_full_pcpu.log: Spice original, disable Video Streaming
+spice_with_stream_full_pcpu.log: Spice original, enable Video Streaming
